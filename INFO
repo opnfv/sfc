@@ -1,0 +1,21 @@
+Project: Service Function Chaining (sfc)
+Project Creation Date: May 5, 2015
+Project Category: Collaborative Development 
+Lifecycle State: Incubation 
+Primary Contact: Brady Johnson (brady.allen.johnson@ericsson.com) 
+Project Lead: Brady Johnson (brady.allen.johnson@ericsson.com) 
+Jira Name: Service Function Chaining
+Jira Prefix: sfc
+Mailing list tag: [sfc] 
+IRC: #opnfv-sfc 
+repository: sfc
+
+Committers:
+brady.allen.johnson@ericsson.com
+rapenno@gmail.com
+paulq@cisco.com
+jguichar@cisco.com
+shague@redhat.com
+tnadeau@Brocade.com
+vmurgai@cavium.com
+kkoushik@brocade.com
