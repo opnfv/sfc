@@ -1,0 +1,38 @@
+{
+ "service-functions": {
+   "service-function": [
+     {
+       "name": "firewall-2",
+       "sf-data-plane-locator": [
+         {
+           "name": "firewall-2-dp1",
+           "ip": "192.168.1.11",
+           "port": 6633,
+           "transport": "service-locator:vxlan-gpe",
+           "service-function-forwarder": "SFF2"
+         }
+       ],
+       "rest-uri": "http://192.168.1.11:5000",
+       "nsh-aware": true,
+       "ip-mgmt-address": "192.168.1.11",
+       "type": "service-function-type:firewall"
+     },
+     {
+       "name": "firewall-3",
+       "sf-data-plane-locator": [
+         {
+           "name": "firewall-3-dp1",
+           "ip": "192.168.1.12",
+           "port": 6633,
+           "transport": "service-locator:vxlan-gpe",
+           "service-function-forwarder": "SFF2"
+         }
+       ],
+       "rest-uri": "http://192.168.1.12:5000",
+       "nsh-aware": true,
+       "ip-mgmt-address": "192.168.1.12",
+       "type": "service-function-type:firewall"
+     }
+   ]
+ }
+}
