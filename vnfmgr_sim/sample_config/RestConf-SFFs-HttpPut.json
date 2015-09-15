@@ -1,0 +1,75 @@
+{
+  "service-function-forwarders": {
+    "service-function-forwarder": [
+    {
+        "name": "SFF2",
+        "sff-data-plane-locator": [
+        {
+            "name": "sff2-dp1",
+            "service-function-forwarder-ovs:ovs-bridge": {},
+            "data-plane-locator": {
+                "transport": "service-locator:vxlan-gpe",
+                "port": 6633,
+                "ip": "192.168.1.100"
+            },
+            "service-function-forwarder-ovs:ovs-options": {
+                "nshc1": "flow",
+                "nsp": "flow",
+                "key": "flow",
+                "remote-ip": "flow",
+                "nsi": "flow",
+                "nshc2": "flow",
+                "nshc3": "flow",
+                "dst-port": "6633",
+                "nshc4": "flow"
+            }
+        }
+        ],
+        "service-function-forwarder-ovs:ovs-bridge": {
+            "bridge-name": "ovs-br2"
+        },
+        "service-function-dictionary": [
+        {
+            "name": "firewall-2",
+            "type": "service-function-type:firewall",
+            "sff-sf-data-plane-locator": {
+                "service-function-forwarder-ovs:ovs-bridge": {},
+                "transport": "service-locator:vxlan-gpe",
+                "port": 6633,
+                "ip": "192.168.1.11"
+            }
+        },
+           {
+            "name": "firewall-3",
+            "type": "service-function-type:firewall",
+            "sff-sf-data-plane-locator": {
+                "service-function-forwarder-ovs:ovs-bridge": {},
+                "transport": "service-locator:vxlan-gpe",
+                "port": 6633,
+                "ip": "192.168.1.12"
+            }
+        }
+        ],
+        "ip-mgmt-address": "192.168.1.100",
+        "service-node": ""
+    },
+    {
+        "name": "SFF-CL",
+        "sff-data-plane-locator": [
+          {
+            "name": "ovs-br1",
+            "service-function-forwarder-ovs:ovs-bridge": {},
+            "data-plane-locator": {
+              "transport": "service-locator:vxlan-gpe",
+              "port": 30001,
+              "ip": "192.168.1.50"
+            }
+          }
+        ],
+        "rest-uri": "http://192.168.1.50:5000",
+        "ip-mgmt-address": "192.168.1.50",
+        "service-node": ""
+    }
+   ]
+  }
+}
