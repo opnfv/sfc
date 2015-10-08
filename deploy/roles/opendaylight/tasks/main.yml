@@ -1,0 +1,12 @@
+---
+- name: Start OpenDayLight service
+  service:
+    name=opendaylight
+    enabled=yes
+    state=started
+- name: Install karaf features
+  command: "/opt/opendaylight/bin/client -u karaf feature:install {{ item }}"
+  with_items:
+    "{{ karaf_features_install }}"
+  notify:
+    - Restart OpenDayLight service

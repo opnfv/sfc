@@ -1,0 +1,5 @@
+- Automate ansible installation
+- Ease deployment folder cloning into fuel master
+- Make the inventory/hosts file dynamic, e.g. ask fuel master
+- Openstack orchestation
+- VnfMGR deployment
