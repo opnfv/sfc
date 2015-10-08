@@ -1,0 +1,5 @@
+---
+- name: Restart OpenDayLight service
+  service:
+    name=opendaylight
+    state=restarted

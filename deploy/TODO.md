@@ -1,0 +1,4 @@
+- Automate ansible installation
+- Ease deployment folder cloning into fuel master
+- Openstack orchestation
+- VnfMGR deployment
