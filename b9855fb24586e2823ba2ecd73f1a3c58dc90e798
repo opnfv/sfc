@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_b502ab09",
+        "filename": "docs/design/definitions.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-10-08T15:47:54Z",
+      "side": 1,
+      "message": "Why a \"  \u0027 \" quote at the end below ??",
+      "revId": "b9855fb24586e2823ba2ecd73f1a3c58dc90e798",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_88ff8a01",
+        "filename": "docs/etc/conf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-10-08T15:47:54Z",
+      "side": 1,
+      "message": "Is there any reason for commenting the below two lines? If so, please mention the appropriate one.",
+      "revId": "b9855fb24586e2823ba2ecd73f1a3c58dc90e798",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_68045615",
+        "filename": "docs/how-to-use-docs/documentation-example.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-10-08T15:47:54Z",
+      "side": 1,
+      "message": "Nit:  unwanted space above.",
+      "revId": "b9855fb24586e2823ba2ecd73f1a3c58dc90e798",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_4809922b",
+        "filename": "docs/how-to-use-docs/documentation-example.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-10-08T15:47:54Z",
+      "side": 1,
+      "message": "Unwanted space above",
+      "revId": "b9855fb24586e2823ba2ecd73f1a3c58dc90e798",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
