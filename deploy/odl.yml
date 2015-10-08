@@ -1,0 +1,21 @@
+---
+- hosts: controller
+  remote_user: root
+  roles:
+    - opendaylight
+  vars:
+    odl_features_install:
+      - odl-groupbasedpolicy-base
+      - odl-groupbasedpolicy-neutronmapper
+      - odl-groupbasedpolicy-ofoverlay
+      - odl-groupbasedpolicy-ui
+      - odl-groupbasedpolicy-uibackend
+      - odl-sfc-core
+      - odl-sfc-model
+      - odl-sfc-netconf
+      - odl-sfc-ovs
+      - odl-sfc-provider
+      - odl-sfc-sb-rest
+      - odl-sfc-ui
+      - odl-sfclisp
+      - odl-sfcofl2

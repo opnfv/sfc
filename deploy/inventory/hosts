@@ -1,0 +1,14 @@
+localhost ansible_connection=local
+ctrl ansible_ssh_host=10.20.0.3
+cmp1 ansible_ssh_host=10.20.0.4
+cmp2 ansible_ssh_host=10.20.0.5
+cmp3 ansible_ssh_host=10.20.0.6
+
+[controller]
+ctrl
+
+[compute]
+cmp1
+cmp2
+cmp3
+
