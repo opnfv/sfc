@@ -6,7 +6,7 @@ __license__ = "Apache License version 2.0"
 __version__ = "0.1"
 __email__ = "brady.allen.johnson@ericsson.com"
 __status__ = "beta"
-
+import pdb
 import os
 import time
 import requests
@@ -22,7 +22,7 @@ class Context(object):
     Context class to hold the configuration as specified on the command line
     """
     def __init__(self):
-        self.rest_path_prefix =  'restInput'
+        self.rest_path_prefix =  'sampleConfig'
         self.rest_path_sf     =  'RestConf-SFs-HttpPut.json'
         self.rest_path_sf_sel =  'RestConf-SFselect-HttpPut.json'
         self.rest_path_sfc    =  'RestConf-SFCs-HttpPut.json'
@@ -378,7 +378,8 @@ def CLI(context):
         elif option == '6':
             send_rest(context, PUT, context.rest_url_acl, context.rest_path_acl)
         elif option == '7':
-            send_rest(context, PUT, context.rest_url_sf_sel,  context.rest_path_sf_sel)
+            pdb.set_trace()
+	    send_rest(context, PUT, context.rest_url_sf_sel,  context.rest_path_sf_sel)
             send_rest(context, PUT, context.rest_url_sf,  context.rest_path_sf)
             send_rest(context, PUT, context.rest_url_sff, context.rest_path_sff)
             send_rest(context, PUT, context.rest_url_sfc, context.rest_path_sfc)
@@ -416,11 +417,11 @@ def main():
     Command line arguments are expected.
     Example invocations:
     To display application command-line help:
-        vnfmgr_sim.py --help
+        vnfmgr_odl.py --help
     To start the application in interractive mode:
-        vnfmgr_sim.py -prefix <input json dir>
+        vnfmgr_odl.py -prefix <input json dir>
     To start the application in batch mode and send an SF JSON REST message:
-        vnfmgr_sim.py -b -prefix <input json dir> --send-sf
+        vnfmgr_odl.py -b -prefix <input json dir> --send-sf
     """
 
     context = Context()
