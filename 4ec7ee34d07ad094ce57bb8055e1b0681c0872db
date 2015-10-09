@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_eb3600e7",
+        "filename": ".gitreview",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2015-10-09T16:29:19Z",
+      "side": 1,
+      "message": "remove white lines :)",
+      "revId": "4ec7ee34d07ad094ce57bb8055e1b0681c0872db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
