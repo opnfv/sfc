@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_c6b57332",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1971
+      },
+      "writtenOn": "2015-10-12T13:26:36Z",
+      "side": 1,
+      "message": "There\u0027s a spelling error here (unconvinient -\u003e inconvenient) but the bigger problem is that this sentence doesn\u0027t really make sense. Do you mean \"It works, however one may feel that the setup procedure is a little bit inconvenient.\"?",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_86877b61",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1971
+      },
+      "writtenOn": "2015-10-12T13:26:36Z",
+      "side": 1,
+      "message": "This sentence is a little awkward. The phrase \"right to use\" is most often associated with intellectual property rights as in a \"right to use\" license. I think what you may mean is \"resulting in a functional system\"",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_667c8773",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1971
+      },
+      "writtenOn": "2015-10-12T13:26:36Z",
+      "side": 1,
+      "message": "Is this part of the PoC? I\u0027d suggest adding a comment line here reminding that this shouldn\u0027t be done on a production system.",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_46818349",
+        "filename": "deploy/ansible.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1971
+      },
+      "writtenOn": "2015-10-12T13:26:36Z",
+      "side": 1,
+      "message": "This is another security related setting that shouldn\u0027t be in production. If this is for PoC only that\u0027s fine, but I\u0027d suggest adding a TODO comment to ensure that this doesn\u0027t find its way onto a production system with host key checking disabled.",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
