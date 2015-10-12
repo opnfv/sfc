@@ -67,6 +67,40 @@
       "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_863c1b95",
+        "filename": "deploy/odl.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2015-10-12T14:20:20Z",
+      "side": 1,
+      "message": "I think the neutron provider is separate from SFC.  You should probably not include this as the installer should already handle installing its neutron provider.  If you need to include it here, maybe include it as a variable and default the var to GBP.  We should have the option of installing netvirt-ovsdb or GBP.",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_a6371fb0",
+        "filename": "deploy/roles/opendaylight/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2015-10-12T14:20:20Z",
+      "side": 1,
+      "message": "You may want to consider using the ansible provider already created for ODL:\nhttps://github.com/dfarrell07/ansible-opendaylight",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
