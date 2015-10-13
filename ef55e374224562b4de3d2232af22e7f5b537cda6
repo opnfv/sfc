@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_c6733314",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_c6b57332",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_86877b61",
         "filename": "deploy/README.md",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-10-12T13:26:36Z",
       "side": 1,
       "message": "This sentence is a little awkward. The phrase \"right to use\" is most often associated with intellectual property rights as in a \"right to use\" license. I think what you may mean is \"resulting in a functional system\"",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_a6603f36",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_86877b61",
       "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_e6763706",
+        "filename": "deploy/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_667c8773",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_46818349",
         "filename": "deploy/ansible.cfg",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2015-10-12T13:26:36Z",
       "side": 1,
       "message": "This is another security related setting that shouldn\u0027t be in production. If this is for PoC only that\u0027s fine, but I\u0027d suggest adding a TODO comment to ensure that this doesn\u0027t find its way onto a production system with host key checking disabled.",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_86653b47",
+        "filename": "deploy/ansible.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_46818349",
       "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "da6255ed_665a4785",
+        "filename": "deploy/odl.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6255ed_863c1b95",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da6255ed_a6371fb0",
         "filename": "deploy/roles/opendaylight/tasks/main.yml",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2015-10-12T14:20:20Z",
       "side": 1,
       "message": "You may want to consider using the ansible provider already created for ODL:\nhttps://github.com/dfarrell07/ansible-opendaylight",
+      "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_465f4373",
+        "filename": "deploy/roles/opendaylight/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1580
+      },
+      "writtenOn": "2015-10-13T06:07:24Z",
+      "side": 1,
+      "message": "We may not use Daniel Farrell\u0027s stock playbooks in OPNFV.",
+      "parentUuid": "da6255ed_a6371fb0",
       "revId": "ef55e374224562b4de3d2232af22e7f5b537cda6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
