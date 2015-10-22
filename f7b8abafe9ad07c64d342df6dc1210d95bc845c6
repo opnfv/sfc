@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6255ed_e6050e15",
+        "filename": "setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "brady.allen.johnson@ericsson.com",
+      "range": {
+        "startLine": 15,
+        "startChar": 46,
+        "endLine": 15,
+        "endChar": 51
+      },
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_06094231",
+        "filename": "setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "This is the license: \"Apache License, Version 2.0\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_510ed635",
+        "filename": "vnfmgr/vnfmgr_main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "Why does both this file, and vnfmgr/vnfmgr_os/vnfmgr_os.py have if __name__ \u003d\u003d \"__main__\"? Is it possible to execute both of them from the command line? If not, one of these checks should be removed.",
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_b1ff5201",
+        "filename": "vnfmgr/vnfmgr_main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "Remove this variable if its not used.",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_c05e72e9",
+        "filename": "vnfmgr/vnfmgr_os/vnfmgr_os.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "Remove these spaces. There are several in this file.",
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da6255ed_605d86e9",
+        "filename": "vnfmgr/vnfmgr_os/vnfmgr_os.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2015-10-22T12:24:16Z",
+      "side": 1,
+      "message": "This variable doesnt appear to be used. Remove it if its not used, please.",
+      "range": {
+        "startLine": 73,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 13
+      },
+      "revId": "f7b8abafe9ad07c64d342df6dc1210d95bc845c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
