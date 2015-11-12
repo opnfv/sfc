@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_9fb69edb",
+        "filename": "docs/design/definitions.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-11-12T06:25:27Z",
+      "side": 1,
+      "message": "May be you can split the above into 80 chars per line for readability.",
+      "revId": "51f1c01d34888b48694e3c4ea67f707706532310",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_bfa9627d",
+        "filename": "docs/design/index.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-11-12T06:25:27Z",
+      "side": 1,
+      "message": "there must be spaces above and below, \u0027 | \u0027 symbols.",
+      "revId": "51f1c01d34888b48694e3c4ea67f707706532310",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_dfac168f",
+        "filename": "docs/design/index.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-11-12T06:25:27Z",
+      "side": 1,
+      "message": "|today| where is the this build data created?",
+      "revId": "51f1c01d34888b48694e3c4ea67f707706532310",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_7fbbeac4",
+        "filename": "docs/design/introduction.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-11-12T06:25:27Z",
+      "side": 1,
+      "message": "unwanted spaces \"RED\" below and above.",
+      "revId": "51f1c01d34888b48694e3c4ea67f707706532310",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5fb026dd",
+        "filename": "docs/etc/conf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1820
+      },
+      "writtenOn": "2015-11-12T06:25:27Z",
+      "side": 1,
+      "message": "you may want to define |today| here? \n\ntoday \u003d u\u0027%s\u0027 % datetime.date.today() ??",
+      "revId": "51f1c01d34888b48694e3c4ea67f707706532310",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
