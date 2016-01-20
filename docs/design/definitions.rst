@@ -1,20 +1,13 @@
 Definitions
-===========
+-----------
 
-Definitions of most terms used here are provided in the `IETF SFC Architecture draft <https://datatracker.ietf.org/doc/draft-ietf-sfc-architecture/>`_. Additional terms specific to the OPNFV SFC project are defined below.
+Definitions of most terms used here are provided in the `IETF SFC Architecture RFC <https://datatracker.ietf.org/doc/rfc7665/>`_.
+Additional terms specific to the OPNFV SFC project are defined below.
 
-.. list-table:: Definitions
-   :widths: 15 85
-   :header-rows: 1
-
-   * - Term
-     - Meaning
-
-   * - ...
-     - ...
 
 Abbreviations
-=============
+-------------
+
 .. list-table:: Abbreviations
    :widths: 15 85
    :header-rows: 1
@@ -31,8 +24,17 @@ Abbreviations
    * - NF
      - Network Function
 
+   * - NSH
+     - Network Services Header (Service chaining encapsulation)
+
+   * - ODL
+     - OpenDaylight SDN Controller
+
    * - RSP
      - Rendered Service Path
+
+   * - SDN
+     - Software Defined Networking
 
    * - SF
      - Service Function
