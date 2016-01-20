@@ -31,8 +31,17 @@ Abbreviations
    * - NF
      - Network Function
 
+   * - NSH
+     - Network Services Header (Service chaining encapsulation)
+
+   * - ODL
+     - OpenDaylight SDN Controller
+
    * - RSP
      - Rendered Service Path
+
+   * - SDN
+     - Software Defined Networking
 
    * - SF
      - Service Function

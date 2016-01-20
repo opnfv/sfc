@@ -1,4 +1,16 @@
 Use Cases
 =========
 
-This section will outline use cases driving the initial OPNFV SFC implementation.
+This section outlines the Brahmaputra use cases driving the initial OPNFV
+SFC implementation.
+
+
+The use cases targeted in the OPNFV SFC Brahmaputra release focus on creating
+simple Service Chains using Firewall Service Functions. As can be seen in the
+following diagram, 2 service chains are created, each through a different
+Service Function Firewall. Service Chain 1 will block HTTP, while Service
+Chain 2 will block SSH.
+|
+|
+.. image:: ./OPNFV_SFC_Brahmaputra_UseCase.jpg
+
