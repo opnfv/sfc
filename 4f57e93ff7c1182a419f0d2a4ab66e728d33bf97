@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_7055eb4e",
+        "filename": "docs/design/architecture.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3271
+      },
+      "writtenOn": "2016-01-21T15:38:55Z",
+      "side": 1,
+      "message": "the NSP is actually the Service Path ID",
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_b027e363",
+        "filename": "docs/design/definitions.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3271
+      },
+      "writtenOn": "2016-01-21T15:38:55Z",
+      "side": 1,
+      "message": "SFC architecture is actually an RFC -\u003e https://datatracker.ietf.org/doc/rfc7665/ .. please change reference",
+      "range": {
+        "startLine": 4,
+        "startChar": 58,
+        "endLine": 4,
+        "endChar": 81
+      },
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5050a75d",
+        "filename": "docs/design/requirements.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3271
+      },
+      "writtenOn": "2016-01-21T15:38:55Z",
+      "side": 1,
+      "message": "is it VXLAN or VXLAN-GPE?",
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
