@@ -33,10 +33,8 @@
             "name": "firewall-2",
             "type": "service-function-type:firewall",
             "sff-sf-data-plane-locator": {
-                "service-function-forwarder-ovs:ovs-bridge": {},
-                "transport": "service-locator:vxlan-gpe",
-                "port": 6633,
-                "ip": "192.168.1.11"
+                "sf-dpl-name": "firewall-2-dp1",
+                "sff-dpl-name": "sff2-dp1"
             }
         },
            {
