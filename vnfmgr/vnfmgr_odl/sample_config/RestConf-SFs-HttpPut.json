@@ -15,7 +15,7 @@
        "rest-uri": "http://192.168.1.11:5000",
        "nsh-aware": true,
        "ip-mgmt-address": "192.168.1.11",
-       "type": "service-function-type:firewall"
+       "type": "firewall"
      },
      {
        "name": "firewall-3",
@@ -31,7 +31,7 @@
        "rest-uri": "http://192.168.1.12:5000",
        "nsh-aware": true,
        "ip-mgmt-address": "192.168.1.12",
-       "type": "service-function-type:firewall"
+       "type": "firewall"
      }
    ]
  }
