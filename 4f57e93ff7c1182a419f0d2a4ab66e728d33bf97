@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_f0c8bb23",
+        "filename": "docs/design/architecture.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-01-21T15:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_7055eb4e",
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_b027e363",
         "filename": "docs/design/definitions.rst",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_d0cb771c",
+        "filename": "docs/design/definitions.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-01-21T15:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_b027e363",
+      "range": {
+        "startLine": 4,
+        "startChar": 58,
+        "endLine": 4,
+        "endChar": 81
+      },
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_5050a75d",
         "filename": "docs/design/requirements.rst",
         "patchSetId": 6
@@ -53,6 +95,24 @@
       "writtenOn": "2016-01-21T15:38:55Z",
       "side": 1,
       "message": "is it VXLAN or VXLAN-GPE?",
+      "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_90d5ffba",
+        "filename": "docs/design/requirements.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-01-21T15:46:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_5050a75d",
       "revId": "4f57e93ff7c1182a419f0d2a4ab66e728d33bf97",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
