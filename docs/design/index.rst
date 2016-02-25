@@ -1,28 +1,16 @@
-.. OPNFV Service Function Chaining (SFC) documentation
+.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. http://creativecommons.org/licenses/by/4.0
 
-.. image:: ../etc/opnfv-logo.png
-  :height: 40
-  :width: 200
-  :alt: OPNFV
-  :align: left
-|
-|
+*******************************
 Service Function Chaining (SFC)
-===============================
-
-Contents:
+*******************************
 
 .. toctree::
    :numbered:
-   :maxdepth: 4
+   :maxdepth: 2
 
    introduction.rst
    definitions.rst
    usecases.rst
    architecture.rst
    requirements.rst
-
-Indices and tables
-==================
-
-* :ref:`search`
