@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_160fc82f",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 204
+      },
+      "writtenOn": "2016-09-05T14:21:03Z",
+      "side": 1,
+      "message": "The licence text is still rendered, it should not",
+      "parentUuid": "1a76adc5_b306261f",
+      "revId": "af42c77054fb46ba8f6968945ddf540d631ca1f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_336e9602",
         "filename": "docs/releasenotes/releasenotes.rst",
         "patchSetId": 3
