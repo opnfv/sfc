@@ -2,18 +2,48 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) <optionally add copywriters name>
 
-<Feature> description
+SFC description
 =====================
 .. Describe the specific features and how it is realised in the scenario in a brief manner
 .. to ensure the user understand the context for the user guide instructions to follow.
 
-<Feature> capabilities and usage
+The OPNFV SFC feature will create service chains, classifiers, and create VMs for Service
+Functions, allowing for client traffic intended to be sent to a server to first traverse
+the provisioned service chain.
+
+The Service Chain creation consists of configuring the OpenDaylight SFC feature. This
+configuration will in-turn configure Service Function Forwarders to route traffic to
+Service Functions. A Service Function Forwarder in the context of OPNFV SFC is the
+"br-int" OVS bridge on an Open Stack compute node.
+
+The classifier(s) consist of configuring the OpenDaylight Netvirt feature. Netvirt is
+a Neutron backend which handles the networking for VMs. Netvirt can also create simple
+classification rules (5-tuples) to send specific traffic to a pre-configured Service
+Chain. A common example of a classification rule would be to send all HTTP traffic
+(tcp port 80) to a pre-configured Service Chain.
+
+Service Function VM creation is performed via a VNF Manager. Currently, OPNFV SFC is
+integrated with the Open Stack Tacker VNF Manager. Tacker can be configured to create
+service chains, and will create VMs in Open Stack for Service Functions, and will then
+communicate the Service Function information to OpenDaylight SFC.
+
+SFC capabilities and usage
 ================================
 .. Describe the specific capabilities and usage for <XYZ> feature.
 .. Provide enough information that a user will be able to operate the feature on a deployed scenario.
 
-<Feature and API usage guidelines and example>
+The OPNFV SFC feature can be deployed with either the "os-odl_l2-sfc-ha" or the
+"os-odl_l2-sfc-noha" scenario. SFC usage for both of these scenarios is the same.
+
+As previously mentioned, Tacker is used as a VNF Manager. All the configuration
+necessary to create workig service chains and classifiers can be performed using
+the Tacker command line. Refer to the Tacker user guide for more information.
+
+TODO add link to Tacker user guide.
+
+SFC API usage guidelines and example
 -----------------------------------------------
 .. Describe with examples how to use specific features, provide API examples and details required to
 .. operate the feature on the platform.
 
+TODO add link to Tacker user guide.
