@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_f3c49e93",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-05T12:12:10Z",
+      "side": 1,
+      "message": "Good catch! I skipped over this part.",
+      "parentUuid": "1a76adc5_53f792f5",
+      "range": {
+        "startLine": 152,
+        "startChar": 56,
+        "endLine": 152,
+        "endChar": 92
+      },
+      "revId": "b52a775ab556cc4f24a226275f533ef0f44f8419",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_b3e70640",
         "filename": "docs/releasenotes/releasenotes.rst",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-09-05T12:09:42Z",
       "side": 1,
       "message": "broken link. should be https://www.opnfv.org/",
+      "range": {
+        "startLine": 171,
+        "startChar": 21,
+        "endLine": 171,
+        "endChar": 34
+      },
+      "revId": "b52a775ab556cc4f24a226275f533ef0f44f8419",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_13c03a7b",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-05T12:12:10Z",
+      "side": 1,
+      "message": "I\u0027ll fix this now in an additional patch-set.",
+      "parentUuid": "1a76adc5_b3e70640",
       "range": {
         "startLine": 171,
         "startChar": 21,
