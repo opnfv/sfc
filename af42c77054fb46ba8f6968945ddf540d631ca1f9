@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_962af87c",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-05T14:28:47Z",
+      "side": 1,
+      "message": "You can see that I commented it out in patch set 4, but the resulting doc built by Jenkins doesnt reflect the change.",
+      "parentUuid": "1a76adc5_160fc82f",
+      "revId": "af42c77054fb46ba8f6968945ddf540d631ca1f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_336e9602",
         "filename": "docs/releasenotes/releasenotes.rst",
         "patchSetId": 3
