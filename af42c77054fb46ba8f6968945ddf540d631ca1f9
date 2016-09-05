@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b306261f",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-05T14:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_b3aaa617",
+      "revId": "af42c77054fb46ba8f6968945ddf540d631ca1f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_336e9602",
         "filename": "docs/releasenotes/releasenotes.rst",
         "patchSetId": 3
@@ -53,6 +71,24 @@
       "writtenOn": "2016-09-05T13:35:39Z",
       "side": 1,
       "message": "please add links.",
+      "revId": "af42c77054fb46ba8f6968945ddf540d631ca1f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d3016207",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-05T14:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_336e9602",
       "revId": "af42c77054fb46ba8f6968945ddf540d631ca1f9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
