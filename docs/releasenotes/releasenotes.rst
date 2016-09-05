@@ -5,28 +5,28 @@ License. .. http://creativecommons.org/licenses/by/4.0 ..
 Abstract
 ========
 
-This document compiles the release notes for the Brahmaputra release of
+This document compiles the release notes for the Colorado release of
 OPNFV SFC.
 
 Important notes
 ===============
 
 These notes provide release information for the use of SFC with the Fuel
-and Apex installer tools for the Brahmaputra release of OPNFV.
+and Apex installer tools for the Colorado release of OPNFV.
 
 Summary
 =======
 
-The goal of the SFC Brahmaputra release is to integrate the OpenDaylight
+The goal of the SFC Colorado release is to integrate the OpenDaylight
 SFC project into an OPNFV environment, with either the Fuel or Apex
 installer. In subsequent releases, other OPNFV installers will be
 considered.
 
 More information about OpenDaylight and SFC can be found here.
 
-- `OpenDaylight <http://www.opendaylight.org/software>`_ version "Berylium"
+- `OpenDaylight <http://www.opendaylight.org/software>`_ version "Boron"
 
-- `Service function chaining <https://wiki.opnfv.org/service_function_chaining>`_
+- `Service function chaining <https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home>`_
 
 
 - Documentation built by Jenkins
@@ -34,6 +34,10 @@ More information about OpenDaylight and SFC can be found here.
   - overall OPNFV documentation
 
   - Design document
+
+  - User Guide
+
+  - Installation Instructions
 
   - this document (release notes)
 
@@ -45,16 +49,20 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | brahmaputra.1.0                      |
+| **Repo/tag**                         | colorado.1.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Brahmaputra base release             |
+| **Release designation**              | Colorado base release                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | February 25 2016                     |
+| **Release date**                     | September 22 2016                    |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | Brahmaputra base release             |
+| **Purpose of the delivery**          | Improve functionality provided in    |
+|                                      | Brahmaputra release. Increased test  |
+|                                      | coverage with new Funtest cases.     |
+|                                      | Make SFC/Tacker work on multiple     |
+|                                      | compute nodes                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -63,21 +71,25 @@ Version change
 
 Module version changes
 ~~~~~~~~~~~~~~~~~~~~~~
-This is the first tracked release of OPNFV sfc. It is based on
+This is the second tracked release of OPNFV sfc. It is based on
 following upstream versions:
 
-- OpenStack Liberty release
+- OpenStack Mitaka release
 
-- OpenDaylight Beryllium release
+- OpenDaylight Boron release
 
-- Open vSwitch
+- Open vSwitch 2.5.90 with Yi Yang NSH patch
 
 Document changes
 ~~~~~~~~~~~~~~~~
-This is the first tracked version of OPNFV SFC. It comes with
+This is the second tracked version of OPNFV SFC. It comes with
 the following documentation:
 
 - Design document
+
+- User Guide
+
+- Installation Instructions
 
 - Release notes (This document)
 
@@ -89,14 +101,14 @@ Feature additions
 
 **JIRA TICKETS:**
 
-`New features <https://jira.opnfv.org/issues/?filter=11002>`_ 'https://jira.opnfv.org/issues/?filter=11002'
+`New features in SFC Colorado <https://jira.opnfv.org/browse/SFC-33>`_ 'https://jira.opnfv.org/browse/SFC-33'
 
 Bug corrections
 ~~~~~~~~~~~~~~~
 
 **JIRA TICKETS:**
 
-`Bug-fixes <https://jira.opnfv.org/browse/FUEL-99?filter=11001>`_ 'https://jira.opnfv.org/browse/FUEL-99?filter=11001'
+`Bug-fixes <https://jira.opnfv.org/browse/SFC-34>`_ 'https://jira.opnfv.org/browse/SFC-34'
 
 Deliverables
 ------------
@@ -111,6 +123,10 @@ Documentation deliverables
 
 - Design document
 
+- User Guide
+
+- Installation Instructions
+
 - Release notes (This document)
 
 Known Limitations, Issues and Workarounds
@@ -118,10 +134,10 @@ Known Limitations, Issues and Workarounds
 
 OpenDaylight SFC relies on a version of Open vSwitch (OVS) with
 Network Service Headers (NSH). A version of OVS with NSH currently
-exists, but it is in a private branch. Extensive upstream work has
-been done to merge the NSH patches into mainstream OVS, but the work
-is still not complete. More information about this can be found in
-the OPNFV SFC design document.
+exists, but it is in a branched version of OVS. Extensive upstream
+work has been done to merge the NSH patches into mainstream OVS,
+but the work is still not complete. More information about this
+can be found in the OPNFV SFC design document.
 
 System Limitations
 ------------------
@@ -142,12 +158,12 @@ Workarounds
 
 Test results
 ============
-The Brahmaputra release of SFC has only undergone QA test runs with
-the Fuel installer and basic Yardstick tests, nothing SFC specific.
+The Colorado release of SFC has undergone QA test runs
+with Functest tests on the Fuel and Apex installers.
 
 References
 ==========
-For more information on the OPNFV Brahmaputra release, please see:
+For more information on the OPNFV Colorado release, please see:
 
 OPNFV
 -----
@@ -156,12 +172,12 @@ OPNFV
 
 2) `OPNFV documentation- and software downloads <https://www.opnfv.org/software/download>`_
 
-3) `OPNFV Brahmaputra release <http://wiki.opnfv.org/releases/brahmaputra>`_
+3) `OPNFV Colorado release <http://wiki.opnfv.org/releases/colorado>`_
 
 OpenStack
 ---------
 
-4) `OpenStack Liberty Release artifacts <http://www.openstack.org/software/liberty>`_
+4) `OpenStack Mitaka Release artifacts <http://www.openstack.org/software/mitaka>`_
 
 5) `OpenStack documentation <http://docs.openstack.org>`_
 
@@ -169,6 +185,11 @@ OpenDaylight
 ------------
 
 6) `OpenDaylight artifacts <http://www.opendaylight.org/software/downloads>`_
+
+Open vSwitch with NSH
+---------------------
+
+7) https://github.com/yyang13/ovs_nsh_patches
 
 
 :Authors: Brady Johnson (brady.allen.johnson@ericsson.com)
