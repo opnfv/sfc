@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_566e9b02",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "This link should be split into 2:\nhttp://artifacts.opnfv.org/sfc/colorado/docs/scenarios_os-odl_l2-sfc-ha/index.html\nhttp://artifacts.opnfv.org/sfc/colorado/docs/scenarios_os-odl_l2-sfc-noha/index.html",
+      "range": {
+        "startLine": 14,
+        "startChar": 82,
+        "endLine": 14,
+        "endChar": 86
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b64e0f95",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "This list didnt format correctly. I think you need a blank line before the first list element. You can see the resulting doc here: http://artifacts.opnfv.org/sfc/review/20597/installationprocedure/feature.configuration.html",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_767157df",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "Minor change: The",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 3
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_56453b6e",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "Need to fix this list formatting.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_165fc342",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "minor change: methods that",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 32
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d6586b58",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "minor change, remove the underscore after a: a os_odl-l2_sfc-ha",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 18
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1626e3ce",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "Minor change: which",
+      "range": {
+        "startLine": 210,
+        "startChar": 31,
+        "endLine": 210,
+        "endChar": 35
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f62a478f",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T16:42:08Z",
+      "side": 1,
+      "message": "Minor change: using the",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 27
+      },
+      "revId": "f0fe21888286b153b1d1ba77893c635181b57e70",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
