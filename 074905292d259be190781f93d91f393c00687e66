@@ -22,6 +22,30 @@
       "revId": "074905292d259be190781f93d91f393c00687e66",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_67ef6888",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-07T08:12:39Z",
+      "side": 1,
+      "message": "This isnt due to a bug/issue, its how ODL SFC is designed to work. Its possible to let ODL SFC choose internally which SFs to use for a chain with the service function scheduler algorithms. This can be controlled by either specifying which scheduler (round-robin, shortest-path, random (default), etc) or by specifying the SFs in the SFP. I think what we should do is create a JIRA for the task of populating the SFPs in Tacker and add that in this doc.",
+      "parentUuid": "1a76adc5_fcd6abc2",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 47
+      },
+      "revId": "074905292d259be190781f93d91f393c00687e66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
