@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_226e3e02",
+        "filename": "docs/userguide/feature.userguide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2016-09-07T13:29:26Z",
+      "side": 1,
+      "message": "nit: OpenStack (one word)",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "e8fb3106b08971117115a1cbc0ff5652ffcfc708",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4271fade",
+        "filename": "docs/userguide/feature.userguide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2016-09-07T13:29:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 27,
+        "startChar": 39,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "e8fb3106b08971117115a1cbc0ff5652ffcfc708",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_82671225",
+        "filename": "docs/userguide/feature.userguide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2016-09-07T13:29:26Z",
+      "side": 1,
+      "message": "and SFC/Classifier OpenStack interface?",
+      "range": {
+        "startLine": 38,
+        "startChar": 45,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "e8fb3106b08971117115a1cbc0ff5652ffcfc708",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_62643622",
+        "filename": "docs/userguide/feature.userguide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2016-09-07T13:29:26Z",
+      "side": 1,
+      "message": "working",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "e8fb3106b08971117115a1cbc0ff5652ffcfc708",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
