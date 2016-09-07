@@ -5,7 +5,7 @@ Architecture
 ------------
 
 This section describes the architectural approach to incorporating the upstream
-OpenDaylight (ODL) SFC project into the OPNFV Brahmaputra platform.
+OpenDaylight (ODL) SFC project into the OPNFV Colorado platform.
 
 Service Functions
 +++++++++++++++++
@@ -97,7 +97,7 @@ sequence diagram details the interactions with the VNF Mgr:
 OPNFV SFC Network Topology
 ++++++++++++++++++++++++++
 
-The following image details the Network Topology used in OPNFV Brahmaputra SFC:
+The following image details the Network Topology used in OPNFV Colorado SFC:
 
 .. image:: ./images/OPNFV_SFC_Brahmaputra_NW_Topology.jpg
 
@@ -113,7 +113,7 @@ bridge. There is work ongoing in the upstream OVS community to implemement NSH
 encapsulation. To get around the way OpenStack handles VXLAN tunnels, the OVS
 work will also include the ability to encapsulate/decapsulate VXLAN tunnels from
 OpenFlow rules, instead of relying on the Vtep ports. The ongoing upstream OVS
-work will probably not be finished by the time OPNFV Brahmaputra is released, so
+work will not be finished by the time OPNFV Colorado is released, so
 a work-around has been created. This work-around will use a private branch of
 OVS that has a preliminary version of NSH implemented.
 

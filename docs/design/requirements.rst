@@ -16,29 +16,25 @@ in an OPNFV environment.
 Detailed Requirements
 +++++++++++++++++++++
 
-These are the Brahmaputra specific requirements:
+These are the Colorado specific requirements:
 
-1 Placement of SFs on only one Compute node will be supported.
+1 The supported Service Chaining encapsulation will be NSH VXLAN-GPE.
 
-2 The supported Service Chaining encapsulation will be NSH VXLAN-GPE.
+2 The version of OVS used must support NSH.
 
-3 The version of OVS used must support NSH.
+3 The SF VM life cycle will be managed by the Tacker VNF Mgr.
 
-4 The SF VM life cycle will be managed by the Tacker VNF Mgr.
+4 The supported classifiers will be either ODL Netvirt or ODL GBP.
 
-5 The supported classifiers will be either ODL Netvirt or ODL GBP.
-
-6 ODL will be the OpenStack Neutron backend and will handle all networking
+5 ODL will be the OpenStack Neutron backend and will handle all networking
   on the compute nodes.
 
 Long Term Requirements
 ++++++++++++++++++++++
 
-These requirements are out of the scope of the Brahmaputra release.
+These requirements are out of the scope of the Colorado release.
 
-1 Placing SFs on multiple Compute nodes.
+1 Dynamic movement of SFs across multiple Compute nodes.
 
-2 Dynamic movement of SFs across multiple Compute nodes.
-
-3 Load Balancing across multiple SFs
+2 Load Balancing across multiple SFs
 
