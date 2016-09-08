@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_efe26a2e",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 652
+      },
+      "writtenOn": "2016-09-08T10:40:10Z",
+      "side": 1,
+      "message": "physical",
+      "range": {
+        "startLine": 52,
+        "startChar": 37,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "4b6dc19050dab860bcbebc394b38cbb194c2384a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4fcb5ea5",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 652
+      },
+      "writtenOn": "2016-09-08T10:40:10Z",
+      "side": 1,
+      "message": "cp -r",
+      "range": {
+        "startLine": 128,
+        "startChar": 3,
+        "endLine": 128,
+        "endChar": 4
+      },
+      "revId": "4b6dc19050dab860bcbebc394b38cbb194c2384a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
