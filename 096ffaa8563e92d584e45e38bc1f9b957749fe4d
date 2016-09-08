@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8c9664ef",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-08T09:20:06Z",
+      "side": 1,
+      "message": "Minor detail, can you use the RST format for hyper links. Here\u0027s an example from the SFC release Notes:\n\n`OpenDaylight \u003chttp://www.opendaylight.org/software\u003e`_",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 127
+      },
+      "revId": "096ffaa8563e92d584e45e38bc1f9b957749fe4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ac99e020",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-08T09:20:06Z",
+      "side": 1,
+      "message": "Fix hyperlink",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 132
+      },
+      "revId": "096ffaa8563e92d584e45e38bc1f9b957749fe4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4ca04c43",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-08T09:20:06Z",
+      "side": 1,
+      "message": "Fix hyperlink",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 81
+      },
+      "revId": "096ffaa8563e92d584e45e38bc1f9b957749fe4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ecf7d857",
+        "filename": "docs/installationprocedure/feature.configuration.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-08T09:20:06Z",
+      "side": 1,
+      "message": "Minor detail: The space at the beginning of this line caused a tab.",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 2
+      },
+      "revId": "096ffaa8563e92d584e45e38bc1f9b957749fe4d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
