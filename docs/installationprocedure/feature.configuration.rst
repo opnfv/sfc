@@ -49,7 +49,7 @@ that host has to meet the following hardware requirements:
 
 - SandyBridge compatible CPU with virtualization support
 
-- capable to host 5 virtual cores (5 phisical ones at least)
+- capable to host 5 virtual cores (5 physical ones at least)
 
 - 8-12 GBytes RAM for virtual hosts (controller, compute), 48GByte at least
 
@@ -125,7 +125,7 @@ lab-name/host where you deploy.
 Copy the full lab config from:
 ::
 
- cp <path-to-opnfv-fuel-repo>/deploy/config/labs/devel-pipeline/elx \
+ cp -r <path-to-opnfv-fuel-repo>/deploy/config/labs/devel-pipeline/elx \
     <path-to-opnfv-fuel-repo>/deploy/config/labs/devel-pipeline/<your-lab-name>
 
 Add at the bottom of dha.yaml
