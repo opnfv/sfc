@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_50d75fed",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-21T08:44:16Z",
+      "side": 1,
+      "message": "Can you change this to: The Colorado 1.0 release",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "db89884e6cb1e0fd7f226b8a667183a3acf38b02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_30dc2312",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-21T08:44:16Z",
+      "side": 1,
+      "message": "Can you change this to say: but it has not been tested yet.",
+      "range": {
+        "startLine": 144,
+        "startChar": 39,
+        "endLine": 145,
+        "endChar": 15
+      },
+      "revId": "db89884e6cb1e0fd7f226b8a667183a3acf38b02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_50ee7fb5",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-21T08:44:16Z",
+      "side": 1,
+      "message": "Add: that will be fixed in ODL Boron SR1, which will be included in Colorado 2.0.",
+      "range": {
+        "startLine": 148,
+        "startChar": 31,
+        "endLine": 148,
+        "endChar": 42
+      },
+      "revId": "db89884e6cb1e0fd7f226b8a667183a3acf38b02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b0ffd366",
+        "filename": "docs/releasenotes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-09-21T08:44:16Z",
+      "side": 1,
+      "message": "Can you add a comment here: This has been identified in ODL and will be fixed in ODL Boron SR1 which will be included in Colorado 2.0.",
+      "revId": "db89884e6cb1e0fd7f226b8a667183a3acf38b02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
