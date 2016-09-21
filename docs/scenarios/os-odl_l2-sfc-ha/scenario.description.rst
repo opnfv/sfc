@@ -72,6 +72,8 @@ Limitations, Issues and Workarounds
 .. Explain scenario limitations here, this should be at a design level rather than discussing
 .. faults or bugs.  If the system design only provide some expected functionality then provide
 .. some insight at this point.
+This scenario is not working in Colorado 1.0 with the Fuel installer, since Tacker is not
+registered in the HA Proxy and calls to Tacker fail. This will be fixed in Colorado 2.0.
 
 Specific version of OVS
 -----------------------
