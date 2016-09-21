@@ -135,7 +135,22 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-No limitations beyond those in Fuel and Apex have been identified.
+The release in Colorado 1.0 has several limitations:
+
+1 - It only works in non-HA environments. Tacker is currently not
+available in HA environments and so the calls to it fail.
+
+2 - It only works in one-compute deployments. Tacker fixed the
+multicompute support in the last weeks but we did not have
+time to test it
+
+3 - The first time a classification rule is created, it does not
+work. This is a known issue in Netvirt-ODL. Create the classification
+once again and it should work
+
+4 - Any VM (e.g. SFs) must have only one security group.
+There is a bug in ODL Boron which only one security group is read.
+The rest are silently ignored.
 
 Known issues
 ------------
