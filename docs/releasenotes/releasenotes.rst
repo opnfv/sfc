@@ -137,8 +137,8 @@ System Limitations
 
 The Colorado 1.0 release has several limitations:
 
-1 - It only works in non-HA environments. Tacker is currently not
-available in HA environments and so the calls to it fail.
+1 - OPNFV SFC only works in non-HA environments with the Fuel installer.
+Tacker is currently not registered in the HA Proxy, so the calls to it fail.
 
 2 - It only works in one-compute deployments. Tacker fixed the
 multicompute support in the last weeks but it has not been tested
