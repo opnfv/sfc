@@ -4,10 +4,10 @@
 
 Abstract
 ========
-This document provides information on how to install the OpenDayLigh SFC
+This document provides information on how to install the OpenDaylight SFC
 features in OPNFV with the use of os_odl-l2_sfc-(no)ha scenario.
 
-SFC feature desciription
+SFC Feature Description
 ========================
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
@@ -17,16 +17,16 @@ the scenario description documents:
 - http://artifacts.opnfv.org/sfc/colorado/docs/scenarios_os-odl_l2-sfc-noha/index.html
 
 
-The SFC feature enables creation of Service Fuction Chains - an ordered list
+The SFC feature enables creation of Service Function Chains - an ordered list
 of chained network funcions (e.g. firewalls, NAT, QoS)
 
 The SFC feature in OPNFV is implemented by 3 major components:
 
-- OpenDayLight SDN controller
+- OpenDaylight SDN controller
 
 - Tacker: Generic VNF Manager (VNFM) and a NFV Orchestrator (NFVO)
 
-- OpenvSwitch: The Service Function Forwarder(s)
+- Open vSwitch: The Service Function Forwarder(s)
 
 Hardware requirements
 =====================
@@ -49,12 +49,12 @@ that host has to meet the following hardware requirements:
 
 - SandyBridge compatible CPU with virtualization support
 
-- capable to host 5 virtual cores (5 physical ones at least)
+- capable of hosting 5 virtual cores (5 physical ones at least)
 
 - 8-12 GBytes RAM for virtual hosts (controller, compute), 48GByte at least
 
 - 128 GiBiBytes room on disk for each virtual host (controller, compute) +
-  64GiBiBytes for fuel master, 576 GiBiBytes at least
+  64 GiBiBytes for fuel master, 576 GiBiBytes at least
 
 - Ubuntu Trusty Tahr - 14.04(.5) server operating system with at least ssh
   service selected at installation.
@@ -64,7 +64,7 @@ that host has to meet the following hardware requirements:
 
 Pre-configuration activites - Preparing the host to install Fuel by script
 ==========================================================================
-.. Not all of these options are relevant for all scenario's.  I advise following the
+.. Not all of these options are relevant for all scenarios.  I advise following the
 .. instructions applicable to the deploy tool used in the scenario.
 
 Before starting the installation of the SFC scenarios some preparation of the
@@ -220,7 +220,7 @@ A useful alternative to the full automatic procedure is to only deploy the Fuel 
 
  sudo bash ./deploy.sh -b file://<path-to-opnfv-fuel-repo>/config/ -l devel-pipeline -p <your-lab-name> -s os_odl-l2_sfc-ha -i file://<path-to-fuel-iso> -e
 
-With -e option the installer will skip environment deployment, so an user
+With -e option the installer will skip environment deployment, so a user
 can do some modification before the scenario is really deployed. Another
 useful option is the -f option which deploys the scenario using an existing
 Fuel host.
@@ -232,8 +232,8 @@ perform manual post-configuration as well.
 Feature configuration on existing Fuel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a Fuel server is already provisioned but the fuel plugins for Opendaylight,
-Openvswitch are not provided install them by:
+If a Fuel server is already provisioned but the Fuel plugins for OpenDaylight,
+Open vSwitch are not provided install them by:
 ::
 
  cd /opt/opnfv/
@@ -248,9 +248,9 @@ Master host using the command scp:
 scp <plugin>.rpm root@10.20.0.2:<plugin>.rpm
 
 Now the feature can be configured. Create a new environment with
-Networking Setup:"OpenDayLight with tunneling segmentation". Then go to
+Networking Setup:"OpenDaylight with tunneling segmentation". Then go to
 settings/other and check "OpenDaylight plugin, SFC enabled",
-"Install Openvswitch with NSH/DPDK, with NSH enabled". During node provision
-remember assign the OpenDayLight role to the (primary)controller
+"Install Open vSwitch with NSH/DPDK, with NSH enabled". During node provision
+remember assign the OpenDaylight role to the (primary)controller
 
 Now the deploy button on fuel dashboard can be used to deploy the environment.
