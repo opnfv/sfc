@@ -49,13 +49,13 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | colorado.1.0                         |
+| **Repo/tag**                         | colorado.2.0                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Colorado base release                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | September 22 2016                    |
+| **Release date**                     | November 10 2016                     |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Improve functionality provided in    |
@@ -135,24 +135,16 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Colorado 1.0 release has several limitations:
+The Colorado 2.0 release has several limitations:
 
 1 - OPNFV SFC only works in non-HA environments with the Fuel installer.
-Tacker is currently not registered in the HA Proxy, so the calls to it fail.
+There is a bug in ODL which is fixed in ODL Boron SR1 and will be part
+of Colorado 3.0
 
-2 - It only works in one-compute deployments. Tacker fixed the
-multicompute support in the last weeks but it has not been tested
-yet.
-
-3 - The first time a classification rule is created, it does not
-work. This is a known issue in Netvirt-ODL. Create the classification
-once again and it should work. This issue will be fixed in ODL
-Boron SR1, which will be included in Colorado 2.0.
-
-4 - Any VM (e.g. SFs) must have only one security group.
+2 - Any VM (e.g. SFs) must have only one security group.
 There is a bug in ODL Boron which only one security group is read.
 The rest are silently ignored. This issue will be fixed in ODL
-Boron SR1, which will be included in Colorado 2.0.
+Boron SR1, which will be included in Colorado 3.0.
 
 Known issues
 ------------
