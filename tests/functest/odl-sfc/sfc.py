@@ -25,7 +25,7 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 
 FUNCTEST_RESULTS_DIR = '/home/opnfv/functest/results/odl-sfc'
 FUNCTEST_REPO = ft_utils.FUNCTEST_REPO
-REPO_PATH = os.path.join(os.environ['repos_dir'], 'sfc/')
+REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
 CLIENT = "client"
 SERVER = "server"
 FLAVOR = "custom"
