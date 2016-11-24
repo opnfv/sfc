@@ -7,7 +7,9 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import threading
+import ovs_utils
 import utils as test_utils
+
 
 parser = argparse.ArgumentParser()
 
@@ -93,6 +95,10 @@ def main():
     controller_clients = test_utils.get_ssh_clients("controller", PROXY)
     compute_clients = test_utils.get_ssh_clients("compute", PROXY)
 
+    ovs_logger = ovs_utils.OVSLogger(
+        os.path.join(os.getcwd(), 'ovs-logs'),
+        FUNCTEST_RESULTS_DIR)
+
     image_id = os_utils.create_glance_image(glance_client,
                                             IMAGE_NAME,
                                             IMAGE_PATH,
@@ -122,7 +128,7 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.capture_time_log,
-                          args=(compute_clients,))
+                          args=(ovs_logger, compute_clients,))
     try:
         t1.start()
     except Exception, e:
@@ -156,7 +162,8 @@ def main():
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(controller_clients, compute_clients, error)
+        test_utils.capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 1: SSH Blocked", "Failed")
 
     logger.info("Test HTTP")
@@ -166,7 +173,8 @@ def main():
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(controller_clients, compute_clients, error)
+        test_utils.capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 2: HTTP works", "Failed")
 
     logger.info("Changing the classification")
@@ -174,7 +182,7 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.capture_time_log,
-                          args=(compute_clients,))
+                          args=(ovs_logger, compute_clients,))
     try:
         t2.start()
     except Exception, e:
@@ -190,7 +198,8 @@ def main():
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(controller_clients, compute_clients, error)
+        test_utils.capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 3: HTTP Blocked", "Failed")
 
     logger.info("Test SSH")
@@ -200,7 +209,8 @@ def main():
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(controller_clients, compute_clients, error)
+        test_utils.capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 4: SSH Works", "Failed")
 
     if json_results["failures"]:
@@ -217,6 +227,7 @@ def main():
                                     stop_time,
                                     status,
                                     json_results)
+        ovs_logger.create_artifact_archive()
 
     if status == "PASS":
         logger.info('\033[92mSFC ALL TESTS: %s :)\033[0m' % status)
