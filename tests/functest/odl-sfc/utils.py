@@ -7,7 +7,7 @@ import functest.utils.openstack_utils as os_utils
 import re
 import json
 import SSHUtils as ssh_utils
-import ovs_utils
+import functools
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
@@ -306,11 +306,7 @@ def is_http_blocked(srv_prv_ip, client_ip):
     return True
 
 
-def capture_err_logs(controller_clients, compute_clients, error):
-    ovs_logger = ovs_utils.OVSLogger(
-        os.path.join(os.getcwd(), 'ovs-logs'),
-        FUNCTEST_RESULTS_DIR)
-
+def capture_err_logs(ovs_logger, controller_clients, compute_clients, error):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     ovs_logger.dump_ovs_logs(controller_clients,
                              compute_clients,
@@ -346,38 +342,35 @@ def check_ssh(ips, retries=100):
     return False
 
 
-def capture_time_log(compute_clients, timeout=200):
-    """Measure the time it takes to update the classification rules"""
-    ovs_logger = ovs_utils.OVSLogger(
-        os.path.join(os.getcwd(), 'ovs-logs'),
-        "test")
-    i = 0
-    first_RSP = ""
-    start_time = time.time()
-    while True:
+# Measure the time it takes to update the classification rules
+def timethis(func):
+    @functools.wraps(func)
+    def timed(*args, **kwargs):
+        ts = time.time()
+        result = func(*args, **kwargs)
+        te = time.time()
+        elapsed = '{0}'.format(te - ts)
+        logger.info('{f}(*{a}, **{kw}) took: {t} sec'.format(
+            f=func.__name__, a=args, kw=kwargs, t=elapsed))
+        return result
+    return timed
+
+
+@timethis
+def capture_time_log(ovs_logger, compute_clients, timeout=200):
+    rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
+    first_RSP = rsps[0] if len(rsps) > 0 else ''
+    while not ((len(rsps) > 1) and
+               (first_RSP != rsps[0]) and
+               (rsps[0] == rsps[1])):
         rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
-        if not i:
-            if len(rsps) > 0:
-                first_RSP = rsps[0]
-                i = i + 1
-            else:
-                first_RSP = 0
-                i = i + 1
-        if (len(rsps) > 1):
-            if(first_RSP != rsps[0]):
-                if (rsps[0] == rsps[1]):
-                    stop_time = time.time()
-                    logger.info("classification rules updated")
-                    difference = stop_time - start_time
-                    logger.info("It took %s seconds" % difference)
-                    break
         timeout -= 1
-        if not timeout:
+        if timeout == 0:
             logger.error(
                 "Timeout but classification rules are not updated")
-            break
+            return
         time.sleep(1)
-    return
+    logger.info("classification rules updated")
 
 
 def get_compute_nodes(nova_client, required_node_number=2):
