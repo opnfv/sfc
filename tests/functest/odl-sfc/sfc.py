@@ -11,6 +11,8 @@ import json
 import SSHUtils as ssh_utils
 import ovs_utils
 import thread
+import functools
+
 
 parser = argparse.ArgumentParser()
 
@@ -351,11 +353,7 @@ def is_http_blocked(srv_prv_ip, client_ip):
     return True
 
 
-def capture_err_logs(controller_clients, compute_clients, error):
-    ovs_logger = ovs_utils.OVSLogger(
-        os.path.join(os.getcwd(), 'ovs-logs'),
-        FUNCTEST_RESULTS_DIR)
-
+def capture_err_logs(ovs_logger, controller_clients, compute_clients, error):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     ovs_logger.dump_ovs_logs(controller_clients,
                              compute_clients,
@@ -401,35 +399,28 @@ def check_ssh(ips, retries=100):
 
     return False
 
+
 # Measure the time it takes to update the classification rules
+def timethis(func):
+    @functools.wraps(func)
+    def timed(*args, **kwargs):
+        ts = time.time()
+        result = func(*args, **kwargs)
+        te = time.time()
+        elapsed = '{0}'.format(te - ts)
+        logger.info('{f}(*{a}, **{kw}) took: {t} sec'.format(
+            f=func.__name__, a=args, kw=kwargs, t=elapsed))
+        return result
+    return timed
 
 
-def capture_time_log(compute_clients):
-    ovs_logger = ovs_utils.OVSLogger(
-        os.path.join(os.getcwd(), 'ovs-logs'),
-        "test")
-    i = 0
-    first_RSP = ""
-    start_time = time.time()
-    while True:
+@timethis
+def capture_time_log(ovs_logger, compute_clients):
+    rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
+    first_RSP = rsps[0] if len(rsps) > 0 else ''
+    while (len(rsps) < 1) or (first_RSP == rsps[0]) or (rsps[0] != rsps[1]):
         rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
-        if not i:
-            if len(rsps) > 0:
-                first_RSP = rsps[0]
-                i = i + 1
-            else:
-                first_RSP = 0
-                i = i + 1
-        if (len(rsps) > 1):
-            if(first_RSP != rsps[0]):
-                if (rsps[0] == rsps[1]):
-                    stop_time = time.time()
-                    logger.info("classification rules updated")
-                    difference = stop_time - start_time
-                    logger.info("It took %s seconds" % difference)
-                    break
-        time.sleep(1)
-    return
+    logger.info("classification rules updated")
 
 
 def main():
@@ -464,6 +455,10 @@ def main():
     controller_clients = get_ssh_clients("controller")
     compute_clients = get_ssh_clients("compute")
 
+    ovs_logger = ovs_utils.OVSLogger(
+        os.path.join(os.getcwd(), 'ovs-logs'),
+        FUNCTEST_RESULTS_DIR)
+
     image_id = setup_glance(glance_client)
     network_id = setup_neutron(neutron_client)
     sg_id = setup_security_groups(neutron_client)
@@ -477,7 +472,8 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     try:
-        thread.start_new_thread(capture_time_log, (compute_clients,))
+        thread.start_new_thread(
+            capture_time_log, (ovs_logger, compute_clients,))
     except Exception, e:
         logger.error("Unable to start the thread that counts time %s" % e)
 
@@ -509,7 +505,8 @@ def main():
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
         logger.error(error)
-        capture_err_logs(controller_clients, compute_clients, error)
+        capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 1: SSH Blocked", "Failed")
 
     logger.info("Test HTTP")
@@ -519,7 +516,8 @@ def main():
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
-        capture_err_logs(controller_clients, compute_clients, error)
+        capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 2: HTTP works", "Failed")
 
     logger.info("Changing the classification")
@@ -527,7 +525,8 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     try:
-        thread.start_new_thread(capture_time_log, (compute_clients,))
+        thread.start_new_thread(
+            capture_time_log, (ovs_logger, compute_clients,))
     except Exception, e:
         logger.error("Unable to start the thread that counts time %s" % e)
 
@@ -541,7 +540,8 @@ def main():
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
-        capture_err_logs(controller_clients, compute_clients, error)
+        capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 3: HTTP Blocked", "Failed")
 
     logger.info("Test SSH")
@@ -551,13 +551,15 @@ def main():
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
         logger.error(error)
-        capture_err_logs(controller_clients, compute_clients, error)
+        capture_err_logs(
+            ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 4: SSH Works", "Failed")
 
     if json_results["failures"]:
         status = "FAIL"
         logger.error('\033[91mSFC TESTS: %s :( FOUND %s FAIL \033[0m' % (
             status, json_results["failures"]))
+        ovs_logger.create_artifact_archive()
 
     if args.report:
         stop_time = time.time()
