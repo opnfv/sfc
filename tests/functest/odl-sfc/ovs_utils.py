@@ -21,6 +21,7 @@ class OVSLogger(object):
         self.ovs_dir = basedir
         self.ft_resdir = ft_resdir
         self.__mkdir_p(self.ovs_dir)
+        self.__mkdir_p(self.ft_resdir)
 
     def __mkdir_p(self, dirpath):
         if not os.path.exists(dirpath):
