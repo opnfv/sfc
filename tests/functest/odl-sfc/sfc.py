@@ -563,7 +563,7 @@ def main():
         stop_time = time.time()
         logger.debug("Promise Results json: " + str(json_results))
         ft_utils.push_results_to_db("sfc",
-                                    "functest-odl-sfc",
+                                    "sfc_two_chains_SSH_and_HTTP",
                                     start_time,
                                     stop_time,
                                     status,
