@@ -1,0 +1,22 @@
+defaults:
+  flavor: custom #odl-sfc uses custom flavor
+  image_name: sf_nsh_colorado
+  image_file_name: sf_nsh_colorado.qcow2
+  fuel_master_ip: 10.20.0.2
+  fuel_master_uname: root
+  fuel_master_passwd: r00tme
+  image_format: qcow2
+  url: "http://artifacts.opnfv.org/sfc/demo/"  
+
+testcases:
+  testcase_1:
+      enabled: true
+      description: "ODL-SFC tests"
+      testname_db: functest_testcase_1
+      success_criteria: 100 
+      net_name: example-net
+      subnet_name: example-subnet
+      router_name: example-router
+      subnet_cidr: "11.0.0.0/24"
+      secgroup_name: "example-sg"
+      secgroup_descr: "Example Security group"
