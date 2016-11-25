@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_9a2235b8",
+        "filename": "tests/functest/odl-sfc/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "this line is duplicated (see two lines above)",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5a2ccdab",
+        "filename": "tests/functest/odl-sfc/results.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "I don\u0027t know how it is done in other tests, but in my opinion Results should be initialized to \"FAIL\". This way, we explicitly need to change it to \"PASS\" if the test meets the required criteria.\n\nThe goal is to avoid having false positives if we forget to set the test to \"FAIL\".",
+      "range": {
+        "startLine": 20,
+        "startChar": 28,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_3a2f81a3",
+        "filename": "tests/functest/odl-sfc/results.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "looks that previous code uses python\u0027s \u0027format\u0027 function, whereas this code is using the \u0027%\u0027 substitution. I\u0027m not sure if it is in the scope of this patch, but it would be nice to have an homogeneous way for doing string subsitution.",
+      "range": {
+        "startLine": 28,
+        "startChar": 38,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_fa181986",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "directories should be passes as separate arguments:\n\n os.path.join(REPO_PATH, \u0027tests\u0027, \u0027functest\u0027, \u0027odl-sfc\u0027)\n\nOne of the advantages of os.path is portatibility. It looks unlikely to run these tests in other platform than linux, but who knows... ;)",
+      "range": {
+        "startLine": 30,
+        "startChar": 46,
+        "endLine": 30,
+        "endChar": 54
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1a1e4571",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "I think it is better to use os.path.join here as well:\n\n  with open(os.path.join(SFC_TEST_DIR, \u0027config.yaml\u0027)\n\nOtherwise, you are relying on previous knowledge that SFC_TEST_DIR ends with \u0027/\u0027. Better to avoid that subtle requirement.",
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_ba129160",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "Just an idea, but could it be possible to initialize this to something different than PASS? I think it could be risky to get a passing test if we forget to set the failure.",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_3a06a121",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "it seems that \u0027status\u0027 variable is never used in this part of the code.",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_5a036d0f",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "\u0027details\u0027 should only be retrieved in this branch of the code. Otherwise, they are retrieved but never used.",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_05002600",
+        "filename": "tests/functest/odl-sfc/testcase_1.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "pass each directory as one parameter:\n \n  os.path.join(COMMON_CONFIG.repo_path, \u0027tests\u0027, \u0027functest\u0027, \u0027odl-sfc\u0027)",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c509be2d",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "what about using this:\n  os.path.abspath(\u0027home\u0027, \u0027opnfv\u0027, \u0027functest\u0027, \u0027results\u0027, \u0027odl-sfc\u0027)",
+      "range": {
+        "startLine": 16,
+        "startChar": 23,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e50e3a34",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "maybe pedantic, but I don\u0027t see any improvement in using \u0027cntlr\u0027 over \u0027controller\u0027. In fact, I think that \u0027cntlr\u0027 is more difficult to type :(",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_8513b65b",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T18:35:04Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "942bccf9791c67f311c46b0c8d863555ac5b9b47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
