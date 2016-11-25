@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_7a95093f",
+        "filename": "tests/functest/odl-sfc/test-2/sfc-test2.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-11-25T13:18:23Z",
+      "side": 1,
+      "message": "Maybe not for this patch, but when you refactor the code in SFC, you could have a way that if this fails, still report the status to the DB, instead of exiting intermediately.",
+      "revId": "2179862659f693944e39ff8f97f682c4b63586d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dab0bdf6",
+        "filename": "tests/functest/odl-sfc/test-2/sfc-test2.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-11-25T13:18:23Z",
+      "side": 1,
+      "message": "this will push the result to the same test declared in the DB. This is supposed to be a different test case than the existing one. We need to declare new entries in the DB and push the result accodingly.",
+      "revId": "2179862659f693944e39ff8f97f682c4b63586d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
