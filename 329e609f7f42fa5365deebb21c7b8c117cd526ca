@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_daa43d59",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-25T16:08:43Z",
+      "side": 1,
+      "message": "The \u0027\u0026\u0027 character might be troublesome, so I\u0027d avoid it. Also, I prefer to avoid mixing CamelCase and underscores. What about something as: \u0027sfc_two_chains_one_blocking_SSH_and_the_other_HTTP\u0027?\n\nMaybe it is too long, but I hope that you see my point.",
+      "range": {
+        "startLine": 566,
+        "startChar": 37,
+        "endLine": 566,
+        "endChar": 60
+      },
+      "revId": "329e609f7f42fa5365deebb21c7b8c117cd526ca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
