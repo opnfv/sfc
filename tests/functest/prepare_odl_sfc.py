@@ -28,7 +28,7 @@ except:
 
 os.environ['ODL_SFC_LOG'] = "/home/opnfv/functest/results/odl-sfc.log"
 os.environ['ODL_SFC_DIR'] = os.path.join(SFC_REPO_DIR,
-                                         "tests/functest/odl-sfc")
+                                         "tests/functest/")
 
 command = os.environ['ODL_SFC_DIR'] + ("/server_presetup_CI.bash | "
                                        "tee -a ${ODL_SFC_LOG} "

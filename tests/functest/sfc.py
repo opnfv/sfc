@@ -25,7 +25,7 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 
 FUNCTEST_RESULTS_DIR = '/home/opnfv/functest/results/odl-sfc'
 FUNCTEST_REPO = ft_utils.FUNCTEST_REPO
-REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
+REPO_PATH = os.path.join(os.environ['repos_dir'], 'sfc/')
 CLIENT = "client"
 SERVER = "server"
 FLAVOR = "custom"
@@ -43,7 +43,7 @@ SUBNET_CIDR = "11.0.0.0/24"
 ROUTER_NAME = "example-router"
 SECGROUP_NAME = "example-sg"
 SECGROUP_DESCR = "Example Security group"
-SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
+SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest")
 TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker.bash")
 TACKER_CHANGECLASSI = os.path.join(SFC_TEST_DIR, "sfc_change_classi.bash")
 ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
@@ -574,6 +574,7 @@ def main():
         sys.exit(0)
 
     sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
