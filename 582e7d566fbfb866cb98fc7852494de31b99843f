@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_6bef79b1",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-11-28T08:58:26Z",
+      "side": 1,
+      "message": "This will fail\n\nUse REPOS_DIR\n\nor better:\n\nimport functest.utils.functest_constants as ft_constants\nft_constants.SFC_REPO_DIR\n\nLook here: https://gerrit.opnfv.org/gerrit/#/c/24751/4",
+      "parentUuid": "5ac10518_cb822d00",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 56
+      },
+      "revId": "582e7d566fbfb866cb98fc7852494de31b99843f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_ab79e130",
         "filename": "tests/functest/odl-sfc/run_tests.py",
         "patchSetId": 3
