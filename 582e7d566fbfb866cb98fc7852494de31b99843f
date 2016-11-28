@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_cb6d4d06",
+        "filename": "tests/functest/odl-sfc/config.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-11-28T09:56:32Z",
+      "side": 1,
+      "message": "This name should be more specific to this testcase",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "582e7d566fbfb866cb98fc7852494de31b99843f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_0ba275ae",
         "filename": "tests/functest/odl-sfc/config.yaml",
         "patchSetId": 3
@@ -111,6 +134,29 @@
         "startChar": 0,
         "endLine": 30,
         "endChar": 70
+      },
+      "revId": "582e7d566fbfb866cb98fc7852494de31b99843f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_eb49298c",
+        "filename": "tests/functest/odl-sfc/testcase_1.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-11-28T09:56:32Z",
+      "side": 1,
+      "message": "Moving code and changing code should always be done in 2 different patches to be able to have reasonable diff",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 10
       },
       "revId": "582e7d566fbfb866cb98fc7852494de31b99843f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
