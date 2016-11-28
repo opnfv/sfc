@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_2b373101",
+        "filename": "tests/functest/odl-sfc/config.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-11-28T10:11:19Z",
+      "side": 1,
+      "message": "success criteria was something we needed in sdnvpn. Maybe it is not longer needed here.",
+      "parentUuid": "5ac10518_0ba275ae",
+      "range": {
+        "startLine": 16,
+        "startChar": 27,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "582e7d566fbfb866cb98fc7852494de31b99843f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_cb822d00",
         "filename": "tests/functest/odl-sfc/run_tests.py",
         "patchSetId": 3
