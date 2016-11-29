@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_fd09ee95",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-29T13:47:59Z",
+      "side": 1,
+      "message": "This being a constant, should probably be written in capitals",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 11
+      },
+      "revId": "7dab68dc2f984484247f302310fe44b1be229b3f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_9d0c6a96",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-11-29T13:47:59Z",
+      "side": 1,
+      "message": "This was already removed by Manuel here: https://gerrit.opnfv.org/gerrit/#/c/25025/\n\nI think that it should be removed from this patch as well, right?",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 33
+      },
+      "revId": "7dab68dc2f984484247f302310fe44b1be229b3f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
