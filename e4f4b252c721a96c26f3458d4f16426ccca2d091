@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_9a9f9003",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-11-29T07:41:22Z",
+      "side": 1,
+      "message": "Do we really need to wrap this call?\nWhat is the purpose of this abstraction?",
+      "range": {
+        "startLine": 124,
+        "startChar": 7,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "e4f4b252c721a96c26f3458d4f16426ccca2d091",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_baa4cc57",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-11-29T07:41:22Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 57
+      },
+      "revId": "e4f4b252c721a96c26f3458d4f16426ccca2d091",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
