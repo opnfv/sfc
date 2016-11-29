@@ -6,6 +6,7 @@ import time
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
+import functest.utils.openstack_tacker as os_tacker
 import threading
 import utils as test_utils
 
@@ -42,7 +43,6 @@ SECGROUP_NAME = "example-sg"
 SECGROUP_DESCR = "Example Security group"
 SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
 TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker.bash")
-TACKER_CHANGECLASSI = os.path.join(SFC_TEST_DIR, "sfc_change_classi.bash")
 ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 json_results = {"tests": 4, "failures": 0}
 
@@ -89,6 +89,7 @@ def main():
     glance_client = os_utils.get_glance_client()
     neutron_client = os_utils.get_neutron_client()
     nova_client = os_utils.get_nova_client()
+    tacker_client = os_tacker.get_tacker_client()
 
     controller_clients = test_utils.get_ssh_clients("controller", PROXY)
     compute_clients = test_utils.get_ssh_clients("compute", PROXY)
@@ -170,7 +171,26 @@ def main():
         update_json_results("Test 2: HTTP works", "Failed")
 
     logger.info("Changing the classification")
-    subprocess.call(TACKER_CHANGECLASSI, shell=True)
+    os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name='red_http')
+    os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name='red_ssh')
+
+    os_tacker.create_sfc_classifier(
+        tacker_client, 'blue_http', sfc_name='blue',
+        match={
+            'source_port': 0,
+            'dest_port': 80,
+            'protocol': 6
+        })
+
+    os_tacker.create_sfc_classifier(
+        tacker_client, 'blue_ssh', sfc_name='blue',
+        match={
+            'source_port': 0,
+            'dest_port': 22,
+            'protocol': 6
+        })
+
+    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.capture_time_log,
