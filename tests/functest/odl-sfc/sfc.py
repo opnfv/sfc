@@ -6,6 +6,7 @@ import time
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
+import functest.utils.openstack_tacker as os_tacker
 import threading
 import utils as test_utils
 
@@ -41,7 +42,6 @@ ROUTER_NAME = "example-router"
 SECGROUP_NAME = "example-sg"
 SECGROUP_DESCR = "Example Security group"
 SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
-TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker.bash")
 TACKER_CHANGECLASSI = os.path.join(SFC_TEST_DIR, "sfc_change_classi.bash")
 ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 json_results = {"tests": 4, "failures": 0}
@@ -89,6 +89,7 @@ def main():
     glance_client = os_utils.get_glance_client()
     neutron_client = os_utils.get_neutron_client()
     nova_client = os_utils.get_nova_client()
+    tacker_client = os_tacker.get_tacker_client()
 
     controller_clients = test_utils.get_ssh_clients("controller", PROXY)
     compute_clients = test_utils.get_ssh_clients("compute", PROXY)
@@ -118,7 +119,46 @@ def main():
 
     srv_prv_ip = srv_instance.networks.get(NET_NAME)[0]
 
-    subprocess.call(TACKER_SCRIPT, shell=True)
+    os_tacker.create_vnfd(
+        tacker_client,
+        tosca_file=os.path.join(SFC_TEST_DIR, 'test-vnfd1.yaml'))
+    os_tacker.create_vnfd(
+        tacker_client,
+        tosca_file=os.path.join(SFC_TEST_DIR, 'test-vnfd2.yaml'))
+
+    os_tacker.create_vnf(
+        tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
+    os_tacker.create_vnf(
+        tacker_client, 'testVNF2', vnfd_name='test-vnfd2')
+
+    try:
+        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
+        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
+    except:
+        logger.error('ERROR while booting vnfs')
+        sys.exit(1)
+
+    os_tacker.create_sfc(tacker_client, 'red', chain_vnf_names=['testVNF1'])
+    os_tacker.create_sfc(tacker_client, 'blue', chain_vnf_names=['testVNF2'])
+
+    os_tacker.create_sfc_classifier(
+        tacker_client, 'red_http', sfc_name='red',
+        match={
+            'source_port': 0,
+            'dest_port': 80,
+            'protocol': 6
+        })
+
+    os_tacker.create_sfc_classifier(
+        tacker_client, 'red_ssh', sfc_name='red',
+        match={
+            'source_port': 0,
+            'dest_port': 22,
+            'protocol': 6
+        })
+
+    logger.info(test_utils.run_cmd('tacker sfc-list'))
+    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.capture_time_log,
@@ -223,7 +263,6 @@ def main():
         sys.exit(0)
 
     sys.exit(1)
-
 
 if __name__ == '__main__':
     main()
