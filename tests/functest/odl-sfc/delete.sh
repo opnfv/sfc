@@ -1,3 +1,4 @@
+source tackerc
 tacker sfc-classifier-delete red_http
 tacker sfc-classifier-delete blue_ssh
 tacker sfc-classifier-delete red_ssh
