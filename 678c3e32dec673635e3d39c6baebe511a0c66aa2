@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_aeb6ca88",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-11-30T14:16:54Z",
+      "side": 1,
+      "message": "Sorry did not notice this earlier, timeout logic is removed. What if classification rules not updated at all(Seen this couple of times). Please note we are using join() and waiting for this thread to finish. Main thread might be waiting for this capture_time_log infinitively.",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 50
+      },
+      "revId": "678c3e32dec673635e3d39c6baebe511a0c66aa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
