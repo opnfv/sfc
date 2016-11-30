@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_ae6d6a06",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-11-30T14:29:14Z",
+      "side": 1,
+      "message": "Not sure I can comment here since its already merged, This vnf_name\u003d\u0027test-vnfd1\u0027 can be read from test-vnfd1.yaml I think. will it work if it doesn\u0027t match?",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 58
+      },
+      "revId": "34ac334f68ad52feb34b5503a16d4f1eccffdc14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
