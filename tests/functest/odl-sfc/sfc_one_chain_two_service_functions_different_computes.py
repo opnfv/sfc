@@ -6,6 +6,7 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
+from terminal_color import TerminalColor as terminal
 import re
 import ovs_utils
 import utils as test_utils
@@ -82,15 +83,21 @@ def main():
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
         logger.error(
-            '\033[91mCurrently supported only Fuel Installer type\033[0m')
+            terminal.foreground(
+                'Currently supported only Fuel Installer type',
+                'light_red'))
         sys.exit(1)
 
     installer_ip = os.environ.get("INSTALLER_IP")
     if not installer_ip:
         logger.error(
-            '\033[91minstaller ip is not set\033[0m')
+            terminal.foreground(
+                'installer ip is not set',
+                'light_red'))
         logger.error(
-            '\033[91mexport INSTALLER_IP=<ip>\033[0m')
+            terminal.foreground(
+                'export INSTALLER_IP=<ip>',
+                'light_red'))
         sys.exit(1)
 
     start_time = time.time()
@@ -195,7 +202,9 @@ def main():
     logger.info("Starting HTTP server on %s" % server_ip)
     if not test_utils.start_http_server(server_ip):
         logger.error(
-            '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
+            terminal.foreground(
+                'Failed to start HTTP server on %s' % server_ip,
+                'light_red'))
         sys.exit(1)
 
     logger.info("Starting vxlan_tool on %s" % sf2)
@@ -208,10 +217,15 @@ def main():
 
     logger.info("Test HTTP")
     if not test_utils.is_http_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 1 [PASSED] ==> HTTP WORKS\033[0m')
+        logger.info(
+            terminal.foreground(
+                'TEST 1 [PASSED] ==> HTTP WORKS',
+                'light_green'))
         update_json_results("Test 1: HTTP works", "Passed")
     else:
-        error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
+        error = terminal.foreground(
+            'TEST 1 [FAILED] ==> HTTP BLOCKED',
+            'light_red')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
@@ -225,10 +239,16 @@ def main():
 
     logger.info("Test HTTP again")
     if test_utils.is_http_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 2 [PASSED] ==> HTTP Blocked\033[0m')
+        logger.info(
+            terminal.foreground(
+                'TEST 2 [PASSED] ==> HTTP Blocked',
+                'light_green'))
         update_json_results("Test 2: HTTP Blocked", "Passed")
     else:
-        error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
+        error = (
+            terminal.foreground(
+                'TEST 2 [FAILED] ==> HTTP WORKS',
+                'light_red'))
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
@@ -236,8 +256,11 @@ def main():
 
     if json_results["failures"]:
         status = "FAIL"
-        logger.error('\033[91mSFC TESTS: %s :( FOUND %s FAIL \033[0m' % (
-            status, json_results["failures"]))
+        logger.error(
+            terminal.foreground(
+                'SFC TESTS: %s :( FOUND %s FAIL' % (
+                    status, json_results["failures"]),
+                'light_red'))
 
     if args.report:
         stop_time = time.time()
@@ -251,7 +274,10 @@ def main():
                                     json_results)
 
     if status == "PASS":
-        logger.info('\033[92mSFC ALL TESTS: %s :)\033[0m' % status)
+        logger.info(
+            terminal.foreground(
+                'SFC ALL TESTS: %s :)' % status,
+                'light_green'))
         sys.exit(0)
 
     sys.exit(1)
