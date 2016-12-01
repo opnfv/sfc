@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_1f494ad0",
+        "filename": "tests/functest/odl-sfc/delete.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2016-12-01T14:45:45Z",
+      "side": 1,
+      "message": "You should put the path to find it. It should be:\n\n${repos_dir}/sfc/tests/functest/odl-sfc/tackerc\n\nthe variable repos_dir should be in the docker container always",
+      "range": {
+        "startLine": 1,
+        "startChar": 7,
+        "endLine": 1,
+        "endChar": 14
+      },
+      "revId": "3561ed2b8c0da12d6c1c58163c8be955c2220120",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
