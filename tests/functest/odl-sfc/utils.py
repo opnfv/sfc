@@ -4,6 +4,7 @@ import time
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
+import functest.utils.openstack_tacker as os_tacker
 import re
 import json
 import SSHUtils as ssh_utils
@@ -112,9 +113,9 @@ def download_image(url, image_path):
     image_url = "%s/%s" % (url, image_filename)
     image_dir = os.path.dirname(image_path)
     if not os.path.isfile(image_path):
-        logger.info("Downloading image")
+        logger.info("Downloading image %s" % image_url)
         ft_utils.download_url(image_url, image_dir)
-    return None
+        return None
 
     logger.info("Using old image")
     return
@@ -393,3 +394,23 @@ def get_compute_nodes(nova_client, required_node_number=2):
 
     logger.debug("Compute nodes: %s" % compute_nodes)
     return compute_nodes
+
+
+def create_tacker_vnf_instance(tacker_client, tosca_file, vnf_name):
+    """Create vnf, vnfd, and wait for vnf to come up"""
+    os_tacker.create_vnfd(
+        tacker_client,
+        tosca_file=tosca_file)
+
+    vnfd_name = ft_utils.get_parameter_from_yaml(
+            "template_name", tosca_file)
+    os_tacker.create_vnf(
+        tacker_client, vnf_name, vnfd_name=vnfd_name)
+
+    try:
+        os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_name)
+    except:
+        logger.error('ERROR while booting vnfs')
+        return False
+
+    return True
