@@ -4,6 +4,7 @@ import sys
 import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
+from terminal_color import TerminalColor as terminal
 import threading
 import ovs_utils
 import utils as test_utils
@@ -39,15 +40,16 @@ def main():
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
         logger.error(
-            '\033[91mCurrently supported only Fuel Installer type\033[0m')
+            terminal.foreground(
+                'Currently supported only Fuel Installer type', 'light_red'))
         sys.exit(1)
 
     installer_ip = os.environ.get("INSTALLER_IP")
     if not installer_ip:
         logger.error(
-            '\033[91minstaller ip is not set\033[0m')
+            terminal.foreground('Installer ip is not set', 'light_red'))
         logger.error(
-            '\033[91mexport INSTALLER_IP=<ip>\033[0m')
+            terminal.foreground('export INSTALLER_IP=<ip>', 'light_red'))
         sys.exit(1)
 
     test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr)
@@ -165,7 +167,9 @@ def main():
     logger.info("Starting HTTP server on %s" % server_ip)
     if not test_utils.start_http_server(server_ip):
         logger.error(
-            '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
+            terminal.foreground(
+                'Failed to start HTTP server on %s' % server_ip,
+                'light_red'))
         sys.exit(1)
 
     logger.info("Starting HTTP firewall on %s" % sf2)
@@ -180,7 +184,9 @@ def main():
     if test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
         results.add_to_summary(2, "PASS", "SSH Blocked")
     else:
-        error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
+        error = terminal.foreground(
+            'TEST 1 [FAILED] ==> SSH NOT BLOCKED',
+            'light_red')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
@@ -190,7 +196,9 @@ def main():
     if not test_utils.is_http_blocked(srv_prv_ip, client_ip):
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
-        error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
+        error = terminal.foreground(
+            'TEST 2 [FAILED] ==> HTTP BLOCKED',
+            'light_red')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
@@ -233,7 +241,9 @@ def main():
     if test_utils.is_http_blocked(srv_prv_ip, client_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
-        error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
+        error = (terminal.foreground(
+            'TEST 3 [FAILED] ==> HTTP WORKS',
+            'light_red'))
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
@@ -243,7 +253,9 @@ def main():
     if not test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
         results.add_to_summary(2, "PASS", "SSH works")
     else:
-        error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
+        error = (terminal.foreground(
+            'TEST 4 [FAILED] ==> SSH BLOCKED',
+            'light_red'))
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
