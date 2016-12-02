@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_c2ce8683",
+        "filename": "tests/functest/odl-sfc/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2479
+      },
+      "writtenOn": "2016-12-02T10:21:43Z",
+      "side": 1,
+      "message": "This whole thing is copy pasted from sdnvpn. Let\u0027s move this to a module in functest that everyone can access.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "66f1a5fc35ba09ee629ee08f78a0ec38d3c34ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_e2cb8270",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2479
+      },
+      "writtenOn": "2016-12-02T10:21:43Z",
+      "side": 1,
+      "message": "why was this moved from a module level constant to here? It still is a constant, I think this is a needless change.",
+      "range": {
+        "startLine": 70,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "66f1a5fc35ba09ee629ee08f78a0ec38d3c34ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a2c57a5c",
+        "filename": "tests/functest/odl-sfc/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2479
+      },
+      "writtenOn": "2016-12-02T10:21:43Z",
+      "side": 1,
+      "message": "This should be if/else, not break with returns, it makes the logic murky. Also, should be in a different commit",
+      "range": {
+        "startLine": 116,
+        "startChar": 1,
+        "endLine": 121,
+        "endChar": 10
+      },
+      "revId": "66f1a5fc35ba09ee629ee08f78a0ec38d3c34ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
