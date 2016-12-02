@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_02ac8e9f",
+        "filename": "tests/functest/odl-sfc/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-12-02T10:44:20Z",
+      "side": 1,
+      "message": "This was discussed in mail that we wanted this way hence took it with few modifications. Also configs are more specific to sfc and its subtests. Not sure how make it more generic. Requires discussion.",
+      "parentUuid": "5ac10518_c2ce8683",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "66f1a5fc35ba09ee629ee08f78a0ec38d3c34ca0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_e2cb8270",
         "filename": "tests/functest/odl-sfc/sfc.py",
         "patchSetId": 2
