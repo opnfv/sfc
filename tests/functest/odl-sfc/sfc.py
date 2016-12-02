@@ -9,6 +9,7 @@ import functest.utils.openstack_tacker as os_tacker
 import threading
 import ovs_utils
 import utils as test_utils
+import config as sfc_config
 
 
 parser = argparse.ArgumentParser()
@@ -22,33 +23,16 @@ args = parser.parse_args()
 """ logging configuration """
 logger = ft_logger.Logger("ODL_SFC").getLogger()
 
-FUNCTEST_RESULTS_DIR = '/home/opnfv/functest/results/odl-sfc'
-REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
 CLIENT = "client"
 SERVER = "server"
-FLAVOR = "custom"
-IMAGE_NAME = "sf_nsh_colorado"
-IMAGE_FILENAME = "sf_nsh_colorado.qcow2"
-IMAGE_FORMAT = "qcow2"
-IMAGE_DIR = "/home/opnfv/functest/data"
-IMAGE_PATH = os.path.join(IMAGE_DIR, IMAGE_FILENAME)
-URL = "http://artifacts.opnfv.org/sfc/demo"
-
-# NEUTRON Private Network parameters
-NET_NAME = "example-net"
-SUBNET_NAME = "example-subnet"
-SUBNET_CIDR = "11.0.0.0/24"
-ROUTER_NAME = "example-router"
-SECGROUP_NAME = "example-sg"
-SECGROUP_DESCR = "Example Security group"
-SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
-ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 json_results = {"tests": 4, "failures": 0}
+COMMON_CONFIG = sfc_config.CommonConfig()
+TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
 
 PROXY = {
-    'ip': '10.20.0.2',
-    'username': 'root',
-    'password': 'r00tme'
+    'ip': COMMON_CONFIG.fuel_master_ip,
+    'username': COMMON_CONFIG.fuel_master_uname,
+    'password': COMMON_CONFIG.fuel_master_passwd
 }
 
 
@@ -78,9 +62,10 @@ def main():
     start_time = time.time()
     status = "PASS"
     test_utils.configure_iptables()
-    test_utils.download_image(URL, IMAGE_PATH)
+    test_utils.download_image(COMMON_CONFIG.url,
+                              COMMON_CONFIG.image_path)
     _, custom_flv_id = os_utils.get_or_create_flavor(
-        FLAVOR, 1500, 10, 1, public=True)
+        COMMON_CONFIG.flavor, 1500, 10, 1, public=True)
     if not custom_flv_id:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
@@ -94,40 +79,45 @@ def main():
     compute_clients = test_utils.get_ssh_clients("compute", PROXY)
 
     ovs_logger = ovs_utils.OVSLogger(
-        os.path.join(SFC_TEST_DIR, 'ovs-logs'),
-        FUNCTEST_RESULTS_DIR)
+        os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
+        COMMON_CONFIG.functest_results_dir)
 
     image_id = os_utils.create_glance_image(glance_client,
-                                            IMAGE_NAME,
-                                            IMAGE_PATH,
-                                            IMAGE_FORMAT,
+                                            COMMON_CONFIG.image_name,
+                                            COMMON_CONFIG.image_path,
+                                            COMMON_CONFIG.image_format,
                                             public=True)
 
     network_id = test_utils.setup_neutron(neutron_client,
-                                          NET_NAME,
-                                          SUBNET_NAME,
-                                          ROUTER_NAME,
-                                          SUBNET_CIDR)
+                                          TESTCASE_CONFIG.net_name,
+                                          TESTCASE_CONFIG.subnet_name,
+                                          TESTCASE_CONFIG.router_name,
+                                          TESTCASE_CONFIG.subnet_cidr)
 
     sg_id = test_utils.create_security_groups(neutron_client,
-                                              SECGROUP_NAME,
-                                              SECGROUP_DESCR)
+                                              TESTCASE_CONFIG.secgroup_name,
+                                              TESTCASE_CONFIG.secgroup_descr)
 
     test_utils.create_instance(
-        nova_client, CLIENT, FLAVOR, image_id,
+        nova_client, CLIENT, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id)
     srv_instance = test_utils.create_instance(
-        nova_client, SERVER, FLAVOR, image_id,
+        nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id)
 
-    srv_prv_ip = srv_instance.networks.get(NET_NAME)[0]
+    srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              TESTCASE_CONFIG.test_vnfd_red)
     os_tacker.create_vnfd(
         tacker_client,
-        tosca_file=os.path.join(SFC_TEST_DIR, 'test-vnfd1.yaml'))
+        tosca_file=tosca_file)
+
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              TESTCASE_CONFIG.test_vnfd_blue)
     os_tacker.create_vnfd(
         tacker_client,
-        tosca_file=os.path.join(SFC_TEST_DIR, 'test-vnfd2.yaml'))
+        tosca_file=tosca_file)
 
     os_tacker.create_vnf(
         tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
