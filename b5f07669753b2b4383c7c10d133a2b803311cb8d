@@ -22,6 +22,30 @@
       "revId": "b5f07669753b2b4383c7c10d133a2b803311cb8d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_b37cee21",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-12-05T09:41:53Z",
+      "side": 1,
+      "message": "Server and client looks good for me since we are running http_server on server and nc on client. Do you think this required to be moved to config file? if so I will propose another patch if its fine.",
+      "parentUuid": "5ac10518_13d0624f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 17
+      },
+      "revId": "b5f07669753b2b4383c7c10d133a2b803311cb8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
