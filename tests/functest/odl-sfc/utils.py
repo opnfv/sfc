@@ -273,6 +273,11 @@ def vxlan_firewall(sf, iface="eth0", port="22", block=True):
     run_cmd_remote(sf, cmd)
 
 
+def vxlan_tool_stop(sf):
+    cmd = "pkill -f vxlan_tool.py"
+    run_cmd_remote(sf, cmd)
+
+
 def netcat(s_ip, c_ip, port="80", timeout=5):
     """Run netcat on a give machine, Can be VM"""
     cmd = "nc -zv "
