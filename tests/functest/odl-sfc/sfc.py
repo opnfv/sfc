@@ -10,6 +10,7 @@ import threading
 import ovs_utils
 import utils as test_utils
 import config as sfc_config
+from results import Results
 
 
 parser = argparse.ArgumentParser()
@@ -25,7 +26,6 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 
 CLIENT = "client"
 SERVER = "server"
-json_results = {"tests": 4, "failures": 0}
 COMMON_CONFIG = sfc_config.CommonConfig()
 TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
 
@@ -36,15 +36,12 @@ PROXY = {
 }
 
 
-def update_json_results(name, result):
-    json_results.update({name: result})
-    if result is not "Passed":
-        json_results["failures"] += 1
-
-    return
-
-
 def main():
+    results = Results(COMMON_CONFIG.line_length)
+    results.add_to_summary(0, "=")
+    results.add_to_summary(2, "STATUS", "SUBTEST")
+    results.add_to_summary(0, "=")
+
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
         logger.error(
@@ -184,25 +181,23 @@ def main():
 
     logger.info("Test SSH")
     if test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 1 [PASSED] ==> SSH BLOCKED\033[0m')
-        update_json_results("Test 1: SSH Blocked", "Passed")
+        results.add_to_summary(2, "PASS", "SSH Blocked")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 1: SSH Blocked", "Failed")
+        results.add_to_summary(2, "FAIL", "SSH Blocked")
 
     logger.info("Test HTTP")
     if not test_utils.is_http_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 2 [PASSED] ==> HTTP WORKS\033[0m')
-        update_json_results("Test 2: HTTP works", "Passed")
+        results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 2: HTTP works", "Failed")
+        results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Changing the classification")
     os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name='red_http')
@@ -239,40 +234,39 @@ def main():
 
     logger.info("Test HTTP")
     if test_utils.is_http_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 3 [PASSED] ==> HTTP Blocked\033[0m')
-        update_json_results("Test 3: HTTP Blocked", "Passed")
+        results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 3: HTTP Blocked", "Failed")
+        results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
     logger.info("Test SSH")
     if not test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
-        logger.info('\033[92mTEST 4 [PASSED] ==> SSH Works\033[0m')
-        update_json_results("Test 4: SSH Works", "Passed")
+        results.add_to_summary(2, "PASS", "SSH works")
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_err_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 4: SSH Works", "Failed")
+        results.add_to_summary(2, "FAIL", "SSH works")
 
-    if json_results["failures"]:
+    if results.num_tests_failed > 0:
         status = "FAIL"
         logger.error('\033[91mSFC TESTS: %s :( FOUND %s FAIL \033[0m' % (
-            status, json_results["failures"]))
+            status, results.num_tests_failed))
 
     if args.report:
+        details = results["details"]
         stop_time = time.time()
-        logger.debug("Promise Results json: " + str(json_results))
+        logger.debug("Promise Results json: " + str(details))
         ft_utils.push_results_to_db("sfc",
                                     "sfc_two_chains_SSH_and_HTTP",
                                     start_time,
                                     stop_time,
                                     status,
-                                    json_results)
+                                    details)
         ovs_logger.create_artifact_archive()
 
     if status == "PASS":
