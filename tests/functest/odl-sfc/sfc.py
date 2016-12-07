@@ -1,9 +1,7 @@
 import argparse
 import os
 import sys
-import time
 import functest.utils.functest_logger as ft_logger
-import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 import threading
@@ -27,7 +25,9 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 CLIENT = "client"
 SERVER = "server"
 COMMON_CONFIG = sfc_config.CommonConfig()
-TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
+# TestcaseConfig sfc name will be changed once
+# we rename sfc.py with appropriate name
+TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc')
 
 PROXY = {
     'ip': COMMON_CONFIG.fuel_master_ip,
@@ -56,8 +56,6 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
-    start_time = time.time()
-    status = "PASS"
     test_utils.configure_iptables()
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
@@ -252,28 +250,7 @@ def main():
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH works")
 
-    if results.num_tests_failed > 0:
-        status = "FAIL"
-        logger.error('\033[91mSFC TESTS: %s :( FOUND %s FAIL \033[0m' % (
-            status, results.num_tests_failed))
-
-    if args.report:
-        details = results["details"]
-        stop_time = time.time()
-        logger.debug("Promise Results json: " + str(details))
-        ft_utils.push_results_to_db("sfc",
-                                    "sfc_two_chains_SSH_and_HTTP",
-                                    start_time,
-                                    stop_time,
-                                    status,
-                                    details)
-        ovs_logger.create_artifact_archive()
-
-    if status == "PASS":
-        logger.info('\033[92mSFC ALL TESTS: %s :)\033[0m' % status)
-        sys.exit(0)
-
-    sys.exit(1)
+    return results.compile_summary()
 
 
 if __name__ == '__main__':
