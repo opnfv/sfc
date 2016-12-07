@@ -114,10 +114,8 @@ def download_image(url, image_path):
     if not os.path.isfile(image_path):
         logger.info("Downloading image")
         ft_utils.download_url(image_url, image_dir)
-    return None
-
-    logger.info("Using old image")
-    return
+    else:
+        logger.info("Using old image")
 
 
 def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):
