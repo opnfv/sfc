@@ -103,12 +103,14 @@ def main():
     srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_red)
     os_tacker.create_vnfd(
         tacker_client,
         tosca_file=tosca_file)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
     os_tacker.create_vnfd(
         tacker_client,

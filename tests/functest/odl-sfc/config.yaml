@@ -7,6 +7,7 @@ defaults:
   fuel_master_passwd: r00tme
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/demo"
+  vnfd-dir: "vnfd-templates"
 
 testcases:
 # this change requires sfc.py to be renamed as sfc_two_chains_SSH_and_HTTP

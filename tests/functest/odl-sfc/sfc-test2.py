@@ -45,8 +45,8 @@ SECGROUP_NAME = "example-sg"
 SECGROUP_DESCR = "Example Security group"
 SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
 TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker_test2.bash")
-TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "test2-vnfd1.yaml")
-TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "test2-vnfd2.yaml")
+TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd1.yaml")
+TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd2.yaml")
 ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 json_results = {"tests": 4, "failures": 0}
 
