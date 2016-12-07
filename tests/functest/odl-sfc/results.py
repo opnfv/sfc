@@ -43,11 +43,10 @@ class Results(object):
 
         self.add_to_summary(0, "=")
         logger.info("\n%s" % self.summary)
-        status = "FAILED"
-        if self.test_result == "PASS":
-            status = "PASS"
+        if self.num_tests_failed == 0:
+            self.test_result = "PASS"
             logger.info(success_message)
         else:
             logger.info(failure_message)
 
-        return {"status": status, "details": self.details}
+        return {"status": self.test_result, "details": self.details}
