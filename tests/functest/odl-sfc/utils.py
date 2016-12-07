@@ -114,9 +114,9 @@ def download_image(url, image_path):
     if not os.path.isfile(image_path):
         logger.info("Downloading image")
         ft_utils.download_url(image_url, image_dir)
-    return None
+    else:
+        logger.info("Using old image")
 
-    logger.info("Using old image")
     return
 
 
