@@ -9,7 +9,11 @@ defaults:
   url: "http://artifacts.opnfv.org/sfc/demo"
 
 testcases:
-  sfc_two_chains_SSH_and_HTTP:
+# this change requires sfc.py to be renamed as sfc_two_chains_SSH_and_HTTP
+# for run_tests.py integration. Rename of sfc.py will be submitted in
+# separate patch for better review clarity and name will be changed back to
+# sfc_two_chains_SSH_and_HTTP once sfc.py is renamed
+  sfc:
       enabled: true
       description: "ODL-SFC tests"
       testname_db: "sfc_two_chains_SSH_and_HTTP"
