@@ -29,12 +29,6 @@ COMMON_CONFIG = sfc_config.CommonConfig()
 # we rename sfc.py with appropriate name
 TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc')
 
-PROXY = {
-    'ip': COMMON_CONFIG.fuel_master_ip,
-    'username': COMMON_CONFIG.fuel_master_uname,
-    'password': COMMON_CONFIG.fuel_master_passwd
-}
-
 
 def main():
     results = Results(COMMON_CONFIG.line_length)
@@ -56,6 +50,7 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
+    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr)
     test_utils.configure_iptables()
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
@@ -70,8 +65,10 @@ def main():
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
 
-    controller_clients = test_utils.get_ssh_clients("controller", PROXY)
-    compute_clients = test_utils.get_ssh_clients("compute", PROXY)
+    controller_clients = test_utils.get_ssh_clients("controller",
+                                                    COMMON_CONFIG.fuel_proxy)
+    compute_clients = test_utils.get_ssh_clients("compute",
+                                                 COMMON_CONFIG.fuel_proxy)
 
     ovs_logger = ovs_utils.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
