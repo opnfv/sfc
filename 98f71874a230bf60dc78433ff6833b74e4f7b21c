@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_fe7236e4",
+        "filename": "tests/functest/odl-sfc/sfc.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-12-08T15:41:24Z",
+      "side": 1,
+      "message": "Oops. config.py doesn\u0027t have this variably",
+      "range": {
+        "startLine": 106,
+        "startChar": 29,
+        "endLine": 106,
+        "endChar": 53
+      },
+      "revId": "98f71874a230bf60dc78433ff6833b74e4f7b21c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
