@@ -18,6 +18,7 @@ import ovs_utils
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import yaml
+import utils
 
 
 parser = argparse.ArgumentParser()
@@ -40,7 +41,33 @@ def push_results(testname, start_time, end_time, criteria, details):
                                 details)
 
 
+def get_from_tackerc_file(env):
+    cmd = "grep -o %s=.* tackerc|cut -d= -f2" % env
+    value = utils.run_cmd_on_controller(cmd)
+    if not value:
+        logger.info("failed to get value for %s" % env)
+        return None
+
+    return eval(value)
+
+
+def set_tacker_rc_file_env():
+    os_password = get_from_tackerc_file("OS_PASSWORD")
+    os_auth_url = get_from_tackerc_file("OS_AUTH_URL")
+    os.environ['OS_NO_CACHE'] = 'true'
+    os.environ['OS_TENANT_NAME'] = 'services'
+    os.environ['OS_PROJECT_NAME'] = 'services'
+    os.environ['OS_USERNAME'] = 'tacker'
+    os.environ['OS_PASSWORD'] = os_password
+    os.environ['OS_AUTH_URL'] = os_auth_url
+    os.environ['OS_DEFAULT_DOMAIN'] = 'default'
+    os.environ['OS_AUTH_STRATEGY'] = 'keystone'
+    os.environ['OS_REGION_NAME'] = 'RegionOne'
+    os.environ['TACKER_ENDPOINT_TYPE'] = 'internalURL'
+
+
 def main():
+    set_tacker_rc_file_env()
     ovs_logger = ovs_utils.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)

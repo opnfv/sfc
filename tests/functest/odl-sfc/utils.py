@@ -380,3 +380,13 @@ def get_compute_nodes(nova_client, required_node_number=2):
 
     logger.debug("Compute nodes: %s" % compute_nodes)
     return compute_nodes
+
+
+def setup_compute_node(cidr):
+    logger.info("bringing up br-int iface")
+    run_cmd_on_compute("ifconfig br-int up")
+    if not run_cmd_on_compute("ip route|grep -o %s" % cidr):
+        logger.info("adding route %s" % cidr)
+        return run_cmd_on_compute("ip route add %s" % cidr)
+    else:
+        logger.info("route %s exists" % cidr)
