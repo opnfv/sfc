@@ -104,8 +104,6 @@ def configure_iptables():
         logger.info("Configuring %s on contoller" % cmd)
         run_cmd_on_controller(cmd)
 
-    return
-
 
 def download_image(url, image_path):
     image_filename = os.path.basename(image_path)
@@ -143,7 +141,6 @@ def setup_ingress_egress_secgroup(neutron_client, protocol,
                                       'egress', protocol,
                                       port_range_min=min_port,
                                       port_range_max=max_port)
-    return
 
 
 def create_security_groups(neutron_client, secgroup_name, secgroup_descr):
@@ -310,7 +307,6 @@ def capture_err_logs(ovs_logger, controller_clients, compute_clients, error):
                              compute_clients,
                              related_error=error,
                              timestamp=timestamp)
-    return
 
 
 def get_ssh_clients(role, proxy):
@@ -340,8 +336,8 @@ def check_ssh(ips, retries=100):
     return False
 
 
-# Measure the time it takes to update the classification rules
 def timethis(func):
+    """Measure the time it takes to update the classification rules"""
     @functools.wraps(func)
     def timed(*args, **kwargs):
         ts = time.time()

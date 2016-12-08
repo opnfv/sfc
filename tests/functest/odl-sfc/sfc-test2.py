@@ -56,10 +56,10 @@ PROXY = {
     'password': 'r00tme'
 }
 
-# run given command locally and return commands output if success
 
 
 def run_cmd(cmd, wdir=None, ignore_stderr=False, ignore_no_output=True):
+    """run given command locally and return command's output if success"""
     pipe = subprocess.Popen(cmd, shell=True,
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
@@ -84,10 +84,10 @@ def run_cmd(cmd, wdir=None, ignore_stderr=False, ignore_no_output=True):
 
     return output
 
-# run given command on OpenStack controller
 
 
 def run_cmd_on_cntlr(cmd):
+    """run given command on first OpenStack controller"""
     ip_cntlrs = get_openstack_node_ips("controller")
     if not ip_cntlrs:
         return None
@@ -95,10 +95,10 @@ def run_cmd_on_cntlr(cmd):
     ssh_cmd = "ssh %s %s %s" % (ssh_options, ip_cntlrs[0], cmd)
     return run_cmd_on_fm(ssh_cmd)
 
-# run given command on OpenStack Compute node
 
 
 def run_cmd_on_compute(cmd):
+    """run given command on first OpenStack Compute node"""
     ip_computes = get_openstack_node_ips("compute")
     if not ip_computes:
         return None
@@ -106,28 +106,28 @@ def run_cmd_on_compute(cmd):
     ssh_cmd = "ssh %s %s %s" % (ssh_options, ip_computes[0], cmd)
     return run_cmd_on_fm(ssh_cmd)
 
-# run given command on Fuel Master
 
 
 def run_cmd_on_fm(cmd, username="root", passwd="r00tme"):
+    """run given command on Fuel Master"""
     ip = os.environ.get("INSTALLER_IP")
     ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
         passwd, ssh_options, username, ip, cmd)
     return run_cmd(ssh_cmd)
 
-# run given command on Remote Machine, Can be VM
 
 
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
+    """run given command on Remote Machine"""
     ssh_opt_append = "%s -o ConnectTimeout=50 " % ssh_options
     ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
         passwd, ssh_opt_append, username, ip, cmd)
     return run_cmd(ssh_cmd)
 
-# Get OpenStack Nodes IP Address
 
 
 def get_openstack_node_ips(role):
+    """Get OpenStack Nodes IP Address"""
     fuel_env = os.environ.get("FUEL_ENV")
     if fuel_env is not None:
         cmd = "fuel2 node list -f json -e %s" % fuel_env
@@ -143,10 +143,10 @@ def get_openstack_node_ips(role):
 
     return ips
 
-# Configures IPTABLES on OpenStack Controller
 
 
 def configure_iptables():
+    """Configure IPTABLES on OpenStack Controller"""
     iptable_cmds = ["iptables -P INPUT ACCEPT",
                     "iptables -t nat -P INPUT ACCEPT",
                     "iptables -A INPUT -m state \
@@ -156,8 +156,6 @@ def configure_iptables():
         logger.info("Configuring %s on contoller" % cmd)
         run_cmd_on_cntlr(cmd)
 
-    return
-
 
 def download_image():
     if not os.path.isfile(IMAGE_PATH):
@@ -165,7 +163,6 @@ def download_image():
         ft_utils.download_url(IMAGE_URL, IMAGE_DIR)
 
     logger.info("Using old image")
-    return
 
 
 def setup_glance(glance_client):
@@ -205,7 +202,6 @@ def setup_ingress_egress_secgroup(neutron_client, protocol,
                                       'egress', protocol,
                                       port_range_min=min_port,
                                       port_range_max=max_port)
-    return
 
 
 def setup_security_groups(neutron_client):
@@ -218,7 +214,6 @@ def setup_security_groups(neutron_client):
     return sg_id
 
 
-# JIRA: SFC-52 new function
 def setup_availability_zones(nova_client):
     computes = os_utils.get_hypervisors(nova_client)
     az = ["nova::" + computes[0], "nova::" + computes[1]]
@@ -226,7 +221,6 @@ def setup_availability_zones(nova_client):
     return az
 
 
-# JIRA: SFC-52 new function
 def modify_vnfd(tacker_vnfd, az):
     try:
         with open(tacker_vnfd, 'r') as stream:
@@ -239,7 +233,6 @@ def modify_vnfd(tacker_vnfd, az):
         logger.error("Problem when changing vnfd %s" % e)
 
 
-# JIRA: SFC-52 new function
 def prepare_tacker_vnfd(nova_client):
     azs = setup_availability_zones(nova_client)
     modify_vnfd(TACKER_VNFD1, azs[0])
@@ -330,18 +323,18 @@ def get_floating_ips(nova_client, neutron_client):
 
     return server_ip, client_ip, ips[1], ips[0]
 
-# Start http server on a give machine, Can be VM
 
 
 def start_http_server(ip):
+    """Start http server on a given machine"""
     cmd = "\'python -m SimpleHTTPServer 80"
     cmd = cmd + " > /dev/null 2>&1 &\'"
     return run_cmd_remote(ip, cmd)
 
-# Set firewall using vxlan_tool.py on a give machine, Can be VM
 
 
 def vxlan_firewall(sf, iface="eth0", port="22", block=True):
+    """Set firewall using vxlan_tool.py on a give machine"""
     cmd = "python vxlan_tool.py"
     cmd = cmd + " -i " + iface + " -d forward -v off"
     if block:
@@ -350,18 +343,17 @@ def vxlan_firewall(sf, iface="eth0", port="22", block=True):
     cmd = "sh -c 'cd /root;nohup " + cmd + " > /dev/null 2>&1 &'"
     run_cmd_remote(sf, cmd)
 
-# Stop the vxlan_tool process if it was working
 
 
-# JIRA: SFC-52 added function
 def vxlan_tool_stop(sf):
+    """Stop the vxlan_tool process"""
     cmd = "pkill -f vxlan_tool.py"
     run_cmd_remote(sf, cmd)
 
-# Run netcat on a give machine, Can be VM
 
 
 def netcat(s_ip, c_ip, port="80", timeout=5):
+    """Run netcat on a give machine, Can be VM"""
     cmd = "nc -zv "
     cmd = cmd + " -w %s %s %s" % (timeout, s_ip, port)
     cmd = cmd + " 2>&1"
@@ -398,15 +390,12 @@ def capture_err_logs(controller_clients, compute_clients, error):
                              compute_clients,
                              related_error=error,
                              timestamp=timestamp)
-    return
 
 
 def update_json_results(name, result):
     json_results.update({name: result})
     if result is not "Passed":
         json_results["failures"] += 1
-
-    return
 
 
 def get_ssh_clients(role):
@@ -419,10 +408,10 @@ def get_ssh_clients(role):
 
     return clients
 
-# Check SSH connectivity to VNFs
 
 
 def check_ssh(ips, retries=100):
+    """Check SSH connectivity to VNFs"""
     check = [False, False]
     logger.info("Checking SSH connectivity to the SFs with ips %s" % str(ips))
     while retries and not all(check):
@@ -438,10 +427,10 @@ def check_ssh(ips, retries=100):
 
     return False
 
-# Measure the time it takes to update the classification rules
 
 
 def capture_time_log(compute_clients):
+    """Measure the time it takes to update the classification rules"""
     ovs_logger = ovs_utils.OVSLogger(
         os.path.join(os.getcwd(), 'ovs-logs'),
         "test")
@@ -466,7 +455,6 @@ def capture_time_log(compute_clients):
                     logger.info("It took %s seconds" % difference)
                     break
         time.sleep(1)
-    return
 
 
 def main():
