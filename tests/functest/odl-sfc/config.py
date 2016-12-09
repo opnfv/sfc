@@ -29,6 +29,11 @@ class CommonConfig(object):
             "defaults.fuel_master_uname", self.config_file)
         self.fuel_master_passwd = ft_utils.get_parameter_from_yaml(
             "defaults.fuel_master_passwd", self.config_file)
+        self.fuel_proxy = {
+            'ip': self.fuel_master_ip,
+            'username': self.fuel_master_uname,
+            'password': self.fuel_master_passwd
+        }
         self.flavor = ft_utils.get_parameter_from_yaml(
             "defaults.flavor", self.config_file)
         self.image_name = ft_utils.get_parameter_from_yaml(

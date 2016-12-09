@@ -18,6 +18,8 @@ import ovs_utils
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import yaml
+import utils
+import SSHUtils as ssh_utils
 
 
 parser = argparse.ArgumentParser()
@@ -40,7 +42,33 @@ def push_results(testname, start_time, end_time, criteria, details):
                                 details)
 
 
+def get_tackerc_file():
+    rc_file = os.path.join(COMMON_CONFIG.sfc_test_dir, 'tackerc')
+    if not os.path.exists(rc_file):
+        logger.info("tackerc file not found, getting it from controller")
+        ip = utils.get_openstack_node_ips("controller")
+        ssh_conn = ssh_utils.get_ssh_client(ip[0], 'root',
+                                            proxy=COMMON_CONFIG.fuel_proxy)
+        ssh_utils.get_file(ssh_conn, "tackerc", rc_file)
+    else:
+        logger.info("found tackerc file")
+
+    return rc_file
+
+
+def set_tacker_rc_file_env():
+    rc_file = get_tackerc_file()
+    with open(rc_file) as f:
+        for line in f.readlines():
+            if not (line.startswith('#') or len(line) == 1):
+                filtered = line.strip().split(' ')
+                kv = filtered[1].split('=')
+                logger.info("Set shell env %s=%s" % (kv[0], kv[1]))
+                os.environ[kv[0]] = kv[1].strip("'")
+
+
 def main():
+    set_tacker_rc_file_env()
     ovs_logger = ovs_utils.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
