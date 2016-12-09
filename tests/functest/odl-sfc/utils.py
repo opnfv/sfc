@@ -149,7 +149,7 @@ def create_security_groups(neutron_client, secgroup_name, secgroup_descr):
     setup_ingress_egress_secgroup(neutron_client, "icmp")
     setup_ingress_egress_secgroup(neutron_client, "tcp", 22, 22)
     setup_ingress_egress_secgroup(neutron_client, "tcp", 80, 80)
-
+    setup_ingress_egress_secgroup(neutron_client, "udp", 67, 68)
     return sg_id
 
 
