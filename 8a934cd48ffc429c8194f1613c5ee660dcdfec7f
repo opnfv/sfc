@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ac10518_5cdb521b",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2479
+      },
+      "writtenOn": "2016-12-09T10:05:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I understand why eval is needed. It should not be used as a casting operator to convert stuff into python strings.",
+      "parentUuid": "5ac10518_dc6e62c9",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "8a934cd48ffc429c8194f1613c5ee660dcdfec7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac10518_7ce40e3b",
         "filename": "tests/functest/odl-sfc/run_tests.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-12-09T07:50:41Z",
       "side": 1,
       "message": "You can replace all the hardcoded values and ugly greps with simple file parsing: \n\nwith open(\u0027tackerc\u0027) as f:\n     for line in f.readlines():\n         if not (line.startswith(\u0027#\u0027) or len(line) \u003d\u003d 1):\n             filtered \u003d line.strip().split(\u0027 \u0027)\n             kv \u003d filtered[1].split(\u0027\u003d\u0027)\n             os.environ[kv[0]] \u003d kv[1]",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "8a934cd48ffc429c8194f1613c5ee660dcdfec7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_dce742e3",
+        "filename": "tests/functest/odl-sfc/run_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2479
+      },
+      "writtenOn": "2016-12-09T10:05:51Z",
+      "side": 1,
+      "message": "Seconded. Load the whole file and parse it in python instead of shelling out to bash for the line splitting. Maybe add some logging too on what key/value is being loaded.",
+      "parentUuid": "5ac10518_7ce40e3b",
       "range": {
         "startLine": 44,
         "startChar": 0,
