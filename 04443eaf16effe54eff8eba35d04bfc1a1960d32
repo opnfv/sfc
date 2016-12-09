@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: George Paraskevopoulos <geopar@intracom-telecom.com>
+Code-Review+2: Manuel Buil <manuelbuil87@gmail.com>
+Submitted-by: Manuel Buil <manuelbuil87@gmail.com>
+Submitted-at: Fri, 09 Dec 2016 14:29:58 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/25677
+Project: sfc
+Branch: refs/heads/master
