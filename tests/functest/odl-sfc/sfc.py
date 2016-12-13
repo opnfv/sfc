@@ -169,9 +169,9 @@ def main():
         sys.exit(1)
 
     logger.info("Starting HTTP firewall on %s" % sf2)
-    test_utils.vxlan_firewall(sf2, port="80")
+    test_utils.vxlan_firewall(sf2, COMMON_CONFIG.url_vxlan_tool, port="80")
     logger.info("Starting SSH firewall on %s" % sf1)
-    test_utils.vxlan_firewall(sf1, port="22")
+    test_utils.vxlan_firewall(sf1, COMMON_CONFIG.url_vxlan_tool, port="22")
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()

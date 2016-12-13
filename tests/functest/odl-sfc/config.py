@@ -44,6 +44,8 @@ class CommonConfig(object):
             "defaults.image_format", self.config_file)
         self.url = ft_utils.get_parameter_from_yaml(
             "defaults.url", self.config_file)
+        self.url_vxlan_tool = ft_utils.get_parameter_from_yaml(
+            "defaults.url_vxlan_tool", self.config_file)
         self.dir_functest_data = ft_utils.get_functest_config(
             "general.directories.dir_functest_data")
         self.image_path = os.path.join(

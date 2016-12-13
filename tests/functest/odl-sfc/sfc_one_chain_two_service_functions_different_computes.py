@@ -199,9 +199,9 @@ def main():
         sys.exit(1)
 
     logger.info("Starting vxlan_tool on %s" % sf2)
-    test_utils.vxlan_firewall(sf2, block=False)
+    test_utils.vxlan_firewall(sf2, COMMON_CONFIG.url_vxlan_tool, block=False)
     logger.info("Starting vxlan_tool on %s" % sf1)
-    test_utils.vxlan_firewall(sf1, block=False)
+    test_utils.vxlan_firewall(sf1, COMMON_CONFIG.url_vxlan_tool, block=False)
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     time.sleep(100)
@@ -221,7 +221,7 @@ def main():
 
     # Make SF1 block now http traffic
     test_utils.vxlan_tool_stop(sf1)
-    test_utils.vxlan_firewall(sf1, port="80")
+    test_utils.vxlan_firewall(sf1, COMMON_CONFIG.url_vxlan_tool, port="80")
 
     logger.info("Test HTTP again")
     if test_utils.is_http_blocked(srv_prv_ip, client_ip):
@@ -255,6 +255,7 @@ def main():
         sys.exit(0)
 
     sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

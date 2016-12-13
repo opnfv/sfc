@@ -263,14 +263,23 @@ def start_http_server(ip):
     return True
 
 
-def vxlan_firewall(sf, iface="eth0", port="22", block=True):
+def vxlan_firewall(sf, vxlan_tool_url, iface="eth0", port="22", block=True):
     """Set firewall using vxlan_tool.py on a given machine, Can be VM"""
+    if not run_cmd_remote(sf, "test -e vxlan_tool.py"):
+        logger.info("vxlan_tool.py not found, trying to get")
+        cmd = "curl %s -o vxlan_tool.py" % vxlan_tool_url
+        if not run_cmd_remote(sf, cmd):
+            logger.error("failed to get vxlan_tool.py")
+            return False
+    else:
+        logger.info("vxlan_tool.py found")
+
     cmd = "python vxlan_tool.py -i %s -d forward -v off" % iface
     if block:
         cmd = "python vxlan_tool.py -i eth0 -d forward -v off -b %s" % port
 
     cmd = "sh -c 'cd /root;nohup " + cmd + " > /dev/null 2>&1 &'"
-    run_cmd_remote(sf, cmd)
+    return run_cmd_remote(sf, cmd)
 
 
 def vxlan_tool_stop(sf):

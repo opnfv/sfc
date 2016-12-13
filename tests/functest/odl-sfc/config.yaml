@@ -7,6 +7,7 @@ defaults:
   fuel_master_passwd: r00tme
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/demo"
+  url_vxlan_tool: "https://raw.githubusercontent.com/opendaylight/sfc/master/sfc-test/nsh-tools/vxlan_tool.py"
   vnfd-dir: "vnfd-templates"
 
 testcases:
