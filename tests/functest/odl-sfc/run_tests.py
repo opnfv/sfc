@@ -14,7 +14,7 @@ import importlib
 import os
 import sys
 import time
-import ovs_utils
+import opnfv.utils.ovs_logger as ovs_log
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import yaml
@@ -69,7 +69,7 @@ def set_tacker_rc_file_env():
 
 def main():
     set_tacker_rc_file_env()
-    ovs_logger = ovs_utils.OVSLogger(
+    ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 

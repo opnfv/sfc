@@ -355,14 +355,34 @@ def timethis(func):
     return timed
 
 
+def ofctl_time_counter(ovs_logger, ssh_conn):
+    try:
+        # We get the flows from table 11
+        table = 11
+        br = "br-int"
+        output = ovs_logger.ofctl_dump_flows(ssh_conn, br, table)
+        pattern = "NXM_NX_NSP"
+        rsps = []
+        lines = output.split(",")
+        for line in lines:
+            is_there = re.findall(pattern, line)
+            if is_there:
+                value = line.split(":")[1].split("-")[0]
+                rsps.append(value)
+        return rsps
+    except Exception, e:
+        logger.error('Error when countering %s' % e)
+        return None
+
+
 @timethis
 def capture_time_log(ovs_logger, compute_clients, timeout=200):
-    rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
+    rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
     first_RSP = rsps[0] if len(rsps) > 0 else ''
     while not ((len(rsps) > 1) and
                (first_RSP != rsps[0]) and
                (rsps[0] == rsps[1])):
-        rsps = ovs_logger.ofctl_time_counter(compute_clients[0])
+        rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
         timeout -= 1
         if timeout == 0:
             logger.error(

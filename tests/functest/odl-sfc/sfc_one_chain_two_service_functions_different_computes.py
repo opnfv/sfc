@@ -7,7 +7,7 @@ import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 import re
-import ovs_utils
+import opnfv.utils.ovs_logger as ovs_log
 import utils as test_utils
 import config as sfc_config
 
@@ -112,7 +112,7 @@ def main():
     controller_clients = test_utils.get_ssh_clients("controller", PROXY)
     compute_clients = test_utils.get_ssh_clients("compute", PROXY)
 
-    ovs_logger = ovs_utils.OVSLogger(
+    ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 
