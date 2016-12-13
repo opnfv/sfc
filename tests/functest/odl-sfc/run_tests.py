@@ -19,7 +19,7 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import yaml
 import utils
-import SSHUtils as ssh_utils
+import opnfv.utils.SSHUtils as ssh_utils
 
 
 parser = argparse.ArgumentParser()
