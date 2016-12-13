@@ -7,7 +7,6 @@ import functest.utils.openstack_utils as os_utils
 import re
 import json
 import SSHUtils as ssh_utils
-import functools
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
@@ -341,20 +340,6 @@ def check_ssh(ips, retries=100):
     return False
 
 
-def timethis(func):
-    """Measure the time it takes to update the classification rules"""
-    @functools.wraps(func)
-    def timed(*args, **kwargs):
-        ts = time.time()
-        result = func(*args, **kwargs)
-        te = time.time()
-        elapsed = '{0}'.format(te - ts)
-        logger.info('{f}(*{a}, **{kw}) took: {t} sec'.format(
-            f=func.__name__, a=args, kw=kwargs, t=elapsed))
-        return result
-    return timed
-
-
 def ofctl_time_counter(ovs_logger, ssh_conn):
     try:
         # We get the flows from table 11
@@ -375,7 +360,7 @@ def ofctl_time_counter(ovs_logger, ssh_conn):
         return None
 
 
-@timethis
+@ft_utils.timethis
 def capture_time_log(ovs_logger, compute_clients, timeout=200):
     rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
     first_RSP = rsps[0] if len(rsps) > 0 else ''
