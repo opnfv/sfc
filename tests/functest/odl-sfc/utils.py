@@ -6,7 +6,7 @@ import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import re
 import json
-import SSHUtils as ssh_utils
+import opnfv.utils.SSHUtils as ssh_utils
 import functools
 
 
