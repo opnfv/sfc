@@ -55,7 +55,10 @@ def main():
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
     _, custom_flv_id = os_utils.get_or_create_flavor(
-        COMMON_CONFIG.flavor, 1500, 10, 1, public=True)
+        COMMON_CONFIG.flavor,
+        COMMON_CONFIG.ram_size_in_mb,
+        COMMON_CONFIG.disk_size_in_gb,
+        COMMON_CONFIG.vcpu_count, public=True)
     if not custom_flv_id:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
