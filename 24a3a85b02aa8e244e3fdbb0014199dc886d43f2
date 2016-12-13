@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_6b80bd46",
+        "filename": "tests/functest/odl-sfc/terminal_color.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-12-13T15:23:32Z",
+      "side": 1,
+      "message": "This seems like a useful class for the functest repo, thus allowing any functest consumer to use it.",
+      "revId": "24a3a85b02aa8e244e3fdbb0014199dc886d43f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_cb90d197",
+        "filename": "tests/functest/odl-sfc/terminal_color.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2016-12-13T15:23:32Z",
+      "side": 1,
+      "message": "What happens if a color is passed in that\u0027s not supported, like \u0027light_blue\u0027? I imagine that will cause some sort of an exception.\n\nWould it be possible for the FOREGROUNDS dictionary to instead be some sort of an enum?",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 66
+      },
+      "revId": "24a3a85b02aa8e244e3fdbb0014199dc886d43f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
