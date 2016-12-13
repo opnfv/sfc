@@ -1,15 +1,26 @@
+#!/bin/python
+#
+# Copyright (c) 2015 All rights reserved
+# This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+
 import argparse
 import os
+import re
 import sys
 import time
+
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
-import re
 import opnfv.utils.ovs_logger as ovs_log
-import utils as test_utils
-import config as sfc_config
+import sfc.lib.utils as test_utils
+import sfc.lib.config as sfc_config
 
 
 parser = argparse.ArgumentParser()
@@ -24,7 +35,7 @@ args = parser.parse_args()
 logger = ft_logger.Logger("ODL_SFC").getLogger()
 
 REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
-SFC_TEST_DIR = os.path.join(REPO_PATH, "tests/functest/odl-sfc/")
+SFC_TEST_DIR = os.path.join(REPO_PATH, "sfc/tests/functest")
 TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker_test2.bash")
 TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd1.yaml")
 TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd2.yaml")

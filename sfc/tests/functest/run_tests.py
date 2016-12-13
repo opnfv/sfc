@@ -14,12 +14,13 @@ import importlib
 import os
 import sys
 import time
-import opnfv.utils.ovs_logger as ovs_log
+import yaml
+
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
-import yaml
-import utils
+import opnfv.utils.ovs_logger as ovs_log
 import opnfv.utils.SSHUtils as ssh_utils
+import sfc.lib.utils as utils
 
 
 parser = argparse.ArgumentParser()
