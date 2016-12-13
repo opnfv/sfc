@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_e5729e10",
+        "filename": "tests/functest/odl-sfc/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2016-12-13T08:51:55Z",
+      "side": 1,
+      "message": "the number is easily understood by context, but maybe a comment stating the units would be welcome.\n\nI personally prefer to have it in the name:\n ram_size_in_mb: 1500\n disk_size_in_gb: 10\n\nThis way, there is no need for comments, as the parameter is clearly stating the supported units.",
+      "range": {
+        "startLine": 4,
+        "startChar": 12,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "47515923348cebe12402e64c296104f1974b7cf3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
