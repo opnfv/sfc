@@ -26,9 +26,9 @@ except:
     logger.debug("INSTALLER_IP does not exist. We create 10.20.0.2")
     INSTALLER_IP = "10.20.0.2"
 
-os.environ['ODL_SFC_LOG'] = "/home/opnfv/functest/results/odl-sfc.log"
+os.environ['ODL_SFC_LOG'] = "/home/opnfv/functest/results/sfc.log"
 os.environ['ODL_SFC_DIR'] = os.path.join(SFC_REPO_DIR,
-                                         "tests/functest/odl-sfc")
+                                         "sfc/tests/functest")
 SETUP_SCRIPTS_DIR = os.path.join(os.environ['ODL_SFC_DIR'], 'setup_scripts')
 
 command = SETUP_SCRIPTS_DIR + ("/server_presetup_CI.bash | "
