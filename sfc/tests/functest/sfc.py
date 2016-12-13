@@ -1,14 +1,25 @@
+#!/bin/python
+#
+# Copyright (c) 2015 All rights reserved
+# This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+
 import argparse
 import os
 import sys
+import threading
+
 import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
-import threading
 import opnfv.utils.ovs_logger as ovs_log
-import utils as test_utils
-import config as sfc_config
-from results import Results
+import sfc.lib.utils as test_utils
+import sfc.lib.config as sfc_config
+from sfc.lib.results import Results
 
 
 parser = argparse.ArgumentParser()

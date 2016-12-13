@@ -1,4 +1,4 @@
-source ${repos_dir}/sfc/tests/functest/odl-sfc/tackerc
+source ${repos_dir}/sfc/sfc/tests/functest/tackerc
 tacker sfc-classifier-delete red_http
 tacker sfc-classifier-delete blue_ssh
 tacker sfc-classifier-delete red_ssh
