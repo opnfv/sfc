@@ -36,6 +36,12 @@ class CommonConfig(object):
         }
         self.flavor = ft_utils.get_parameter_from_yaml(
             "defaults.flavor", self.config_file)
+        self.ram_size = ft_utils.get_parameter_from_yaml(
+            "defaults.ram_size", self.config_file)
+        self.disk_size = ft_utils.get_parameter_from_yaml(
+            "defaults.disk_size", self.config_file)
+        self.vcpu_count = ft_utils.get_parameter_from_yaml(
+            "defaults.vcpu_count", self.config_file)
         self.image_name = ft_utils.get_parameter_from_yaml(
             "defaults.image_name", self.config_file)
         self.image_file_name = ft_utils.get_parameter_from_yaml(
