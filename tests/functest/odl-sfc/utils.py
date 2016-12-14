@@ -377,18 +377,21 @@ def capture_time_log(ovs_logger, compute_clients, timeout=200):
     logger.info("classification rules updated")
 
 
-def get_compute_nodes(nova_client, required_node_number=2):
-    """Get the compute nodes in the deployment"""
+def get_compute_nodes(nova_client, required_node_number=2, az=True):
+    """Get the compute nodes in the deployment,with nova:: string if az=True"""
     compute_nodes = os_utils.get_hypervisors(nova_client)
 
     num_compute_nodes = len(compute_nodes)
-    if num_compute_nodes < 2:
+    if num_compute_nodes < required_node_number:
         logger.error("There are %s compute nodes in the deployment. "
                      "Minimum number of nodes to complete the test is 2."
                      % num_compute_nodes)
         return None
 
     logger.debug("Compute nodes: %s" % compute_nodes)
+    if az:
+        return ["nova::%s" % compute for compute in compute_nodes]
+
     return compute_nodes
 
 

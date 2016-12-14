@@ -51,14 +51,6 @@ def update_json_results(name, result):
 
 
 # JIRA: SFC-52 new function
-def setup_availability_zones(nova_client):
-    computes = os_utils.get_hypervisors(nova_client)
-    az = ["nova::" + computes[0], "nova::" + computes[1]]
-    logger.debug("These are the availability zones %s" % az)
-    return az
-
-
-# JIRA: SFC-52 new function
 def modify_vnfd(tacker_vnfd, az):
     try:
         with open(tacker_vnfd, 'r') as stream:
@@ -73,9 +65,17 @@ def modify_vnfd(tacker_vnfd, az):
 
 # JIRA: SFC-52 new function
 def prepare_tacker_vnfd(nova_client):
-    azs = setup_availability_zones(nova_client)
-    modify_vnfd(TACKER_VNFD1, azs[0])
-    modify_vnfd(TACKER_VNFD2, azs[1])
+    azs = test_utils.get_compute_nodes(nova_client,
+                                       required_node_number=2,
+                                       az=True)
+    if azs:
+        modify_vnfd(TACKER_VNFD1, azs[0])
+        modify_vnfd(TACKER_VNFD2, azs[1])
+    else:
+        logger.info("failed to get availability zone")
+        return False
+
+    return True
 
 
 def main():
@@ -132,7 +132,9 @@ def main():
                                               TESTCASE_CONFIG.secgroup_name,
                                               TESTCASE_CONFIG.secgroup_descr)
 
-    prepare_tacker_vnfd(nova_client)
+    if not prepare_tacker_vnfd(nova_client):
+        logger.error('Prepare tacker vnfd failed')
+        sys.exit(1)
 
     test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor,
@@ -255,6 +257,7 @@ def main():
         sys.exit(0)
 
     sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
