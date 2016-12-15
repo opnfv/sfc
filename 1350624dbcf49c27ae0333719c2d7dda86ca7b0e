@@ -93,6 +93,29 @@
       "revId": "1350624dbcf49c27ae0333719c2d7dda86ca7b0e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_59b11be0",
+        "filename": "tests/functest/setup_scripts/prepare_odl_sfc.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2016-12-15T01:41:10Z",
+      "side": 0,
+      "message": "This has to be removed again",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 63
+      },
+      "revId": "1350624dbcf49c27ae0333719c2d7dda86ca7b0e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
