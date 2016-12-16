@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_2e263ecf",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2016-12-16T14:30:57Z",
+      "side": 1,
+      "message": "can you please move it below \"sfc.lib.utils as utils\" ?\n\nAlthough it\u0027s not a pep8/flake8 violation, let\u0027s try have a tidy import list following the OpenStack guidelines:\nhttp://docs.openstack.org/developer/hacking/#imports",
+      "revId": "4a7bd9306648bec900e9a0caedd4a06139309ea5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
