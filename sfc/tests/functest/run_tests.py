@@ -9,7 +9,6 @@
 #
 
 import argparse
-import config as sfc_config
 import importlib
 import os
 import sys
@@ -21,6 +20,7 @@ import functest.utils.functest_utils as ft_utils
 import opnfv.utils.ovs_logger as ovs_log
 import opnfv.utils.SSHUtils as ssh_utils
 import sfc.lib.utils as utils
+import sfc.lib.config as sfc_config
 
 
 parser = argparse.ArgumentParser()
