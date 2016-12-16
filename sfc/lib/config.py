@@ -27,7 +27,7 @@ class CommonConfig(object):
         self.line_length = 30
         self.test_db = ft_utils.get_functest_config("results.test_db_url")
         self.repo_path = ft_constants.SFC_REPO_DIR
-        self.sfc_test_dir = os.path.join(self.repo_path, "tests", "functest")
+        self.sfc_test_dir = os.path.join(self.repo_path, "sfc/tests/functest")
         self.vnfd_dir = os.path.join(self.sfc_test_dir, "vnfd-templates")
         self.functest_results_dir = os.path.join(
             ft_constants.FUNCTEST_RESULTS_DIR, "odl-sfc")
