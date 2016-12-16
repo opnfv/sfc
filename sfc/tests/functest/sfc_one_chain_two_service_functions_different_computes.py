@@ -131,7 +131,7 @@ def main():
                                             COMMON_CONFIG.image_name,
                                             COMMON_CONFIG.image_path,
                                             COMMON_CONFIG.image_format,
-                                            public=True)
+                                            public='public')
 
     network_id = test_utils.setup_neutron(neutron_client,
                                           TESTCASE_CONFIG.net_name,
