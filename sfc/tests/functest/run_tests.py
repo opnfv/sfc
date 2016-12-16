@@ -9,7 +9,7 @@
 #
 
 import argparse
-import config as sfc_config
+import sfc.lib.config as sfc_config
 import importlib
 import os
 import sys
