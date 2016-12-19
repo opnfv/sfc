@@ -13,15 +13,14 @@ import importlib
 import os
 import sys
 import time
-import yaml
 
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import opnfv.utils.ovs_logger as ovs_log
 import opnfv.utils.SSHUtils as ssh_utils
-import sfc.lib.utils as utils
 import sfc.lib.config as sfc_config
-
+import sfc.lib.utils as utils
+import yaml
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--report",

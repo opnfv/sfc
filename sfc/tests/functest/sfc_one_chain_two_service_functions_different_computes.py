@@ -16,12 +16,11 @@ import time
 
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
-import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
+import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
-import sfc.lib.utils as test_utils
 import sfc.lib.config as sfc_config
-
+import sfc.lib.utils as test_utils
 
 parser = argparse.ArgumentParser()
 

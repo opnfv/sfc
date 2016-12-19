@@ -8,12 +8,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import yaml
 import os
 
+import functest.utils.functest_constants as ft_constants
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
-import functest.utils.functest_constants as ft_constants
+import yaml
 
 logger = ft_logger.Logger("sfc_test_config").getLogger()
 

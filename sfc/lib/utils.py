@@ -19,7 +19,6 @@ import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.SSHUtils as ssh_utils
 
-
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
 SSH_OPTIONS = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
