@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_07724549",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:51:24Z",
+      "side": 1,
+      "message": "add a new line",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "e3580ada52486eca0f6b4838d0d22febb18c7654",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_a7901144",
+        "filename": "sfc/tests/functest/sfc.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:51:24Z",
+      "side": 1,
+      "message": "add a new line",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "e3580ada52486eca0f6b4838d0d22febb18c7654",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_c793dd4d",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:51:24Z",
+      "side": 1,
+      "message": "add a new line",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "e3580ada52486eca0f6b4838d0d22febb18c7654",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
