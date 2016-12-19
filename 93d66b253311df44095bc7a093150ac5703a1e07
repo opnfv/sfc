@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_67b549ed",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:16:53Z",
+      "side": 1,
+      "message": "I would put this under import os. This is a 3rd party library http://pyyaml.org/, not a project library we maintain.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 11
+      },
+      "revId": "93d66b253311df44095bc7a093150ac5703a1e07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_27cf4181",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:16:53Z",
+      "side": 1,
+      "message": "Move under import time",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "93d66b253311df44095bc7a093150ac5703a1e07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_47ca8d6f",
+        "filename": "sfc/tests/functest/setup_scripts/prepare_odl_sfc.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2016-12-19T07:16:53Z",
+      "side": 1,
+      "message": "Put this above. It is a 3rd party library we don\u0027t maintain.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "93d66b253311df44095bc7a093150ac5703a1e07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
