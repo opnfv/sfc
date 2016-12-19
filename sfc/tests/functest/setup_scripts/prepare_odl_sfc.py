@@ -11,10 +11,12 @@
 #
 
 import os
-import sys
-import subprocess
 import paramiko
+import subprocess
+import sys
+
 import functest.utils.functest_logger as ft_logger
+
 
 logger = ft_logger.Logger("ODL_SFC").getLogger()
 
