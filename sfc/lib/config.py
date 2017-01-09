@@ -62,7 +62,7 @@ class CommonConfig(object):
         self.url = ft_utils.get_parameter_from_yaml(
             "defaults.url", self.config_file)
         self.dir_functest_data = ft_utils.get_functest_config(
-            "general.directories.dir_functest_data")
+            "general.dir.functest_data")
         self.image_path = os.path.join(
             self.dir_functest_data, self.image_file_name)
 
