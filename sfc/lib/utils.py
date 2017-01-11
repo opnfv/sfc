@@ -18,6 +18,7 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.SSHUtils as ssh_utils
+import sfc.lib.config as sfc_config
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
@@ -87,7 +88,7 @@ def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
 
 def get_openstack_node_ips(role):
     """Get OpenStack Nodes IP Address"""
-    fuel_env = os.environ.get("FUEL_ENV")
+    fuel_env = sfc_config.CommonConfig().fuel_environment
     if fuel_env is not None:
         cmd = "fuel2 node list -f json -e %s" % fuel_env
     else:
