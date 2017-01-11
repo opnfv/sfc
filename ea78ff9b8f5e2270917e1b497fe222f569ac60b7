@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac10518_d8d96584",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-01-11T14:00:58Z",
+      "side": 1,
+      "message": "Using just \u0027if fuel_env:\u0027 is cleaner IMHO.\n\nthe \u0027is not None\u0027 part is not needed",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 6
+      },
+      "revId": "ea78ff9b8f5e2270917e1b497fe222f569ac60b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_78e87110",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-01-11T14:00:58Z",
+      "side": 1,
+      "message": "Is {} better than empty string (\u0027\u0027)\n\nI just think that maybe it could be interpreted that the expected value is a dictionary, when just a number is expected...",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "ea78ff9b8f5e2270917e1b497fe222f569ac60b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
