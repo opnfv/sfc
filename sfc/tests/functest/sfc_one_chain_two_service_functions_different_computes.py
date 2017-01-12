@@ -224,7 +224,7 @@ def main():
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 1: HTTP works", "Failed")
 
@@ -241,7 +241,7 @@ def main():
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         update_json_results("Test 2: HTTP Blocked", "Failed")
 

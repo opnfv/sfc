@@ -162,7 +162,7 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
 
     # Start measuring the time it takes to implement the classification rules
-    t1 = threading.Thread(target=test_utils.capture_time_log,
+    t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_clients,))
     try:
         t1.start()
@@ -196,7 +196,7 @@ def main():
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH Blocked")
 
@@ -206,7 +206,7 @@ def main():
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP works")
 
@@ -233,7 +233,7 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
 
     # Start measuring the time it takes to implement the classification rules
-    t2 = threading.Thread(target=test_utils.capture_time_log,
+    t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_clients,))
     try:
         t2.start()
@@ -249,7 +249,7 @@ def main():
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
@@ -259,7 +259,7 @@ def main():
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
         logger.error(error)
-        test_utils.capture_err_logs(
+        test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH works")
 
