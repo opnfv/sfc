@@ -165,14 +165,14 @@ def create_security_groups(neutron_client, secgroup_name, secgroup_descr):
 
 def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
                     secgroup_name=None, fixed_ip=None,
-                    compute_node='', userdata=None, files=None):
+                    av_zone='', userdata=None, files=None):
     logger.info("Creating instance '%s'..." % name)
     logger.debug(
         "Configuration:\n name=%s \n flavor=%s \n image=%s \n"
         " network=%s\n secgroup=%s \n hypervisor=%s \n"
         " fixed_ip=%s\n files=%s\n userdata=\n%s\n"
         % (name, flavor, image_id, network_id, sg_id,
-           compute_node, fixed_ip, files, userdata))
+           av_zone, fixed_ip, files, userdata))
     instance = os_utils.create_instance_and_wait_for_active(
         flavor,
         image_id,
@@ -180,7 +180,7 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
         name,
         config_drive=True,
         userdata=userdata,
-        av_zone=compute_node,
+        av_zone=av_zone,
         fixed_ip=fixed_ip,
         files=files)
 
@@ -316,7 +316,7 @@ def is_http_blocked(srv_prv_ip, client_ip):
     return True
 
 
-def capture_err_logs(ovs_logger, controller_clients, compute_clients, error):
+def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     ovs_logger.dump_ovs_logs(controller_clients,
                              compute_clients,
@@ -372,7 +372,7 @@ def ofctl_time_counter(ovs_logger, ssh_conn):
 
 
 @ft_utils.timethis
-def capture_time_log(ovs_logger, compute_clients, timeout=200):
+def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
     rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
     first_RSP = rsps[0] if len(rsps) > 0 else ''
     while not ((len(rsps) > 1) and
@@ -386,21 +386,6 @@ def capture_time_log(ovs_logger, compute_clients, timeout=200):
             return
         time.sleep(1)
     logger.info("classification rules updated")
-
-
-def get_compute_nodes(nova_client, required_node_number=2):
-    """Get the compute nodes in the deployment"""
-    compute_nodes = os_utils.get_hypervisors(nova_client)
-
-    num_compute_nodes = len(compute_nodes)
-    if num_compute_nodes < 2:
-        logger.error("There are %s compute nodes in the deployment. "
-                     "Minimum number of nodes to complete the test is 2."
-                     % num_compute_nodes)
-        return None
-
-    logger.debug("Compute nodes: %s" % compute_nodes)
-    return compute_nodes
 
 
 def setup_compute_node(cidr):
