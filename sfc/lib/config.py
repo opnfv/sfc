@@ -45,6 +45,11 @@ class CommonConfig(object):
             'username': self.fuel_master_uname,
             'password': self.fuel_master_passwd
         }
+        try:
+            self.fuel_environment = ft_utils.get_parameter_from_yaml(
+                "defaults.fuel_environment", self.config_file)
+        except:
+            self.fuel_environment = None
         self.flavor = ft_utils.get_parameter_from_yaml(
             "defaults.flavor", self.config_file)
         self.ram_size_in_mb = ft_utils.get_parameter_from_yaml(

@@ -9,6 +9,7 @@ defaults:
   fuel_master_ip: 10.20.0.2
   fuel_master_uname: root
   fuel_master_passwd: r00tme
+  fuel_environment: # Change this to the id of the desired fuel env (1, 2, 3...)
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/demo"
   vnfd-dir: "vnfd-templates"
