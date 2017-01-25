@@ -4,14 +4,14 @@ defaults:
   ram_size_in_mb: 1500
   disk_size_in_gb: 10
   vcpu_count: 1
-  image_name: sf_nsh_colorado
-  image_file_name: sf_nsh_colorado.qcow2
+  image_name: sfc_cloud
+  image_file_name: sfc_cloud.qcow2
   fuel_master_ip: 10.20.0.2
   fuel_master_uname: root
   fuel_master_passwd: r00tme
   fuel_environment: # Change this to the id of the desired fuel env (1, 2, 3...)
   image_format: qcow2
-  url: "http://artifacts.opnfv.org/sfc/demo"
+  url: "http://artifacts.opnfv.org/sfc/random/
   vnfd-dir: "vnfd-templates"
 
 testcases:
