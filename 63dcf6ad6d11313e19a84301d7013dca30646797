@@ -22,6 +22,30 @@
       "revId": "63dcf6ad6d11313e19a84301d7013dca30646797",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac10518_1df02390",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-01-27T17:25:35Z",
+      "side": 1,
+      "message": "I can move it to images if that is what you prefer.",
+      "parentUuid": "5ac10518_ddeb7b11",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "63dcf6ad6d11313e19a84301d7013dca30646797",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
