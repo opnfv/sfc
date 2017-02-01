@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1acb0d3e_7f099794",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-02-01T14:15:53Z",
+      "side": 1,
+      "message": "This line has to change to sfc_two_chains_SSH_HTTP. Otherwise run_tests.py will report error.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 5
+      },
+      "revId": "692a2bcd07612f86a81eaac4668df1acfa3ee370",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
