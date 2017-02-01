@@ -36,9 +36,7 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 CLIENT = "client"
 SERVER = "server"
 COMMON_CONFIG = sfc_config.CommonConfig()
-# TestcaseConfig sfc name will be changed once
-# we rename sfc.py with appropriate name
-TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc')
+TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
 
 
 def main():
