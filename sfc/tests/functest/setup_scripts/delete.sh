@@ -1,4 +1,4 @@
-source ${repos_dir}/sfc/sfc/tests/functest/tackerc
+# Remember to source the env variables $creds before
 tacker sfc-classifier-delete red_http
 tacker sfc-classifier-delete blue_ssh
 tacker sfc-classifier-delete red_ssh
@@ -14,3 +14,4 @@ openstack stack delete sfc_test1 --y
 openstack stack delete sfc_test2 --y
 nova delete client
 nova delete server
+for line in $(neutron floatingip-list | cut -d" " -f2);do neutron floatingip-delete $line;done
