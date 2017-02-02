@@ -1,0 +1,655 @@
+#!/bin/bash
+#Author: Vijayendra Radhakrishna
+#Email: vradhakrishna@mvista.com
+
+ssh_options='-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=120'
+rc_file="/root/tackerc"
+BASEDIR=`dirname $0`
+
+#Color codes for console output
+GREEN='\033[92m'
+RESET='\033[0m'
+RED='\033[91m'
+YELLOW='\033[93m'
+YELLOW_BOLD='\033[33m'
+WHITE='\033[97m'
+CYAN='\033[96m'
+PINK='\033[95m'
+BLUE='\033[94m'
+
+sg="example-sg"
+net="example-net"
+subnet="example-subnet"
+router="example-router"
+floating_net="admin_floating_net"
+cidr="11.0.0.0/24"
+
+disk=10
+ram=2048
+vcpus=3
+ARCH="x86_64"
+
+source $rc_file
+usage()
+{
+  echo -e "$CYAN supported chains:$RESET
+  $RED Red$RESET->$CYAN block http and allow ssh $RESET
+  $BLUE blue$RESET->$CYAN block ssh and allow http $RESET"
+  echo -e "$YELLOW_BOLD $0
+    options: args in [] are optional
+    -g,--glance-image-create <sf-image-path>:[qcow2|raw|ami|aki|ari]: Creates glance image used by VNFs and VMs
+    -i,--configure-iptable: Configure iptables on controller
+    -z,--flavor-create: Create Custom flavor for VNF spawning
+    -n,--openstack-network-create: Create openstack private router network used by VNFs and VMs
+    -x,--sec-group-create: Create security-group rules for udp,tcp(80,22),icmp
+    -v,--vnf-create <vnfd-template>: Creates vnfs, name will be same as service_type in template
+    -S,--sf-create <vnf-name>:<22/80>: Configures nsh aware sf(block port 80/22), vnf-name is same as service_type in tosca-file
+    -s,--sfc-create <red/blue>=[vnf1,vnf2...]: Creates red or blue sfc, if no vnf-names then all existing vnfs will be chained
+    -c,--classifier-create <red/blue>: Creates a specified netvirt classifier
+    -H,--server-vm: Creates server VM and configures HTTP server
+    -N,--client-vm: Creates client VM for netcat/ssh/wget/curl etc.
+    -p,--port-status <port-num>: Check port status using netcat from client to server, supported ports only 22,80
+    -f,--add-floating-ip <vm_name>: Adds floating ips to VM's
+    -F,--floating-ip-delete <vm_name>: delete floating ips of specified VM
+    -X,--sec-group-rule-delete-all: deletes all security group rules
+    -C,--classifier-chain-delete <red/blue>: Deletes netvirt classifier and service function chain
+    -V,--vnf-delete-all: Deletes all vnfs and vnfds
+    --all: Must be used with -C,-F,-f
+    -G,--glance-image-delete: Deletes glance image used by VNFs and VMs
+    -D,--delete-all: Cleanup everything
+  -h,--help: show usage $RESET"
+}
+
+get_vm_name_from_vnf(){
+  vnf_id=`tacker vnf-list -c id --name $1 -f value|cut -c 10-`
+  vm_name=`openstack server list -f value -c Name|grep $vnf_id`
+  echo $vm_name
+}
+
+get_vm_id(){
+  vm_id=`openstack server list -c ID -f value --name $1`
+  echo $vm_id
+}
+
+get_vm_port_id(){
+  vm_id=$(get_vm_id $1)
+  vm_port_id=`neutron port-list -c id -c fixed_ips -- --device_id $vm_id|awk '{print $2}'|tail -n +4|head -1`
+  echo $vm_port_id
+}
+
+get_vm_floating_ip(){
+  vm_port_id=$(get_vm_port_id $1)
+  ip=`neutron floatingip-list -f value -c floating_ip_address -c port_id|grep $vm_port_id|cut -d " " -f 1`
+  echo $ip
+}
+
+get_vm_prv_ip(){
+  vm=$1
+  match=`echo "$cidr"|awk -F. '{print $1"."$2"."$3}'`
+  ip=`openstack server list --name $vm -f value -c Networks|grep -o $match.*,`
+  echo ${ip%?}
+}
+
+get_vnf_floating_ip(){
+  vm_name=$(get_vm_name_from_vnf $1)
+  vnf_ip=$(get_vm_floating_ip $vm_name)
+  echo $vnf_ip
+}
+
+get_vnf_service_type(){
+  service_type=`grep service_type $1|awk '{print $2}'`
+  echo $service_type
+}
+
+run_cmd_on_vm(){
+  vm_ip=$(get_vm_floating_ip $1)
+  sshpass -p "opnfv" ssh $ssh_options root@$vm_ip "$2"
+}
+
+run_cmd_on_vnf(){
+  vnf_ip=$(get_vnf_floating_ip $1)
+  sshpass -p "opnfv" ssh $ssh_options root@$vnf_ip "$2"
+}
+
+#works only if console-log is enabled
+wait_for_cloud_init(){
+  vm=$1
+  boot_status=1
+  while [ $boot_status -ne 0 ]; do
+    nova console-log $vm |grep "Cloud-init.* finished at"
+    boot_status=$?
+  done
+}
+
+wait_for_vm_status_active(){
+  vm=$1
+  status=`nova list --fields name,status --name $vm |tail -n +4|awk 'NF > 1 {print $6}'`
+  while [ $status != "ACTIVE" ]; do
+    echo "$vm:$status"
+    sleep 10
+    status=`nova list --fields name,status --name $vm |tail -n +4|awk 'NF > 1 {print $6}'`
+  done
+  echo "$vm:$status"
+}
+
+wait_for_vnf_status_active(){
+  vnf=$1
+  status=`tacker vnf-list --name $vnf -c status -f value`
+  while [ $status != "ACTIVE" ]; do
+    echo "$vnf:$status"
+    sleep 12
+    status=`tacker vnf-list --name $vnf -c status -f value`
+  done
+  vm=$(get_vm_name_from_vnf $vnf)
+  echo "$vnf:$vm:$status"
+}
+
+wait_for_all_vm_status_active(){
+  for vm in `nova list --minimal|tail -n +4|awk 'NF > 1 {print $4}'`
+  do
+    wait_for_vm_status_active $vm
+  done
+}
+
+sec_group_rule_create(){
+  neutron security-group-rule-create --direction ingress --protocol tcp --port_range_min 80 --port_range_max 80 $1
+  neutron security-group-rule-create --direction egress --protocol tcp --port_range_min 80 --port_range_max 80 $1
+  neutron security-group-rule-create --direction ingress --protocol tcp --port_range_min 22 --port_range_max 22 $1
+  neutron security-group-rule-create --direction egress --protocol tcp --port_range_min 22 --port_range_max 22 $1
+  neutron security-group-rule-create --direction ingress --protocol tcp --port_range_min 67 --port_range_max 68 $1
+  neutron security-group-rule-create --direction egress --protocol tcp --port_range_min 67 --port_range_max 68 $1
+  neutron security-group-rule-create --direction ingress --protocol icmp $1
+  neutron security-group-rule-create --direction egress --protocol icmp $1
+}
+
+add_floating_ip(){
+  vm=$1
+  ip=`get_vm_floating_ip $vm`
+  if [ -z $ip ]
+  then
+    ext_net_id=`neutron net-list|grep $floating_net|awk '{print $2}'`
+    floating_ip_id=`neutron floatingip-create $ext_net_id -c id -f value|tail -1`
+    neutron floatingip-show $floating_ip_id
+    vm_id=`nova list|grep $vm|awk '{print $2}'`
+    vm_port_id=`neutron port-list -c id -c fixed_ips -- --device_id $vm_id|awk '{print $2}'|tail -n +4|head -1`
+    neutron floatingip-associate $floating_ip_id $vm_port_id
+  else
+    echo "Floating ip already found"
+    nova list --name $vm
+  fi
+}
+
+get_floating_ip_ids(){
+  floating_ip_ids=(`neutron floatingip-list -c id -f value`)
+  echo $floating_ip_ids
+}
+
+get_neutron_subnet_ids(){
+  pattern="subnet_id.:......................................"
+  subnet_ids=`neutron router-port-list $1| grep  -o $pattern|cut -d ":" -f 2|cut -c 3-`
+  echo $subnet_ids
+}
+
+get_image_id(){
+  img_name=$1
+  image_id=`glance image-list|grep $img_name|awk '{print $2}'`
+  echo $image_id
+}
+
+get_image_name(){
+  image_path=$1
+  img=`basename $image_path`
+  img_name=${img%.*}
+  echo $img_name
+}
+
+_glance_image_create(){
+  name=$1; format=$2; container=$3; path=$4; arch=$5
+  glance image-create --progress --name=$name --disk-format=$format --container-format=$container --file=$path
+  image_id=`get_image_id $name`
+  glance image-update --property architecture=$arch $image_id
+}
+
+glance_image_create(){
+  disk_img=$1
+  img_name=$2
+  format=$3
+  if [ $ARCH = "x86_64" ]
+  then
+    echo "uploading sf images:$ARCH"
+    container="bare"
+    _glance_image_create $img_name $format $container $disk_img $ARCH
+    image_id=`get_image_id $img_name`
+  elif [ $ARCH = "aarch64" ]
+  then
+    echo "uploading sf images:$ARCH"
+    if [ $format = "qcow2" ] || [ $format = "raw" ]
+    then
+      format="ami"
+    fi
+    _glance_image_create $img_name $format $format $disk_img $ARCH
+    image_id=`get_image_id $img_name`
+    if [ $format = "ami" ]
+    then
+      glance image-update --property os_command_line='root=LABEL=cloudimg-rootfs ro' $image_id
+    fi
+    ami_id=`glance image-list --property-filter disk_format=ami|tail -n +4|awk '{print $2}'`
+    if [ -z $ami_id ]
+    then
+      echo "disk image not found please use $0 g,--glance-image-create <sf-image-path>:ami first"
+      exit 1
+    fi
+    if [ $format = "aki" ]
+    then
+      kernel_id=`get_image_id $img_name`
+      glance image-update --property kernel_id=$kernel_id $ami_id
+    fi
+    if [ $format = "ari" ]
+    then
+      ramdisk_id=`get_image_id $img_name`
+      glance image-update --property ramdisk_id=$ramdisk_id $ami_id
+    fi
+  fi
+  if [ ! -e glance_image_details ]
+  then
+    echo "$img_path:$img_name:$format:$image_id" > glance_image_details
+  else
+    grep -o -e ami -e aki -e ari glance_image_details
+    if [ $? -eq 0 ]
+    then
+      echo "$img_path:$img_name:$format:$image_id" >> glance_image_details
+    fi
+  fi
+}
+
+create_openstack_network(){
+  tmp_net=`neutron net-list -f value -c name|grep -o $net`
+  tmp_subnet=`neutron subnet-list -f value -c name|grep -o $subnet`
+  tmp_router=`neutron router-list -f value -c name|grep -o $router`
+  if [ ! -z $tmp_net ] || [ ! -z $tmp_subnet ] || [ ! -z $tmp_router ]
+  then
+    echo -e "$RED"Found: $tmp_net $tmp_subnet $tmp_router"$RESET"
+    echo "cleanup before creating.."
+    exit 1
+  fi
+  neutron router-create $router
+  router_id=`neutron router-list|grep $router|awk '{print $2}'`
+  neutron net-create $net
+  base=`echo "$cidr"|awk -F. '{print $1"."$2"."$3}'`
+  neutron subnet-create --name $subnet $net $cidr --allocation-pool start=$base.2,end=$base.254
+  neutron router-interface-add $router $subnet
+  ext_net_id=`neutron net-list|grep $floating_net|awk '{print $2}'`
+  neutron router-gateway-set $router_id $ext_net_id
+}
+
+delete_openstack_network(){
+  neutron router-gateway-clear $router
+  subnet_ids=$(get_neutron_subnet_ids $router)
+  for id in $subnet_ids; do neutron router-interface-delete $router $id; done
+  neutron router-delete $router
+  match=`echo "$cidr"|awk -F. '{print $1"."$2"."$3}'`
+  for id in `neutron port-list|grep "$match"|awk '{print $2}'`;do neutron port-delete $id; done
+  neutron subnet-delete $subnet
+  neutron net-delete $net
+}
+
+get_vm_image_name(){
+  vm_image_name=`grep vm_image $1|awk '{print $2}'`
+  echo $vm_image_name
+}
+
+vnf_create(){
+  vnfd_yaml=$1
+  vnf_name=$(get_vnf_service_type $vnfd_yaml)
+  vnfd_name=`grep template_name $vnfd_yaml|awk '{print $2}'`
+  vm_image_name=`get_vm_image_name $vnfd_yaml`
+  img_name=`cat glance_image_details|grep -e ami -e qcow2 -e raw|cut -d":" -f2`
+  if [ $vm_image_name != $img_name ]
+  then
+    sed s/"vm_image:.*"/"vm_image: $img_name"/g $vnfd_yaml > /tmp/vnfd_file
+    vnfd_yaml="/tmp/vnfd_file"
+  fi
+  tacker vnfd-create --vnfd-file $vnfd_yaml
+  tacker vnf-create --name $vnf_name --vnfd-name $vnfd_name
+  wait_for_vnf_status_active $vnf_name
+  vm=$(get_vm_name_from_vnf $vnf_name)
+  add_floating_ip $vm
+  run_cmd_on_vnf $vnf_name "uname -a"
+}
+
+sf_create(){
+  vnf_name=$1
+  port=$2
+  echo "Blocking port:$port in vnf:$vnf_name"
+  cmd="sh -c cd /root;nohup python vxlan_tool.py -i eth0 -d forward -v off -b $port > /dev/null 2>&1 &"
+  run_cmd_on_vnf $vnf_name "$cmd"
+  run_cmd_on_vnf $vnf_name "ps aux|grep 'python vxlan_tool.py'"
+}
+
+create_mykey(){
+  openstack keypair list -f value -c Name|grep -o mykey
+  if [ $? -ne 0 ]
+  then
+    if [ ! -e /root/.ssh/id_rsa ]
+    then
+      ssh-keygen -q -N "" -f /root/.ssh/id_rsa
+    fi
+    openstack keypair create --public-key /root/.ssh/id_rsa.pub mykey
+  fi
+}
+
+get_userdata_file(){
+  cmd="$1"
+  echo "#!/bin/sh" > "$PWD/cmd-file"
+  echo "$cmd" >> "$PWD/cmd-file"
+  echo "$PWD/cmd-file"
+}
+
+# $2 is not passed --userdata will not be used in nova boot
+boot_vm(){
+  vm_name=$1
+  cmd=$2
+  net_id=`neutron net-list| grep $net| awk '{print $2}'`
+  flav_id=`openstack flavor list|grep custom|awk '{print $2}'`
+  img_name=`cat glance_image_details|grep -e ami -e qcow2 -e raw|cut -d":" -f2`
+  if [ ! -z $cmd ]
+  then
+    create_mykey
+    nova boot --flavor $flav_id --image $img_name $vm_name --nic net-id=$net_id --keyname mykey --userdata `get_userdata_file`
+  else
+    nova boot --flavor $flav_id --image $img_name $vm_name --nic net-id=$net_id
+  fi
+  wait_for_vm_status_active $vm_name
+  add_floating_ip $vm_name
+  run_cmd_on_vm $vm_name "uname -a"
+}
+
+sec_group_create(){
+  neutron security-group-list |grep $sg
+  if [ $? -eq 1 ]
+  then
+    neutron security-group-create $sg
+  fi
+  secgroup_id=`neutron security-group-list|grep $sg|awk '{print $2}'`
+  sec_group_rule_create $secgroup_id
+  secgroup_id=`neutron security-group-list|grep default|awk '{print $2}'`
+  sec_group_rule_create $secgroup_id
+  neutron security-group-list
+}
+
+sfc_create(){
+  sfc_name=$1
+  vnf_name=$2
+  tacker sfc-create --name $sfc_name --chain $vnf_name
+}
+
+classifier_create(){
+  classifier_name=$1
+  chain_name=$2
+  port=$3
+  tacker sfc-classifier-create --name $classifier_name --chain $chain_name --match source_port=0,dest_port=$3,protocol=6
+  tacker sfc-classifier-list
+}
+
+get_glance_images(){
+  images=`glance image-list --property-filter architecture=$ARCH|tail -n +4|awk '{print $2}'`
+  echo $images
+}
+
+get_vnf_count(){
+  vnf_count=`tacker vnf-list -f value -c name|wc -l`
+  echo $vnf_count
+}
+
+presetup_validate(){
+  tmp_net=`neutron net-list -f value -c name|grep -o $net`
+  tmp_subnet=`neutron subnet-list -f value -c name|grep -o $subnet`
+  tmp_router=`neutron router-list -f value -c name|grep -o $router`
+  if [ -z $tmp_net ] || [ -z $tmp_subnet ] || [ -z $tmp_router ]
+  then
+    echo -e "$RED"OpenStack network is not created: use n,--openstack-network-create"$RESET"
+    exit 1
+  fi
+  echo -e "$GREEN"Found OpenStack network: $net,$subnet,$router"$RESET"
+  if [ ! -e glance_image_details ]
+  then
+    echo -e "$RED"glance image not found: use g,--glance-image-create"$RESET"
+    exit 1
+  fi
+  img_name=`cut -d":" -f2 glance_image_details`
+  echo -e "$GREEN"Found sf image: $img_name"$RESET"
+  tmp_flavor=`openstack flavor list -f value -c Name|grep -o custom`
+  if [ -z $tmp_flavor ]
+  then
+    echo -e "$RED"openstack custom flavor not found: use z,--flavor-create"$RESET"
+    exit 1
+  fi
+  echo -e "$GREEN"Found flavor: custom"$RESET"
+}
+
+delete_all() {
+  echo "deleting everything ..."
+  source tackerc
+  for id in `tacker sfc-classifier-list|awk '{print $2}'|tail -n +4`;do tacker sfc-classifier-delete $id; done
+  for id in `tacker sfc-list|awk '{print $2}'|tail -n +4`;do tacker sfc-delete $id; done
+  for id in `tacker vnf-list|awk '{print $2}'|tail -n +4`;do tacker vnf-delete $id; done
+  for id in `tacker vnfd-list|awk '{print $2}'|tail -n +4`;do tacker vnfd-delete $id; done
+  sleep 3
+  for id in `nova list|awk '{print $2}'|tail -n +4`;do nova delete $id; done
+  for id in `neutron security-group-rule-list|awk '{print $2}'|tail -n +4`;do neutron security-group-rule-delete $id; done
+  neutron security-group-delete $sg
+  for id in `neutron floatingip-list|awk '{print $2}'|tail -n +4`;do neutron floatingip-delete $id; done
+  ids=`cut -d":" -f4 glance_image_details`
+  glance image-delete $ids
+  delete_openstack_network
+  openstack flavor delete custom
+  openstack keypair delete mykey
+  rm glance_image_details
+}
+
+run_http_server(){
+  vm=$1
+  cmd="python -m SimpleHTTPServer 80 > /dev/null 2>&1 &"
+  run_cmd_on_vm $vm "$cmd"
+  run_cmd_on_vm $vm "ps aux|grep SimpleHTTPServer"
+}
+
+if [ $# -lt 1 ]
+then
+  usage $0;
+  exit
+fi
+OPTIONS=`getopt -q -n $0 -o CfF --long add-floating-ip,classifier-chain-delete,floating-ip-delete,sfc-delete,all,help -- "$@"`
+echo $OPTIONS|grep -o '\-\-all' > /dev/null
+if [ $? -eq 0 ]
+then
+  eval set -- $OPTIONS
+  while true; do
+    case $1 in
+      --add-floating-ip|-f)
+        for vm in `openstack server list -c Name -f value`
+        do
+          echo "adding floating ip to:$vm"
+          add_floating_ip $vm
+        done
+        neutron floatingip-list
+        shift
+      ;;
+      --classifier-chain-delete|-C)
+        for id in `tacker sfc-classifier-list|awk '{print $2}'|tail -n +4`;do tacker sfc-classifier-delete $id; done
+        for id in `tacker sfc-list|awk '{print $2}'|tail -n +4`;do tacker sfc-delete $id; done
+        shift
+      ;;
+      --floating-ip-delete|-F)
+        for id in `neutron floatingip-list|awk '{print $2}'|tail -n +4`;do neutron floatingip-delete $id; done
+        shift
+      ;;
+      -- ) shift; break ;;
+      --all)
+        if [ $# -eq 2 ] || [ $# -gt 3 ]
+        then
+          echo -e ""$RED"must be used with one of the option below:
+          F,--floating-ip-delete
+          C,--classifier-chain-delete
+          f,--add-floating-ip $RESET"
+        fi
+        shift
+      ;;
+      *)
+        echo "$0: error - unrecognized option $1" 1>&2; exit 1
+    esac
+  done
+  exit 1
+fi
+
+
+OPTIONS=`getopt -n $0 -o g:iznxXv:s:c:HNf:F:DGS:p:VC:h --long glance-image-create:,configure-iptable,flavor-create,openstack-network-create,sec-group-create,vnf-create:,sf-create:,sfc-create:,classifier-create:,server-vm,client-vm,add-floating-ip:,delete-all,classifier-chain-delete:,glance-image-delete,sfc-delete:,port-status,floating-ip-delete:,vnf-delete-all,sec-group-rule-delete-all,help -- "$@"`
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+eval set -- $OPTIONS
+while true; do
+  case $1 in
+    --glance-image-create|-g)
+      img_path=`echo "$2"|cut -d":" -f1`
+      img_name=`get_image_name $img_path`
+      format=`echo "$2"|grep "\:"|cut -d":" -f2`
+      if [ $ARCH = 'aarch64' ] && [ -z $format ]
+      then
+        echo "please specify format $0 g,--glance-image-create:[ami,aki,ari,qcow2,raw]"
+        exit
+      elif [ $ARCH = 'x86_64' ] && [ -z $format ]
+      then
+        format="qcow2"
+      fi
+      glance_image_create $img_path $img_name $format
+      shift 2
+    ;;
+    --configure-iptable|-i)
+      iptables -P INPUT ACCEPT
+      iptables -t nat -P INPUT ACCEPT
+      iptables -A INPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+      shift
+    ;;
+    --flavor-create|-z)
+      openstack flavor create custom --disk $disk --ram $ram --vcpus $vcpus
+      shift
+    ;;
+    --openstack-network-create|-n)
+      create_openstack_network
+      shift
+    ;;
+    --sec-group-create|-x)
+      sec_group_create
+      shift
+    ;;
+    --vnf-create|-v)
+      presetup_validate
+      vnf_create $2
+      shift 2
+    ;;
+    --sf-create|-S)
+      presetup_validate
+      vnf_name=`echo $2|cut -d":" -f1`
+      port=`echo $2|cut -d":" -f2`
+      tmp_vnf=`tacker vnf-list -f value -c name --name $vnf_name`
+      if [ -z $tmp_vnf ]
+      then
+        echo "vnf $vnf_name not found: use --vnf-create <tosca-template> option"
+        exit 1
+      fi
+      sf_create $vnf_name $port
+      shift 2
+    ;;
+    --sfc-create|-s)
+      presetup_validate
+      count=`get_vnf_count`
+      if [ $count -lt 1 ]
+      then
+        echo "no vnfs found: use --vnf-create <tosca-template> option"
+        exit 1
+      fi
+      sfc_name=`echo $2|cut -d"=" -f1`
+      vnf_names=`echo $2|grep red=|cut -d"=" -f2`
+      if [ -z $vnf_names ]
+      then
+        var=(`tacker vnf-list -f value -c name|tr "\n" ,`)
+        vnf_names=`echo "${var[@]%?}"`
+      fi
+      sfc_create $sfc_name $vnf_names
+      shift 2
+    ;;
+    --classifier-create|-c)
+      presetup_validate
+      c_name=$2
+      classifier_http_name=$c_name"_http"
+      classifier_ssh_name=$c_name"_ssh"
+      classifier_create $classifier_http_name $c_name 80
+      classifier_create $classifier_ssh_name $c_name 22
+      shift 2
+    ;;
+    --server-vm|-H)
+      presetup_validate
+      boot_vm "server" ""
+      run_http_server "server"
+      shift
+    ;;
+    --client-vm|-N)
+      presetup_validate
+      boot_vm "client" ""
+      shift
+    ;;
+    --add-floating-ip|-f)
+      add_floating_ip $2
+      shift 2
+    ;;
+    --classifier-chain-delete|-C)
+      c_name=$2
+      tacker sfc-classifier-delete $c_name"_http"
+      tacker sfc-classifier-delete $c_name"_ssh"
+      tacker sfc-delete $c_name
+      shift 2
+    ;;
+    --glance-image-delete|-G)
+      ids=`cut -d":" -f4 glance_image_details`
+      glance image-delete $ids
+      rm glance_image_details
+      shift
+    ;;
+    --port-status|-p)
+      prv_ip=$(get_vm_prv_ip "server")
+      run_cmd_on_vm "client" "nc -zv -w 5 $prv_ip $2"
+      shift 2
+    ;;
+    --help|-h)
+      usage $0
+      shift
+    ;;
+    --floating-ip-delete|-F)
+      ip=`get_vm_floating_ip $2`
+      if [ -z $ip ]
+      then
+        echo "floation ip not found for:$2"
+      else
+        id=`neutron floatingip-list|grep $ip|awk '{print $2}'`
+        neutron floatingip-delete $id
+      fi
+      shift 2
+    ;;
+    --vnf-delete-all|-V)
+      for id in `tacker vnf-list|awk '{print $2}'|tail -n +4`;do tacker vnf-delete $id; done
+      for id in `tacker vnfd-list|awk '{print $2}'|tail -n +4`;do tacker vnfd-delete $id; done
+      shift
+    ;;
+    --sec-group-rule-delete-all|-X)
+      for id in `neutron security-group-rule-list|awk '{print $2}'|tail -n +4`;do neutron security-group-rule-delete $id; done
+      neutron security-group-delete $sg
+      shift
+    ;;
+    --delete-all|-D)
+      delete_all
+      shift
+    ;;
+    -- ) shift; break ;;
+    *)
+      echo "$0: error - unrecognized option $1" 1>&2; exit 1
+  esac
+done
