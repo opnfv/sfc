@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1acb0d3e_944f8592",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-02-03T18:42:03Z",
+      "side": 1,
+      "message": "This shouldn\u0027t return true if no match because on error of any command returns false. here ip route |grep -o cidr will return true if match and false if no match, even on empty output. Empty string is checked only after error condition checking.\n\nyou seeing any other behavior?\n\nif ignore_no_output is false then you will see other issues like there are many commanads which doesn\u0027t return any output but with true condition eg: touch \u003canyfine\u003e",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 76
+      },
+      "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
