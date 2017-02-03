@@ -60,13 +60,9 @@ def run_cmd_on_controller(cmd):
     return run_cmd_on_fm(ssh_cmd)
 
 
-def run_cmd_on_compute(cmd):
+def run_cmd_on_compute(cmd, ip_compute):
     """run given command on OpenStack Compute node"""
-    ip_computes = get_openstack_node_ips("compute")
-    if not ip_computes:
-        return None
-
-    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_computes[0], cmd)
+    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_compute, cmd)
     return run_cmd_on_fm(ssh_cmd)
 
 
@@ -391,9 +387,12 @@ def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
 
 def setup_compute_node(cidr):
     logger.info("bringing up br-int iface")
-    run_cmd_on_compute("ifconfig br-int up")
-    if not run_cmd_on_compute("ip route|grep -o %s" % cidr):
-        logger.info("adding route %s" % cidr)
-        return run_cmd_on_compute("ip route add %s" % cidr)
-    else:
-        logger.info("route %s exists" % cidr)
+    # TODO: Get only the compute nodes which belong to the env.
+    ip_computes = get_openstack_node_ips("compute")
+    for ip_compute in ip_computes:
+        run_cmd_on_compute("ifconfig br-int up", ip_compute)
+        if not run_cmd_on_compute("ip route|grep -o %s" % cidr, ip_compute):
+            logger.info("adding route %s in %s" % (cidr, ip_compute))
+            run_cmd_on_compute("ip route add %s" % cidr, ip_compute)
+        else:
+            logger.info("route %s exists" % cidr)
