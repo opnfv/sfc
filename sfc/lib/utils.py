@@ -71,7 +71,7 @@ def run_cmd_on_fm(cmd, username="root", passwd="r00tme"):
     ip = os.environ.get("INSTALLER_IP")
     ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
         passwd, SSH_OPTIONS, username, ip, cmd)
-    return run_cmd(ssh_cmd)
+    return run_cmd(ssh_cmd, ignore_no_output=False)
 
 
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
@@ -393,6 +393,6 @@ def setup_compute_node(cidr):
         run_cmd_on_compute("ifconfig br-int up", ip_compute)
         if not run_cmd_on_compute("ip route|grep -o %s" % cidr, ip_compute):
             logger.info("adding route %s in %s" % (cidr, ip_compute))
-            run_cmd_on_compute("ip route add %s" % cidr, ip_compute)
+            run_cmd_on_compute("ip route add %s dev br-int" % cidr, ip_compute)
         else:
             logger.info("route %s exists" % cidr)
