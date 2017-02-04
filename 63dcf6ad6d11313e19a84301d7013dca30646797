@@ -46,6 +46,30 @@
       "revId": "63dcf6ad6d11313e19a84301d7013dca30646797",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acb0d3e_d7f8af4b",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-04T16:49:17Z",
+      "side": 1,
+      "message": "Yes, probably images is a better place, easily recognizable. Tell us if the image is finally moved and I\u0027ll update this patch.",
+      "parentUuid": "5ac10518_1df02390",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 46
+      },
+      "revId": "63dcf6ad6d11313e19a84301d7013dca30646797",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
