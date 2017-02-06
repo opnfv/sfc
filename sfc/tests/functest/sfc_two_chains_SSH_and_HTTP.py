@@ -17,18 +17,11 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
+
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
 
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument("-r", "--report",
-                    help="Create json result file",
-                    action="store_true")
-
-args = parser.parse_args()
 
 """ logging configuration """
 logger = ft_logger.Logger("ODL_SFC").getLogger()
@@ -111,24 +104,17 @@ def main():
 
     srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
-    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                              COMMON_CONFIG.vnfd_dir,
-                              TESTCASE_CONFIG.test_vnfd_red)
-    os_tacker.create_vnfd(
-        tacker_client,
-        tosca_file=tosca_file)
+    tosca_red = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                             COMMON_CONFIG.vnfd_dir,
+                             TESTCASE_CONFIG.test_vnfd_red)
+    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_red)
 
-    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+    tosca_blue = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
-    os_tacker.create_vnfd(
-        tacker_client,
-        tosca_file=tosca_file)
-
-    os_tacker.create_vnf(
-        tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
-    os_tacker.create_vnf(
-        tacker_client, 'testVNF2', vnfd_name='test-vnfd2')
+    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_blue)
+    os_tacker.create_vnf(tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
+    os_tacker.create_vnf(tacker_client, 'testVNF2', vnfd_name='test-vnfd2')
 
     try:
         os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
