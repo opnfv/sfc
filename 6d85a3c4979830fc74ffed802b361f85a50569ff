@@ -22,6 +22,30 @@
       "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acb0d3e_2ae8aa7b",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-06T07:47:30Z",
+      "side": 1,
+      "message": "You can use execute_command from functest_utils, which returns the return code from the command it runs. Here\u0027s an example of the grep exit codes\n\n~/temp ? 9:13:17\n$ echo \"The bird is the word\" \u003e test \n\n~/temp ? 9:13:37\n$ cat test | grep bird\nThe bird is the word\n\n~/temp ? 9:13:43\n$ echo $?\n0\n\n~/temp ? 9:13:49\n$ cat test | grep cat\n\n~/temp ? 9:13:55\n$ echo $?\n1",
+      "parentUuid": "1acb0d3e_944f8592",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 76
+      },
+      "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
