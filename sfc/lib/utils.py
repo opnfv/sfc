@@ -230,7 +230,7 @@ def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
 
 def get_floating_ips(nova_client, neutron_client):
     ips = []
-    instances = nova_client.servers.list(search_opts={'all_tenants': 1})
+    instances = nova_client.servers.list()
     for instance in instances:
         floatip_dic = os_utils.create_floating_ip(neutron_client)
         floatip = floatip_dic['fip_addr']
