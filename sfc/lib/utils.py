@@ -27,25 +27,19 @@ FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
                                     "functest", "results", "odl-sfc")
 
 
-def run_cmd(cmd, wdir=None, ignore_stderr=False, ignore_no_output=True):
+def run_cmd(cmd):
     """run given command locally and return commands output if success"""
     pipe = subprocess.Popen(cmd, shell=True,
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, cwd=wdir)
+                            stderr=subprocess.PIPE)
 
     (output, errors) = pipe.communicate()
     if output:
         output = output.strip()
-    if pipe.returncode < 0:
+    if pipe.returncode != 0 || len(errors) > 0:
         logger.error(errors)
         return False
-    if errors:
-        logger.error(errors)
-        return ignore_stderr
-
-    if ignore_no_output and not output:
-        return True
 
     return output
 
