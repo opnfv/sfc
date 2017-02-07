@@ -8,7 +8,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import json
 import os
 import re
 import subprocess
@@ -17,14 +16,34 @@ import time
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
-import opnfv.utils.SSHUtils as ssh_utils
-import sfc.lib.config as sfc_config
+import opnfv.utils.ssh_utils as ssh_utils
+# import sfc.lib.config as sfc_config
+from opnfv.deployment.manager import DeploymentHandler
+
+# These are defined here as globals for now
+# TODO: take the values from configuration
+deploymentHandler = DeploymentHandler(
+    'fuel', '10.20.0.2', 'root', installer_pwd='r00tme')
+
+openstack_nodes = deploymentHandler.get_nodes()
+controller_nodes = [node for node in openstack_nodes
+                    if node.is_controller()]
+compute_nodes = [node for node in openstack_nodes
+                 if node.is_compute()]
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
 SSH_OPTIONS = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
                                     "functest", "results", "odl-sfc")
+
+
+def get_controller_nodes():
+    return controller_nodes
+
+
+def get_compute_nodes():
+    return compute_nodes
 
 
 def run_cmd(cmd, wdir=None, ignore_stderr=False, ignore_no_output=True):
@@ -50,54 +69,12 @@ def run_cmd(cmd, wdir=None, ignore_stderr=False, ignore_no_output=True):
     return output
 
 
-def run_cmd_on_controller(cmd):
-    """run given command on OpenStack controller"""
-    ip_controllers = get_openstack_node_ips("controller")
-    if not ip_controllers:
-        return None
-
-    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_controllers[0], cmd)
-    return run_cmd_on_fm(ssh_cmd)
-
-
-def run_cmd_on_compute(cmd, ip_compute):
-    """run given command on OpenStack Compute node"""
-    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_compute, cmd)
-    return run_cmd_on_fm(ssh_cmd)
-
-
-def run_cmd_on_fm(cmd, username="root", passwd="r00tme"):
-    """run given command on Fuel Master"""
-    ip = os.environ.get("INSTALLER_IP")
-    ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
-        passwd, SSH_OPTIONS, username, ip, cmd)
-    return run_cmd(ssh_cmd)
-
-
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
     """run given command on Remote Machine, Can be VM"""
     ssh_opt_append = "%s -o ConnectTimeout=50 " % SSH_OPTIONS
     ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
         passwd, ssh_opt_append, username, ip, cmd)
     return run_cmd(ssh_cmd)
-
-
-def get_openstack_node_ips(role):
-    """Get OpenStack Nodes IP Address"""
-    fuel_env = sfc_config.CommonConfig().fuel_environment
-    if fuel_env is not None:
-        cmd = "fuel2 node list -f json -e %s" % fuel_env
-    else:
-        cmd = "fuel2 node list -f json"
-
-    nodes = run_cmd_on_fm(cmd)
-    ips = []
-    nodes = json.loads(nodes)
-    for node in nodes:
-        if role in node["roles"]:
-            ips.append(node["ip"])
-
-    return ips
 
 
 def configure_iptables():
@@ -109,7 +86,8 @@ def configure_iptables():
 
     for cmd in iptable_cmds:
         logger.info("Configuring %s on contoller" % cmd)
-        run_cmd_on_controller(cmd)
+        for cont_cli in controller_nodes:
+            cont_cli.run_cmd(cmd)
 
 
 def download_image(url, image_path):
@@ -323,7 +301,9 @@ def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
 
 def get_ssh_clients(role, proxy):
     clients = []
-    for ip in get_openstack_node_ips(role):
+    nodes = controller_nodes if role == 'controller' else compute_nodes
+    node_ips = [node.ip for node in nodes]
+    for ip in node_ips:
         s_client = ssh_utils.get_ssh_client(ip, 'root', proxy=proxy)
         clients.append(s_client)
 
@@ -387,12 +367,12 @@ def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
 
 def setup_compute_node(cidr):
     logger.info("bringing up br-int iface")
-    # TODO: Get only the compute nodes which belong to the env.
-    ip_computes = get_openstack_node_ips("compute")
-    for ip_compute in ip_computes:
-        run_cmd_on_compute("ifconfig br-int up", ip_compute)
-        if not run_cmd_on_compute("ip route|grep -o %s" % cidr, ip_compute):
-            logger.info("adding route %s in %s" % (cidr, ip_compute))
-            run_cmd_on_compute("ip route add %s" % cidr, ip_compute)
+    grep_cidr_routes = ("ip route|grep -o {0}".format(cidr)).strip()
+    add_cidr = "ip route add {0}".format(cidr)
+    for compute in compute_nodes:
+        compute.run_cmd("ifconfig br-int up")
+        if len(compute.run_cmd(grep_cidr_routes)) == 0:
+            logger.info("adding route %s in %s" % (cidr, compute.ip))
+            compute.run_cmd(add_cidr)
         else:
             logger.info("route %s exists" % cidr)
