@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1acb0d3e_59462e25",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-07T14:33:51Z",
+      "side": 1,
+      "message": "I would name it \u0027controller\u0027 or \u0027node\u0027 rather than \u0027cont_cli\u0027",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 20
+      },
+      "revId": "4b7cfb61815840a420a7141ff5b45eb735904fad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
