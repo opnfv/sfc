@@ -348,7 +348,7 @@ def check_ssh(ips, retries=100):
     return False
 
 
-def ofctl_time_counter(ovs_logger, ssh_conn):
+def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
     try:
         # We get the flows from table 11
         table = 11
@@ -358,6 +358,17 @@ def ofctl_time_counter(ovs_logger, ssh_conn):
         rsps = []
         lines = output.split(",")
         for line in lines:
+            if max_duration is not None:
+                pattern2 = "duration"
+                is_there2 = re.findall(pattern2, line)
+                if is_there2:
+                    value = line.split("=")[1].split(".")[0]
+                    value_int = int(value)
+                    if value_int < max_duration:
+                        # The RSP is new, no need to store the RSP in first_RSP
+                        return rsps
+                    else:
+                        continue
             is_there = re.findall(pattern, line)
             if is_there:
                 value = line.split(":")[1].split("-")[0]
@@ -370,7 +381,11 @@ def ofctl_time_counter(ovs_logger, ssh_conn):
 
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
-    rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
+    # 10 sec. is the threshold to consider a flow from an old deployment
+    max_duration = 10
+    rsps = ofctl_time_counter(ovs_logger, compute_clients[0], max_duration)
+    # first_RSP saves a potential RSP from an old deployment. ODL may take
+    # quite some time to implement the new flow and an old flow may be there
     first_RSP = rsps[0] if len(rsps) > 0 else ''
     while not ((len(rsps) > 1) and
                (first_RSP != rsps[0]) and
