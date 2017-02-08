@@ -46,6 +46,54 @@
       "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acb0d3e_a337e0af",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-02-08T16:52:09Z",
+      "side": 1,
+      "message": "Sorry, I did it wrong. I meant to add ignore_no_output in the run_cmd_remote function when calling run_cmd. This is the problem:\n\nres \u003d True, re.M \u003d 8\nTraceback (most recent call last):\n  File \"sfc_two_chains_SSH_and_HTTP.py\", line 272, in \u003cmodule\u003e\n    main()\n  File \"sfc_two_chains_SSH_and_HTTP.py\", line 196, in main\n    if test_utils.is_ssh_blocked(srv_prv_ip, client_ip):\n  File \"/usr/local/lib/python2.7/dist-packages/sfc/lib/utils.py\", line 304, in is_ssh_blocked\n    match \u003d re.search(\"nc:.*timed out:.*\", res, re.M)\n  File \"/usr/lib/python2.7/re.py\", line 142, in search\n    return _compile(pattern, flags).search(string)\nTypeError: expected string or buffer\n\nTHe problem is that as the output is empty, the replied is True but that is wrong for the netcat function as it is doing a re.search.",
+      "parentUuid": "1acb0d3e_944f8592",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 76
+      },
+      "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acb0d3e_e3ac088f",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-02-08T16:52:09Z",
+      "side": 1,
+      "message": "OK. I will use that. I\u0027ll do that next week to check if the route 11.0.0.0 is added",
+      "parentUuid": "1acb0d3e_2ae8aa7b",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 76
+      },
+      "revId": "6d85a3c4979830fc74ffed802b361f85a50569ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
