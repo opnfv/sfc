@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_eccac36d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-13T14:41:18Z",
+      "side": 1,
+      "message": "IMHO this is too verbose. I\u0027d prefer something more compact, like \n\n running [\u003ccmd\u003e] returns:\u003crc\u003e - \"\u003coutput\u003e\"\n\nMost of the time, the stdout/stderr is only meaningful when the command fails, so we might consider avoiding it when the RC is 0.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 10
+      },
+      "revId": "9d7a9692785ff7b0e4b5ce16c0f6dd277f081e61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
