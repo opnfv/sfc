@@ -34,6 +34,9 @@ def run_cmd(cmd):
                             stderr=subprocess.PIPE)
 
     (output, errors) = pipe.communicate()
+    logger.debug("This is the command to execute: %s" %cmd)
+    logger.debug("This is the return code: %s" %pipe.returncode)
+    logger.debug("This is the output: %s" % output)
     if output:
         output = output.strip()
     if pipe.returncode != 0 or len(errors) > 0:
