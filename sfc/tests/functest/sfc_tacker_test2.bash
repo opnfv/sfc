@@ -2,8 +2,8 @@
 BASEDIR=`dirname $0`
 
 #import VNF descriptor
-tacker vnfd-create --vnfd-file ${BASEDIR}/vnfd-templates/test2-vnfd1.yaml
-tacker vnfd-create --vnfd-file ${BASEDIR}/vnfd-templates/test2-vnfd2.yaml
+tacker vnfd-create --vnfd-file ${BASEDIR}/vnfd-templates/test-vnfd1.yaml
+tacker vnfd-create --vnfd-file ${BASEDIR}/vnfd-templates/test-vnfd2.yaml
 
 #create instances of the imported VNF
 tacker vnf-create --name testVNF1 --vnfd-name test-vnfd1

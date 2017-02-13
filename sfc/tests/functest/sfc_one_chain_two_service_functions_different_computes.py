@@ -37,8 +37,8 @@ logger = ft_logger.Logger("ODL_SFC").getLogger()
 REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
 SFC_TEST_DIR = os.path.join(REPO_PATH, "sfc/tests/functest")
 TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker_test2.bash")
-TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd1.yaml")
-TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd2.yaml")
+TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test-vnfd1.yaml")
+TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test-vnfd2.yaml")
 CLIENT = "client"
 SERVER = "server"
 ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
