@@ -1,0 +1,23 @@
+template_name: test-vnfd1
+description: firewall1-example
+
+service_properties:
+  Id: firewall1-vnfd
+  vendor: tacker
+  version: 1
+  type:
+      - firewall1
+vdus:
+  vdu1:
+    id: vdu1
+    vm_image: sfc_nsh_danube
+    instance_type: custom
+    service_type: firewall1
+
+    network_interfaces:
+      management:
+        network: example-net
+        management: true
+
+    placement_policy:
+      availability_zone: { get_input: zone }
