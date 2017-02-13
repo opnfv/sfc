@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_8c0227b3",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-13T14:12:09Z",
+      "side": 1,
+      "message": "just aesthetic, but I would prefer to have the whole command in one line:\n\n if not run_cmd_on_compute(\n      \"ip route | grep -o %s || true\" % cidr, ip_compute)",
+      "range": {
+        "startLine": 403,
+        "startChar": 33,
+        "endLine": 403,
+        "endChar": 35
+      },
+      "revId": "63dc4a2c9b929f14152a62d7fb5758ae7025ccb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
