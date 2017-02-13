@@ -400,8 +400,9 @@ def setup_compute_node(cidr):
     ip_computes = get_openstack_node_ips("compute")
     for ip_compute in ip_computes:
         run_cmd_on_compute("ifconfig br-int up", ip_compute)
-        if not run_cmd_on_compute("ip route|grep -o %s" % cidr, ip_compute):
+        if not run_cmd_on_compute("ip route|grep -o %s"
+                                  " || true" % cidr, ip_compute):
             logger.info("adding route %s in %s" % (cidr, ip_compute))
-            run_cmd_on_compute("ip route add %s" % cidr, ip_compute)
+            run_cmd_on_compute("ip route add %s dev br-int" % cidr, ip_compute)
         else:
             logger.info("route %s exists" % cidr)
