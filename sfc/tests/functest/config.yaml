@@ -1,8 +1,8 @@
 defaults:
   #odl-sfc uses custom flavors as per below params
   flavor: custom
-  ram_size_in_mb: 1500
-  disk_size_in_gb: 10
+  ram_size_in_mb: 1024
+  disk_size_in_gb: 5
   vcpu_count: 1
   image_name: sfc_cloud
   image_file_name: sfc_cloud.qcow2

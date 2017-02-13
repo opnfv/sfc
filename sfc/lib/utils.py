@@ -68,7 +68,7 @@ def run_cmd_on_fm(cmd, username="root", passwd="r00tme"):
     return run_cmd(ssh_cmd)
 
 
-def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
+def run_cmd_remote(ip, cmd, username="root", passwd="octopus"):
     """run given command on Remote Machine, Can be VM"""
     ssh_opt_append = "%s -o ConnectTimeout=50 " % SSH_OPTIONS
     ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
