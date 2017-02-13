@@ -237,6 +237,38 @@ def get_floating_ips(nova_client, neutron_client):
     return server_ip, client_ip, ips[1], ips[0]
 
 
+# TODO (jvidal): This is pure scaffolding, it needs to be merged with
+# get_floating_ips in the future
+def get_floating_ips_2(nova_client, neutron_client):
+    sf_ip = None
+    client_ip = None
+    server_ip = None
+    instances = nova_client.servers.list()
+    for instance in instances:
+        floatip_dic = os_utils.create_floating_ip(neutron_client)
+        floatip = floatip_dic['fip_addr']
+        instance.add_floating_ip(floatip)
+        logger.info("Instance name and ip %s:%s " % (instance.name, floatip))
+        logger.info("Waiting for instance %s:%s to come up" %
+                    (instance.name, floatip))
+        if not ping(floatip):
+            logger.info("Instance %s:%s didn't come up" %
+                        (instance.name, floatip))
+            return None
+
+        if instance.name == "server":
+            logger.info("Server:%s is reachable" % floatip)
+            server_ip = floatip
+        elif instance.name == "client":
+            logger.info("Client:%s is reachable" % floatip)
+            client_ip = floatip
+        else:
+            logger.info("SF:%s is reachable" % floatip)
+            sf_ip = floatip
+
+    return server_ip, client_ip, sf_ip
+
+
 def start_http_server(ip):
     """Start http server on a given machine, Can be VM"""
     cmd = "\'python -m SimpleHTTPServer 80"
