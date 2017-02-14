@@ -25,22 +25,23 @@ FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
 
 
 def run_cmd(cmd):
-    """run given command locally and return commands output if success"""
+    """
+    Run given command locally
+    Return a tuple with the return code, stdout, and stderr of the command
+    """
     pipe = subprocess.Popen(cmd, shell=True,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
-    (output, errors) = pipe.communicate()
+    output, errors = pipe.communicate()
     logger.debug("running [%s] returns: <%s> - %s "
                  "" % (cmd, pipe.returncode, output))
-    if output:
-        output = output.strip()
+
     if pipe.returncode != 0 or len(errors) > 0:
         logger.error('FAILED to execute {0}'.format(cmd))
         logger.error(errors)
-        return None
 
-    return output
+    return pipe.returncode, output.strip(), errors.strip()
 
 
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
@@ -163,7 +164,7 @@ def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
     cmd = ping_cmd + '|' + grep_cmd
 
     while retries > 0:
-        output = run_cmd(cmd)
+        _, output, _ = run_cmd(cmd)
         if not output:
             return False
 
@@ -213,7 +214,7 @@ def start_http_server(ip):
     cmd = "\'python -m SimpleHTTPServer 80"
     cmd = cmd + " > /dev/null 2>&1 &\'"
     run_cmd_remote(ip, cmd)
-    output = run_cmd_remote(ip, "ps aux|grep SimpleHTTPServer")
+    _, output, _ = run_cmd_remote(ip, "ps aux | grep SimpleHTTPServer")
     if not output:
         logger.error("Failed to start http server")
         return False
@@ -242,7 +243,7 @@ def netcat(s_ip, c_ip, port="80", timeout=5):
     cmd = "nc -zv "
     cmd = cmd + " -w %s %s %s" % (timeout, s_ip, port)
     cmd = cmd + " 2>&1"
-    output = run_cmd_remote(c_ip, cmd)
+    _, output, _ = run_cmd_remote(c_ip, cmd)
     logger.info("%s" % output)
     return output
 
@@ -283,7 +284,8 @@ def check_ssh(ips, retries=100):
     logger.info("Checking SSH connectivity to the SFs with ips %s" % str(ips))
     while retries and not all(check):
         for index, ip in enumerate(ips):
-            check[index] = run_cmd_remote(ip, "exit")
+            rc, _, _ = run_cmd_remote(ip, "exit")
+            check[index] = True if rc == 0 else False
 
         if all(check):
             logger.info("SSH connectivity to the SFs established")
@@ -349,7 +351,7 @@ def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
 
 def setup_compute_node(cidr, compute_nodes):
     logger.info("bringing up br-int iface")
-    grep_cidr_routes = ("ip route|grep -o {0} || true".format(cidr)).strip()
+    grep_cidr_routes = ("ip route | grep -o {0} || true".format(cidr)).strip()
     add_cidr = "ip route add {0} br-int".format(cidr)
     for compute in compute_nodes:
         compute.run_cmd("ifconfig br-int up")
@@ -357,4 +359,4 @@ def setup_compute_node(cidr, compute_nodes):
             logger.info("adding route %s in %s" % (cidr, compute.ip))
             compute.run_cmd(add_cidr)
         else:
-            logger.info("route %s exists" % cidr)
+            logger.info("route %s already exists" % cidr)

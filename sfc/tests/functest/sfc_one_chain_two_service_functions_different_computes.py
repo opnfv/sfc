@@ -193,8 +193,8 @@ def main():
             'protocol': 6
         })
 
-    logger.info(test_utils.run_cmd('tacker sfc-list'))
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
+    logger.info(test_utils.run_cmd('tacker sfc-list')[1])
+    logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
     server_ip, client_ip, sf1, sf2 = test_utils.get_floating_ips(
         nova_client, neutron_client)
