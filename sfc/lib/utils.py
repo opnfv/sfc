@@ -28,27 +28,27 @@ FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
 
 
 def run_cmd(cmd):
-    """run given command locally and return commands output if success"""
+    """
+    Run given command locally
+    Return a tuple with the return code, stdout, and stderr of the command
+    """
     pipe = subprocess.Popen(cmd, shell=True,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
-    (output, errors) = pipe.communicate()
-    if output:
-        output = output.strip()
+    output, errors = pipe.communicate()
     if pipe.returncode != 0 or len(errors) > 0:
         logger.error('FAILED to execute {0}'.format(cmd))
         logger.error(errors)
-        return None
 
-    return output
+    return pipe.returncode, output.strip(), errors.strip()
 
 
 def run_cmd_on_controller(cmd):
     """run given command on OpenStack controller"""
     ip_controllers = get_openstack_node_ips("controller")
     if not ip_controllers:
-        return None
+        return -1, "", "Could not find any controller to execute %s" % cmd
 
     ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_controllers[0], cmd)
     return run_cmd_on_fm(ssh_cmd)
@@ -84,7 +84,7 @@ def get_openstack_node_ips(role):
     else:
         cmd = "fuel2 node list -f json"
 
-    nodes = run_cmd_on_fm(cmd)
+    _, nodes, _ = run_cmd_on_fm(cmd)
     ips = []
     nodes = json.loads(nodes)
     for node in nodes:
@@ -205,7 +205,7 @@ def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
     cmd = ping_cmd + '|' + grep_cmd
 
     while retries > 0:
-        output = run_cmd(cmd)
+        _, output, _ = run_cmd(cmd)
         if not output:
             return False
 
@@ -255,7 +255,7 @@ def start_http_server(ip):
     cmd = "\'python -m SimpleHTTPServer 80"
     cmd = cmd + " > /dev/null 2>&1 &\'"
     run_cmd_remote(ip, cmd)
-    output = run_cmd_remote(ip, "ps aux|grep SimpleHTTPServer")
+    _, output, _ = run_cmd_remote(ip, "ps aux | grep SimpleHTTPServer")
     if not output:
         logger.error("Failed to start http server")
         return False
@@ -284,7 +284,7 @@ def netcat(s_ip, c_ip, port="80", timeout=5):
     cmd = "nc -zv "
     cmd = cmd + " -w %s %s %s" % (timeout, s_ip, port)
     cmd = cmd + " 2>&1"
-    output = run_cmd_remote(c_ip, cmd)
+    _, output, _ = run_cmd_remote(c_ip, cmd)
     logger.info("%s" % output)
     return output
 
@@ -330,7 +330,8 @@ def check_ssh(ips, retries=100):
     logger.info("Checking SSH connectivity to the SFs with ips %s" % str(ips))
     while retries and not all(check):
         for index, ip in enumerate(ips):
-            check[index] = run_cmd_remote(ip, "exit")
+            rc, _, _ = run_cmd_remote(ip, "exit")
+            check[index] = True if rc == 0 else False
 
         if all(check):
             logger.info("SSH connectivity to the SFs established")
@@ -400,7 +401,9 @@ def setup_compute_node(cidr):
     ip_computes = get_openstack_node_ips("compute")
     for ip_compute in ip_computes:
         run_cmd_on_compute("ifconfig br-int up", ip_compute)
-        if not run_cmd_on_compute("ip route|grep -o %s" % cidr, ip_compute):
+        _, output, _ = run_cmd_on_compute(
+            "ip route | grep -o %s" % cidr, ip_compute)
+        if not output:
             logger.info("adding route %s in %s" % (cidr, ip_compute))
             run_cmd_on_compute("ip route add %s" % cidr, ip_compute)
         else:
