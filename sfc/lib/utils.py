@@ -8,7 +8,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import json
 import os
 import re
 import subprocess
@@ -17,8 +16,6 @@ import time
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
-import opnfv.utils.SSHUtils as ssh_utils
-import sfc.lib.config as sfc_config
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
@@ -46,30 +43,6 @@ def run_cmd(cmd):
     return output
 
 
-def run_cmd_on_controller(cmd):
-    """run given command on OpenStack controller"""
-    ip_controllers = get_openstack_node_ips("controller")
-    if not ip_controllers:
-        return None
-
-    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_controllers[0], cmd)
-    return run_cmd_on_fm(ssh_cmd)
-
-
-def run_cmd_on_compute(cmd, ip_compute):
-    """run given command on OpenStack Compute node"""
-    ssh_cmd = "ssh %s %s %s" % (SSH_OPTIONS, ip_compute, cmd)
-    return run_cmd_on_fm(ssh_cmd)
-
-
-def run_cmd_on_fm(cmd, username="root", passwd="r00tme"):
-    """run given command on Fuel Master"""
-    ip = os.environ.get("INSTALLER_IP")
-    ssh_cmd = "sshpass -p %s ssh %s %s@%s %s" % (
-        passwd, SSH_OPTIONS, username, ip, cmd)
-    return run_cmd(ssh_cmd)
-
-
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
     """run given command on Remote Machine, Can be VM"""
     ssh_opt_append = "%s -o ConnectTimeout=50 " % SSH_OPTIONS
@@ -78,25 +51,7 @@ def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
     return run_cmd(ssh_cmd)
 
 
-def get_openstack_node_ips(role):
-    """Get OpenStack Nodes IP Address"""
-    fuel_env = sfc_config.CommonConfig().fuel_environment
-    if fuel_env is not None:
-        cmd = "fuel2 node list -f json -e %s" % fuel_env
-    else:
-        cmd = "fuel2 node list -f json"
-
-    nodes = run_cmd_on_fm(cmd)
-    ips = []
-    nodes = json.loads(nodes)
-    for node in nodes:
-        if role in node["roles"]:
-            ips.append(node["ip"])
-
-    return ips
-
-
-def configure_iptables():
+def configure_iptables(controller_nodes):
     """Configures IPTABLES on OpenStack Controller"""
     iptable_cmds = ["iptables -P INPUT ACCEPT",
                     "iptables -t nat -P INPUT ACCEPT",
@@ -105,7 +60,8 @@ def configure_iptables():
 
     for cmd in iptable_cmds:
         logger.info("Configuring %s on contoller" % cmd)
-        run_cmd_on_controller(cmd)
+        for controller in controller_nodes:
+            controller.run_cmd(cmd)
 
 
 def download_image(url, image_path):
@@ -317,13 +273,8 @@ def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
                              timestamp=timestamp)
 
 
-def get_ssh_clients(role, proxy):
-    clients = []
-    for ip in get_openstack_node_ips(role):
-        s_client = ssh_utils.get_ssh_client(ip, 'root', proxy=proxy)
-        clients.append(s_client)
-
-    return clients
+def get_ssh_clients(nodes):
+    return [n.ssh_client for n in nodes]
 
 
 def check_ssh(ips, retries=100):
@@ -396,15 +347,14 @@ def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
     logger.info("classification rules updated")
 
 
-def setup_compute_node(cidr):
+def setup_compute_node(cidr, compute_nodes):
     logger.info("bringing up br-int iface")
-    # TODO: Get only the compute nodes which belong to the env.
-    ip_computes = get_openstack_node_ips("compute")
-    for ip_compute in ip_computes:
-        run_cmd_on_compute("ifconfig br-int up", ip_compute)
-        if not run_cmd_on_compute(
-                "ip route|grep -o %s || true" % cidr, ip_compute):
-            logger.info("adding route %s in %s" % (cidr, ip_compute))
-            run_cmd_on_compute("ip route add %s dev br-int" % cidr, ip_compute)
+    grep_cidr_routes = ("ip route|grep -o {0} || true".format(cidr)).strip()
+    add_cidr = "ip route add {0} br-int".format(cidr)
+    for compute in compute_nodes:
+        compute.run_cmd("ifconfig br-int up")
+        if not compute.run_cmd(grep_cidr_routes):
+            logger.info("adding route %s in %s" % (cidr, compute.ip))
+            compute.run_cmd(add_cidr)
         else:
             logger.info("route %s exists" % cidr)

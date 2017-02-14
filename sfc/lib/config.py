@@ -34,22 +34,31 @@ class CommonConfig(object):
         self.functest_results_dir = os.path.join(
             CONST.dir_results, "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir,  "config.yaml")
-        self.fuel_master_ip = ft_utils.get_parameter_from_yaml(
-            "defaults.fuel_master_ip", self.config_file)
-        self.fuel_master_uname = ft_utils.get_parameter_from_yaml(
-            "defaults.fuel_master_uname", self.config_file)
-        self.fuel_master_passwd = ft_utils.get_parameter_from_yaml(
-            "defaults.fuel_master_passwd", self.config_file)
-        self.fuel_proxy = {
-            'ip': self.fuel_master_ip,
-            'username': self.fuel_master_uname,
-            'password': self.fuel_master_passwd
-        }
+        self.installer_type = ft_utils.get_parameter_from_yaml(
+            "defaults.installer.type", self.config_file)
+        self.installer_ip = ft_utils.get_parameter_from_yaml(
+            "defaults.installer.ip", self.config_file)
+        self.installer_user = ft_utils.get_parameter_from_yaml(
+            "defaults.installer.user", self.config_file)
+
         try:
-            self.fuel_environment = ft_utils.get_parameter_from_yaml(
-                "defaults.fuel_environment", self.config_file)
+            self.installer_password = ft_utils.get_parameter_from_yaml(
+                "defaults.installer.password", self.config_file)
         except:
-            self.fuel_environment = None
+            self.installer_password = None
+
+        try:
+            self.installer_key_file = ft_utils.get_parameter_from_yaml(
+                "defaults.installer.key_file", self.config_file)
+        except:
+            self.installer_key_file = None
+
+        try:
+            self.installer_cluster = ft_utils.get_parameter_from_yaml(
+                "defaults.installer.cluster", self.config_file)
+        except:
+            self.installer_cluster = None
+
         self.flavor = ft_utils.get_parameter_from_yaml(
             "defaults.flavor", self.config_file)
         self.ram_size_in_mb = ft_utils.get_parameter_from_yaml(
