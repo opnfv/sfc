@@ -17,10 +17,10 @@ import yaml
 
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
+import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
-import opnfv.utils.SSHUtils as ssh_utils
 import sfc.lib.config as sfc_config
-import sfc.lib.utils as utils
+from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
 parser = argparse.ArgumentParser()
@@ -43,33 +43,25 @@ def push_results(testname, start_time, end_time, criteria, details):
                                 details)
 
 
-def get_tackerc_file():
+def fetch_tackerc_file(controller_node):
     rc_file = os.path.join(COMMON_CONFIG.sfc_test_dir, 'tackerc')
     if not os.path.exists(rc_file):
-        logger.info("tackerc file not found, getting it from controller")
-        ip = utils.get_openstack_node_ips("controller")
-        ssh_conn = ssh_utils.get_ssh_client(ip[0], 'root',
-                                            proxy=COMMON_CONFIG.fuel_proxy)
-        ssh_utils.get_file(ssh_conn, "tackerc", rc_file)
+        logger.info("tackerc file not found, fetching it from controller")
+        controller_node.get_file("~/tackerc", rc_file)
     else:
         logger.info("found tackerc file")
-
     return rc_file
 
 
-def set_tacker_rc_file_env():
-    rc_file = get_tackerc_file()
-    with open(rc_file) as f:
-        for line in f.readlines():
-            if not (line.startswith('#') or len(line) == 1):
-                filtered = line.strip().split(' ')
-                kv = filtered[1].split('=')
-                logger.info("Set shell env %s=%s" % (kv[0], kv[1]))
-                os.environ[kv[0]] = kv[1].strip("'")
-
-
 def main():
-    set_tacker_rc_file_env()
+    deploymentHandler = DeploymentFactory.get_handler(
+        'fuel', '10.20.0.2', 'root', installer_pwd='r00tme')
+    a_controller = [node for node in deploymentHandler.nodes
+                    if node.is_controller()][0]
+    rc_file = fetch_tackerc_file(a_controller)
+
+    creds = os_utils.source_credentials(rc_file)
+    logger.info("Updating env with {0}".format(creds))
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
