@@ -20,6 +20,7 @@ import opnfv.utils.ovs_logger as ovs_log
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
+from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
 """ logging configuration """
@@ -32,6 +33,16 @@ TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
 
 
 def main():
+    # TODO: take the values from configuration
+    deploymentHandler = DeploymentFactory.get_handler(
+        'fuel', '10.20.0.2', 'root', installer_pwd='r00tme')
+
+    openstack_nodes = deploymentHandler.get_nodes({'cluster': '4'})
+    controller_nodes = [node for node in openstack_nodes
+                        if node.is_controller()]
+    compute_nodes = [node for node in openstack_nodes
+                     if node.is_compute()]
+
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
     results.add_to_summary(2, "STATUS", "SUBTEST")
@@ -51,8 +62,9 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
-    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr)
-    test_utils.configure_iptables()
+    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
+    test_utils.configure_iptables(controller_nodes)
+
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
     _, custom_flv_id = os_utils.get_or_create_flavor(
@@ -69,10 +81,8 @@ def main():
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
 
-    controller_clients = test_utils.get_ssh_clients("controller",
-                                                    COMMON_CONFIG.fuel_proxy)
-    compute_clients = test_utils.get_ssh_clients("compute",
-                                                 COMMON_CONFIG.fuel_proxy)
+    controller_clients = test_utils.get_ssh_clients(controller_nodes)
+    compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
