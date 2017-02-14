@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_d23e7a29",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-14T12:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dabed58f_5204ca7d",
+      "range": {
+        "startLine": 185,
+        "startChar": 41,
+        "endLine": 185,
+        "endChar": 52
+      },
+      "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_b2d746ed",
         "filename": "sfc/tests/functest/run_tests.py",
         "patchSetId": 6
@@ -53,6 +77,24 @@
       "writtenOn": "2017-02-14T11:56:24Z",
       "side": 1,
       "message": "I imagine cluster 4 comes from your local testing. Make sure in CI this works as well... this will probably return [] or None as normally the default cluster is 1",
+      "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_d2f75a8b",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-14T12:23:27Z",
+      "side": 1,
+      "message": "I\u0027ll take this from the configuration. When will this get merged? https://gerrit.opnfv.org/gerrit/#/c/28281/",
+      "parentUuid": "dabed58f_7209ce94",
       "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
