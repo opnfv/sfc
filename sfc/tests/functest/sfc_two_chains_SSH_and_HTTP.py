@@ -141,8 +141,8 @@ def main():
             'protocol': 6
         })
 
-    logger.info(test_utils.run_cmd('tacker sfc-list'))
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
+    logger.info(test_utils.run_cmd('tacker sfc-list')[1])
+    logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -213,7 +213,7 @@ def main():
             'protocol': 6
         })
 
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
+    logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
