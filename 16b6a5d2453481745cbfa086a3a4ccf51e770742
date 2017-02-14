@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "dabed58f_5204ca7d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-14T12:01:07Z",
+      "side": 1,
+      "message": "this option was removed in a previous patch, I think it is better to leave it removed.",
+      "range": {
+        "startLine": 185,
+        "startChar": 41,
+        "endLine": 185,
+        "endChar": 52
+      },
+      "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_b2d746ed",
         "filename": "sfc/tests/functest/run_tests.py",
         "patchSetId": 6
