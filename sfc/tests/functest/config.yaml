@@ -6,10 +6,12 @@ defaults:
   vcpu_count: 1
   image_name: sfc_nsh_danube
   image_file_name: sfc_nsh_danube.qcow2
-  fuel_master_ip: 10.20.0.2
-  fuel_master_uname: root
-  fuel_master_passwd: r00tme
-  fuel_environment: # Change this to the id of the desired fuel env (1, 2, 3...)
+  installer:
+      type: fuel
+      ip: 10.20.0.2
+      user: root
+      password: r00tme
+      cluster: 1 # Change this to the id of the desired fuel env (1, 2, 3...)
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/images"
   vnfd-dir: "vnfd-templates"
