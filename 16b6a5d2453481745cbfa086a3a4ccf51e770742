@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_b2d746ed",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-14T11:56:24Z",
+      "side": 1,
+      "message": "Maybe not now, but we could keep these hardcoded params in a config file.",
+      "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7209ce94",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-14T11:56:24Z",
+      "side": 1,
+      "message": "I imagine cluster 4 comes from your local testing. Make sure in CI this works as well... this will probably return [] or None as normally the default cluster is 1",
+      "revId": "16b6a5d2453481745cbfa086a3a4ccf51e770742",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
