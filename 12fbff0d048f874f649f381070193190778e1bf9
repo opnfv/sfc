@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_12c72d47",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-15T19:03:19Z",
+      "side": 1,
+      "message": "so this test case won\u0027t run on deployments with 1 compute or more than 2, right?",
+      "revId": "12fbff0d048f874f649f381070193190778e1bf9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
