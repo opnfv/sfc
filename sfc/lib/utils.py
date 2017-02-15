@@ -238,32 +238,27 @@ def vxlan_tool_stop(sf):
     run_cmd_remote(sf, cmd)
 
 
-def netcat(s_ip, c_ip, port="80", timeout=5):
-    """Run netcat on a give machine, Can be VM"""
-    cmd = "nc -zv "
-    cmd = cmd + " -w %s %s %s" % (timeout, s_ip, port)
-    cmd = cmd + " 2>&1"
-    _, output, _ = run_cmd_remote(c_ip, cmd)
+def netcat(source, destination, port, timeout=5):
+    """
+    Run netcat from source to destination, on specified port
+    Returns 0 on successful execution, != 0 on failure
+    """
+    cmd = "nc -zv -w %s %s %s 2>&1" % (timeout, destination, port)
+    rc, output, _ = run_cmd_remote(source, cmd)
+    logger.info("Checking connectivity from [%s] to [%s] on port [%s]" %
+                (source, destination, port))
     logger.info("%s" % output)
-    return output
+    return rc
 
 
-def is_ssh_blocked(srv_prv_ip, client_ip):
-    res = netcat(srv_prv_ip, client_ip, port="22")
-    match = re.search("nc:.*timed out:.*", res, re.M)
-    if match:
-        return True
-
-    return False
+def is_ssh_blocked(source, destination):
+    rc = netcat(source, destination, port="22")
+    return rc != 0
 
 
-def is_http_blocked(srv_prv_ip, client_ip):
-    res = netcat(srv_prv_ip, client_ip, port="80")
-    match = re.search(".* 80 port.* succeeded!", res, re.M)
-    if match:
-        return False
-
-    return True
+def is_http_blocked(source, destination):
+    rc = netcat(source, destination, port="80")
+    return rc != 0
 
 
 def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
