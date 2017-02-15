@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_3ee23d04",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3257
+      },
+      "writtenOn": "2017-02-15T14:53:55Z",
+      "side": 1,
+      "message": "Is this function really needed ? it is not used in the tests. Can it be added when there is a utility ?",
+      "revId": "ad847d5e132845c0ceb0b792ce60e92dc165e915",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7ebf55d1",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3257
+      },
+      "writtenOn": "2017-02-15T14:53:55Z",
+      "side": 1,
+      "message": "nitpic: \ntwo function call to create_vnf can be cleaned up with slight restructuring of the \"if\" construct:\n\nif av_zone is None:\n    param_file \u003d os.path.join(os.getcwd(),\n                            \u0027vnfd-templates\u0027,\n                            \u0027test-vnfd-default-params.yaml\u0027)\nelse:\n    param_file \u003d os.path.join(\u0027/tmp\u0027, \u0027param_{0}.yaml.format(av_zone))\n    data \u003d {\u0027zone\u0027: av_zone}\n    with open(param_file) as f:\n        yaml.dump(data, f)\n\nos_tacker.create_vnf(tacker_client,\n                     vnf_name,\n                     vnfd_name\u003dvnfd_name,\n                     param_file\u003dparam_file)",
+      "revId": "ad847d5e132845c0ceb0b792ce60e92dc165e915",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
