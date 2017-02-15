@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_1e6e59ca",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T12:50:48Z",
+      "side": 1,
+      "message": "should use os.path.join?",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "9799a379704bdca35f40e8f40857277218f5c698",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_3e731db3",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T12:50:48Z",
+      "side": 1,
+      "message": "I think it is better to create a tmp file in /tmp that polluting our repository.\n\nTempfile module can be helpful for this: https://docs.python.org/2/library/tempfile.html",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "9799a379704bdca35f40e8f40857277218f5c698",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_fe64a5e6",
+        "filename": "sfc/tests/functest/vnfd-templates/test2-vnfd1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T12:50:48Z",
+      "side": 0,
+      "message": "This file would not be needed if we use pass the AZ at VNF creation time, right? We could use test-vnfd1.yaml for all VNFs.",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_9e61e9d5",
+        "filename": "sfc/tests/functest/vnfd-templates/test2-vnfd2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T12:50:48Z",
+      "side": 0,
+      "message": "This file would not be needed, would it?",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
