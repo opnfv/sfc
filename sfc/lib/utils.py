@@ -12,10 +12,12 @@ import os
 import re
 import subprocess
 import time
+import yaml
 
 import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
+import functest.utils.openstack_tacker as os_tacker
 
 
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
@@ -73,6 +75,22 @@ def download_image(url, image_path):
         ft_utils.download_url(image_url, image_dir)
     else:
         logger.info("Using old image")
+
+
+def create_vnf_in_av_zone(tacker_client, vnf_name, vnfd_name, av_zone=None):
+    param_file = os.path.join(os.getcwd(),
+                              'vnfd-templates',
+                              'test-vnfd-default-params.yaml')
+    if av_zone is not None:
+        param_file = os.path.join('/tmp', 'param_{0}.yaml'.format(av_zone))
+        data = {'zone': av_zone}
+        with open(param_file) as f:
+            yaml.dump(data, f)
+
+    os_tacker.create_vnf(tacker_client,
+                         vnf_name,
+                         vnfd_name=vnfd_name,
+                         param_file=param_file)
 
 
 def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):

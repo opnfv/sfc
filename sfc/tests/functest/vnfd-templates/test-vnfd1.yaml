@@ -20,7 +20,7 @@ vdus:
         management: true
 
     placement_policy:
-      availability_zone: nova
+      availability_zone: { get_input: zone }
 
     auto-scaling: noop
     monitoring_policy: noop
