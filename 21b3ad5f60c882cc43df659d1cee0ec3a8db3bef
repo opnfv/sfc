@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_63049e7e",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T10:11:01Z",
+      "side": 1,
+      "message": "\u0027nc\u0027 might be confusing, given that in some other parts of lib we use netcat (maybe I just wrote a patch for netcat and have it in my head...)",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 10
+      },
+      "revId": "21b3ad5f60c882cc43df659d1cee0ec3a8db3bef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_83099297",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-15T10:11:01Z",
+      "side": 1,
+      "message": "for index, host in enumerate(hosts) would be more pythonic ;)\n\nhttps://docs.python.org/2/library/functions.html#enumerate",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "21b3ad5f60c882cc43df659d1cee0ec3a8db3bef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
