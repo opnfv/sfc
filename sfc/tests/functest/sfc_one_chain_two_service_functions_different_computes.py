@@ -218,7 +218,7 @@ def main():
     time.sleep(100)
 
     logger.info("Test HTTP")
-    if not test_utils.is_http_blocked(srv_prv_ip, client_ip):
+    if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
         logger.info('\033[92mTEST 1 [PASSED] ==> HTTP WORKS\033[0m')
         update_json_results("Test 1: HTTP works", "Passed")
     else:
@@ -235,7 +235,7 @@ def main():
     test_utils.vxlan_firewall(sf1, port="80")
 
     logger.info("Test HTTP again")
-    if test_utils.is_http_blocked(srv_prv_ip, client_ip):
+    if test_utils.is_http_blocked(client_ip, srv_prv_ip):
         logger.info('\033[92mTEST 2 [PASSED] ==> HTTP Blocked\033[0m')
         update_json_results("Test 2: HTTP Blocked", "Passed")
     else:
