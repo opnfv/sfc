@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_63633e1b",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-15T11:35:30Z",
+      "side": 1,
+      "message": "awesome, I would like to prepare something similar from functest. I might steal this idea :)",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_236d4605",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-15T11:35:30Z",
+      "side": 1,
+      "message": "perfect, assuming that CI always deploys 1 cluster which is the case (at least on ericsson-pod1 and ericsson-pod2 where I have checked this)",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_8368b2f6",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-15T11:35:30Z",
+      "side": 1,
+      "message": "I think you don\u0027t need to specify the variable name \u0027installer_pwd\u0027 as password comes after \u0027installer_user\u0027.",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
