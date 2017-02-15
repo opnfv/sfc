@@ -148,7 +148,7 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
     return instance
 
 
-def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
+def ping(remote, pkt_cnt=1, iface=None, retries=30, timeout=None):
     ping_cmd = 'ping'
 
     if timeout:
@@ -277,7 +277,7 @@ def get_ssh_clients(nodes):
     return [n.ssh_client for n in nodes]
 
 
-def check_ssh(ips, retries=100):
+def check_ssh(ips, retries=30):
     """Check SSH connectivity to VNFs"""
     check = [False, False]
     logger.info("Checking SSH connectivity to the SFs with ips %s" % str(ips))
@@ -289,7 +289,7 @@ def check_ssh(ips, retries=100):
             logger.info("SSH connectivity to the SFs established")
             return True
 
-        time.sleep(3)
+        time.sleep(1)
         retries -= 1
 
     return False
@@ -327,7 +327,7 @@ def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
 
 
 @ft_utils.timethis
-def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
+def wait_for_classification_rules(ovs_logger, compute_clients, timeout=30):
     # 10 sec. is the threshold to consider a flow from an old deployment
     max_duration = 10
     rsps = ofctl_time_counter(ovs_logger, compute_clients[0], max_duration)
