@@ -22,7 +22,7 @@ vdus:
     placement_policy:
       # TODO: This availability zone is changed by the test case on the fly.
       # See JIRA SFC-73 for more info
-      availability_zone: nova
+      availability_zone: { get_input: zone }
 
     auto-scaling: noop
     monitoring_policy: noop

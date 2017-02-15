@@ -10,7 +10,6 @@
 
 import argparse
 import os
-import re
 import sys
 import time
 
@@ -69,26 +68,6 @@ def setup_availability_zones(nova_client):
     return az
 
 
-# JIRA: SFC-52 new function
-def modify_vnfd(tacker_vnfd, az):
-    try:
-        with open(tacker_vnfd, 'r') as stream:
-            lines = stream.readlines()
-        with open(tacker_vnfd, 'w') as stream:
-            for line in lines:
-                stream.write(re.sub('nova$', az, line))
-
-    except Exception, e:
-        logger.error("Problem when changing vnfd %s" % e)
-
-
-# JIRA: SFC-52 new function
-def prepare_tacker_vnfd(nova_client):
-    azs = setup_availability_zones(nova_client)
-    modify_vnfd(TACKER_VNFD1, azs[0])
-    modify_vnfd(TACKER_VNFD2, azs[1])
-
-
 def main():
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
@@ -143,7 +122,7 @@ def main():
                                               TESTCASE_CONFIG.secgroup_name,
                                               TESTCASE_CONFIG.secgroup_descr)
 
-    prepare_tacker_vnfd(nova_client)
+    availability_zones = setup_availability_zones(nova_client)
 
     test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor,
@@ -170,10 +149,16 @@ def main():
         tacker_client,
         tosca_file=tosca_file)
 
-    os_tacker.create_vnf(
-        tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
-    os_tacker.create_vnf(
-        tacker_client, 'testVNF2', vnfd_name='test-vnfd2')
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, 
+        'testVNF1', 
+        'test-vnfd1',
+        av_zone=availability_zones[0])
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, 
+        'testVNF2', 
+        'test-vnfd2',
+        av_zone=availability_zones[1])
 
     try:
         os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
