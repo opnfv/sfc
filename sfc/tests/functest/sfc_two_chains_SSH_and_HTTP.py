@@ -174,7 +174,7 @@ def main():
     t1.join()
 
     logger.info("Test SSH")
-    if test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
+    if test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
         results.add_to_summary(2, "PASS", "SSH Blocked")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
@@ -184,7 +184,7 @@ def main():
         results.add_to_summary(2, "FAIL", "SSH Blocked")
 
     logger.info("Test HTTP")
-    if not test_utils.is_http_blocked(srv_prv_ip, client_ip):
+    if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
@@ -227,7 +227,7 @@ def main():
     t2.join()
 
     logger.info("Test HTTP")
-    if test_utils.is_http_blocked(srv_prv_ip, client_ip):
+    if test_utils.is_http_blocked(client_ip, srv_prv_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
@@ -237,7 +237,7 @@ def main():
         results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
     logger.info("Test SSH")
-    if not test_utils.is_ssh_blocked(srv_prv_ip, client_ip):
+    if not test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
         results.add_to_summary(2, "PASS", "SSH works")
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
