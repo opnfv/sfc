@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_9e0249b3",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-15T14:25:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dabed58f_1e6e59ca",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "9799a379704bdca35f40e8f40857277218f5c698",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_3e731db3",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-15T12:50:48Z",
       "side": 1,
       "message": "I think it is better to create a tmp file in /tmp that polluting our repository.\n\nTempfile module can be helpful for this: https://docs.python.org/2/library/tempfile.html",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "9799a379704bdca35f40e8f40857277218f5c698",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7e3195a1",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-15T14:25:03Z",
+      "side": 1,
+      "message": "Moved in /tmp\n\nI don\u0027t think we need to bring in an entire module to create a file. My opinion is it would complicate things.",
+      "parentUuid": "dabed58f_3e731db3",
       "range": {
         "startLine": 94,
         "startChar": 4,

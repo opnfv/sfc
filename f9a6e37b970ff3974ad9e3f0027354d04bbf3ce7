@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_be162df0",
+        "filename": "sfc/tests/functest/vnfd-templates/test2-vnfd1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-15T14:25:03Z",
+      "side": 0,
+      "message": "I would prefer we keep the vnfd templates in different files for each testcase. \n\nEven if they are the same consider the case we need to change the configuration for one test. With separate configurations we would just need to edit a config file. With merged configuration files we would need to add python logic to achieve this (which defeats the purpose of configuring things). \n\nOne valid alternative for this would be to use TOSCA abstractions, but TOSCA depends on the Tacker version so we can consider this when we move to upstream Tacker.\n\nTL;DR: I\u0027m not a big fan of DRYing up configuration files because it usually means you have to add more complicated logic. :)",
+      "parentUuid": "dabed58f_fe64a5e6",
+      "revId": "f9a6e37b970ff3974ad9e3f0027354d04bbf3ce7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_9e61e9d5",
         "filename": "sfc/tests/functest/vnfd-templates/test2-vnfd2.yaml",
         "patchSetId": 1
