@@ -15,6 +15,7 @@ defaults:
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/images"
   vnfd-dir: "vnfd-templates"
+  vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
 testcases:
   sfc_two_chains_SSH_and_HTTP:
