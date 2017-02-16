@@ -8,66 +8,53 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import argparse
 import os
 import sys
-import time
+import threading
 
 import functest.utils.functest_logger as ft_logger
-import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
+
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
+from sfc.lib.results import Results
+from opnfv.deployment.factory import Factory as DeploymentFactory
+import sfc.lib.topology_shuffler as topo_shuffler
 
+""" logging configuration """
+logger = ft_logger.Logger("ODL_SFC").getLogger()
 
-parser = argparse.ArgumentParser()
-
-parser.add_argument("-r", "--report",
-                    help="Create json result file",
-                    action="store_true")
-
-args = parser.parse_args()
-
-logger = ft_logger.Logger(__name__).getLogger()
-
-REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
-SFC_TEST_DIR = os.path.join(REPO_PATH, "sfc/tests/functest")
-TACKER_SCRIPT = os.path.join(SFC_TEST_DIR, "sfc_tacker_test2.bash")
-TACKER_VNFD1 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd1.yaml")
-TACKER_VNFD2 = os.path.join(SFC_TEST_DIR, "vnfd-templates", "test2-vnfd2.yaml")
 CLIENT = "client"
 SERVER = "server"
-ssh_options = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-json_results = {"tests": 4, "failures": 0}
 COMMON_CONFIG = sfc_config.CommonConfig()
 TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_one_chain_two_service'
                                             '_functions_different_computes')
 
-PROXY = {
-    'ip': COMMON_CONFIG.fuel_master_ip,
-    'username': COMMON_CONFIG.fuel_master_uname,
-    'password': COMMON_CONFIG.fuel_master_passwd
-}
-
-
-def update_json_results(name, result):
-    json_results.update({name: result})
-    if result is not "Passed":
-        json_results["failures"] += 1
-    return
-
-
-# JIRA: SFC-52 new function
-def setup_availability_zones(nova_client):
-    computes = os_utils.get_hypervisors(nova_client)
-    az = ["nova::" + computes[0], "nova::" + computes[1]]
-    logger.debug("These are the availability zones %s" % az)
-    return az
-
 
 def main():
+    deploymentHandler = DeploymentFactory.get_handler(
+        COMMON_CONFIG.installer_type,
+        COMMON_CONFIG.installer_ip,
+        COMMON_CONFIG.installer_user,
+        installer_pwd=COMMON_CONFIG.installer_password)
+
+    cluster = COMMON_CONFIG.installer_cluster
+    openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
+                       if cluster is not None
+                       else deploymentHandler.get_nodes())
+
+    controller_nodes = [node for node in openstack_nodes
+                        if node.is_controller()]
+    compute_nodes = [node for node in openstack_nodes
+                     if node.is_compute()]
+
+    results = Results(COMMON_CONFIG.line_length)
+    results.add_to_summary(0, "=")
+    results.add_to_summary(2, "STATUS", "SUBTEST")
+    results.add_to_summary(0, "=")
+
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
         logger.error(
@@ -82,13 +69,16 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
-    start_time = time.time()
-    status = "PASS"
-    test_utils.configure_iptables()
+    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
+    test_utils.configure_iptables(controller_nodes)
+
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
     _, custom_flv_id = os_utils.get_or_create_flavor(
-        COMMON_CONFIG.flavor, 1500, 10, 1, public=True)
+        COMMON_CONFIG.flavor,
+        COMMON_CONFIG.ram_size_in_mb,
+        COMMON_CONFIG.disk_size_in_gb,
+        COMMON_CONFIG.vcpu_count, public=True)
     if not custom_flv_id:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
@@ -98,8 +88,8 @@ def main():
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
 
-    controller_clients = test_utils.get_ssh_clients("controller", PROXY)
-    compute_clients = test_utils.get_ssh_clients("compute", PROXY)
+    controller_clients = test_utils.get_ssh_clients(controller_nodes)
+    compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
@@ -121,7 +111,15 @@ def main():
                                               TESTCASE_CONFIG.secgroup_name,
                                               TESTCASE_CONFIG.secgroup_descr)
 
-    availability_zones = setup_availability_zones(nova_client)
+    vnfs = ['testVNF1', 'testVNF2']
+
+    topo_seed = topo_shuffler.get_seed()  # change to None for nova av zone
+    testTopology = topo_shuffler.topology(vnfs, seed=topo_seed)
+
+    logger.info('This test is run with the topology {0}'
+                .format(testTopology['id']))
+    logger.info('Topology description: {0}'
+                .format(testTopology['description']))
 
     test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor,
@@ -154,21 +152,16 @@ def main():
         COMMON_CONFIG.vnfd_default_params_file)
 
     test_utils.create_vnf_in_av_zone(
-        tacker_client,
-        'testVNF1',
-        'test-vnfd1',
-        default_param_file,
-        av_zone=availability_zones[0])
+        tacker_client, vnfs[0], 'test-vnfd1',
+        default_param_file, testTopology[vnfs[0]])
     test_utils.create_vnf_in_av_zone(
-        tacker_client,
-        'testVNF2',
-        'test-vnfd2',
-        default_param_file,
-        av_zone=availability_zones[1])
+        tacker_client, vnfs[1], 'test-vnfd2',
+        default_param_file, testTopology[vnfs[1]])
 
-    vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
-    vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
-    if vnf1_id is None or vnf2_id is None:
+    try:
+        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
+        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
+    except:
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
@@ -185,6 +178,14 @@ def main():
 
     logger.info(test_utils.run_cmd('tacker sfc-list')[1])
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
+
+    # Start measuring the time it takes to implement the classification rules
+    t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
+                          args=(ovs_logger, compute_clients,))
+    try:
+        t1.start()
+    except Exception, e:
+        logger.error("Unable to start the thread that counts time %s" % e)
 
     server_ip, client_ip, sf1, sf2 = test_utils.get_floating_ips(
         nova_client, neutron_client)
@@ -205,18 +206,17 @@ def main():
     test_utils.vxlan_firewall(sf1, block=False)
 
     logger.info("Wait for ODL to update the classification rules in OVS")
-    time.sleep(100)
+    t1.join()
 
     logger.info("Test HTTP")
     if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
-        logger.info('\033[92mTEST 1 [PASSED] ==> HTTP WORKS\033[0m')
-        update_json_results("Test 1: HTTP works", "Passed")
+        results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 1: HTTP works", "Failed")
+        results.add_to_summary(2, "FAIL", "HTTP blocked")
 
     logger.info("Changing the vxlan_tool to block HTTP traffic")
 
@@ -226,36 +226,16 @@ def main():
 
     logger.info("Test HTTP again")
     if test_utils.is_http_blocked(client_ip, srv_prv_ip):
-        logger.info('\033[92mTEST 2 [PASSED] ==> HTTP Blocked\033[0m')
-        update_json_results("Test 2: HTTP Blocked", "Passed")
+        results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        update_json_results("Test 2: HTTP Blocked", "Failed")
+        results.add_to_summary(2, "FAIL", "HTTP not blocked")
 
-    if json_results["failures"]:
-        status = "FAIL"
-        logger.error('\033[91mSFC TESTS: %s :( FOUND %s FAIL \033[0m' % (
-            status, json_results["failures"]))
+    return results.compile_summary()
 
-    if args.report:
-        stop_time = time.time()
-        logger.debug("Promise Results json: " + str(json_results))
-        ft_utils.push_results_to_db("sfc",
-                                    "sfc_one_chain_two_service_functions"
-                                    "_different_computes",
-                                    start_time,
-                                    stop_time,
-                                    status,
-                                    json_results)
-
-    if status == "PASS":
-        logger.info('\033[92mSFC ALL TESTS: %s :)\033[0m' % status)
-        sys.exit(0)
-
-    sys.exit(1)
 
 if __name__ == '__main__':
     main()
