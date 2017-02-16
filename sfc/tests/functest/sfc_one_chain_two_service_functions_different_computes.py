@@ -20,6 +20,7 @@ import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
+from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
 parser = argparse.ArgumentParser()
@@ -45,12 +46,6 @@ COMMON_CONFIG = sfc_config.CommonConfig()
 TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_one_chain_two_service'
                                             '_functions_different_computes')
 
-PROXY = {
-    'ip': COMMON_CONFIG.fuel_master_ip,
-    'username': COMMON_CONFIG.fuel_master_uname,
-    'password': COMMON_CONFIG.fuel_master_passwd
-}
-
 
 def update_json_results(name, result):
     json_results.update({name: result})
@@ -68,6 +63,22 @@ def setup_availability_zones(nova_client):
 
 
 def main():
+    deploymentHandler = DeploymentFactory.get_handler(
+        COMMON_CONFIG.installer_type,
+        COMMON_CONFIG.installer_ip,
+        COMMON_CONFIG.installer_user,
+        installer_pwd=COMMON_CONFIG.installer_password)
+
+    cluster = COMMON_CONFIG.installer_cluster
+    openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
+                       if cluster is not None
+                       else deploymentHandler.get_nodes())
+
+    controller_nodes = [node for node in openstack_nodes
+                        if node.is_controller()]
+    compute_nodes = [node for node in openstack_nodes
+                     if node.is_compute()]
+
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
         logger.error(
@@ -82,24 +93,30 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
-    start_time = time.time()
-    status = "PASS"
-    test_utils.configure_iptables()
+    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
+    test_utils.configure_iptables(controller_nodes)
+
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
     _, custom_flv_id = os_utils.get_or_create_flavor(
-        COMMON_CONFIG.flavor, 1500, 10, 1, public=True)
+        COMMON_CONFIG.flavor,
+        COMMON_CONFIG.ram_size_in_mb,
+        COMMON_CONFIG.disk_size_in_gb,
+        COMMON_CONFIG.vcpu_count, public=True)
     if not custom_flv_id:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
+
+    start_time = time.time()
+    status = "PASS"
 
     glance_client = os_utils.get_glance_client()
     neutron_client = os_utils.get_neutron_client()
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
 
-    controller_clients = test_utils.get_ssh_clients("controller", PROXY)
-    compute_clients = test_utils.get_ssh_clients("compute", PROXY)
+    controller_clients = test_utils.get_ssh_clients(controller_nodes)
+    compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
