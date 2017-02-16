@@ -16,6 +16,24 @@
       "revId": "12fbff0d048f874f649f381070193190778e1bf9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_4825f2a9",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-16T08:13:00Z",
+      "side": 1,
+      "message": "1. For 1 compute node: topology_shuffler is meaningless since everything will be booted in the same compute node so with a check\n\nif topoShuffler.assign(...) is None:\n   do nothing\n\nyou bypass this\n\n2. For 3 or more computes: The number of possible topologies grows a lot so we need some combinatorial logic to do the assignment. We could work on this but let\u0027s think first if we really need to cover all cases or just some basic combinations to get good enough coverage. We could possibly just use the first 2 computes for now.\n\nAlso this is targeted mainly for CI test runs where there are 2 compute nodes",
+      "parentUuid": "dabed58f_12c72d47",
+      "revId": "12fbff0d048f874f649f381070193190778e1bf9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
