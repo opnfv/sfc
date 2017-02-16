@@ -19,7 +19,6 @@ import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 
-
 logger = ft_logger.Logger("sfc_test_utils").getLogger()
 SSH_OPTIONS = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
@@ -78,10 +77,10 @@ def download_image(url, image_path):
         logger.info("Using old image")
 
 
-def create_vnf_in_av_zone(tacker_client, vnf_name, vnfd_name, av_zone=None):
-    param_file = os.path.join(os.getcwd(),
-                              'vnfd-templates',
-                              'test-vnfd-default-params.yaml')
+def create_vnf_in_av_zone(
+        tacker_client, vnf_name, vnfd_name, default_param_file, av_zone=None):
+    param_file = default_param_file
+
     if av_zone is not None or av_zone != 'nova':
         param_file = os.path.join(
             '/tmp',
