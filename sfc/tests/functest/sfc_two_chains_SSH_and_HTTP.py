@@ -128,8 +128,16 @@ def main():
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
     os_tacker.create_vnfd(tacker_client, tosca_file=tosca_blue)
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF1', 'test-vnfd1')
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF2', 'test-vnfd2')
+
+    default_param_file = os.path.join(
+        COMMON_CONFIG.sfc_test_dir,
+        COMMON_CONFIG.vnfd_dir,
+        COMMON_CONFIG.vnfd_default_params_file)
+
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, 'testVNF1', 'test-vnfd1', default_param_file)
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, 'testVNF2', 'test-vnfd2', default_param_file)
 
     vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
     vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
