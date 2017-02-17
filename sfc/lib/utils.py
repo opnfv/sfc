@@ -82,7 +82,7 @@ def create_vnf_in_av_zone(tacker_client, vnf_name, vnfd_name, av_zone=None):
     param_file = os.path.join(os.getcwd(),
                               'vnfd-templates',
                               'test-vnfd-default-params.yaml')
-    if av_zone is not None:
+    if av_zone is not None or av_zone != 'nova':
         param_file = os.path.join(
             '/tmp',
             'param_{0}.yaml'.format(av_zone.replace('::', '_')))
