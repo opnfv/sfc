@@ -21,6 +21,7 @@ import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
+import sfc.lib.topology_shuffler as topo_shuffler
 
 
 """ logging configuration """
@@ -110,12 +111,18 @@ def main():
                                               TESTCASE_CONFIG.secgroup_name,
                                               TESTCASE_CONFIG.secgroup_descr)
 
+    vnfs = ['testVNF1', 'testVNF2']
+
+    topo_seed = topo_shuffler.get_seed()  # change to None for nova av zone
+    testTopology = topo_shuffler.topology(vnfs, seed=topo_seed)
+
     test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor, image_id,
-        network_id, sg_id)
+        network_id, sg_id, av_zone=testTopology['client'])
+
     srv_instance = test_utils.create_instance(
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
-        network_id, sg_id)
+        network_id, sg_id, av_zone=testTopology['server'])
 
     srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
@@ -128,8 +135,10 @@ def main():
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
     os_tacker.create_vnfd(tacker_client, tosca_file=tosca_blue)
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF1', 'test-vnfd1')
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF2', 'test-vnfd2')
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, vnfs[0], 'test-vnfd1', testTopology[vnfs[0]])
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, vnfs[1], 'test-vnfd2', testTopology[vnfs[1]])
 
     vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
     vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')

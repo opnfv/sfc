@@ -53,7 +53,7 @@ DEFAULT_TOPO = {
 }
 
 
-def _get_seed():
+def get_seed():
     '''
     Get a seed based on the day of the week to choose which topology to test
 
@@ -67,36 +67,16 @@ def _get_seed():
     return seed
 
 
-def _split_host_aggregates():
+def _get_av_zones():
     '''
-    Gets all the compute hosts and creates an aggregate for each.
-    Aggregates are named based on the convention compute1, compute2, ...
+    Return the availability zone each host belongs to
     '''
     nova_client = os_utils.get_nova_client()
     hosts = os_utils.get_hypervisors(nova_client)
-    aggregates = []
-    for idx, host in enumerate(hosts):
-        az_name = 'compute{0}'.format(idx)
-        # aggregate name is the same as availability zone name
-        os_utils.create_aggregate_with_host(
-            nova_client, az_name, az_name, host)
-        aggregates.append(az_name)
-    # aggregates and av zones abstractions are tightly coupled in nova
-    return aggregates
+    return ['nova::{0}'.format(host) for host in hosts]
 
 
-def clean_host_aggregates(aggregates):
-    '''
-    Clean all the created host aggregates
-    '''
-    nova_client = os_utils.get_nova_client()
-    for aggregate in aggregates:
-        if not os_utils.delete_aggregate(nova_client, aggregate):
-            logger.error('Could not delete aggregate {0}'
-                         .format(aggregate))
-
-
-def topology(vnf_names, host_aggregates=None, seed=None):
+def topology(vnf_names, av_zones=None, seed=None):
     '''
     Get the topology for client, server and vnfs.
     The topology is returned as a dict in the form
@@ -107,44 +87,52 @@ def topology(vnf_names, host_aggregates=None, seed=None):
     'vnf2':   <availability_zone>
     ...
     }
-    Use seed=-1 to get the default topology created by nova-scheduler
+    Use seed=None to get the default topology created by nova-scheduler
     '''
 
-    if host_aggregates is None:
-        host_aggregates = _split_host_aggregates()
-    if len(host_aggregates) < 2 or seed is None:
-        return None
+    if av_zones is None:
+        av_zones = _get_av_zones()
+
+    if len(av_zones) < 2 or seed is None:
+        # fall back to nova availability zone
+        topology = {
+            'client': 'nova',
+            'server': 'nova'
+        }
+        for vnf in vnf_names:
+            topology[vnf] = 'nova'
+        return topology
 
     topology = TOPOLOGIES[seed]
     topology_assigment = {}
     if topology['id'] == 'CLIENT_VNF_SAME_HOST':
-        topology_assigment['client'] = host_aggregates[0]
-        topology_assigment['server'] = host_aggregates[1]
+        topology_assigment['client'] = av_zones[0]
+        topology_assigment['server'] = av_zones[1]
         for vnf in vnf_names:
-            topology_assigment[vnf] = host_aggregates[0]
+            topology_assigment[vnf] = av_zones[0]
     elif topology['id'] == 'CLIENT_SERVER_SAME_HOST':
-        topology_assigment['client'] = host_aggregates[0]
-        topology_assigment['server'] = host_aggregates[0]
+        topology_assigment['client'] = av_zones[0]
+        topology_assigment['server'] = av_zones[0]
         for vnf in vnf_names:
-            topology_assigment[vnf] = host_aggregates[1]
+            topology_assigment[vnf] = av_zones[1]
     elif topology['id'] == 'SERVER_VNF_SAME_HOST':
-        topology_assigment['client'] = host_aggregates[1]
-        topology_assigment['server'] = host_aggregates[0]
+        topology_assigment['client'] = av_zones[1]
+        topology_assigment['server'] = av_zones[0]
         for vnf in vnf_names:
-            topology_assigment[vnf] = host_aggregates[0]
+            topology_assigment[vnf] = av_zones[0]
     elif topology['id'] == 'CLIENT_SERVER_SAME_HOST_SPLIT_VNF':
-        topology_assigment['client'] = host_aggregates[0]
-        topology_assigment['server'] = host_aggregates[0]
+        topology_assigment['client'] = av_zones[0]
+        topology_assigment['server'] = av_zones[0]
         idx = 0
         for vnf in vnf_names:
-            topology_assigment[vnf] = host_aggregates[idx % 2]
+            topology_assigment[vnf] = av_zones[idx % 2]
             idx += 1
     elif topology['id'] == 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF':
-        topology_assigment['client'] = host_aggregates[0]
-        topology_assigment['server'] = host_aggregates[1]
+        topology_assigment['client'] = av_zones[0]
+        topology_assigment['server'] = av_zones[1]
         idx = 0
         for vnf in vnf_names:
-            topology_assigment[vnf] = host_aggregates[idx % 2]
+            topology_assigment[vnf] = av_zones[idx % 2]
             idx += 1
     logger.info("Creating enpoint and VNF topology on the compute hosts")
     logger.info(topology['description'])
