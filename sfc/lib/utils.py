@@ -294,7 +294,7 @@ def get_ssh_clients(nodes):
 
 def check_ssh(ips, retries=100):
     """Check SSH connectivity to VNFs"""
-    check = [False, False]
+    check = [False for ip in ips]
     logger.info("Checking SSH connectivity to the SFs with ips %s" % str(ips))
     while retries and not all(check):
         for index, ip in enumerate(ips):
