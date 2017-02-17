@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_d7a65f53",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-17T11:35:23Z",
+      "side": 1,
+      "message": "Oh ok. haven\u0027t touched this in a while :)",
+      "parentUuid": "dabed58f_17239706",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "9d3a7b33f3dc2ae4d35c6ddce575f45416a7baff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_9c0a4cd1",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 3
