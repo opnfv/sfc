@@ -256,27 +256,39 @@ def vxlan_tool_stop(sf):
     run_cmd_remote(sf, cmd)
 
 
-def netcat(source_ip, destination_ip, port, timeout=5):
+def netcat(source_ip, destination_ip, destination_port, source_port=None,
+           timeout=5):
     """
     SSH into source_ip, and check the connectivity from there to destination_ip
     on the specified port, using the netcat command.
     Returns 0 on successful execution, != 0 on failure
     """
-    cmd = "nc -zv -w %s %s %s 2>&1" % (timeout, destination_ip, port)
-    rc, output, _ = run_cmd_remote(source_ip, cmd)
-    logger.info("Running netcat from [%s] - connecting to [%s] on port [%s]" %
-                (source_ip, destination_ip, port))
-    logger.info("%s" % output)
+    source_port_option = '' if source_port is None else '-p %s' % source_port
+    cmd = "nc -z {option} -w {timeout} {ip} {port}".format(
+          option=source_port_option,
+          timeout=timeout,
+          ip=destination_ip,
+          port=destination_port)
+    rc, _, _ = run_cmd_remote(source_ip, cmd)
+    logger.info("Running [%s] from [%s] returns [%s]" % (cmd, source_ip, rc))
     return rc
 
 
-def is_ssh_blocked(source_ip, destination_ip):
-    rc = netcat(source_ip, destination_ip, port="22")
+def is_ssh_blocked(source_ip, destination_ip, source_port=None):
+    rc = netcat(
+        source_ip,
+        destination_ip,
+        destination_port="22",
+        source_port=source_port)
     return rc != 0
 
 
-def is_http_blocked(source_ip, destination_ip):
-    rc = netcat(source_ip, destination_ip, port="80")
+def is_http_blocked(source_ip, destination_ip, source_port=None):
+    rc = netcat(
+        source_ip,
+        destination_ip,
+        destination_port="80",
+        source_port=source_port)
     return rc != 0
 
 
