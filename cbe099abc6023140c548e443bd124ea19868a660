@@ -16,6 +16,24 @@
       "revId": "cbe099abc6023140c548e443bd124ea19868a660",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_b7e40bad",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-17T11:12:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dabed58f_f753636a",
+      "revId": "cbe099abc6023140c548e443bd124ea19868a660",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
