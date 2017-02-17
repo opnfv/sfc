@@ -131,10 +131,9 @@ def main():
     test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF1', 'test-vnfd1')
     test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF2', 'test-vnfd2')
 
-    try:
-        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
-        os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
-    except:
+    vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
+    vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
+    if vnf1_id is None or vnf2_id is None:
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
