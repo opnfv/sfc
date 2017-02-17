@@ -22,6 +22,30 @@
       "revId": "1b1e5e76fe11ea2759f9051942edf14872559215",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7731b30a",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-02-17T11:46:46Z",
+      "side": 1,
+      "message": "+1. I learn to do that not so long ago and I prefer it as well.",
+      "parentUuid": "dabed58f_974f8792",
+      "range": {
+        "startLine": 27,
+        "startChar": 26,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "1b1e5e76fe11ea2759f9051942edf14872559215",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
