@@ -60,7 +60,7 @@ def _get_seed():
     NOTE: There's sure a smarter way to do this
           Probably with the Jenkins job id
     '''
-    cutoff = len(TOPOLOGIES - 1)
+    cutoff = len(TOPOLOGIES) - 1
     seed = datetime.datetime.today().weekday()
     if seed > cutoff:
         seed = random.randrange(cutoff)
