@@ -22,6 +22,7 @@ from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
+import sfc.lib.topology_shuffler as topo_shuffler
 
 
 logger = ft_logger.Logger(__name__).getLogger()
@@ -96,13 +97,22 @@ def main():
         TESTCASE_CONFIG.secgroup_name,
         TESTCASE_CONFIG.secgroup_descr)
 
+    vnfs = ['testVNF1']
+    # Using seed=0 uses the baseline topology: everything in the same host
+    testTopology = topo_shuffler.topology(vnfs, seed=0)
+    logger.info('This test is run with the topology {0}'
+                .format(testTopology['id']))
+    logger.info('Topology description: {0}'
+                .format(testTopology['description']))
+
     test_utils.create_instance(
         nova_client,
         CLIENT,
         COMMON_CONFIG.flavor,
         image_id,
         network_id,
-        sg_id)
+        sg_id,
+        av_zone=testTopology[CLIENT])
 
     server_instance = test_utils.create_instance(
         nova_client,
@@ -110,17 +120,19 @@ def main():
         COMMON_CONFIG.flavor,
         image_id,
         network_id,
-        sg_id)
+        sg_id,
+        av_zone=testTopology[SERVER])
 
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
-    tosca = os.path.join(
+    tosca_file = os.path.join(
         COMMON_CONFIG.sfc_test_dir,
         COMMON_CONFIG.vnfd_dir,
         TESTCASE_CONFIG.test_vnfd)
 
-    os_tacker.create_vnfd(tacker_client, tosca_file=tosca)
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF1', 'test-vnfd1')
+    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_file)
+    test_utils.create_vnf_in_av_zone(
+        tacker_client, vnfs[0], 'test-vnfd1', testTopology[vnfs[0]])
 
     vnf_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
     if vnf_id is None:
