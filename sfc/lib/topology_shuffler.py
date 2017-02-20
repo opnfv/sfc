@@ -9,6 +9,13 @@ logger = ft_logger.Logger(__name__).getLogger()
 # The possible topologies we are testing
 TOPOLOGIES = [
     {
+        'id': 'CLIENT_SERVER_VNF_SAME_HOST',
+        'description': '''
+        All endpoints and VNFs are on a single host.
+        This is the baseline test.
+        '''
+    },
+    {
         'id': 'CLIENT_VNF_SAME_HOST',
         'description': '''
         Client instance and vnfs are are on the same
@@ -26,7 +33,7 @@ TOPOLOGIES = [
         'id': 'SERVER_VNF_SAME_HOST',
         'description': '''
         Server instance and vnfs are are on the same
-        compute host. Server instance is on a different host
+        compute host. Client instance is on a different host
         '''
     },
     {
@@ -110,7 +117,12 @@ def topology(vnf_names, av_zones=None, seed=None):
         'id': topo['id'],
         'description': topo['description']
     }
-    if topo['id'] == 'CLIENT_VNF_SAME_HOST':
+    if topo['id'] == 'CLIENT_SERVER_VNF_SAME_HOST':
+        topology_assigment['client'] = av_zones[0]
+        topology_assigment['server'] = av_zones[0]
+        for vnf in vnf_names:
+            topology_assigment[vnf] = av_zones[0]
+    elif topo['id'] == 'CLIENT_VNF_SAME_HOST':
         topology_assigment['client'] = av_zones[0]
         topology_assigment['server'] = av_zones[1]
         for vnf in vnf_names:
@@ -128,17 +140,13 @@ def topology(vnf_names, av_zones=None, seed=None):
     elif topo['id'] == 'CLIENT_SERVER_SAME_HOST_SPLIT_VNF':
         topology_assigment['client'] = av_zones[0]
         topology_assigment['server'] = av_zones[0]
-        idx = 0
-        for vnf in vnf_names:
+        for idx, vnf in enumerate(vnf_names):
             topology_assigment[vnf] = av_zones[idx % 2]
-            idx += 1
     elif topo['id'] == 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF':
         topology_assigment['client'] = av_zones[0]
         topology_assigment['server'] = av_zones[1]
-        idx = 0
-        for vnf in vnf_names:
+        for idx, vnf in enumerate(vnf_names):
             topology_assigment[vnf] = av_zones[idx % 2]
-            idx += 1
     logger.info("Creating enpoint and VNF topology on the compute hosts")
     logger.info(topo['description'])
     return topology_assigment
