@@ -24,8 +24,7 @@ from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
 
-""" logging configuration """
-logger = ft_logger.Logger("ODL_SFC").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 CLIENT = "client"
 SERVER = "server"

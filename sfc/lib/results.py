@@ -10,7 +10,7 @@
 
 import functest.utils.functest_logger as ft_logger
 
-logger = ft_logger.Logger("sfc-results").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 
 class Results(object):

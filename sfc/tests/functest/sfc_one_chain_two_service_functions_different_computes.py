@@ -30,8 +30,7 @@ parser.add_argument("-r", "--report",
 
 args = parser.parse_args()
 
-""" logging configuration """
-logger = ft_logger.Logger("ODL_SFC").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 REPO_PATH = os.path.join(os.environ['REPOS_DIR'], 'sfc/')
 SFC_TEST_DIR = os.path.join(REPO_PATH, "sfc/tests/functest")

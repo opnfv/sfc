@@ -24,7 +24,7 @@ import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
 
 
-logger = ft_logger.Logger("ODL_SFC").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 CLIENT = "client"
 SERVER = "server"

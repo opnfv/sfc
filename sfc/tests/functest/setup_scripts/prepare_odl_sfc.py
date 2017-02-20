@@ -18,7 +18,7 @@ import sys
 import functest.utils.functest_logger as ft_logger
 
 
-logger = ft_logger.Logger("ODL_SFC").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 SFC_REPO_DIR = "/home/opnfv/repos/sfc"
 

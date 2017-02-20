@@ -16,7 +16,7 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 
 
-logger = ft_logger.Logger("sfc_test_config").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 
 
 class CommonConfig(object):

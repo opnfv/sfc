@@ -29,7 +29,7 @@ parser.add_argument("-r", "--report",
                     action="store_true")
 args = parser.parse_args()
 
-logger = ft_logger.Logger("sfc-run-tests").getLogger()
+logger = ft_logger.Logger(__name__).getLogger()
 COMMON_CONFIG = sfc_config.CommonConfig()
 
 
