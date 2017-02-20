@@ -20,4 +20,4 @@ vdus:
         management: true
 
     placement_policy:
-      availability_zone: { get_input: zone }
+      availability_zone: nova

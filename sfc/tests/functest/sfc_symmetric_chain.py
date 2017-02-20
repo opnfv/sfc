@@ -114,13 +114,13 @@ def main():
 
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
-    tosca = os.path.join(
+    tosca_file = os.path.join(
         COMMON_CONFIG.sfc_test_dir,
         COMMON_CONFIG.vnfd_dir,
         TESTCASE_CONFIG.test_vnfd)
 
-    os_tacker.create_vnfd(tacker_client, tosca_file=tosca)
-    test_utils.create_vnf_in_av_zone(tacker_client, 'testVNF1', 'test-vnfd1')
+    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_file)
+    os_tacker.create_vnf(tacker_client, 'testVNF1', vnfd_name='test-vnfd1')
 
     vnf_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
     if vnf_id is None:
