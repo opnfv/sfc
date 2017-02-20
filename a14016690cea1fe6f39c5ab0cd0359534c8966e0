@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_eb5137d9",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-02-20T10:08:04Z",
+      "side": 1,
+      "message": "I think the parameter should be called \u0027param_file\u0027, as this function could be receiving either the \"default\" or a custom one.",
+      "range": {
+        "startLine": 82,
+        "startChar": 44,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "a14016690cea1fe6f39c5ab0cd0359534c8966e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
