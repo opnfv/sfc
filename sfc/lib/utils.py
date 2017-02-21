@@ -399,22 +399,24 @@ def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
     # 10 sec. is the threshold to consider a flow from an old deployment
-    max_duration = 10
-    rsps = ofctl_time_counter(ovs_logger, compute_clients[0], max_duration)
-    # first_RSP saves a potential RSP from an old deployment. ODL may take
-    # quite some time to implement the new flow and an old flow may be there
-    first_RSP = rsps[0] if len(rsps) > 0 else ''
-    while not ((len(rsps) > 1) and
-               (first_RSP != rsps[0]) and
-               (rsps[0] == rsps[1])):
-        rsps = ofctl_time_counter(ovs_logger, compute_clients[0])
-        timeout -= 1
-        if timeout == 0:
-            logger.error(
-                "Timeout but classification rules are not updated")
-            return
-        time.sleep(1)
-    logger.info("classification rules updated")
+    for compute_client in compute_clients:
+        max_duration = 10
+        rsps = ofctl_time_counter(ovs_logger, compute_client, max_duration)
+        # first_RSP saves a potential RSP from an old deployment.
+        # ODL may take quite some time to implement the new flow
+        # and an old flow may be there
+        first_RSP = rsps[0] if len(rsps) > 0 else ''
+        while not ((len(rsps) > 1) and
+                   (first_RSP != rsps[0]) and
+                   (rsps[0] == rsps[1])):
+            rsps = ofctl_time_counter(ovs_logger, compute_client)
+            timeout -= 1
+            if timeout == 0:
+                logger.error(
+                    "Timeout but classification rules are not updated")
+                return
+            time.sleep(1)
+        logger.info("classification rules updated")
 
 
 def setup_compute_node(cidr, compute_nodes):
