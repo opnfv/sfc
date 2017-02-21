@@ -209,6 +209,16 @@ def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
     return False
 
 
+def assign_floating_ip(nova_client, neutron_client, instance_id):
+    instance = nova_client.servers.get(instance_id)
+    floating_ip = os_utils.create_floating_ip(neutron_client)['fip_addr']
+    instance.add_floating_ip(floating_ip)
+    logger.info("Assigned floating ip [%s] to instance [%s]"
+                % (floating_ip, instance.name))
+
+    return floating_ip
+
+
 def get_floating_ips(nova_client, neutron_client):
     ips = []
     instances = nova_client.servers.list()
@@ -235,38 +245,6 @@ def get_floating_ips(nova_client, neutron_client):
             ips.append(floatip)
 
     return server_ip, client_ip, ips[1], ips[0]
-
-
-# TODO (jvidal): This is pure scaffolding, it needs to be merged with
-# get_floating_ips in the future
-def get_floating_ips_2(nova_client, neutron_client):
-    sf_ip = None
-    client_ip = None
-    server_ip = None
-    instances = nova_client.servers.list()
-    for instance in instances:
-        floatip_dic = os_utils.create_floating_ip(neutron_client)
-        floatip = floatip_dic['fip_addr']
-        instance.add_floating_ip(floatip)
-        logger.info("Instance name and ip %s:%s " % (instance.name, floatip))
-        logger.info("Waiting for instance %s:%s to come up" %
-                    (instance.name, floatip))
-        if not ping(floatip):
-            logger.info("Instance %s:%s didn't come up" %
-                        (instance.name, floatip))
-            return None
-
-        if instance.name == "server":
-            logger.info("Server:%s is reachable" % floatip)
-            server_ip = floatip
-        elif instance.name == "client":
-            logger.info("Client:%s is reachable" % floatip)
-            client_ip = floatip
-        else:
-            logger.info("SF:%s is reachable" % floatip)
-            sf_ip = floatip
-
-    return server_ip, client_ip, sf_ip
 
 
 def start_http_server(ip):
@@ -428,3 +406,17 @@ def setup_compute_node(cidr, compute_nodes):
             compute.run_cmd(add_cidr)
         else:
             logger.info("route %s already exists" % cidr)
+
+
+def get_nova_id(tacker_client, resource, vnf_id=None, vnf_name=None):
+    vnf = os_tacker.get_vnf(tacker_client, vnf_id, vnf_name)
+    try:
+        if vnf is None:
+            raise Exception("VNF not found")
+        heat = os_utils.get_heat_client()
+        resource = heat.resources.get(vnf['instance_id'], resource)
+        return resource.attributes['id']
+    except:
+        logger.error("Cannot get nova ID for VNF (id='%s', name='%s')"
+                     % (vnf_id, vnf_name))
+        return None
