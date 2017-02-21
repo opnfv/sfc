@@ -105,7 +105,7 @@ def main():
     logger.info('Topology description: {0}'
                 .format(testTopology['description']))
 
-    test_utils.create_instance(
+    client_instance = test_utils.create_instance(
         nova_client,
         CLIENT,
         COMMON_CONFIG.flavor,
@@ -148,6 +148,8 @@ def main():
         logger.error('ERROR while booting VNF')
         sys.exit(1)
 
+    vnf_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf_id)
+
     os_tacker.create_sfc(
         tacker_client,
         sfc_name='red',
@@ -180,9 +182,20 @@ def main():
     except Exception, e:
         logger.error("Unable to start the thread that counts time %s" % e)
 
-    # TODO: Find a replacement for get_floating_ips()
-    server_floating_ip, client_floating_ip, sf_floating_ip = \
-        test_utils.get_floating_ips_2(nova_client, neutron_client)
+    logger.info("Assigning floating IPs to instances")
+    server_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, server_instance.id)
+    client_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, client_instance.id)
+    sf_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, vnf_instance_id)
+
+    for ip in (server_floating_ip, client_floating_ip, sf_floating_ip):
+        logger.info("Checking connectivity towards floating IP [%s]" % ip)
+        if not test_utils.ping(ip, retries=50, retry_timeout=1):
+            logger.error("Cannot ping floating IP [%s]" % ip)
+            sys.exit(1)
+        logger.info("Successful ping to floating IP [%s]" % ip)
 
     if not test_utils.check_ssh([sf_floating_ip]):
         logger.error("Cannot establish SSH connection to the SFs")
