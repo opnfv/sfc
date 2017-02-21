@@ -115,25 +115,25 @@ def main():
                                               TESTCASE_CONFIG.secgroup_name,
                                               TESTCASE_CONFIG.secgroup_descr)
 
-    vnfs = ['testVNF1', 'testVNF2']
+    vnf_names = ['testVNF1', 'testVNF2']
 
     topo_seed = topo_shuffler.get_seed()  # change to None for nova av zone
-    testTopology = topo_shuffler.topology(vnfs, seed=topo_seed)
+    testTopology = topo_shuffler.topology(vnf_names, seed=topo_seed)
 
     logger.info('This test is run with the topology {0}'
                 .format(testTopology['id']))
     logger.info('Topology description: {0}'
                 .format(testTopology['description']))
 
-    test_utils.create_instance(
+    client_instance = test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['client'])
 
-    srv_instance = test_utils.create_instance(
+    server_instance = test_utils.create_instance(
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['server'])
 
-    srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
+    server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
     tosca_red = os.path.join(COMMON_CONFIG.sfc_test_dir,
                              COMMON_CONFIG.vnfd_dir,
@@ -151,22 +151,23 @@ def main():
         COMMON_CONFIG.vnfd_default_params_file)
 
     test_utils.create_vnf_in_av_zone(
-        tacker_client, vnfs[0], 'test-vnfd1',
-        default_param_file, testTopology[vnfs[0]])
+        tacker_client, vnf_names[0], 'test-vnfd1',
+        default_param_file, testTopology[vnf_names[0]])
     test_utils.create_vnf_in_av_zone(
-        tacker_client, vnfs[1], 'test-vnfd2',
-        default_param_file, testTopology[vnfs[1]])
+        tacker_client, vnf_names[1], 'test-vnfd2',
+        default_param_file, testTopology[vnf_names[1]])
 
-    vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
-    vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF2')
+    vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_names[0])
+    vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_names[1])
     if vnf1_id is None or vnf2_id is None:
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
-    instances = os_utils.get_instances(nova_client)
-    for instance in instances:
-        if ('client' not in instance.name) and ('server' not in instance.name):
-            os_utils.add_secgroup_to_instance(nova_client, instance.id, sg_id)
+    vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf1_id)
+    os_utils.add_secgroup_to_instance(nova_client, vnf1_instance_id, sg_id)
+
+    vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf2_id)
+    os_utils.add_secgroup_to_instance(nova_client, vnf2_instance_id, sg_id)
 
     os_tacker.create_sfc(tacker_client, 'red', chain_vnf_names=['testVNF1'])
     os_tacker.create_sfc(tacker_client, 'blue', chain_vnf_names=['testVNF2'])
@@ -200,29 +201,46 @@ def main():
     except Exception, e:
         logger.error("Unable to start the thread that counts time %s" % e)
 
-    server_ip, client_ip, sf1, sf2 = test_utils.get_floating_ips(
-        nova_client, neutron_client)
+    logger.info("Assigning floating IPs to instances")
+    server_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, server_instance.id)
+    client_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, client_instance.id)
+    sf1_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, vnf1_instance_id)
+    sf2_floating_ip = test_utils.assign_floating_ip(
+        nova_client, neutron_client, vnf2_instance_id)
 
-    if not test_utils.check_ssh([sf1, sf2]):
+    for ip in (server_floating_ip,
+               client_floating_ip,
+               sf1_floating_ip,
+               sf2_floating_ip):
+        logger.info("Checking connectivity towards floating IP [%s]" % ip)
+        if not test_utils.ping(ip, retries=50, retry_timeout=1):
+            logger.error("Cannot ping floating IP [%s]" % ip)
+            sys.exit(1)
+        logger.info("Successful ping to floating IP [%s]" % ip)
+
+    if not test_utils.check_ssh([sf1_floating_ip, sf2_floating_ip]):
         logger.error("Cannot establish SSH connection to the SFs")
         sys.exit(1)
 
-    logger.info("Starting HTTP server on %s" % server_ip)
-    if not test_utils.start_http_server(server_ip):
-        logger.error(
-            '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
+    logger.info("Starting HTTP server on %s" % server_floating_ip)
+    if not test_utils.start_http_server(server_floating_ip):
+        logger.error('\033[91mFailed to start HTTP server on %s\033[0m'
+                     % server_floating_ip)
         sys.exit(1)
 
-    logger.info("Starting HTTP firewall on %s" % sf2)
-    test_utils.vxlan_firewall(sf2, port="80")
-    logger.info("Starting SSH firewall on %s" % sf1)
-    test_utils.vxlan_firewall(sf1, port="22")
+    logger.info("Starting HTTP firewall on %s" % sf2_floating_ip)
+    test_utils.vxlan_firewall(sf2_floating_ip, port="80")
+    logger.info("Starting SSH firewall on %s" % sf1_floating_ip)
+    test_utils.vxlan_firewall(sf1_floating_ip, port="22")
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
 
     logger.info("Test SSH")
-    if test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
+    if test_utils.is_ssh_blocked(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "SSH Blocked")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
@@ -232,7 +250,7 @@ def main():
         results.add_to_summary(2, "FAIL", "SSH Blocked")
 
     logger.info("Test HTTP")
-    if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
+    if not test_utils.is_http_blocked(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
@@ -279,7 +297,7 @@ def main():
     t2.join()
 
     logger.info("Test HTTP")
-    if test_utils.is_http_blocked(client_ip, srv_prv_ip):
+    if test_utils.is_http_blocked(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
@@ -289,7 +307,7 @@ def main():
         results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
     logger.info("Test SSH")
-    if not test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
+    if not test_utils.is_ssh_blocked(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "SSH works")
     else:
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
@@ -297,11 +315,6 @@ def main():
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH works")
-
-    logger.info('This test is run with the topology {0}'
-                .format(testTopology['id']))
-    logger.info('Topology description: {0}'
-                .format(testTopology['description']))
 
     return results.compile_summary()
 

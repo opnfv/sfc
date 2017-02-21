@@ -240,8 +240,8 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
 
 def ping(remote, retries=100, retry_timeout=1):
     cmd = 'ping -c1 -w{timeout} {remote}'.format(
-           timeout=retry_timeout,
-           remote=remote)
+          timeout=retry_timeout,
+          remote=remote)
 
     while retries > 0:
         rc, _, _ = run_cmd(cmd)
@@ -261,34 +261,6 @@ def assign_floating_ip(nova_client, neutron_client, instance_id):
                 % (floating_ip, instance.name))
 
     return floating_ip
-
-
-def get_floating_ips(nova_client, neutron_client):
-    ips = []
-    instances = nova_client.servers.list()
-    for instance in instances:
-        floatip_dic = os_utils.create_floating_ip(neutron_client)
-        floatip = floatip_dic['fip_addr']
-        instance.add_floating_ip(floatip)
-        logger.info("Instance name and ip %s:%s " % (instance.name, floatip))
-        logger.info("Waiting for instance %s:%s to come up" %
-                    (instance.name, floatip))
-        if not ping(floatip):
-            logger.info("Instance %s:%s didn't come up" %
-                        (instance.name, floatip))
-            return None
-
-        if instance.name == "server":
-            logger.info("Server:%s is reachable" % floatip)
-            server_ip = floatip
-        elif instance.name == "client":
-            logger.info("Client:%s is reachable" % floatip)
-            client_ip = floatip
-        else:
-            logger.info("SF:%s is reachable" % floatip)
-            ips.append(floatip)
-
-    return server_ip, client_ip, ips[1], ips[0]
 
 
 def start_http_server(ip):
