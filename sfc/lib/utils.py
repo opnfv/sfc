@@ -78,10 +78,10 @@ def download_image(url, image_path):
         logger.info("Using old image")
 
 
-def create_vnf_in_av_zone(tacker_client, vnf_name, vnfd_name, av_zone=None):
-    param_file = os.path.join(os.getcwd(),
-                              'vnfd-templates',
-                              'test-vnfd-default-params.yaml')
+def create_vnf_in_av_zone(
+        tacker_client, vnf_name, vnfd_name, default_param_file, av_zone=None):
+    param_file = default_param_file
+
     if av_zone is not None or av_zone != 'nova':
         param_file = os.path.join(
             '/tmp',
