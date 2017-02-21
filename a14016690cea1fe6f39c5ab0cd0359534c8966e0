@@ -22,6 +22,30 @@
       "revId": "a14016690cea1fe6f39c5ab0cd0359534c8966e0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_0c6861b9",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-02-21T09:47:41Z",
+      "side": 1,
+      "message": "What is the purpose of this?\n\ndefault_param_file is just this, a file location where we give some default parameters (which is really a constant I initially took from config and that\u0027s why I didn\u0027t want to pass it as a parameter). The function autogenerates a temp file already if the user wants to do something else.\n\nMy initial thought was the following:\nIf you pass an availability zone to the function it will handle the file creation and the parameter passing, else it will default to a predefined file that will be there and point to the default nova av. zone. \n\nDo you think we need something more of this function?",
+      "parentUuid": "dabed58f_eb5137d9",
+      "range": {
+        "startLine": 82,
+        "startChar": 44,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "a14016690cea1fe6f39c5ab0cd0359534c8966e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
