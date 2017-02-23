@@ -31,19 +31,21 @@ def run_cmd(cmd):
     Run given command locally
     Return a tuple with the return code, stdout, and stderr of the command
     """
-    pipe = subprocess.Popen(cmd, shell=True,
+    pipe = subprocess.Popen(cmd,
+                            shell=True,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
 
-    output, errors = pipe.communicate()
-    logger.debug("running [%s] returns: <%s> - %s "
-                 "" % (cmd, pipe.returncode, output))
+    stdout, stderr = [stream.strip() for stream in pipe.communicate()]
+    output = ' - STDOUT: "%s"' % stdout if len(stdout) > 0 else ''
+    error = ' - STDERR: "%s"' % stdout if len(stderr) > 0 else ''
+    logger.debug("Running [{command}] returns: [{rc}]{output}{error}".format(
+                 command=cmd,
+                 rc=pipe.returncode,
+                 output=output,
+                 error=error))
 
-    if pipe.returncode != 0 or len(errors) > 0:
-        logger.error('FAILED to execute {0}'.format(cmd))
-        logger.error(errors)
-
-    return pipe.returncode, output.strip(), errors.strip()
+    return pipe.returncode, stdout, stderr
 
 
 def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
