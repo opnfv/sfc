@@ -177,31 +177,14 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
     return instance
 
 
-def ping(remote, pkt_cnt=1, iface=None, retries=100, timeout=None):
-    ping_cmd = 'ping'
-
-    if timeout:
-        ping_cmd = ping_cmd + ' -w %s' % timeout
-
-    grep_cmd = "grep -e 'packet loss' -e rtt"
-
-    if iface is not None:
-        ping_cmd = ping_cmd + ' -I %s' % iface
-
-    ping_cmd = ping_cmd + ' -i 0 -c %d %s' % (pkt_cnt, remote)
-    cmd = ping_cmd + '|' + grep_cmd
+def ping(remote, retries=100, retry_timeout=1):
+    cmd = 'ping -c1 -w{timeout} {remote}'.format(
+           timeout=retry_timeout,
+           remote=remote)
 
     while retries > 0:
-        _, output, _ = run_cmd(cmd)
-        if not output:
-            return False
-
-        match = re.search('(\d*)% packet loss', output)
-        if not match:
-            return False
-
-        packet_loss = int(match.group(1))
-        if packet_loss == 0:
+        rc, _, _ = run_cmd(cmd)
+        if rc == 0:
             return True
 
         retries -= 1
