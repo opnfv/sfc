@@ -97,9 +97,9 @@ def main():
         TESTCASE_CONFIG.secgroup_name,
         TESTCASE_CONFIG.secgroup_descr)
 
-    vnfs = ['testVNF1']
+    vnf_name = 'testVNF1'
     # Using seed=0 uses the baseline topology: everything in the same host
-    testTopology = topo_shuffler.topology(vnfs, seed=0)
+    testTopology = topo_shuffler.topology([vnf_name], seed=0)
     logger.info('This test is run with the topology {0}'
                 .format(testTopology['id']))
     logger.info('Topology description: {0}'
@@ -130,11 +130,20 @@ def main():
         COMMON_CONFIG.vnfd_dir,
         TESTCASE_CONFIG.test_vnfd)
 
+    default_param_file = os.path.join(
+        COMMON_CONFIG.sfc_test_dir,
+        COMMON_CONFIG.vnfd_dir,
+        COMMON_CONFIG.vnfd_default_params_file)
+
     os_tacker.create_vnfd(tacker_client, tosca_file=tosca_file)
     test_utils.create_vnf_in_av_zone(
-        tacker_client, vnfs[0], 'test-vnfd1', testTopology[vnfs[0]])
+        tacker_client,
+        vnf_name,
+        'test-vnfd1',
+        default_param_file,
+        testTopology[vnf_name])
 
-    vnf_id = os_tacker.wait_for_vnf(tacker_client, vnf_name='testVNF1')
+    vnf_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_name)
     if vnf_id is None:
         logger.error('ERROR while booting VNF')
         sys.exit(1)
@@ -142,7 +151,7 @@ def main():
     os_tacker.create_sfc(
         tacker_client,
         sfc_name='red',
-        chain_vnf_names=['testVNF1'],
+        chain_vnf_names=[vnf_name],
         symmetrical=True)
 
     os_tacker.create_sfc_classifier(
@@ -150,6 +159,13 @@ def main():
         match={
             'source_port': 0,
             'dest_port': 80,
+            'protocol': 6
+        })
+    os_tacker.create_sfc_classifier(
+        tacker_client, 'red_http_reverse', sfc_name='red',
+        match={
+            'source_port': 80,
+            'dest_port': 0,
             'protocol': 6
         })
 
@@ -185,7 +201,7 @@ def main():
     t1.join()
 
     allowed_port = TESTCASE_CONFIG.allowed_source_port
-    logger.info("Test HTTP")
+    logger.info("Test if HTTP from port %s works" % allowed_port)
     if not test_utils.is_http_blocked(
             client_floating_ip, server_ip, allowed_port):
         results.add_to_summary(2, "PASS", "HTTP works")
@@ -196,7 +212,7 @@ def main():
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP works")
 
-    logger.info("Test HTTP")
+    logger.info("Test if HTTP from port %s is blocked" % blocked_port)
     if test_utils.is_http_blocked(client_floating_ip, server_ip, blocked_port):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
