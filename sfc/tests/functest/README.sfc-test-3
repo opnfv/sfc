@@ -1,5 +1,7 @@
 ### ODL-SFC TEST3 DESCRIPTION ###
 
+*** This test is not working yet - see JIRA SFC-86 ***
+
 One client and one server are created using nova. The server will be running
 a web server on port 80.
 
