@@ -163,6 +163,10 @@ def main():
             'dest_port': 80,
             'protocol': 6
         })
+
+    # FIXME: JIRA SFC-86
+    # Tacker does not allow to specify the direction of the chain to be used,
+    # only references the SFP (which for symmetric chains results in two RSPs)
     os_tacker.create_sfc_classifier(
         tacker_client, 'red_http_reverse', sfc_name='red',
         match={
