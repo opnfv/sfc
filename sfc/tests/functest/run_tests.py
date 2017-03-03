@@ -47,7 +47,7 @@ def fetch_tackerc_file(controller_node):
     rc_file = os.path.join(COMMON_CONFIG.sfc_test_dir, 'tackerc')
     if not os.path.exists(rc_file):
         logger.info("tackerc file not found, fetching it from controller")
-        controller_node.get_file("~/tackerc", rc_file)
+        controller_node.get_file("/root/tackerc", rc_file)
     else:
         logger.info("found tackerc file")
     return rc_file
