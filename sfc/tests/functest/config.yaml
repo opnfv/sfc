@@ -45,7 +45,7 @@ testcases:
       test_vnfd_blue: "test2-vnfd2.yaml"
 
   sfc_symmetric_chain:
-      enabled: true
+      enabled: false 
       description: "Verify the behavior of a symmetric service chain"
       testname_db: "sfc_symmetric_chain"
       net_name: example-net
