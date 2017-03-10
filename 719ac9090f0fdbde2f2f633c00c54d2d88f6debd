@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_26a19df8",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "dabed58f_0b902242",
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_4badba87",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-10T09:00:56Z",
       "side": 1,
       "message": "This check code should not be needed anymore. Let installer adaptors handle it.\n\nIf you still want to check, I think you should check agains COMMON_CONFIG.installer_type, rather than the environment variable.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 6
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_069c99bf",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "very well seen. I missed it",
+      "parentUuid": "dabed58f_4badba87",
       "range": {
         "startLine": 59,
         "startChar": 4,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_a6658de2",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "yeah",
+      "parentUuid": "dabed58f_6baafe71",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 40
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_0bb7c2d9",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2017-03-10T09:00:56Z",
       "side": 1,
       "message": "Try to avoid inline comments, they are more difficult to spot",
+      "range": {
+        "startLine": 116,
+        "startChar": 42,
+        "endLine": 116,
+        "endChar": 43
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_866889bb",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "good point",
+      "parentUuid": "dabed58f_0bb7c2d9",
       "range": {
         "startLine": 116,
         "startChar": 42,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_6648f55b",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "No... I get flake8 problem because it is 80 and over 80.",
+      "parentUuid": "dabed58f_cbb0cadf",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 119,
+        "endChar": 17
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_ebb58ecd",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
         "patchSetId": 6
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "dabed58f_c6a52105",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "yeah, you have good point again",
+      "parentUuid": "dabed58f_ebb58ecd",
+      "range": {
+        "startLine": 162,
+        "startChar": 56,
+        "endLine": 162,
+        "endChar": 64
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabed58f_8bcad24d",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
         "patchSetId": 6
@@ -145,6 +283,30 @@
       "writtenOn": "2017-03-10T09:00:56Z",
       "side": 1,
       "message": "if I remember it correctly, tacker does not throw exceptions in wait_for_vnf()\n\nWhat it does is returning the VNF information, or None in case anything failed. I think you should do something like:\n\n vnf1 \u003d os_tacker.wait_for_vnf(\u003cvnf1\u003e)\n vnf2 \u003d os_tacker.wait_for_vnf(\u003cvnf2\u003e)\n if vnf1 is None of vnf2 is None:\n   exit(1)",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 14
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_e6aaa5d3",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "dabed58f_8bcad24d",
       "range": {
         "startLine": 165,
         "startChar": 8,
@@ -191,6 +353,30 @@
       "writtenOn": "2017-03-10T09:00:56Z",
       "side": 1,
       "message": "by convention we are using always positive clauses (works/blocked), so I\u0027d suggest to change \"HTTP not blocked\" with \"HTTP works\"",
+      "range": {
+        "startLine": 235,
+        "startChar": 48,
+        "endLine": 235,
+        "endChar": 51
+      },
+      "revId": "719ac9090f0fdbde2f2f633c00c54d2d88f6debd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_06833957",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-10T12:35:31Z",
+      "side": 1,
+      "message": "I prefer to have the \"FAILED: HTTP not blocked\", if somebody asks: \"why it did not work?\" the answer is clear: \"Http should be blocked\". If we put \"FAILED: HTTP works\". if somebody asks: \"why it did not work?\" The answer is not obvious unless you are familiar with the test cases.",
+      "parentUuid": "dabed58f_0bdee211",
       "range": {
         "startLine": 235,
         "startChar": 48,
