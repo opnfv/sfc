@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_668d557b",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-10T12:52:30Z",
+      "side": 1,
+      "message": "name should not have double quotes:\n \n ft_logger.Logger(__name__).getLogger()",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "77c858469dea26b0ab88bfaa6f716881c34acfa0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
