@@ -110,11 +110,11 @@ def main():
 
     test_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor,
-        image_id, network_id, sg_id)
+        image_id, network_id, sg_id, av_zone=testTopology['client'])
 
     srv_instance = test_utils.create_instance(
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
-        network_id, sg_id)
+        network_id, sg_id, av_zone=testTopology['server'])
 
     srv_prv_ip = srv_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
