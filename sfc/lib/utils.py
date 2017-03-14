@@ -360,7 +360,8 @@ def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
 
 
 @ft_utils.timethis
-def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
+def wait_for_classification_rules(ovs_logger, compute_clients,
+                                  num_chains, timeout=200):
     # 10 sec. is the threshold to consider a flow from an old deployment
     for compute_client in compute_clients:
         max_duration = 10
@@ -369,16 +370,28 @@ def wait_for_classification_rules(ovs_logger, compute_clients, timeout=200):
         # ODL may take quite some time to implement the new flow
         # and an old flow may be there
         first_RSP = rsps[0] if len(rsps) > 0 else ''
-        while not ((len(rsps) > 1) and
-                   (first_RSP != rsps[0]) and
-                   (rsps[0] == rsps[1])):
-            rsps = ofctl_time_counter(ovs_logger, compute_client)
-            timeout -= 1
-            if timeout == 0:
-                logger.error(
-                    "Timeout but classification rules are not updated")
+        logger.debug("This is the first_RSP: %s" % first_RSP)
+        if num_chains == 1:
+            while not ((len(rsps) > 0) and (first_RSP != rsps[0])):
+                rsps = ofctl_time_counter(ovs_logger, compute_client)
+                logger.info("These are the rsps: %s" % rsps)
+                timeout -= 1
+                if timeout == 0:
+                    logger.error(
+                        "Timeout but classification rules are not updated")
                 return
-            time.sleep(1)
+                time.sleep(1)
+        elif num_chains == 2:
+            while not ((len(rsps) > 1) and (first_RSP != rsps[0]) and
+                       (rsps[0] == rsps[1])):
+                rsps = ofctl_time_counter(ovs_logger, compute_client)
+                logger.info("This is the rsps: %s" % rsps)
+                timeout -= 1
+                if timeout == 0:
+                    logger.error(
+                        "Timeout but classification rules are not updated")
+                    return
+                time.sleep(1)
         logger.info("classification rules updated")
 
 
