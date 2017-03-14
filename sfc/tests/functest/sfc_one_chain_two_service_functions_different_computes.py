@@ -165,9 +165,12 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-list')[1])
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
+    # We want to check the classif. only in certain computes
+    compute_sffs = test_utils.filter_sffs(compute_nodes, testTopology, vnfs)
+
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients,))
+                          args=(ovs_logger, compute_sffs,))
     try:
         t1.start()
     except Exception, e:

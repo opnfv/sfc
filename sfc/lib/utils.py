@@ -407,3 +407,16 @@ def get_nova_id(tacker_client, resource, vnf_id=None, vnf_name=None):
         logger.error("Cannot get nova ID for VNF (id='%s', name='%s')"
                      % (vnf_id, vnf_name))
         return None
+
+
+def filter_sffs(compute_nodes, testTopology, vnfs):
+    computes_to_check = []
+    for vnf in vnfs:
+        computes_to_check.append(testTopology[vnf].split('.')[0].split('-')[1])
+
+    computes_sff = []
+    for compute in compute_nodes:
+        if compute.id in computes_to_check:
+            computes_sff.append(compute.ssh)
+
+    return computes_sff
