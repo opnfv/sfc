@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_fb6ef795",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-14T15:52:20Z",
+      "side": 1,
+      "message": "When you do complex string parsing, or regex matching, it is nice to have a comment stating what you intend to parse. Otherwise, it is impossible to know what your intention was.\n\nFor example, why are you splitting by \u0027.\u0027, then by \u0027-\u0027. How can I can say if that is correct?\n\nBTW, I prefer to use list comprenhensions than declaring a list, then appending items:\n\n computes_to_check \u003d [\n    testTopology[vnf].split(\u0027.\u0027)[0].split(\u0027-\u0027)[1] for vnf in vnfs]",
+      "range": {
+        "startLine": 415,
+        "startChar": 8,
+        "endLine": 415,
+        "endChar": 25
+      },
+      "revId": "c6b92c0fdb890208b92710a86383d29001633850",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5b05c3c0",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-14T15:52:20Z",
+      "side": 1,
+      "message": "same here:\n\n computes_sff \u003d [node for node in compute_nodes if node.id in computes_to_check]",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 4
+      },
+      "revId": "c6b92c0fdb890208b92710a86383d29001633850",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3b148ff4",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-14T15:52:20Z",
+      "side": 1,
+      "message": "this comment would be greatly improved if you say which computes you want. Otherwise, you are making the reader or your code try to figure out which computes fulfill your intentions.\n\nDon\u0027t be misteriuos ;)",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 168,
+        "endChar": 40
+      },
+      "revId": "c6b92c0fdb890208b92710a86383d29001633850",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_dbf8d3c6",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-14T15:52:20Z",
+      "side": 1,
+      "message": "same comment about the comment.",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 183,
+        "endChar": 5
+      },
+      "revId": "c6b92c0fdb890208b92710a86383d29001633850",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
