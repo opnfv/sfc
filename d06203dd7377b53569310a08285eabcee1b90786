@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_90ac7a8e",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-14T12:01:23Z",
+      "side": 1,
+      "message": "So it doesn\u0027t work for #chains \u003e 2\nWill we need that?\n\nHow about something like not passing #chains and just making the decision based on len(rsps)?",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 29
+      },
+      "revId": "d06203dd7377b53569310a08285eabcee1b90786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
