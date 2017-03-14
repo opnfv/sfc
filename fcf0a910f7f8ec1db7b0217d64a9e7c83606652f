@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_30a4ae56",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-14T13:35:57Z",
+      "side": 1,
+      "message": "I find this code very difficult to understand:\n\nWhat does \u0027classif\u0027 mean?\nWhat does \u0027sth\u0027 mean?\n\nIf I understood it right,the intention is to avoid looking for classification rules in a compute where there are no SFs located, is that true?\n\nThe code should somehow be more explicit about that.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 4
+      },
+      "revId": "fcf0a910f7f8ec1db7b0217d64a9e7c83606652f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
