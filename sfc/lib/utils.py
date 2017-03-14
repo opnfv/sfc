@@ -370,11 +370,11 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
         # ODL may take quite some time to implement the new flow
         # and an old flow may be there
         first_RSP = rsps[0] if len(rsps) > 0 else ''
-        logger.info("This is the first_RSP: %s" % first_RSP)
+        logger.debug("This is the first_RSP: %s" % first_RSP)
         if num_chains == 1:
             while not ((len(rsps) == 1) and (first_RSP != rsps[0])):
                 rsps = ofctl_time_counter(ovs_logger, compute_client)
-                logger.info("These are the rsps: %s" % rsps)
+                logger.debug("These are the rsps: %s" % rsps)
                 timeout -= 1
                 if timeout == 0:
                     logger.error(
@@ -420,3 +420,18 @@ def get_nova_id(tacker_client, resource, vnf_id=None, vnf_name=None):
         logger.error("Cannot get nova ID for VNF (id='%s', name='%s')"
                      % (vnf_id, vnf_name))
         return None
+
+
+def filter_sffs(compute_nodes, testTopology, vnfs):
+    if 'nova' in testTopology.values():
+        computes_to_check = [node.id for node in compute_nodes]
+    else:
+        # Get the number of the compute (e.g.node-7.domain.tld ==> 7)
+        computes_to_check = [
+            testTopology[vnf].split('.')[0].split('-')[1] for vnf in vnfs]
+
+    computes_sff = [
+        node.ssh_client for node in compute_nodes
+        if node.id in computes_to_check]
+
+    return computes_sff
