@@ -11,6 +11,7 @@
 import os
 import sys
 import threading
+import re
 
 import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_tacker as os_tacker
@@ -165,9 +166,20 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-list')[1])
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
+    # We want to check the classif. only in certain computes
+    computes_classif = []
+    if testTopology[vnfs[1]] == testTopology[vnfs[0]]:
+        for compute in compute_nodes:
+            sth = re.findall(compute.id, testTopology[vnfs[0]])
+            if sth:
+                computes_classif.append(compute)
+        compute_clients_classif = test_utils.get_ssh_clients(computes_classif)
+    else:
+        compute_clients_classif = compute_clients
+
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients,))
+                          args=(ovs_logger, compute_clients_classif,))
     try:
         t1.start()
     except Exception, e:
