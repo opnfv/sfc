@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7036a605",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-14T14:07:14Z",
+      "side": 1,
+      "message": "What about the case where testTopology[vnf] \u003d\u003d nova?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 63
+      },
+      "revId": "99c8da61b33b7e2c4de0fb70a7fbcd9798a38dbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_5031220a",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-14T14:07:14Z",
+      "side": 1,
+      "message": "you don\u0027t need to call get_ssh_clients\n\nthere is compute.ssh",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 78
+      },
+      "revId": "99c8da61b33b7e2c4de0fb70a7fbcd9798a38dbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_103baaec",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-14T14:07:14Z",
+      "side": 1,
+      "message": "I would rewrite this like:\n\ncompute_ids_to_check \u003d []\n\nfor vnf in vnfs:\n    computes_to_check.append(testTopology[vnf].split(\u0027.\u0027)[0].split(\u0027-\u0027)[1]) # we must still handle the nova case\n\ncomputes_to_check \u003d []\nfor compute in compute_nodes:\n    if compute.id in compute_ids_to_check:\n        computes_to_check.append(compute.ssh)",
+      "range": {
+        "startLine": 171,
+        "startChar": 3,
+        "endLine": 178,
+        "endChar": 49
+      },
+      "revId": "99c8da61b33b7e2c4de0fb70a7fbcd9798a38dbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
