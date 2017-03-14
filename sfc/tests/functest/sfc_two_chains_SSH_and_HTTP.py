@@ -180,9 +180,11 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-list')[1])
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
+    num_chains = 2
+    
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients,))
+                          args=(ovs_logger, compute_clients, num_chains,))
     try:
         t1.start()
     except Exception, e:
