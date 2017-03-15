@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_a14db2c6",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-15T11:24:52Z",
+      "side": 1,
+      "message": "I don\u0027t understand how this code is working, please tell me if you know the cause.\n\nWhat I see is that \u0027computes_to_check\u0027 is initialized INSIDE the scope of the \u0027if\u0027 and \u0027else\u0027. However, it is afterwards used OUTSIDE that scope.\n\nI\u0027ve seen similar issues before (e.g. in get_floating_ips), and I\u0027m puzzled about it. Please, if you know why this works (IMHO there should be an exception), share it.",
+      "range": {
+        "startLine": 425,
+        "startChar": 4,
+        "endLine": 425,
+        "endChar": 15
+      },
+      "revId": "da6d1d2e018e358f71ad734766580a7343829c29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
