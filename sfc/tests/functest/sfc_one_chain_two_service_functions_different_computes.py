@@ -22,6 +22,7 @@ import sfc.lib.utils as test_utils
 from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
+import sfc.lib.boron_workaround as boron_workaround
 
 """ logging configuration """
 logger = ft_logger.Logger(__name__).getLogger()
@@ -198,6 +199,8 @@ def main():
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
+
+    boron_workaround.fix_Boron(compute_nodes)
 
     logger.info("Test HTTP")
     if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
