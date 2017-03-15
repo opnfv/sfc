@@ -119,18 +119,66 @@ def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):
     return n_dict["net_id"]
 
 
+def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
+                         port_range_min=None, port_range_max=None):
+    # We create a security group in 2 steps
+    # 1 - we check the format and set the json body accordingly
+    # 2 - we call neturon client to create the security group
+
+    # Format check
+    json_body = {'security_group_rule': {'direction': direction,
+                                         'security_group_id': sg_id,
+                                         'protocol': protocol}}
+    # parameters may be
+    # - both None => we do nothing
+    # - both Not None => we add them to the json description
+    # but one cannot be None is the other is not None
+    if (port_range_min is not None and port_range_max is not None):
+        # add port_range in json description
+        json_body['security_group_rule']['port_range_min'] = port_range_min
+        json_body['security_group_rule']['port_range_max'] = port_range_max
+        logger.debug("Security_group format set (port range included)")
+    else:
+        # either both port range are set to None => do nothing
+        # or one is set but not the other => log it and return False
+        if port_range_min is None and port_range_max is None:
+            logger.debug("Security_group format set (no port range mentioned)")
+        else:
+            logger.error("Bad security group format."
+                         "One of the port range is not properly set:"
+                         "range min: {},"
+                         "range max: {}".format(port_range_min,
+                                                port_range_max))
+            return False
+
+    # Create security group using neutron client
+    try:
+        neutron_client.create_security_group_rule(json_body)
+        return True
+    except:
+        return False
+
+
 def setup_ingress_egress_secgroup(neutron_client, protocol,
                                   min_port=None, max_port=None):
     secgroups = os_utils.get_security_groups(neutron_client)
     for sg in secgroups:
-        os_utils.create_secgroup_rule(neutron_client, sg['id'],
-                                      'ingress', protocol,
-                                      port_range_min=min_port,
-                                      port_range_max=max_port)
-        os_utils.create_secgroup_rule(neutron_client, sg['id'],
-                                      'egress', protocol,
-                                      port_range_min=min_port,
-                                      port_range_max=max_port)
+        # TODO: the version of the create_secgroup_rule function in
+        # functest swallows the exception thrown when a secgroup rule
+        # already exists and prints a ton of noise in the test output.
+        # Instead of making changes in functest code this late in the
+        # release cycle, we keep our own version without the exception
+        # logging. We must find a way to properly cleanup sec group 
+        # rules using "functest openstack clean" or pretty printing the
+        # specific exception in the next release
+        create_secgroup_rule(neutron_client, sg['id'],
+                             'ingress', protocol,
+                             port_range_min=min_port,
+                             port_range_max=max_port)
+        create_secgroup_rule(neutron_client, sg['id'],
+                             'egress', protocol,
+                             port_range_min=min_port,
+                             port_range_max=max_port)
 
 
 def create_security_groups(neutron_client, secgroup_name, secgroup_descr):
