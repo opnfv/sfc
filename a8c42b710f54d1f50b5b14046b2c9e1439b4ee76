@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_a1761205",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-15T11:19:53Z",
+      "side": 1,
+      "message": "neutron",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 25
+      },
+      "revId": "a8c42b710f54d1f50b5b14046b2c9e1439b4ee76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c1730614",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-15T11:19:53Z",
+      "side": 1,
+      "message": "In this case neutron_client.create_security_group_rule would be called. Do we need to return True here?\n\nIMHO, it would be better to move the create_security_group_rule to the end of the \u0027if\u0027 block (returning True if success) Every other condition should end in return False.",
+      "range": {
+        "startLine": 145,
+        "startChar": 12,
+        "endLine": 145,
+        "endChar": 18
+      },
+      "revId": "a8c42b710f54d1f50b5b14046b2c9e1439b4ee76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
