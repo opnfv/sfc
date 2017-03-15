@@ -22,6 +22,30 @@
       "revId": "466ee62919198e3d21587e5160b2fae1d8bb40da",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e1c3aa88",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-15T09:08:10Z",
+      "side": 1,
+      "message": "before this line we can do an\n\nif \u0027nova\u0027 in testTopology.values():\n    computes_to_check \u003d [node.id for node in compute_nodes]\nelse:\n    computes_to_check \u003d ...",
+      "parentUuid": "9ab8dda7_b61c16c3",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 70
+      },
+      "revId": "466ee62919198e3d21587e5160b2fae1d8bb40da",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
