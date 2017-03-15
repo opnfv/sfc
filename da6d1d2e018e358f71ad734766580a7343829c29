@@ -22,6 +22,30 @@
       "revId": "da6d1d2e018e358f71ad734766580a7343829c29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_41d636c7",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-15T11:31:35Z",
+      "side": 1,
+      "message": "http://stackoverflow.com/questions/7382638/python-variable-scope-in-if-statements",
+      "parentUuid": "9ab8dda7_a14db2c6",
+      "range": {
+        "startLine": 425,
+        "startChar": 4,
+        "endLine": 425,
+        "endChar": 15
+      },
+      "revId": "da6d1d2e018e358f71ad734766580a7343829c29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
