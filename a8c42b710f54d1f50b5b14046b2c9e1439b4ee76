@@ -45,6 +45,30 @@
       "revId": "a8c42b710f54d1f50b5b14046b2c9e1439b4ee76",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_819aee12",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-15T11:48:48Z",
+      "side": 1,
+      "message": "This code is copied from functest.openstack_utils as a temporary fix. It\u0027s the same code we were already using minus one logger call. \n\nI think modifying the logic here is not only pointless (since in the end we will go back to using the functest function) but also dangerous (since we are 2 days before the release).\n\nThe point is that we don\u0027t want to show 100 error outs about \"security group exists\" in the CI that will confuse and mislead people and I don\u0027t want to mess with functest code at this stage (it will probably not even get cherry picked quickly enough).",
+      "parentUuid": "9ab8dda7_c1730614",
+      "range": {
+        "startLine": 145,
+        "startChar": 12,
+        "endLine": 145,
+        "endChar": 18
+      },
+      "revId": "a8c42b710f54d1f50b5b14046b2c9e1439b4ee76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
