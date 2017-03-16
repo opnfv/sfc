@@ -417,7 +417,11 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
         # first_RSP saves a potential RSP from an old deployment.
         # ODL may take quite some time to implement the new flow
         # and an old flow may be there
-        first_RSP = rsps[0] if len(rsps) > 0 else ''
+        if compute_client == compute_clients[0]:
+            first_RSP = rsps[0] if len(rsps) > 0 else ''
+        else:
+            first_RSP = ''
+            rsps = ''
         logger.debug("This is the first_RSP: %s" % first_RSP)
         if num_chains == 1:
             while not ((len(rsps) == 1) and (first_RSP != rsps[0])):
