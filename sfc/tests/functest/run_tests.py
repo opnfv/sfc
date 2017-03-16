@@ -19,6 +19,7 @@ import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
+import sfc.lib.cleanup as sfc_cleanup
 import sfc.lib.config as sfc_config
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
@@ -115,6 +116,7 @@ def main():
                 details = result.get("details")
                 push_results(
                     test_name_db, start_time, end_time, status, details)
+            sfc_cleanup.cleanup()
 
     overall_end_time = time.time()
     if args.report:
