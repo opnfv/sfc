@@ -5,19 +5,19 @@
 Abstract
 ========
 
-This document compiles the release notes for the Colorado release of
+This document compiles the release notes for the Danube release of
 OPNFV SFC.
 
 Important notes
 ===============
 
 These notes provide release information for the use of SFC with the Fuel
-and Apex installer tools for the Colorado release of OPNFV.
+and Apex installer tools for the Danube release of OPNFV.
 
 Summary
 =======
 
-The goal of the SFC Colorado release is to integrate the OpenDaylight
+The goal of the SFC Danube release is to integrate the OpenDaylight
 SFC project into an OPNFV environment, with either the Fuel or Apex
 installer. In subsequent releases, other OPNFV installers will be
 considered.
@@ -49,21 +49,18 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | colorado.2.0                         |
+| **Repo/tag**                         | danube 1.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Colorado base release                |
+| **Release designation**              | Danube base release                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | November 10 2016                     |
+| **Release date**                     | March 27 2017                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | Improve functionality provided in    |
-|                                      | Brahmaputra release. Increased test  |
-|                                      | coverage with new Funtest cases.     |
-|                                      | Make SFC/Tacker work on multiple     |
-|                                      | compute nodes                        |
-|                                      |                                      |
+| **Purpose of the delivery**          | Add two new test cases and improve   |
+|                                      | the old test case by using the new   |
+|                                      | functions coming in functest         |
 +--------------------------------------+--------------------------------------+
 
 Version change
@@ -71,14 +68,14 @@ Version change
 
 Module version changes
 ~~~~~~~~~~~~~~~~~~~~~~
-This is the second tracked release of OPNFV sfc. It is based on
+This is the first tracked release of OPNFV sfc. It is based on
 following upstream versions:
 
-- OpenStack Mitaka release
+- OpenStack Newton release
 
-- OpenDaylight Boron release
+- OpenDaylight Boron SR2 release
 
-- Open vSwitch 2.5.90 with Yi Yang NSH patch
+- Open vSwitch 2.6 with Yi Yang NSH patch
 
 Document changes
 ~~~~~~~~~~~~~~~~
@@ -135,16 +132,27 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Colorado 2.0 release has several limitations:
+The Danube 1.0 release has several limitations:
 
-1 - OPNFV SFC only works in non-HA environments with the Fuel installer.
-There is a bug in ODL which is fixed in ODL Boron SR1 and will be part
-of Colorado 3.0
+1 - The symmetric test case only works when client, server and
+SFs are running in the same compute host. This is due to a missing
+functionality in Tacker
 
-2 - Any VM (e.g. SFs) must have only one security group.
-There is a bug in ODL Boron which only one security group is read.
-The rest are silently ignored. This issue will be fixed in ODL
-Boron SR1, which will be included in Colorado 3.0.
+2 - The test cases don't work if client and server are in different
+computes because netvirt classifier and netvirt security groups are
+not compatible in Boron. The reason is that packets never reach table
+41 or table 91 in the client compute (they are hijacked by SFC in table
+11) and thus the sec. group functionality does not know about that
+traffic. Consequently, there are no rules created to allow the traffic
+in the opposite direction (tcp_port_src = tcp_port_dst) and when server
+replies to the client, that traffic is dropped.
+
+3 - The test cases don't work if the client and the server are 
+in one compute and the SFs are in other compute. The reason is that ODL
+Boron only creates a classification rule in the computes with SFs.
+Therefore, the traffic from the client goes to the server as it would
+be done without SFC (SFC classifier is implemented only in the other
+compute)
 
 Known issues
 ------------
@@ -169,12 +177,12 @@ document (link provided above).
 
 Test results
 ============
-The Colorado release of SFC has undergone QA test runs
+The Danube release of SFC has undergone QA test runs
 with Functest tests on the Fuel and Apex installers.
 
 References
 ==========
-For more information on the OPNFV Colorado release, please see:
+For more information on the OPNFV Danube release, please see:
 
 OPNFV
 -----
