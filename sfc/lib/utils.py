@@ -410,10 +410,14 @@ def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_clients,
                                   num_chains, timeout=200):
+    new_rsp = ''
     # 10 sec. is the threshold to consider a flow from an old deployment
     for compute_client in compute_clients:
         max_duration = 10
-        rsps = ofctl_time_counter(ovs_logger, compute_client, max_duration)
+        # If rsps has value, it took it from other compute. Not to be confused
+        # with an old value
+        if not new_rsp:
+            rsps = ofctl_time_counter(ovs_logger, compute_client, max_duration)
         # first_RSP saves a potential RSP from an old deployment.
         # ODL may take quite some time to implement the new flow
         # and an old flow may be there
@@ -441,6 +445,7 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
                     return
                 time.sleep(1)
         logger.info("classification rules updated")
+        new_rsp = rsps
 
 
 def setup_compute_node(cidr, compute_nodes):
