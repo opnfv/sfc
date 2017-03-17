@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Manuel Buil <mbuil@suse.com>
+Code-Review+1: Juan Vidal <juan.vidal.allende@ericsson.com>
+Submitted-by: Manuel Buil <mbuil@suse.com>
+Submitted-at: Fri, 17 Mar 2017 16:34:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/30843
+Project: sfc
+Branch: refs/heads/master
