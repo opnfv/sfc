@@ -19,35 +19,50 @@ def delete_odl_resources(odl_ip, odl_port, resource):
 
 def delete_vnfds():
     t = os_tacker.get_tacker_client()
-    for vnfd in os_tacker.list_vnfds(t):
+    vnfds = os_tacker.list_vnfds(t)
+    if vnfds is None:
+        return
+    for vnfd in vnfds:
         logger.info("Removing vnfd: {0}".format(vnfd))
         os_tacker.delete_vnfd(t, vnfd_id=vnfd)
 
 
 def delete_vnfs():
     t = os_tacker.get_tacker_client()
-    for vnf in os_tacker.list_vnfs(t):
+    vnfs = os_tacker.list_vnfs(t)
+    if vnfs is None:
+        return
+    for vnf in vnfs:
         logger.info("Removing vnf: {0}".format(vnf))
         os_tacker.delete_vnf(t, vnf_id=vnf)
 
 
 def delete_sfcs():
     t = os_tacker.get_tacker_client()
-    for sfc in os_tacker.list_sfcs(t):
+    sfcs = os_tacker.list_sfcs(t)
+    if sfcs is None:
+        return
+    for sfc in sfcs:
         logger.info("Removing sfc: {0}".format(sfc))
         os_tacker.delete_sfc(t, sfc_id=sfc)
 
 
 def delete_sfc_clfs():
     t = os_tacker.get_tacker_client()
-    for sfc_clf in os_tacker.list_sfc_classifiers(t):
+    sfc_clfs = os_tacker.list_sfc_classifiers(t)
+    if sfc_clfs is None:
+        return
+    for sfc_clf in sfc_clfs:
         logger.info("Removing sfc classifier: {0}".format(sfc_clf))
         os_tacker.delete_sfc_classifier(t, sfc_clf_id=sfc_clf)
 
 
 def delete_floating_ips():
     n = os_utils.get_nova_client()
-    for fip in os_utils.get_floating_ips(n):
+    fips = os_utils.get_floating_ips(n)
+    if fips is None:
+        return
+    for fip in fips:
         logger.info("Removing floating ip: {0}".format(fip.ip))
         os_utils.delete_floating_ip(n, fip.id)
 
@@ -63,7 +78,10 @@ def delete_stacks():
 
 def delete_instances():
     n = os_utils.get_nova_client()
-    for inst in os_utils.get_instances(n):
+    instances = os_utils.get_instances(n)
+    if instances is None:
+        return
+    for inst in instances:
         logger.info("Removing instance: {0}".format(inst.id))
         os_utils.delete_instance(n, inst.id)
 
