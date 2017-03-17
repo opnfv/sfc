@@ -21,6 +21,7 @@ import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 import sfc.lib.cleanup as sfc_cleanup
 import sfc.lib.config as sfc_config
+import sfc.lib.utils as sfc_utils
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
@@ -68,8 +69,8 @@ def main():
 
     a_controller = [node for node in nodes
                     if node.is_controller()][0]
-    rc_file = fetch_tackerc_file(a_controller)
 
+    rc_file = fetch_tackerc_file(a_controller)
     os_utils.source_credentials(rc_file)
 
     logger.info("Updating env with {0}".format(rc_file))
@@ -77,6 +78,8 @@ def main():
     for var, value in os.environ.items():
         if var.startswith("OS_"):
             logger.info("\t{0}={1}".format(var, value))
+
+    odl_ip, odl_port = sfc_utils.get_odl_ip_port(nodes)
 
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
@@ -137,7 +140,7 @@ def main():
                 details = result.get("details")
                 push_results(
                     test_name_db, start_time, end_time, status, details)
-            sfc_cleanup.cleanup()
+            sfc_cleanup.cleanup(odl_ip=odl_ip, odl_port=odl_port)
 
     overall_end_time = time.time()
     if args.report:
