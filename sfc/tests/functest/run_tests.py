@@ -69,8 +69,14 @@ def main():
                     if node.is_controller()][0]
     rc_file = fetch_tackerc_file(a_controller)
 
-    creds = os_utils.source_credentials(rc_file)
-    logger.info("Updating env with {0}".format(creds))
+    os_utils.source_credentials(rc_file)
+
+    logger.info("Updating env with {0}".format(rc_file))
+    logger.info("OS credentials:")
+    for var, value in os.environ.items():
+        if var.startswith("OS_"):
+            logger.info("\t{0}={1}".format(var, value))
+
     ovs_logger = ovs_log.OVSLogger(
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
