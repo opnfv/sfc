@@ -11,7 +11,9 @@
 import os
 import re
 import subprocess
+import requests
 import time
+import xmltodict
 import yaml
 
 import functest.utils.functest_logger as ft_logger
@@ -487,3 +489,47 @@ def filter_sffs(compute_nodes, testTopology, vnfs):
         if node.id in computes_to_check]
 
     return computes_sff
+
+
+def get_odl_ip_port(nodes):
+    local_jetty = os.path.join(os.getcwd(), 'jetty.xml')
+    odl_node = next(n for n in nodes if n.is_odl())
+    odl_node.get_file('/opt/opendaylight/etc/jetty.xml', local_jetty)
+    with open(local_jetty) as fd:
+        parsed = xmltodict.parse(fd.read(), dict_constructor=dict)
+
+    ip = (parsed['Configure']['Call'][0]['Arg']['New']
+          ['Set'][0]['Property']['@default'])
+    port = (parsed['Configure']['Call'][0]['Arg']['New']
+            ['Set'][1]['Property']['@default'])
+    return ip, port
+
+
+def pluralize(s):
+    return '{0}s'.format(s)
+
+
+def format_odl_resource_list_url(odl_ip, odl_port, resource,
+                                 odl_user='admin', odl_pwd='admin'):
+    return ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/{rsrc}:{rsrcs}'
+            .format(usr=odl_user, pwd=odl_pwd, ip=odl_ip, port=odl_port,
+                    rsrc=resource, rsrcs=pluralize(resource)))
+
+
+def format_odl_resource_elem_url(odl_ip, odl_port, resource, elem_name):
+    list_url = format_odl_resource_list_url(odl_ip, odl_port, resource)
+    return ('{0}/{1}/{2}'.format(list_url, resource, elem_name))
+
+
+def odl_resource_list_names(resource, resource_json):
+    return [r['name'] for r in resource_json[pluralize(resource)][resource]]
+
+
+def get_odl_resource_list(odl_ip, odl_port, resource):
+    url = format_odl_resource_list_url(odl_ip, odl_port, resource)
+    return requests.get(url).json()
+
+
+def delete_odl_resource_elem(odl_ip, odl_port, resource, elem_name):
+    url = format_odl_resource_elem_url(odl_ip, odl_port, resource, elem_name)
+    requests.delete(url).json()
