@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7f63ca1a",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-17T12:00:06Z",
+      "side": 1,
+      "message": "I prefer to use /tmp for this kind of files",
+      "range": {
+        "startLine": 495,
+        "startChar": 31,
+        "endLine": 495,
+        "endChar": 33
+      },
+      "revId": "db81fa479b591fdfea50d8a8e8d5f035ac05cc15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_dfa67653",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-17T12:00:06Z",
+      "side": 1,
+      "message": "local_jetty should be deleted afterwards",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 12
+      },
+      "revId": "db81fa479b591fdfea50d8a8e8d5f035ac05cc15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_3f6d5205",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-17T12:00:06Z",
+      "side": 1,
+      "message": "try to avoid names that cannot be pronounced. RSRCS is even difficult to spell ;)",
+      "range": {
+        "startLine": 516,
+        "startChar": 20,
+        "endLine": 516,
+        "endChar": 24
+      },
+      "revId": "db81fa479b591fdfea50d8a8e8d5f035ac05cc15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
