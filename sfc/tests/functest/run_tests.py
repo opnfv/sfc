@@ -109,6 +109,15 @@ def main():
             except Exception, e:
                 logger.error("Exception when executing: %s" % testcase)
                 logger.error(e)
+                result = 1
+                for node in nodes:
+                    if node.get_file("/usr/lib/python2.7/dist-packages/tacker/"
+                                  "sfc/plugin.py","/tmp/plugin.py"):
+                        break
+                with open("/tmp/plugin.py") as fd:
+                    logger.info("Starting to read")
+                    logger.info(fd.read())
+                    logger.info("Finished to read")
             end_time = time.time()
             duration = end_time - start_time
             status = "FAIL"
