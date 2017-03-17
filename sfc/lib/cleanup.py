@@ -1,10 +1,20 @@
+import sys
+
 import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
-import utils
+import sfc.lib.utils as utils
 
 
 logger = ft_logger.Logger(__name__).getLogger()
+
+
+def delete_odl_resources(odl_ip, odl_port, resource):
+    rsrc_list = utils.get_odl_resource_list(odl_ip, odl_port, resource)
+    elem_names = utils.odl_resource_list_names(resource, rsrc_list)
+    for elem in elem_names:
+        logger.info("Removing ODL resource: {0}/{1}".format(resource, elem))
+        utils.delete_odl_resource_elem(odl_ip, odl_port, resource, elem)
 
 
 def delete_vnfds():
@@ -58,14 +68,26 @@ def delete_instances():
         os_utils.delete_instance(n, inst.id)
 
 
-def cleanup():
+def cleanup_odl(odl_ip, odl_port):
+    delete_odl_resources(odl_ip, odl_port, 'service-function-forwarder')
+    delete_odl_resources(odl_ip, odl_port, 'service-function-chain')
+    delete_odl_resources(odl_ip, odl_port, 'service-function-path')
+    delete_odl_resources(odl_ip, odl_port, 'service-function')
+
+
+def cleanup(odl_ip=None, odl_port=None):
     delete_sfc_clfs()
     delete_sfcs()
     delete_vnfs()
     delete_stacks()
     delete_floating_ips()
     delete_instances()
+    if odl_ip is not None and odl_port is not None:
+        cleanup_odl(odl_ip, odl_port)
 
 
 if __name__ == '__main__':
-    cleanup()
+    if sys.argv > 2:
+        cleanup(sys.argv[1], sys.argv[2])
+    else:
+        cleanup()
