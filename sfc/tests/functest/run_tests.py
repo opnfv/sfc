@@ -94,7 +94,11 @@ def main():
             logger.info("%s\n" % ("=" * len(title)))
             t = importlib.import_module(testcase, package=None)
             start_time = time.time()
-            result = t.main()
+            try:
+                result = t.main()
+            except Exception, e:
+                logger.error("Exception when executing: %s" % testcase)
+                logger.error(e)
             end_time = time.time()
             duration = end_time - start_time
             status = "FAIL"
