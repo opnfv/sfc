@@ -507,6 +507,8 @@ def format_odl_resource_elem_url(odl_ip, odl_port, resource, elem_name):
 
 
 def odl_resource_list_names(resource, resource_json):
+    if len(resource_json[pluralize(resource)].items()) == 0:
+        return []
     return [r['name'] for r in resource_json[pluralize(resource)][resource]]
 
 
