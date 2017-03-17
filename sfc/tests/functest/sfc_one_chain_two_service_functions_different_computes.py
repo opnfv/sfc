@@ -167,12 +167,9 @@ def main():
 
     num_chains = 1
 
-    # We want to check the classif. only in the SFFs (computes with a SF)
-    compute_sffs = test_utils.filter_sffs(compute_nodes, testTopology, vnfs)
-
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_sffs, num_chains,))
+                          args=(ovs_logger, compute_clients, num_chains,))
     try:
         t1.start()
     except Exception, e:
