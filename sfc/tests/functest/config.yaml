@@ -20,6 +20,7 @@ defaults:
 testcases:
   sfc_two_chains_SSH_and_HTTP:
       enabled: true
+      order: 1
       description: "ODL-SFC tests"
       testname_db: "sfc_two_chains_SSH_and_HTTP"
       net_name: example-net
@@ -33,6 +34,7 @@ testcases:
 
   sfc_one_chain_two_service_functions_different_computes:
       enabled: true
+      order: 0
       description: "ODL-SFC Testing SFs in different computes"
       testname_db: "sfc_one_chain_two_service_functions_different_computes"
       net_name: example-net
@@ -45,7 +47,8 @@ testcases:
       test_vnfd_blue: "test2-vnfd2.yaml"
 
   sfc_symmetric_chain:
-      enabled: false 
+      enabled: false
+      order: 2
       description: "Verify the behavior of a symmetric service chain"
       testname_db: "sfc_symmetric_chain"
       net_name: example-net

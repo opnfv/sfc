@@ -23,6 +23,8 @@ import opnfv.utils.ovs_logger as ovs_log
 import sfc.lib.cleanup as sfc_cleanup
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as sfc_utils
+
+from collections import OrderedDict
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
@@ -91,14 +93,16 @@ def main():
         config_yaml = yaml.safe_load(f)
 
     testcases = config_yaml.get("testcases")
+    testcases_ordered = OrderedDict(sorted(testcases.items(),
+                                           key=lambda x: x[1]['order']))
     overall_details = {}
     overall_status = "FAIL"
     overall_start_time = time.time()
-    for testcase in testcases:
-        if testcases[testcase]['enabled']:
+    for testcase, test_cfg in testcases_ordered.items():
+        if test_cfg['enabled']:
             test_name = testcase
-            test_descr = testcases[testcase]['description']
-            test_name_db = testcases[testcase]['testname_db']
+            test_descr = test_cfg['description']
+            test_name_db = test_cfg['testname_db']
             title = ("Running '%s - %s'" %
                      (test_name, test_descr))
             logger.info(title)
