@@ -16,13 +16,14 @@ import time
 import xmltodict
 import yaml
 
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+# import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = ft_logger.getLogger(__name__)
 SSH_OPTIONS = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
                                     "functest", "results", "odl-sfc")
