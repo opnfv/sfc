@@ -15,7 +15,8 @@ import sys
 import time
 import yaml
 
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+# import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -31,7 +32,7 @@ parser.add_argument("-r", "--report",
                     action="store_true")
 args = parser.parse_args()
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = ft_logger.getLogger('SFC_run_tests')
 COMMON_CONFIG = sfc_config.CommonConfig()
 
 
