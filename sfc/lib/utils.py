@@ -16,7 +16,8 @@ import time
 import xmltodict
 import yaml
 
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+# import functest.utils.functest_logger as ft_logger
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker

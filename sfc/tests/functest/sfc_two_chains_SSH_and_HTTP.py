@@ -12,7 +12,8 @@ import os
 import sys
 import threading
 
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+# import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -24,7 +25,7 @@ from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = ft_logger.Logger('SFC_two_chains').getLogger()
 
 CLIENT = "client"
 SERVER = "server"

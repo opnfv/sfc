@@ -1,7 +1,9 @@
 import datetime
 import random
 import functest.utils.openstack_utils as os_utils
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+
+# import functest.utils.functest_logger as ft_logger
 
 
 logger = ft_logger.Logger(__name__).getLogger()

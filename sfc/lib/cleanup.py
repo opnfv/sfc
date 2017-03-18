@@ -1,6 +1,7 @@
 import sys
 
-import functest.utils.functest_logger as ft_logger
+import logging as ft_logger
+# import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 import sfc.lib.utils as utils
