@@ -305,6 +305,7 @@ def vxlan_firewall(sf, iface="eth0", port="22", block=True):
 
     cmd = "sh -c 'cd /root;nohup " + cmd + " > /dev/null 2>&1 &'"
     run_cmd_remote(sf, cmd)
+    time.sleep(7)
 
 
 def vxlan_tool_stop(sf):
