@@ -522,3 +522,31 @@ def get_odl_resource_list(odl_ip, odl_port, resource):
 def delete_odl_resource_elem(odl_ip, odl_port, resource, elem_name):
     url = format_odl_resource_elem_url(odl_ip, odl_port, resource, elem_name)
     requests.delete(url)
+
+
+def odl_acl_types_names(acl_json):
+    if len(acl_json['access-lists'].items()) == 0:
+        return []
+    return [(acl['acl-type'], acl['acl-name'])
+            for acl in acl_json['access-lists']['acl']]
+
+
+def format_odl_acl_list_url(odl_ip, odl_port,
+                            odl_user='admin', odl_pwd='admin'):
+    acl_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/'
+                    'ietf-access-control-list:access-lists'
+                    .format(usr=odl_user, pwd=odl_pwd,
+                            ip=odl_ip, port=odl_port))
+    return acl_list_url
+
+
+def get_odl_acl_list(odl_ip, odl_port):
+    acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
+    r = requests.get(acl_list_url)
+    return r.json()
+
+
+def delete_odl_acl(odl_ip, odl_port, acl_type, acl_name):
+    acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
+    acl_url = '{0}/acl/{1}/{2}'.format(acl_list_url, acl_type, acl_name)
+    requests.delete(acl_url)

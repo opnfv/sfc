@@ -18,6 +18,13 @@ def delete_odl_resources(odl_ip, odl_port, resource):
         utils.delete_odl_resource_elem(odl_ip, odl_port, resource, elem)
 
 
+def delete_odl_ietf_access_lists(odl_ip, odl_port):
+    acl_list = utils.get_odl_acl_list(odl_ip, odl_port)
+    acl_types_names = utils.odl_acl_types_names(acl_list)
+    for acl_type, acl_name in acl_types_names:
+        utils.delete_odl_acl(odl_ip, odl_port, acl_type, acl_name)
+
+
 def delete_vnfds():
     t = os_tacker.get_tacker_client()
     vnfds = os_tacker.list_vnfds(t)
@@ -92,6 +99,7 @@ def cleanup_odl(odl_ip, odl_port):
     delete_odl_resources(odl_ip, odl_port, 'service-function-chain')
     delete_odl_resources(odl_ip, odl_port, 'service-function-path')
     delete_odl_resources(odl_ip, odl_port, 'service-function')
+    delete_odl_ietf_access_lists(odl_ip, odl_port)
 
 
 def cleanup(odl_ip=None, odl_port=None):
