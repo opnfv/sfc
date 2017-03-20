@@ -58,6 +58,27 @@ def fetch_tackerc_file(controller_node):
     return rc_file
 
 
+def disable_heat_resource_finder_cache(nodes):
+    controllers = [node for node in nodes if node.is_controller()]
+    remote_heat_conf = '/etc/heat/heat.conf'
+    local_heat_conf = '/tmp/heat.conf'
+    for controller in controllers:
+        logger.info("Fetch {0} from controller {1}"
+                    .format(remote_heat_conf, controller.ip))
+        controller.get_file(remote_heat_conf, local_heat_conf)
+        with open(local_heat_conf, 'a') as cfg:
+            cfg.write('[resource_finder_cache]\n')
+            cfg.write('caching=False')
+        logger.info("Replace {0} with {1} in controller {2}"
+                    .format(remote_heat_conf, local_heat_conf, controller.ip))
+        controller.run_cmd('rm -f {0}'.format(remote_heat_conf))
+        controller.put_file(local_heat_conf, remote_heat_conf)
+        logger.info("Restart heat-engine in {0}".format(controller.ip))
+        controller.run_cmd('service heat-engine restart')
+        os.remove(local_heat_conf)
+    time.sleep(10)
+
+
 def main():
     deploymentHandler = DeploymentFactory.get_handler(
         COMMON_CONFIG.installer_type,
@@ -72,6 +93,8 @@ def main():
 
     a_controller = [node for node in nodes
                     if node.is_controller()][0]
+
+    disable_heat_resource_finder_cache(nodes)
 
     rc_file = fetch_tackerc_file(a_controller)
     os_utils.source_credentials(rc_file)
