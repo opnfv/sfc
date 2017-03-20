@@ -98,6 +98,7 @@ def cleanup(odl_ip=None, odl_port=None):
     delete_sfc_clfs()
     delete_sfcs()
     delete_vnfs()
+    delete_vnfds()
     delete_stacks()
     delete_floating_ips()
     delete_instances()
