@@ -151,20 +151,16 @@ def main():
                     logger.info(fd1.read())
             end_time = time.time()
             duration = end_time - start_time
-            status = "FAIL"
-            if result != 0:
+            logger.info("Results of test case '%s - %s':\n%s\n" %
+                       (test_name, test_descr, result))
+            ovs_logger.create_artifact_archive()
+            dic = {"duration": duration, "status": overall_status}
+            overall_details.update({test_name_db: dic})
+            if result['status'] == 'FAIL':
                 overall_details.update({test_name_db: "execution error."})
+                overall_status = "FAIL"
             else:
-                status = result.get("status")
-                if status == "FAIL":
-                    overall_status = "FAIL"
-                    ovs_logger.create_artifact_archive()
-
-                logger.info("Results of test case '%s - %s':\n%s\n" %
-                            (test_name, test_descr, result))
-
-                dic = {"duration": duration, "status": overall_status}
-                overall_details.update({test_name_db: dic})
+                overall_status = "PASS"
             if args.report:
                 details = result.get("details")
                 push_results(
