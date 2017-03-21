@@ -120,7 +120,7 @@ def main():
     testcases_ordered = OrderedDict(sorted(testcases.items(),
                                            key=lambda x: x[1]['order']))
     overall_details = {}
-    overall_status = "FAIL"
+    overall_status = "NOT TESTED"
     overall_start_time = time.time()
     for testcase, test_cfg in testcases_ordered.items():
         if test_cfg['enabled']:
@@ -138,7 +138,7 @@ def main():
             except Exception, e:
                 logger.error("Exception when executing: %s" % testcase)
                 logger.error(e)
-                result = 1
+                result = {'status': 'FAILED'}
                 for node in nodes:
                     if node.get_file("/usr/lib/python2.7/dist-packages/tacker/"
                                      "sfc/plugin.py", "/tmp/plugin.py"):
@@ -151,24 +151,26 @@ def main():
                     logger.info(fd1.read())
             end_time = time.time()
             duration = end_time - start_time
-            status = "FAIL"
-            if result != 0:
-                overall_details.update({test_name_db: "execution error."})
+            logger.info("Results of test case '%s - %s':\n%s\n" %
+                        (test_name, test_descr, result))
+            if result['status'] == 'PASS':
+                status = 'PASS'
+                overall_details.update({test_name_db: "worked"})
+                if overall_status != "FAIL":
+                    overall_status = "PASS"
             else:
-                status = result.get("status")
-                if status == "FAIL":
-                    overall_status = "FAIL"
-                    ovs_logger.create_artifact_archive()
+                status = 'FAIL'
+                overall_status = "FAIL"
+                overall_details.update({test_name_db: "execution error."})
+                ovs_logger.create_artifact_archive()
 
-                logger.info("Results of test case '%s - %s':\n%s\n" %
-                            (test_name, test_descr, result))
-
-                dic = {"duration": duration, "status": overall_status}
-                overall_details.update({test_name_db: dic})
             if args.report:
                 details = result.get("details")
                 push_results(
                     test_name_db, start_time, end_time, status, details)
+
+            dic = {"duration": duration, "status": status}
+            overall_details.update({test_name_db: dic})
             sfc_cleanup.cleanup(odl_ip=odl_ip, odl_port=odl_port)
 
     overall_end_time = time.time()
