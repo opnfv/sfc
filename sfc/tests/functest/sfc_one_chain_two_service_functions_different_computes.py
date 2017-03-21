@@ -154,7 +154,7 @@ def main():
 
     instances = os_utils.get_instances(nova_client)
     for instance in instances:
-        if 'client' or 'server' not in instance.name:
+        if ('client' not in instance.name) and ('server' not in instance.name):
             os_utils.add_secgroup_to_instance(nova_client, instance.id, sg_id)
 
     os_tacker.create_sfc(tacker_client, 'red',
