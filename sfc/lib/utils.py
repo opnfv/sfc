@@ -452,10 +452,11 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
 
 
 def setup_compute_node(cidr, compute_nodes):
-    logger.info("bringing up br-int iface")
+    logger.info("bringing up br-int iface and flushing arp tables")
     grep_cidr_routes = ("ip route | grep -o {0} || true".format(cidr)).strip()
     add_cidr = "ip route add {0} dev br-int".format(cidr)
     for compute in compute_nodes:
+        compute.run_cmd("ip -s -s neigh flush all")
         compute.run_cmd("ifconfig br-int up")
         if not compute.run_cmd(grep_cidr_routes):
             logger.info("adding route %s in %s" % (cidr, compute.ip))
