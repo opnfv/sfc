@@ -152,6 +152,11 @@ def main():
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
+    instances = os_utils.get_instances(nova_client)
+    for instance in instances:
+        if 'client' or 'server' not in instance.name:
+            os_utils.add_secgroup_to_instance(nova_client, instance.id, sg_id)
+
     os_tacker.create_sfc(tacker_client, 'red',
                          chain_vnf_names=[vnfs[0], vnfs[1]])
 
