@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_db0afcd1",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-22T13:27:29Z",
+      "side": 1,
+      "message": "Yes, none of the links pointing to Danube are working... I was thinking that they will start working when Danube is released",
+      "parentUuid": "9ab8dda7_78e8b67c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 110
+      },
+      "revId": "20e3e815b1e9822082772468f326f016d38dde25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_b804ee7e",
         "filename": "docs/release/release-notes/releasenotes.rst",
         "patchSetId": 4
