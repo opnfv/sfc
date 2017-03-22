@@ -48,6 +48,8 @@ def main():
     controller_nodes = [node for node in all_nodes if node.is_controller()]
     compute_nodes = [node for node in all_nodes if node.is_compute()]
 
+    odl_ip, odl_port = test_utils.get_odl_ip_port(all_nodes)
+
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
     results.add_to_summary(2, "STATUS", "SUBTEST")
@@ -180,7 +182,9 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients,))
+                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,
+                                testTopology,))
+ 
     try:
         t1.start()
     except Exception, e:
