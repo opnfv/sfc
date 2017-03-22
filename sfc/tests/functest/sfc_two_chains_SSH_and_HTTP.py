@@ -50,6 +50,8 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
+    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
+
     for compute in compute_nodes:
         logger.info("This is a compute: %s" % compute.info)
 
@@ -189,11 +191,10 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-list')[1])
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
 
-    num_chains = 2
-
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients, num_chains,))
+                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,
+                                testTopology,))
 
     try:
         t1.start()
@@ -265,7 +266,8 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_clients, num_chains,))
+                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,
+                                testTopology,))
     try:
         t2.start()
     except Exception, e:
