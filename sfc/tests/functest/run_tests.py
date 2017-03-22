@@ -28,12 +28,6 @@ from collections import OrderedDict
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-r", "--report",
-                    help="Create json result file",
-                    action="store_true")
-args = parser.parse_args()
-
 logger = ft_logger.getLogger('SFC_run_tests')
 COMMON_CONFIG = sfc_config.CommonConfig()
 
@@ -80,7 +74,7 @@ def disable_heat_resource_finder_cache(nodes):
     time.sleep(10)
 
 
-def main():
+def main(report=False):
     deploymentHandler = DeploymentFactory.get_handler(
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
@@ -164,7 +158,7 @@ def main():
                 overall_details.update({test_name_db: "execution error."})
                 ovs_logger.create_artifact_archive()
 
-            if args.report:
+            if report:
                 details = result.get("details")
                 push_results(
                     test_name_db, start_time, end_time, status, details)
@@ -174,7 +168,7 @@ def main():
             sfc_cleanup.cleanup(odl_ip=odl_ip, odl_port=odl_port)
 
     overall_end_time = time.time()
-    if args.report:
+    if report:
         push_results(
             "odl-sfc", overall_start_time, overall_end_time,
             overall_status, overall_details)
@@ -186,4 +180,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--report",
+                        help="Create json result file",
+                        action="store_true")
+    args = parser.parse_args()
+    main(report=args.report)
