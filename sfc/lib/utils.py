@@ -426,12 +426,19 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
         else:
             first_RSP = ''
             rsps = ''
-        logger.debug("This is the first_RSP: %s" % first_RSP)
+        logger.info("This is the first_RSP: %s" % first_RSP)
         if num_chains == 1:
             while not ((len(rsps) == 1) and (first_RSP != rsps[0])):
                 rsps = ofctl_time_counter(ovs_logger, compute_client)
-                logger.debug("These are the rsps: %s" % rsps)
+                logger.info("These are the rsps: %s" % rsps)
                 timeout -= 1
+                if timeout == 10:
+                    output = ovs_logger.ofctl_dump_flows(compute_client)
+                    logger.info("output ofctl: %s" % output)
+                    output2 = ovs_logger.vsctl_show(compute_client)
+                    logger.info("output vsctl: %s" % output2)
+                    _, output3, _ = compute_client.exec_command('ip a')
+                    logger.info("The interfaces: %s" % output3)
                 if timeout == 0:
                     logger.error(
                         "Timeout but classification rules are not updated")
@@ -443,6 +450,13 @@ def wait_for_classification_rules(ovs_logger, compute_clients,
                 rsps = ofctl_time_counter(ovs_logger, compute_client)
                 logger.info("This is the rsps: %s" % rsps)
                 timeout -= 1
+                if timeout == 10:
+                    output = ovs_logger.ofctl_dump_flows(compute_client)
+                    logger.info("output ofctl: %s" % output)
+                    output2 = ovs_logger.vsctl_show(compute_client)
+                    logger.info("output vsctl: %s" % output2)
+                    _, output3, _ = compute_client.exec_command('ip a')
+                    logger.info("The interfaces: %s" % output3)
                 if timeout == 0:
                     logger.error(
                         "Timeout but classification rules are not updated")
