@@ -22,6 +22,52 @@
       "revId": "20e3e815b1e9822082772468f326f016d38dde25",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_d8652246",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-22T10:01:21Z",
+      "side": 1,
+      "message": "this one (86) is open and won\u0027t be fixed for DANUBE",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 114,
+        "endChar": 4
+      },
+      "revId": "20e3e815b1e9822082772468f326f016d38dde25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b8606e36",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-22T10:01:21Z",
+      "side": 1,
+      "message": "link to JIRA: https://jira.opnfv.org/browse/SFC-86",
+      "range": {
+        "startLine": 148,
+        "startChar": 17,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "20e3e815b1e9822082772468f326f016d38dde25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
