@@ -50,6 +50,9 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
+    for compute in compute_nodes:
+        logger.info("This is a compute: %s" % compute.info)
+
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
     results.add_to_summary(2, "STATUS", "SUBTEST")
