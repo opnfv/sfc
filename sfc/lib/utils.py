@@ -83,6 +83,10 @@ def download_image(url, image_path):
         logger.info("Using old image")
 
 
+def av_zone_from_compute_id(compute_id):
+    return 'node-{0}.domain.tld'.format(compute_id)
+
+
 def create_vnf_in_av_zone(
         tacker_client, vnf_name, vnfd_name, default_param_file, av_zone=None):
     param_file = default_param_file
@@ -380,6 +384,61 @@ def check_ssh(ips, retries=100):
     return False
 
 
+def actual_rsps_in_compute(ovs_logger, compute_ssh):
+    match_rsp = re.compile(r'.+load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\].+')
+    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '11')
+             .strip().split('\n')[1:])
+    matching_flows = [match_rsp.match(f) for f in flows]
+    rsps_in_compute = [mf.group(1) for mf in matching_flows if mf is not None]
+    return rsps_in_compute
+
+
+def promised_rsps_in_computes(odl_ip, odl_port, topology):
+    # Queries operational datastore and returns the RSPs and
+    # the computes in which we should expect them
+    rsps = get_odl_resource_list(odl_ip, odl_port, datastore='operational')
+    rsps_in_computes = {}
+    for rsp in rsps['rendered-service-paths']['rendered-service-path']:
+        computes_with_rsp = [topology[hop['service-function-name']]
+                             for hop
+                             in rsp['rendered-service-path-hop']]
+        rsps_in_computes[rsp['path-id']] = computes_with_rsp
+    return rsps_in_computes
+
+
+def wait_for_classification_rules2(ovs_logger, compute_nodes, odl_ip, odl_port,
+                                   topology, timeout=200):
+    try:
+        while True:
+            if timeout == 0:
+                logger.error(
+                        "Timeout but classification rules are not updated")
+                return
+            promised_rsps = promised_rsps_in_computes(
+                odl_ip, odl_port, topology)
+
+            actual_rsps_in_computes = {}
+            for node in compute_nodes:
+                av_zone = av_zone_from_compute_id(node.id)
+                actual_rsps_in_computes[av_zone] = actual_rsps_in_compute(
+                    ovs_logger, node.ssh_client)
+
+            promises_fulfilled = []
+            for rsp, computes in promised_rsps.items():
+                computes_have_rsp = [rsp
+                                     in actual_rsps_in_computes[compute]
+                                     for compute in computes]
+                promises_fulfilled.append(all(computes_have_rsp))
+
+            if all(promises_fulfilled):
+                return
+
+            timeout -= 1
+            time.sleep(1)
+    except Exception, e:
+        logger.error('Error when waiting for classification rules: %s' % e)
+
+
 def ofctl_time_counter(ovs_logger, ssh_conn, max_duration=None):
     try:
         # We get the flows from table 11
@@ -498,10 +557,11 @@ def pluralize(s):
 
 
 def format_odl_resource_list_url(odl_ip, odl_port, resource,
-                                 odl_user='admin', odl_pwd='admin'):
-    return ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/{rsrc}:{rsrcs}'
+                                 datastore='config', odl_user='admin',
+                                 odl_pwd='admin'):
+    return ('http://{usr}:{pwd}@{ip}:{port}/restconf/{ds}/{rsrc}:{rsrcs}'
             .format(usr=odl_user, pwd=odl_pwd, ip=odl_ip, port=odl_port,
-                    rsrc=resource, rsrcs=pluralize(resource)))
+                    ds=datastore, rsrc=resource, rsrcs=pluralize(resource)))
 
 
 def format_odl_resource_elem_url(odl_ip, odl_port, resource, elem_name):
@@ -515,8 +575,9 @@ def odl_resource_list_names(resource, resource_json):
     return [r['name'] for r in resource_json[pluralize(resource)][resource]]
 
 
-def get_odl_resource_list(odl_ip, odl_port, resource):
-    url = format_odl_resource_list_url(odl_ip, odl_port, resource)
+def get_odl_resource_list(odl_ip, odl_port, resource, datastore='config'):
+    url = format_odl_resource_list_url(odl_ip, odl_port, resource,
+                                       datastore=datastore)
     return requests.get(url).json()
 
 
