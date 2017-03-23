@@ -50,6 +50,8 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
+    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
+
     for compute in compute_nodes:
         logger.info("This is a compute: %s" % compute.info)
 
@@ -242,8 +244,11 @@ def main():
         results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Changing the classification")
-    os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name='red_http')
-    os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name='red_ssh')
+    test_utils.delete_classifier_and_acl(
+        tacker_client, 'red_http', odl_ip, odl_port)
+
+    test_utils.delete_classifier_and_acl(
+        tacker_client, 'red_ssh', odl_ip, odl_port)
 
     os_tacker.create_sfc_classifier(
         tacker_client, 'blue_http', sfc_name='blue',
