@@ -69,8 +69,9 @@ def get_seed():
     NOTE: There's sure a smarter way to do this
           Probably with the Jenkins job id
     '''
-    cutoff = len(TOPOLOGIES) - 1
-    # We only add the topologies which are working
+    # cutoff = len(TOPOLOGIES) - 1
+    topologies_working = 2
+    cutoff = topologies_working - 1
     seed = datetime.datetime.today().weekday()
     if seed > cutoff:
         seed = random.randrange(cutoff)
