@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_47f5cf81",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T13:21:29Z",
+      "side": 1,
+      "message": "IMHO, full names are more readable. \u0027classifier_name\u0027 is more readable than \u0027clf_name\u0027.",
+      "range": {
+        "startLine": 572,
+        "startChar": 45,
+        "endLine": 572,
+        "endChar": 53
+      },
+      "revId": "d41124f9c8cd14cfab61d4848a70aa227e80eefb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
