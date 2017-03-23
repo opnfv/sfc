@@ -567,3 +567,11 @@ def delete_odl_acl(odl_ip, odl_port, acl_type, acl_name):
     acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
     acl_url = '{0}/acl/{1}/{2}'.format(acl_list_url, acl_type, acl_name)
     requests.delete(acl_url)
+
+
+def delete_classifier_and_acl(tacker_client, clf_name, odl_ip, odl_port):
+    os_tacker.delete_sfc_classifier(tacker_client, sfc_clf_name=clf_name)
+    delete_odl_acl(odl_ip,
+                   odl_port,
+                   'ietf-access-control-list:ipv4-acl',
+                   clf_name)
