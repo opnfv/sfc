@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_67e8137d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9ab8dda7_114b95b1",
+      "range": {
+        "startLine": 384,
+        "startChar": 4,
+        "endLine": 384,
+        "endChar": 13
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_31b0198b",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_87ed078e",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "Done. Comment added",
+      "parentUuid": "9ab8dda7_31b0198b",
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_f157e124",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2017-03-23T08:11:01Z",
       "side": 1,
       "message": "\u0027topology\u0027 should be a dictionary with VM names as keys, and availability_zones as values, right?\n\nIf so, you are getting av_zones_with_rsp, instead of computes_with_rsp. And hence a question: would this work with the default \u0027nova\u0027 av_zone?",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 25
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_27dbfbee",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "Done. Almost. If av_zone \u003d\u003d \u0027nova\u0027 then I check in all computes because we don\u0027t know where it is and the wait_for_classification_rules2 will timeout.\n\nI think that\u0027s the best / safest option we can take for now without bloating the logic, though not the most performant",
+      "parentUuid": "9ab8dda7_f157e124",
       "range": {
         "startLine": 401,
         "startChar": 8,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_074b57b1",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "In principle I agree, but promises_fulfilled is created inside the loop scope dynamically (you don\u0027t know the length) so it\u0027s more honest to do a break when it\u0027s hit instead of initializing a dummy [False] list to check the first time.\n\nI can do while timeout \u003e 0 and put a nice log + a comment in the if all(promises_fulfilled): return statement.",
+      "parentUuid": "9ab8dda7_713bf1eb",
+      "range": {
+        "startLine": 412,
+        "startChar": 8,
+        "endLine": 412,
+        "endChar": 13
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_1155d51c",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 3
@@ -99,6 +189,30 @@
       "writtenOn": "2017-03-23T08:11:01Z",
       "side": 1,
       "message": "Checking for \u003c\u003d 0 would be safer, in case we change the timeout step from 1 to a different number.",
+      "range": {
+        "startLine": 413,
+        "startChar": 23,
+        "endLine": 413,
+        "endChar": 25
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e7e403ae",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_1155d51c",
       "range": {
         "startLine": 413,
         "startChar": 23,
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_2789bbca",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "RSPs are added in negligible amount of time in the operational DS when an SFC is created with tacker.\n\nTheoretically it could be a race condition, practically though I find it\u0027s not worth to add recheck logic or timeouts to catch this highly unlikely corner case. From the testing I did I haven\u0027t observed such behaviour.",
+      "parentUuid": "9ab8dda7_71121164",
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_310c9942",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 3
@@ -139,6 +271,30 @@
       "writtenOn": "2017-03-23T08:11:01Z",
       "side": 1,
       "message": "This also looks confusing to me.\n\nWe are reusing the topology (which is related to AV_Zones) as a way to check the computes themselves. I think this could be problematic, as av_zones and computes are not always related.",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 426,
+        "endChar": 1
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e7a96325",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-23T14:13:33Z",
+      "side": 1,
+      "message": "An availability zone nova::node-x.domain.tld exists always for every compute node x.",
+      "parentUuid": "9ab8dda7_310c9942",
       "range": {
         "startLine": 426,
         "startChar": 0,
