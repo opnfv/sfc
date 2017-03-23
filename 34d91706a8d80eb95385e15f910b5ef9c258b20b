@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_114b95b1",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "Please, add an example of what you are trying to parse with regex. Otherwise it is impossible to say if the regex is OK.",
+      "range": {
+        "startLine": 384,
+        "startChar": 4,
+        "endLine": 384,
+        "endChar": 13
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_31b0198b",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "why are you removing the first line? Is it because the first flow is not interesting, or because that line is something that is not a flow?",
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_f157e124",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "\u0027topology\u0027 should be a dictionary with VM names as keys, and availability_zones as values, right?\n\nIf so, you are getting av_zones_with_rsp, instead of computes_with_rsp. And hence a question: would this work with the default \u0027nova\u0027 av_zone?",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 25
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_713bf1eb",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "I think it is cleaner to state why you are looping:\n\n while not all promises fulfilled and timeout \u003e 0:\n do...\n\nOtherwise you are hiding your exit conditions in the middle of the loop",
+      "range": {
+        "startLine": 412,
+        "startChar": 8,
+        "endLine": 412,
+        "endChar": 13
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_1155d51c",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "Checking for \u003c\u003d 0 would be safer, in case we change the timeout step from 1 to a different number.",
+      "range": {
+        "startLine": 413,
+        "startChar": 23,
+        "endLine": 413,
+        "endChar": 25
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_71121164",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "I think there could be a race condition here.\n\nThis checks that all the rsps that appear in the operational DB of ODL are also in the switch, for a given iteration.\n\nCould it be that, a needed RSP is not yet in the operational DB (neither in the OvS), but this exits as anohter RSP is already present in both places (thus all promises are fulfilled)?\n\nThe thing is that we have to wait for two events:\n - All RSPs appear in ODL operational DS\n - All RSPs appear in OvS\n\nBut this is just checking if all RSPs present in ODL are also present in OvS. Would that be enough?",
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_310c9942",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-23T08:11:01Z",
+      "side": 1,
+      "message": "This also looks confusing to me.\n\nWe are reusing the topology (which is related to AV_Zones) as a way to check the computes themselves. I think this could be problematic, as av_zones and computes are not always related.",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 426,
+        "endChar": 1
+      },
+      "revId": "34d91706a8d80eb95385e15f910b5ef9c258b20b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
