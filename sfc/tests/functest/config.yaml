@@ -32,11 +32,11 @@ testcases:
       test_vnfd_red: "test-vnfd1.yaml"
       test_vnfd_blue: "test-vnfd2.yaml"
 
-  sfc_one_chain_two_service_functions_different_computes:
+  sfc_one_chain_two_service_functions:
       enabled: true
       order: 0
-      description: "ODL-SFC Testing SFs in different computes"
-      testname_db: "sfc_one_chain_two_service_functions_different_computes"
+      description: "ODL-SFC Testing SFs when they are located on the same chain"
+      testname_db: "sfc_one_chain_two_service_functions"
       net_name: example-net
       subnet_name: example-subnet
       router_name: example-router

@@ -31,7 +31,7 @@ CLIENT = "client"
 SERVER = "server"
 COMMON_CONFIG = sfc_config.CommonConfig()
 TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_one_chain_two_service'
-                                            '_functions_different_computes')
+                                               '_functions')
 
 
 def main():
