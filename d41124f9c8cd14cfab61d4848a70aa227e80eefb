@@ -22,6 +22,30 @@
       "revId": "d41124f9c8cd14cfab61d4848a70aa227e80eefb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_49f9614c",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-24T11:12:13Z",
+      "side": 0,
+      "message": "It\u0027s read here:\nhttps://gerrit.opnfv.org/gerrit/gitweb?p\u003dsfc.git;a\u003dblob;f\u003dsfc/tests/functest/run_tests.py;h\u003dab77de74ffce302d101a8e71230ac3c003cc5e07;hb\u003drefs/heads/master#l128\n\nby python magic. This shouldn\u0027t be an issue.\n(We can discuss about removing the python magic in another patch and I\u0027m all in)",
+      "parentUuid": "9ab8dda7_69022540",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "d41124f9c8cd14cfab61d4848a70aa227e80eefb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
