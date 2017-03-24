@@ -30,6 +30,13 @@ TOPOLOGIES = [
         '''
     },
     {
+        'id': 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF',
+        'description': '''
+        Client and server are on different hosts.
+        The VNFs are split between hosts Round Robin.
+        '''
+    },
+    {
         'id': 'CLIENT_SERVER_SAME_HOST',
         'description': '''
         Client instance and server instance are on the same
@@ -42,13 +49,6 @@ TOPOLOGIES = [
         Server instance and vnfs are on the same
         compute host. Client instance is on a different host
         '''
-    },
-    {
-        'id': 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF',
-        'description': '''
-        Client and server are on different hosts.
-        The VNFs are split between hosts Round Robin.
-        '''
     }
 ]
 
@@ -59,6 +59,11 @@ DEFAULT_TOPO = {
     '''
 }
 
+WORKING_TOPOLOGIES = ['CLIENT_SERVER_VNF_SAME_HOST',
+                      'CLIENT_SERVER_SAME_HOST_SPLIT_VNF',
+                      'CLIENT_VNF_SAME_HOST',
+                      'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF']
+
 
 def get_seed():
     '''
@@ -67,8 +72,8 @@ def get_seed():
     NOTE: There's sure a smarter way to do this
           Probably with the Jenkins job id
     '''
-    cutoff = len(TOPOLOGIES) - 1
     # We only add the topologies which are working
+    cutoff = len(WORKING_TOPOLOGIES) - 1
     seed = datetime.datetime.today().weekday()
     if seed > cutoff:
         seed = random.randrange(cutoff)
