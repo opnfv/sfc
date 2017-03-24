@@ -216,7 +216,7 @@ def main():
 
     blocked_port = TESTCASE_CONFIG.blocked_source_port
     logger.info("Firewall started, blocking traffic port %d" % blocked_port)
-    test_utils.vxlan_firewall(sf_floating_ip, port=blocked_port)
+    test_utils.start_vxlan_tool(sf_floating_ip, block=True, port=blocked_port)
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
