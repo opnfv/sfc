@@ -216,7 +216,7 @@ def main():
 
     blocked_port = TESTCASE_CONFIG.blocked_source_port
     logger.info("Firewall started, blocking traffic port %d" % blocked_port)
-    test_utils.vxlan_firewall(sf_floating_ip, port=blocked_port)
+    test_utils.start_vxlan_tool(sf_floating_ip, block=blocked_port)
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
@@ -234,7 +234,8 @@ def main():
         results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Test if HTTP from port %s is blocked" % blocked_port)
-    if test_utils.is_http_blocked(client_floating_ip, server_ip, blocked_port):
+    if test_utils.is_http_blocked(
+            client_floating_ip, server_ip, blocked_port):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')

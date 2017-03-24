@@ -213,10 +213,10 @@ def main():
             '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
         sys.exit(1)
 
-    logger.info("Starting HTTP firewall on %s" % sf2)
-    test_utils.vxlan_firewall(sf2, port="80")
     logger.info("Starting SSH firewall on %s" % sf1)
-    test_utils.vxlan_firewall(sf1, port="22")
+    test_utils.start_vxlan_tool(sf1, block="22")
+    logger.info("Starting HTTP firewall on %s" % sf2)
+    test_utils.start_vxlan_tool(sf2, block="80")
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()

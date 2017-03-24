@@ -240,8 +240,8 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
 
 def ping(remote, retries=100, retry_timeout=1):
     cmd = 'ping -c1 -w{timeout} {remote}'.format(
-           timeout=retry_timeout,
-           remote=remote)
+          timeout=retry_timeout,
+          remote=remote)
 
     while retries > 0:
         rc, _, _ = run_cmd(cmd)
@@ -305,20 +305,32 @@ def start_http_server(ip):
     return True
 
 
-def vxlan_firewall(sf, iface="eth0", port="22", block=True):
-    """Set firewall using vxlan_tool.py on a given machine, Can be VM"""
-    cmd = "python vxlan_tool.py -i %s -d forward -v off" % iface
-    if block:
-        cmd = "python vxlan_tool.py -i eth0 -d forward -v off -b %s" % port
+def start_vxlan_tool(remote_ip, interface="eth0", block=None):
+    """
+    Starts vxlan_tool on a remote host.
+    vxlan_tool.py converts a regular Service Function into a NSH-aware SF
+    when the "--do forward" option is used, it decrements the NSI appropiately.
+    'block' parameters allows to specify a port where packets will be dropped.
+    """
+    command = "nohup python /root/vxlan_tool.py"
+    options = "{do} {interface} {block_option}".format(
+        do="--do forward",
+        interface="--interface {}".format(interface),
+        block_option="--block {}".format(block) if block is not None else "")
+    output_redirection = "> /dev/null 2>&1"
 
-    cmd = "sh -c 'cd /root;nohup " + cmd + " > /dev/null 2>&1 &'"
-    run_cmd_remote(sf, cmd)
-    time.sleep(7)
+    full_command = "{command} {options} {output_redirection} &".format(
+        command=command,
+        options=options,
+        output_redirection=output_redirection)
+
+    return run_cmd_remote(remote_ip, full_command)
 
 
-def vxlan_tool_stop(sf):
-    cmd = "pkill -f vxlan_tool.py"
-    run_cmd_remote(sf, cmd)
+def stop_vxlan_tool(remote_ip):
+    """ Stops vxlan_tool on a remote host"""
+    command = "pkill -f vxlan_tool.py"
+    return run_cmd_remote(remote_ip, command)
 
 
 def netcat(source_ip, destination_ip, destination_port, source_port=None,
@@ -540,8 +552,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             time.sleep(1)
 
         if timeout <= 0:
-            logger.error(
-                    "Timeout but classification rules are not updated")
+            logger.error("Timeout but classification rules are not updated")
 
     except Exception, e:
         logger.error('Error when waiting for classification rules: %s' % e)
