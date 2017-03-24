@@ -30,6 +30,13 @@ TOPOLOGIES = [
         '''
     },
     {
+        'id': 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF',
+        'description': '''
+        Client and server are on different hosts.
+        The VNFs are split between hosts Round Robin.
+        '''
+    },
+    {
         'id': 'CLIENT_SERVER_SAME_HOST',
         'description': '''
         Client instance and server instance are on the same
@@ -41,13 +48,6 @@ TOPOLOGIES = [
         'description': '''
         Server instance and vnfs are on the same
         compute host. Client instance is on a different host
-        '''
-    },
-    {
-        'id': 'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF',
-        'description': '''
-        Client and server are on different hosts.
-        The VNFs are split between hosts Round Robin.
         '''
     }
 ]
