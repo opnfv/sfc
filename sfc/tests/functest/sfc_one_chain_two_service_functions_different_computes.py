@@ -196,10 +196,9 @@ def main():
             '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
         sys.exit(1)
 
-    logger.info("Starting vxlan_tool on %s" % sf2)
-    test_utils.vxlan_firewall(sf2, block=False)
-    logger.info("Starting vxlan_tool on %s" % sf1)
-    test_utils.vxlan_firewall(sf1, block=False)
+    for sf in (sf1, sf2):
+        logger.info("Starting vxlan_tool on %s" % sf)
+        test_utils.start_vxlan_tool(sf)
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
@@ -217,8 +216,9 @@ def main():
     logger.info("Changing the vxlan_tool to block HTTP traffic")
 
     # Make SF1 block now http traffic
-    test_utils.vxlan_tool_stop(sf1)
-    test_utils.vxlan_firewall(sf1, port="80")
+    test_utils.stop_vxlan_tool(sf1)
+    logger.info("Starting HTTP firewall on %s" % sf1)
+    test_utils.start_vxlan_tool(sf1, block=True, port="80")
 
     logger.info("Test HTTP again")
     if test_utils.is_http_blocked(client_ip, srv_prv_ip):
