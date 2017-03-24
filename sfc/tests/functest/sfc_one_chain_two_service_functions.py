@@ -29,8 +29,9 @@ logger = ft_logger.Logger(__name__).getLogger()
 CLIENT = "client"
 SERVER = "server"
 COMMON_CONFIG = sfc_config.CommonConfig()
-TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_one_chain_two_service'
-                                            '_functions_different_computes')
+TESTCASE_CONFIG = sfc_config.TestcaseConfig(
+                                            'sfc_one_chain_two_service'
+                                            '_functions')
 
 
 def main():
