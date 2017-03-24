@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_a95a5d81",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "I would split this function in two chunks:\n\n1) get all RSPs in ODL datastore\n2) combination logic to get which RSPs are in which computes\n\nSo that you get this function just to be\n\nrsps \u003d get_odl_rsps(...)\nfor rsp in rsps:\n    \u003ccombination\u003e\n\nI think it is cleaner. I am also thinking on moving all odl* functions to a separate module, so 1) would fit perfectly there.",
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_09660952",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "could a log be useful here?\n\nIf an ACL does not have any ACE, could it be that something went wrong?\n\nJust a thought, I don\u0027t know if that is expected or not...",
+      "range": {
+        "startLine": 422,
+        "startChar": 12,
+        "endLine": 422,
+        "endChar": 20
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c95f9171",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "As an improvement, I think it is better to restrict the try-except block to the are where there can actually be exceptions.",
+      "range": {
+        "startLine": 461,
+        "startChar": 4,
+        "endLine": 461,
+        "endChar": 7
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_494ba1b0",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "From last review, you said that this appears quickly after tacker creates it, and what takes time is waiting for the rules to appear in OvS.\n\nIf so, I think we can fetch the promised_rsps just once, outside the loop. Then retrieve the actual flows in each iteration.",
+      "range": {
+        "startLine": 468,
+        "startChar": 12,
+        "endLine": 468,
+        "endChar": 25
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e9c7f510",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "For the log, I think something as \"RSPs in ODL Operational DataStore\" could be more meaningful",
+      "range": {
+        "startLine": 471,
+        "startChar": 25,
+        "endLine": 471,
+        "endChar": 33
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_29e50da8",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "for the log, \"RSPs in compute nodes\" would be more meaningful",
+      "range": {
+        "startLine": 480,
+        "startChar": 32,
+        "endLine": 480,
+        "endChar": 36
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_a9e81d7d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "why the newline?\nwould it be worthy to iterate and print just one path-id,list pair per line?",
+      "range": {
+        "startLine": 481,
+        "startChar": 12,
+        "endLine": 481,
+        "endChar": 18
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c9ed518d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "being very picky, I think it should \"fulfilled_promises\" instead of promises_fulfilled",
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_29fc2d3e",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "if promises_fulfilled \u003d\u003d [], the condition would be satisfied.\n\nShould we add a double-check, with len(promises_fulfilled) \u003e 0?\n\nThe problem boils down to ensuring that promised_rsps always returns something, so maybe we can add a log (or exception) above if we don\u0027t get anything when querying ODL",
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_099b6919",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T11:19:37Z",
+      "side": 1,
+      "message": "password is better than pwd",
+      "range": {
+        "startLine": 554,
+        "startChar": 33,
+        "endLine": 554,
+        "endChar": 40
+      },
+      "revId": "7035f1bc46881e5ae45f517c86fc5ad428737926",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
