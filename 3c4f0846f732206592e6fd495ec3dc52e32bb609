@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_5748185b",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-24T18:14:45Z",
+      "side": 1,
+      "message": "I find this way of moving out topologies a bit obscure.\n\nWhat about having a list:\n\nWORKING_TOPOLOGIES[\u003cid1\u003e, \u003cid2\u003e, ..., \u003cidN\u003e] and pick just one of those?",
+      "range": {
+        "startLine": 70,
+        "startChar": 31,
+        "endLine": 70,
+        "endChar": 32
+      },
+      "revId": "3c4f0846f732206592e6fd495ec3dc52e32bb609",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
