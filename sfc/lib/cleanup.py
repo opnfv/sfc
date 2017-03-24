@@ -115,7 +115,7 @@ def cleanup(odl_ip=None, odl_port=None):
 
 
 if __name__ == '__main__':
-    if sys.argv > 2:
+    if len(sys.argv) > 2:
         cleanup(sys.argv[1], sys.argv[2])
     else:
         cleanup()
