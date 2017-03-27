@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_cc823a52",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-27T09:30:06Z",
+      "side": 1,
+      "message": "One question. Why block\u003dFalse by default?",
+      "range": {
+        "startLine": 299,
+        "startChar": 50,
+        "endLine": 299,
+        "endChar": 61
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ec87fe5f",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-27T09:30:06Z",
+      "side": 1,
+      "message": "Should this check be here? Why not just try to run the command and get the real exit code + error message?",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 29
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
