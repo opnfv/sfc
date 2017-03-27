@@ -93,6 +93,29 @@
       "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_72ca0a51",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-03-27T10:16:48Z",
+      "side": 1,
+      "message": "Can we initialize this at the beginning?\nBecause maybe in the future we need to add more SFs and IMHO is easier just add them in a tuple at the beggining of the code.Also it seems too hardcoded to me.",
+      "range": {
+        "startLine": 199,
+        "startChar": 14,
+        "endLine": 199,
+        "endChar": 24
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
