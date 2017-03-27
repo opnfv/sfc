@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_2c69968b",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-27T10:00:21Z",
+      "side": 1,
+      "message": "I think this is the less intrusive way. I\u0027ve been thinking for 3 months that vxlan_tool was a firewall, when the \u0027blocking\u0027 is just an added capability.\n\nAlso helps readability in tests, when explicitly \"block\u003dTrue\" would be used to perform the call.",
+      "parentUuid": "9ab8dda7_cc823a52",
+      "range": {
+        "startLine": 299,
+        "startChar": 50,
+        "endLine": 299,
+        "endChar": 61
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_ec87fe5f",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-27T09:30:06Z",
       "side": 1,
       "message": "Should this check be here? Why not just try to run the command and get the real exit code + error message?",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 29
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ac14a6f5",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-27T10:00:21Z",
+      "side": 1,
+      "message": "I think it would fail, as the command would be somehing as \"vxlan_tool \u003coptions\u003e -b None\", so I thought that a more meaningful error would be welcome.\n\nAnyway, your option also looks good to me. I\u0027ll check the code of vxlan_tool to see if the error message is meaningful.",
+      "parentUuid": "9ab8dda7_ec87fe5f",
       "range": {
         "startLine": 306,
         "startChar": 0,
