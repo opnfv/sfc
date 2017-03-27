@@ -22,6 +22,30 @@
       "revId": "3c4f0846f732206592e6fd495ec3dc52e32bb609",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_4caf2ae4",
+        "filename": "sfc/lib/topology_shuffler.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-27T09:26:06Z",
+      "side": 1,
+      "message": "Yes that would be more clean",
+      "parentUuid": "9ab8dda7_5748185b",
+      "range": {
+        "startLine": 70,
+        "startChar": 31,
+        "endLine": 70,
+        "endChar": 32
+      },
+      "revId": "3c4f0846f732206592e6fd495ec3dc52e32bb609",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
