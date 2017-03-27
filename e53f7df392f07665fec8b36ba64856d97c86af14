@@ -116,6 +116,29 @@
       "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_4cce4a85",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions_different_computes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-03-27T10:22:53Z",
+      "side": 1,
+      "message": "I wouldn\u0027t mind dropping the for loop completely.\n\nThe test is named sfc_one_chain_two_sfs so I guess it will always have 2 sfs",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 25
+      },
+      "revId": "e53f7df392f07665fec8b36ba64856d97c86af14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
