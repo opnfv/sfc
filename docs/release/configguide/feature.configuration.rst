@@ -1,10 +1,10 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
-.. http://creativecommons.org/licenses/by/4.0
+.. SPDX-License-Identifier: CC-BY-4.0
 .. (c) Ferenc Cserepkei, Brady Allen Johnson, Manuel Buil and others
 
 Abstract
 ========
-This document provides information on how to install the OpenDayLigh SFC
+This document provides information on how to install the OpenDaylight SFC
 features in OPNFV with the use of os_odl-l2_sfc-(no)ha scenario.
 
 SFC feature desciription
@@ -22,7 +22,7 @@ of chained network funcions (e.g. firewalls, NAT, QoS)
 
 The SFC feature in OPNFV is implemented by 3 major components:
 
-- OpenDayLight SDN controller
+- OpenDaylight SDN controller
 
 - Tacker: Generic VNF Manager (VNFM) and a NFV Orchestrator (NFVO)
 
@@ -232,7 +232,7 @@ perform manual post-configuration as well.
 Feature configuration on existing Fuel
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a Fuel server is already provisioned but the fuel plugins for Opendaylight,
+If a Fuel server is already provisioned but the fuel plugins for OpenDaylight,
 Openvswitch are not provided install them by:
 ::
 
@@ -248,9 +248,9 @@ Master host using the command scp:
 scp <plugin>.rpm root@10.20.0.2:<plugin>.rpm
 
 Now the feature can be configured. Create a new environment with
-Networking Setup:"OpenDayLight with tunneling segmentation". Then go to
+Networking Setup:"OpenDaylight with tunneling segmentation". Then go to
 settings/other and check "OpenDaylight plugin, SFC enabled",
 "Install Openvswitch with NSH/DPDK, with NSH enabled". During node provision
-remember assign the OpenDayLight role to the (primary)controller
+remember assign the OpenDaylight role to the (primary)controller
 
 Now the deploy button on fuel dashboard can be used to deploy the environment.
