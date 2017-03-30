@@ -12,9 +12,9 @@ SFC feature desciription
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
 
-- http://artifacts.opnfv.org/sfc/colorado/docs/scenarios_os-odl_l2-sfc-ha/index.html
+- http://artifacts.opnfv.org/sfc/danube/docs/scenarios_os-odl_l2-sfc-ha/index.html
 
-- http://artifacts.opnfv.org/sfc/colorado/docs/scenarios_os-odl_l2-sfc-noha/index.html
+- http://artifacts.opnfv.org/sfc/danube/docs/scenarios_os-odl_l2-sfc-noha/index.html
 
 
 The SFC feature enables creation of Service Fuction Chains - an ordered list
@@ -68,7 +68,7 @@ Pre-configuration activites - Preparing the host to install Fuel by script
 .. instructions applicable to the deploy tool used in the scenario.
 
 Before starting the installation of the SFC scenarios some preparation of the
-machine that will host the Colorado Fuel cluster must be done.
+machine that will host the Danube Fuel cluster must be done.
 
 Installation of required packages
 ---------------------------------
@@ -99,17 +99,17 @@ CI is deploying the scenario.
 First of all the opnfv-fuel repository needs to be cloned:
 ::
 
- git clone -b 'stable/colorado' ssh://<user>@gerrit.opnfv.org:29418/fuel
+ git clone -b 'stable/danube' ssh://<user>@gerrit.opnfv.org:29418/fuel
 
-This command copies the whole colorado branch of repository fuel.
+This command copies the whole danube branch of repository fuel.
 
 Now download the appropriate OPNFV Fuel ISO into an appropriate folder:
 ::
 
- wget http://artifacts.opnfv.org/fuel/colorado/opnfv-colorado.1.0.iso
+ wget http://artifacts.opnfv.org/fuel/danube/opnfv-danube.1.0.iso
 
 The exact name of the ISO image may change.
-Check https://www.opnfv.org/opnfv-colorado-fuel-users to get the latest ISO.
+Check https://www.opnfv.org/opnfv-danube-fuel-users to get the latest ISO.
 
 Simplified scenario deployment procedure using Fuel
 ===================================================
@@ -242,7 +242,7 @@ Openvswitch are not provided install them by:
 
 If plugins are installed and you want to update them use --force flag.
 
-Note that One may inject other - Colorado compatible - plugins to the Fuel
+Note that One may inject other - Danube compatible - plugins to the Fuel
 Master host using the command scp:
 
 scp <plugin>.rpm root@10.20.0.2:<plugin>.rpm

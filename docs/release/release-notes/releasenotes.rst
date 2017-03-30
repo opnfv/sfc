@@ -55,7 +55,7 @@ Release Data
 | **Release designation**              | Danube base release                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | March 27 2017                        |
+| **Release date**                     | March 31 2017                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Add two new test cases and improve   |
@@ -86,7 +86,7 @@ the following documentation:
 
 - `User Guide <http://artifacts.opnfv.org/sfc/danube/docs/userguide/index.html>`_
 
-- `Installation Instructions <http://artifacts.opnfv.org/sfc/colorado/docs/installationprocedure/index.html>`_
+- `Installation Instructions <http://artifacts.opnfv.org/sfc/danube/docs/installationprocedure/index.html>`_
 
 - Release notes (This document)
 
