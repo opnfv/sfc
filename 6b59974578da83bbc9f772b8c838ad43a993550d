@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_0fd0374f",
+        "filename": "docs/development/design/requirements.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_641a3a19",
+      "range": {
+        "startLine": 27,
+        "startChar": 55,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_e4ddca43",
         "filename": "docs/development/design/usecases.rst",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_afc48b92",
+        "filename": "docs/development/design/usecases.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_e4ddca43",
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_e4b4eaf3",
         "filename": "docs/release/release-notes/releasenotes.rst",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2017-03-30T10:39:57Z",
       "side": 1,
       "message": "March 31 2017",
+      "range": {
+        "startLine": 58,
+        "startChar": 41,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_cfc1bf81",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_e4b4eaf3",
       "range": {
         "startLine": 58,
         "startChar": 41,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_6fbe9301",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_04e33e08",
+      "range": {
+        "startLine": 152,
+        "startChar": 54,
+        "endLine": 152,
+        "endChar": 60
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_c4e4460f",
         "filename": "docs/release/scenarios/os-odl_l2-sfc-ha/scenario.description.rst",
         "patchSetId": 1
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_8fbbc70d",
+        "filename": "docs/release/scenarios/os-odl_l2-sfc-ha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_c4e4460f",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 42
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_84ee4eeb",
         "filename": "docs/release/scenarios/os-odl_l2-sfc-noha/scenario.description.rst",
         "patchSetId": 1
@@ -122,6 +236,30 @@
       "writtenOn": "2017-03-30T10:37:19Z",
       "side": 1,
       "message": "Remove server",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_2f389b9f",
+        "filename": "docs/release/scenarios/os-odl_l2-sfc-noha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-03-30T13:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_84ee4eeb",
       "range": {
         "startLine": 79,
         "startChar": 13,
