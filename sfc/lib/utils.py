@@ -82,6 +82,15 @@ def download_image(url, image_path):
         logger.info("Using old image")
 
 
+def get_av_zones():
+    '''
+    Return the availability zone each host belongs to
+    '''
+    nova_client = os_utils.get_nova_client()
+    hosts = os_utils.get_hypervisors(nova_client)
+    return ['nova::{0}'.format(host) for host in hosts]
+
+
 def create_vnf_in_av_zone(
         tacker_client, vnf_name, vnfd_name, default_param_file, av_zone=None):
     param_file = default_param_file
@@ -480,9 +489,17 @@ def promised_rsps_in_computes(
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
                                   topology, timeout=200):
     try:
+        hypervisors = get_av_zones()
+        av_zone_regex = re.compile(r'nova::node-([0-9]+)\.(.+)')
+        # Example: String "nova::node-13.domain.tld" is matched
+        # It's deconstructed as:
+        # group(0) -> nova::node-13.domain.tld
+        # group(1) -> 13
+        # group(2) -> domain.tld
+        hypervisor_matches = [av_zone_regex.match(h) for h in hypervisors]
         compute_av_zones = {
-            node.id: 'nova::node-{0}.domain.tld'.format(node.id)
-            for node in compute_nodes
+            hypervisor_match.group(1): hypervisor_match.group(0)
+            for hypervisor_match in hypervisor_matches
         }
 
         # keep only vnfs
