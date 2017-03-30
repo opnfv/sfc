@@ -5,10 +5,11 @@
 Introduction
 ============
 .. In this section explain the purpose of the scenario and the types of capabilities provided
+
 The os-odl_l2-sfc-noha is intended to be used to install the OPNFV SFC project in a standard
 OPNFV Non-High Availability mode. The OPNFV SFC project integrates the OpenDaylight SFC
-project into the OPNFV environment. The OPNFV SFC Colorado release uses the OpenDaylight
-Boron release.
+project into the OPNFV environment. The OPNFV SFC Danube release uses the OpenDaylight
+Boron SR2 release.
 
 Scenario components and composition
 ===================================
@@ -75,14 +76,18 @@ Limitations, Issues and Workarounds
 .. faults or bugs.  If the system design only provide some expected functionality then provide
 .. some insight at this point.
 
+The *client* virtual machine needs to be located in a compute node where at least
+one of the service functions (SFs) is placed. This is due to a limitation in OpenDaylight,
+Boron, which only installs the traffic classifier in the compute nodes where the SFs are.
+
 Specific version of OVS
 -----------------------
 
 SFC needs changes in OVS to include the Network Service Headers (NSH) Service Chaining
 encapsulation. This OVS patch has been ongoing for quite a while (2 years+), and still
 has not been officially merged. Previously, SFC used NSH from a branched version of OVS
-based on 2.3.90, called the "Pritesh Patch". In the OpenDaylight Boron release, SFC was
-changed to use a newer, branched version of OVS based on 2.5.90, called the "Yi Yang
+based on 2.3.90, called the "Pritesh Patch". In the OpenDaylight Boron SR2 release, SFC was
+changed to use a newer, branched version of OVS based on 2.6.1, called the "Yi Yang
 Patch".
 
 The older version of OVS only supported VXLAN-GPE + NSH encapsulation, but the newer
@@ -98,7 +103,7 @@ NSI and also to use the NSH metadata. When using VXLAN with OpenStack, the tunne
 are not terminated in the SF VM, but in the “br-int” OVS bridge. A work-around has
 been created to address this issue, which can be found here:
 
-http://artifacts.opnfv.org/sfc/brahmaputra/docs/design/architecture.html#ovs-nsh-patch-workaround
+http://artifacts.opnfv.org/sfc/danube/docs/design/architecture.html#ovs-nsh-patch-workaround
 
 In subsequent versions of SFC, we will change the SFF-SF transport to be ETH + NSH,
 which will obviate this work around.
@@ -112,7 +117,7 @@ https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home
 
 https://wiki.opendaylight.org/view/Service_Function_Chaining:Main
 
-For more information on the OPNFV Colorado release, please visit:
+For more information on the OPNFV Danube release, please visit:
 
-http://www.opnfv.org/colorado
+http://www.opnfv.org/danube
 
