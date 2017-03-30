@@ -16,13 +16,13 @@ in an OPNFV environment.
 Detailed Requirements
 +++++++++++++++++++++
 
-These are the Colorado specific requirements:
+These are the Danube specific requirements:
 
 1 The supported Service Chaining encapsulation will be NSH VXLAN-GPE.
 
 2 The version of OVS used must support NSH.
 
-3 The SF VM life cycle will be managed by the Tacker VNF Mgr.
+3 The SF VM life cycle will be managed by the Tacker VNF Manager.
 
 4 The supported classifiers will be either ODL Netvirt or ODL GBP.
 
@@ -32,7 +32,7 @@ These are the Colorado specific requirements:
 Long Term Requirements
 ++++++++++++++++++++++
 
-These requirements are out of the scope of the Colorado release.
+These requirements are out of the scope of the Danube release.
 
 1 Dynamic movement of SFs across multiple Compute nodes.
 

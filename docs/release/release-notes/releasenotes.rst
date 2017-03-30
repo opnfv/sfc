@@ -86,7 +86,7 @@ the following documentation:
 
 - `User Guide <http://artifacts.opnfv.org/sfc/danube/docs/userguide/index.html>`_
 
-- `Installation Instructions <http://artifacts.opnfv.org/sfc/colorado/docs/installationprocedure/index.html>`_
+- `Installation Instructions <http://artifacts.opnfv.org/sfc/danube/docs/installationprocedure/index.html>`_
 
 - Release notes (This document)
 
@@ -149,7 +149,7 @@ functionality in Tacker
 JIRA: https://jira.opnfv.org/browse/SFC-86
 
 2 - The test cases don't work in topologies where the client is not collocated
-with a SF in one compute. The reason is that ODL Boron only creates a
+with a SF in one compute. The reason is that ODL Boron SR2 only creates a
 classification rule in the computes with SFs. Therefore, the traffic from the
 client goes to the server as it would be done without SFC (SFC classifier is
 implemented only in the other compute). Having the SFs collocated with the
