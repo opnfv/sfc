@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_641a3a19",
+        "filename": "docs/development/design/requirements.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-30T10:37:19Z",
+      "side": 1,
+      "message": "Remove GBP, we never tested it",
+      "range": {
+        "startLine": 27,
+        "startChar": 55,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e4ddca43",
+        "filename": "docs/development/design/usecases.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-30T10:37:19Z",
+      "side": 1,
+      "message": "Add the second use case we added in this release: two SFs and one chain and point to the wiki where the test case is explaiend (it is updated)",
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_04e33e08",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-30T10:37:19Z",
+      "side": 1,
+      "message": "It is Boron in general",
+      "range": {
+        "startLine": 152,
+        "startChar": 54,
+        "endLine": 152,
+        "endChar": 60
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c4e4460f",
+        "filename": "docs/release/scenarios/os-odl_l2-sfc-ha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-30T10:37:19Z",
+      "side": 1,
+      "message": "remove server. The key is that the client is located with at least one SF",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 42
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_84ee4eeb",
+        "filename": "docs/release/scenarios/os-odl_l2-sfc-noha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-03-30T10:37:19Z",
+      "side": 1,
+      "message": "Remove server",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "6b59974578da83bbc9f772b8c838ad43a993550d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
