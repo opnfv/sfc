@@ -480,9 +480,15 @@ def promised_rsps_in_computes(
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
                                   topology, timeout=200):
     try:
+        hypervisors = os_utils.get_hypervisors(os_utils.get_nova_client())
+        # matches node-$ID.$DOMAIN.
+        # When a string is matched, it's deconstructed as follows:
+        # group(0) -> av_zone, group(1) -> ID, group(2) -> DOMAIN
+        av_zone_regex = re.compile(r'node-([0-9]+)\.(.+)')
+        hypervisor_matches = [av_zone_regex.match(h) for h in hypervisors]
         compute_av_zones = {
-            node.id: 'nova::node-{0}.domain.tld'.format(node.id)
-            for node in compute_nodes
+            hypervisor_match.group(1): hypervisor_match.group(0)
+            for hypervisor_match in hypervisor_matches
         }
 
         # keep only vnfs
