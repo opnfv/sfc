@@ -1,8 +1,7 @@
 import datetime
 import random
-import functest.utils.openstack_utils as os_utils
 import functest.utils.functest_logger as ft_logger
-
+import sfc.lib.utils as sfc_utils
 
 logger = ft_logger.Logger(__name__).getLogger()
 
@@ -75,15 +74,6 @@ def get_seed():
     return seed
 
 
-def _get_av_zones():
-    '''
-    Return the availability zone each host belongs to
-    '''
-    nova_client = os_utils.get_nova_client()
-    hosts = os_utils.get_hypervisors(nova_client)
-    return ['nova::{0}'.format(host) for host in hosts]
-
-
 def topology(vnf_names, av_zones=None, seed=None):
     '''
     Get the topology for client, server and vnfs.
@@ -99,7 +89,7 @@ def topology(vnf_names, av_zones=None, seed=None):
     '''
 
     if av_zones is None:
-        av_zones = _get_av_zones()
+        av_zones = sfc_utils.get_av_zones()
 
     if len(av_zones) < 2 or seed is None:
         # fall back to nova availability zone
