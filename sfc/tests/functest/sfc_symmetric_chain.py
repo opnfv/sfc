@@ -13,7 +13,7 @@ import os
 import sys
 import threading
 
-import functest.utils.functest_logger as ft_logger
+import sfc.lib.sfc_logger as sfc_logger
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -25,7 +25,7 @@ from sfc.lib.results import Results
 import sfc.lib.topology_shuffler as topo_shuffler
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = sfc_logger.Logger(__name__).getLogger()
 
 CLIENT = "client"
 SERVER = "server"
@@ -211,7 +211,7 @@ def main():
 
     logger.info("Starting HTTP server on %s" % server_floating_ip)
     if not test_utils.start_http_server(server_floating_ip):
-        logger.error('\033[91mFailed to start the HTTP server\033[0m')
+        logger.error('Failed to start the HTTP server')
         sys.exit(1)
 
     blocked_port = TESTCASE_CONFIG.blocked_source_port
@@ -225,20 +225,22 @@ def main():
     logger.info("Test if HTTP from port %s works" % allowed_port)
     if not test_utils.is_http_blocked(
             client_floating_ip, server_ip, allowed_port):
+        logger.success('TEST 1 [PASSED] ==> HTTP not blocked')
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
-        error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
-        logger.error(error)
+        error = 'TEST 1 [FAILED] ==> HTTP Blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Test if HTTP from port %s is blocked" % blocked_port)
     if test_utils.is_http_blocked(client_floating_ip, server_ip, blocked_port):
+        logger.success('TEST 2 [PASSED] ==> HTTP Blocked')
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
-        error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
-        logger.error(error)
+        error = 'TEST 2 [FAILED] ==> HTTP not blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP Blocked")

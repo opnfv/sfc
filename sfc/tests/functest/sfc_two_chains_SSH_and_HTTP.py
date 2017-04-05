@@ -12,19 +12,19 @@ import os
 import sys
 import threading
 
-import functest.utils.functest_logger as ft_logger
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 
 import sfc.lib.config as sfc_config
 import sfc.lib.utils as test_utils
+import sfc.lib.sfc_logger as sfc_logger
 from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = sfc_logger.Logger(__name__).getLogger()
 
 CLIENT = "client"
 SERVER = "server"
@@ -61,16 +61,13 @@ def main():
 
     installer_type = os.environ.get("INSTALLER_TYPE")
     if installer_type != "fuel":
-        logger.error(
-            '\033[91mCurrently supported only Fuel Installer type\033[0m')
+        logger.error('Currently supported only Fuel Installer type')
         sys.exit(1)
 
     installer_ip = os.environ.get("INSTALLER_IP")
     if not installer_ip:
-        logger.error(
-            '\033[91minstaller ip is not set\033[0m')
-        logger.error(
-            '\033[91mexport INSTALLER_IP=<ip>\033[0m')
+        logger.error('Installer IP is not set')
+        logger.error('Please export environment variable INSTALLER_IP=<ip>')
         sys.exit(1)
 
     test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
@@ -209,8 +206,7 @@ def main():
 
     logger.info("Starting HTTP server on %s" % server_ip)
     if not test_utils.start_http_server(server_ip):
-        logger.error(
-            '\033[91mFailed to start HTTP server on %s\033[0m' % server_ip)
+        logger.error('Failed to start HTTP server on %s' % server_ip)
         sys.exit(1)
 
     logger.info("Starting HTTP firewall on %s" % sf2)
@@ -223,23 +219,25 @@ def main():
 
     logger.info("Test SSH")
     if test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
+        logger.success('TEST 1 [PASSED] ==> SSH Blocked')
         results.add_to_summary(2, "PASS", "SSH Blocked")
     else:
-        error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
-        logger.error(error)
+        error = 'TEST 1 [FAILED] ==> SSH not blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "SSH Blocked")
+        results.add_to_summary(2, "FAIL", "SSH BLOCKED")
 
     logger.info("Test HTTP")
     if not test_utils.is_http_blocked(client_ip, srv_prv_ip):
+        logger.success('TEST 2 [PASSED] ==> HTTP not blocked')
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
-        error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
-        logger.error(error)
+        error = 'TEST 2 [FAILED] ==> HTTP Blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "HTTP works")
+        results.add_to_summary(2, "FAIL", "HTTP WORKS")
 
     logger.info("Changing the classification")
     test_utils.delete_classifier_and_acl(
@@ -280,23 +278,24 @@ def main():
 
     logger.info("Test HTTP")
     if test_utils.is_http_blocked(client_ip, srv_prv_ip):
+        logger.success('TEST 3 [PASSED] ==> HTTP Blocked')
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
-        error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
-        logger.error(error)
+        error = 'TEST 3 [FAILED] ==> HTTP not blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "HTTP Blocked")
-
+        results.add_to_summary(2, "FAIL", "HTTP BLOCKED")
     logger.info("Test SSH")
     if not test_utils.is_ssh_blocked(client_ip, srv_prv_ip):
+        logger.success('TEST 4 [PASSED] ==> SSH not blocked')
         results.add_to_summary(2, "PASS", "SSH works")
     else:
-        error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
-        logger.error(error)
+        error = 'TEST 4 [FAILED] ==> SSH Blocked'
+        logger.fail(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "SSH works")
+        results.add_to_summary(2, "FAIL", "SSH WORKS")
 
     logger.info('This test is run with the topology {0}'
                 .format(testTopology['id']))

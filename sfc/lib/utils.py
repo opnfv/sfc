@@ -240,8 +240,8 @@ def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
 
 def ping(remote, retries=100, retry_timeout=1):
     cmd = 'ping -c1 -w{timeout} {remote}'.format(
-           timeout=retry_timeout,
-           remote=remote)
+          timeout=retry_timeout,
+          remote=remote)
 
     while retries > 0:
         rc, _, _ = run_cmd(cmd)
@@ -358,6 +358,7 @@ def is_http_blocked(source_ip, destination_ip, source_port=None):
 
 
 def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
+
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     ovs_logger.dump_ovs_logs(controller_clients,
                              compute_clients,
@@ -540,8 +541,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             time.sleep(1)
 
         if timeout <= 0:
-            logger.error(
-                    "Timeout but classification rules are not updated")
+            logger.error("Timeout but classification rules are not updated")
 
     except Exception, e:
         logger.error('Error when waiting for classification rules: %s' % e)
