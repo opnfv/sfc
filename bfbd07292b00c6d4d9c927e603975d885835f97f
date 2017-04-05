@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_f5ed68b8",
+        "filename": "sfc/lib/sfc_logger.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T11:24:41Z",
+      "side": 1,
+      "message": "I think Jose\u0027s idea was to use SFC as staging area when I first proposed this logger thing, and if it works well we might move it to functest.\n\nYes, it will print the terminal codes (same as we have now, though).",
+      "parentUuid": "9ab8dda7_55e8f4b3",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_b5e130d2",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_952c2c04",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T11:24:41Z",
+      "side": 1,
+      "message": "Yeah, I integrated pyflake8 with vim, and it bothers me about this stuff.\n\nAnyway, easy to solve.",
+      "parentUuid": "9ab8dda7_b5e130d2",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 24
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_95de6c10",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2017-04-05T10:32:53Z",
       "side": 1,
       "message": "is this line needed?",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b52ff0f5",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T11:24:41Z",
+      "side": 1,
+      "message": "Ooops, I missed it. I\u0027ll remove it.",
+      "parentUuid": "9ab8dda7_95de6c10",
       "range": {
         "startLine": 361,
         "startChar": 0,
