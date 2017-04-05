@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_f5a80879",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T10:06:58Z",
+      "side": 1,
+      "message": "I know. Easy to fix ;)",
+      "parentUuid": "9ab8dda7_35c0e07b",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 24
+      },
+      "revId": "174347b180834a49bb6526aa400749998b4e4f25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_d5be24ff",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-05T08:00:28Z",
       "side": 1,
       "message": "we don\u0027t need 2 parameters for this. Just blocked_port. Port is used only in conjunction with block.\n\nThis is true for the cli version too. You pass \"--block\u003d80\" not \"--block --port\u003d80\"",
+      "range": {
+        "startLine": 308,
+        "startChar": 50,
+        "endLine": 308,
+        "endChar": 72
+      },
+      "revId": "174347b180834a49bb6526aa400749998b4e4f25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_95b74cd8",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T10:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab8dda7_d5be24ff",
       "range": {
         "startLine": 308,
         "startChar": 50,
