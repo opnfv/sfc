@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_55e8f4b3",
+        "filename": "sfc/lib/sfc_logger.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-05T10:32:53Z",
+      "side": 1,
+      "message": "We could try to move this to functest. Also how will this behave in CI? will it print the terminal codes?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b5e130d2",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-05T10:32:53Z",
+      "side": 1,
+      "message": "Same comment about merge conflict",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 24
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_95de6c10",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-05T10:32:53Z",
+      "side": 1,
+      "message": "is this line needed?",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
