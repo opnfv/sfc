@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_35c0e07b",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-05T08:00:28Z",
+      "side": 1,
+      "message": "This is changed also in the remove get_floating_ips. Merge conflict ahead.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 24
+      },
+      "revId": "174347b180834a49bb6526aa400749998b4e4f25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_d5be24ff",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-05T08:00:28Z",
+      "side": 1,
+      "message": "we don\u0027t need 2 parameters for this. Just blocked_port. Port is used only in conjunction with block.\n\nThis is true for the cli version too. You pass \"--block\u003d80\" not \"--block --port\u003d80\"",
+      "range": {
+        "startLine": 308,
+        "startChar": 50,
+        "endLine": 308,
+        "endChar": 72
+      },
+      "revId": "174347b180834a49bb6526aa400749998b4e4f25",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
