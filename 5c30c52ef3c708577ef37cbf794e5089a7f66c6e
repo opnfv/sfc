@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_75d5f8b7",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-05T13:48:24Z",
+      "side": 1,
+      "message": "I think it is \u0027vnf_instance_id\u0027 the one that needs a change, but I cannot find anything better :(\n\ndo you have any suggestions? I am trying to name the nova instance that the VNF refers to.",
+      "parentUuid": "9ab8dda7_b53b709b",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 69
+      },
+      "revId": "5c30c52ef3c708577ef37cbf794e5089a7f66c6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_154cbc41",
         "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
         "patchSetId": 5
