@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_49c05d7c",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-07T09:55:16Z",
+      "side": 1,
+      "message": "should this be hardcoded?",
+      "range": {
+        "startLine": 163,
+        "startChar": 61,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "5750895da4e626cc897878acaf6607bd14298802",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
