@@ -22,6 +22,30 @@
       "revId": "5750895da4e626cc897878acaf6607bd14298802",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_a938f9a0",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-04-07T10:24:44Z",
+      "side": 1,
+      "message": "Probably not. It is something that is extracted from the TOSCA file: https://gerrit.opnfv.org/gerrit/gitweb?p\u003dsfc.git;a\u003dblob;f\u003dsfc/tests/functest/vnfd-templates/test-vnfd1.yaml;hb\u003dHEAD\n\nIn the same line, we should remove all the \u0027test-vnfd1\u0027 and some other hardcoded stuff.\n\nI will open a JIRA and assign it to me, in order to remove all hardcoded values that can be extracted from TOSCA files.",
+      "parentUuid": "9ab8dda7_49c05d7c",
+      "range": {
+        "startLine": 163,
+        "startChar": 61,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "5750895da4e626cc897878acaf6607bd14298802",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
