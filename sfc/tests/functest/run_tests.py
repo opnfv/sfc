@@ -134,16 +134,6 @@ def main(report=False):
                 logger.error("Exception when executing: %s" % testcase)
                 logger.error(e)
                 result = {'status': 'FAILED'}
-                for node in nodes:
-                    if node.get_file("/usr/lib/python2.7/dist-packages/tacker/"
-                                     "sfc/plugin.py", "/tmp/plugin.py"):
-                        node.get_file("/var/log/tacker/tacker-server.log",
-                                      "/tmp/tacker-server.log")
-                        break
-                with open("/tmp/plugin.py") as fd:
-                    logger.info(fd.read())
-                with open("/tmp/tacker-server.log") as fd1:
-                    logger.info(fd1.read())
             end_time = time.time()
             duration = end_time - start_time
             logger.info("Results of test case '%s - %s':\n%s\n" %
