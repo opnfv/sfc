@@ -238,12 +238,12 @@ def main():
 
     logger.info("Changing the vxlan_tool to block HTTP traffic")
 
-    # Make SF1 block now http traffic
+    # Make SF1 block http traffic
     test_utils.stop_vxlan_tool(sf1_floating_ip)
     logger.info("Starting HTTP firewall on %s" % sf1_floating_ip)
     test_utils.start_vxlan_tool(sf1_floating_ip, block="80")
 
-    logger.info("Test HTTP again")
+    logger.info("Test HTTP again blocking SF1")
     if test_utils.is_http_blocked(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
@@ -252,6 +252,24 @@ def main():
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP not blocked")
+
+    # Make SF2 block http traffic
+    test_utils.stop_vxlan_tool(sf2_floating_ip)
+    logger.info("Starting HTTP firewall on %s" % sf2_floating_ip)
+    test_utils.start_vxlan_tool(sf2_floating_ip, block="80")
+    
+    logger.info("Stopping HTTP firewall on %s" % sf1_floating_ip)
+    test_utils.stop_vxlan_tool(sf1_floating_ip)
+
+    logger.info("Test HTTP again blocking SF2")
+    if test_utils.is_http_blocked(client_floating_ip, server_ip):
+        results.add_to_summary(3, "PASS", "HTTP Blocked")
+    else:
+        error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
+        logger.error(error)
+        test_utils.capture_ovs_logs(
+            ovs_logger, controller_clients, compute_clients, error)
+        results.add_to_summary(3, "FAIL", "HTTP not blocked")
 
     return results.compile_summary()
 
