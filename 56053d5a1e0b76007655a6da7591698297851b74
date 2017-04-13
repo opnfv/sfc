@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_07824994",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-04-13T15:01:02Z",
+      "side": 1,
+      "message": "Yes. This is only for aarch64. Do you have any other idea of doing this?",
+      "parentUuid": "9ab8dda7_c7ef5186",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_27e18d9a",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-13T14:06:13Z",
       "side": 1,
       "message": "I would very much prefer if we had an aarch64 and an x86_64 image stored in artifacts and just download the appropriate one.\n\nIMHO this code is hard to understand and error prone.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_477841c4",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-04-13T15:01:02Z",
+      "side": 1,
+      "message": "This code is just updating some of the properties of the image since this is required to spin up aarch64 VM\u0027s and it only does for aarch64 deployments like below\n\nglance image-update --property os_command_line\u003d\u0027root\u003dLABEL\u003dcloudimg-rootfs ro\u0027 $image_id\nglance image-update --property kernel_id\u003d$kernel_id $image_id\nglance image-update --property ramdisk_id\u003d$ramdisk_id $image_id",
+      "parentUuid": "9ab8dda7_27e18d9a",
       "range": {
         "startLine": 98,
         "startChar": 0,
