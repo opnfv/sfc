@@ -75,12 +75,20 @@ class CommonConfig(object):
             "defaults.image_file_name", self.config_file)
         self.image_format = ft_utils.get_parameter_from_yaml(
             "defaults.image_format", self.config_file)
+        self.image_initrd = ft_utils.get_parameter_from_yaml(
+            "defaults.image_initrd", self.config_file)
+        self.image_kernel = ft_utils.get_parameter_from_yaml(
+            "defaults.image_kernel", self.config_file)
         self.url = ft_utils.get_parameter_from_yaml(
             "defaults.url", self.config_file)
         self.dir_functest_data = ft_utils.get_functest_config(
             "general.dir.functest_data")
         self.image_path = os.path.join(
             self.dir_functest_data, self.image_file_name)
+        self.image_initrd = os.path.join(
+            self.dir_functest_data, self.image_initrd)
+        self.image_kernel = os.path.join(
+            self.dir_functest_data, self.image_kernel)
 
 
 class TestcaseConfig(object):

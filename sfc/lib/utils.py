@@ -651,3 +651,13 @@ def delete_classifier_and_acl(tacker_client, clf_name, odl_ip, odl_port):
                    odl_port,
                    'ietf-access-control-list:ipv4-acl',
                    clf_name)
+
+
+def glance_image_property_update(image_id, key, value):
+    glance_cmd = "glance image-update"
+    params = "--property {key}='{value}'".format(key=key, value=value)
+    full_cmd = "{glance_cmd} {params} {image_id}".format(
+                                                  glance_cmd=glance_cmd,
+                                                  params=params,
+                                                  image_id=image_id)
+    return run_cmd(full_cmd)
