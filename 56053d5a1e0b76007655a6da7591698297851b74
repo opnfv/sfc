@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_024c776f",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-04-13T16:53:27Z",
+      "side": 1,
+      "message": "Agreed",
+      "parentUuid": "9ab8dda7_a73fbdd5",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 23
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_c7ef5186",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 1
