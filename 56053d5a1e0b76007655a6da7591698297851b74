@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ab8dda7_a73fbdd5",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-04-13T16:04:47Z",
+      "side": 1,
+      "message": "I suggest checking the compute nodes instead.\nI know we don\u0027t have mixed arch pods yet, but ideally the arch of the target image should be aligned with the compute arch.",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 23
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_c7ef5186",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 1
@@ -84,6 +107,30 @@
       "side": 1,
       "message": "This code is just updating some of the properties of the image since this is required to spin up aarch64 VM\u0027s and it only does for aarch64 deployments like below\n\nglance image-update --property os_command_line\u003d\u0027root\u003dLABEL\u003dcloudimg-rootfs ro\u0027 $image_id\nglance image-update --property kernel_id\u003d$kernel_id $image_id\nglance image-update --property ramdisk_id\u003d$ramdisk_id $image_id",
       "parentUuid": "9ab8dda7_27e18d9a",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_472601d0",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2017-04-13T16:04:47Z",
+      "side": 1,
+      "message": "I agree with George, adding glance properties should be arch-agnostic, and AArch64 should just leverage the common mechanism, like we recently implemented for Functest/snaps.",
+      "parentUuid": "9ab8dda7_477841c4",
       "range": {
         "startLine": 98,
         "startChar": 0,
