@@ -6,6 +6,9 @@ defaults:
   vcpu_count: 1
   image_name: sfc_nsh_danube
   image_file_name: sfc_nsh_danube.qcow2
+  # Only for arm64
+  image_initrd: sf_nsh_danube_arm64-initrd
+  image_kernel: sf_nsh_danube_arm64-kernel
   installer:
       type: fuel
       ip: 10.20.0.2

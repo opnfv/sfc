@@ -57,6 +57,12 @@ def main():
 
     test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
     test_utils.configure_iptables(controller_nodes)
+
+    if controller_nodes[0].run_cmd("arch") == "aarch64":
+        test_utils.download_image(COMMON_CONFIG.url,
+                                  COMMON_CONFIG.image_initrd)
+        test_utils.download_image(COMMON_CONFIG.url,
+                                  COMMON_CONFIG.image_kernel)
     test_utils.download_image(COMMON_CONFIG.url, COMMON_CONFIG.image_path)
 
     neutron_client = os_utils.get_neutron_client()
@@ -80,12 +86,29 @@ def main():
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 
+    glance_client = os_utils.get_glance_client()
     image_id = os_utils.create_glance_image(
-        os_utils.get_glance_client(),
+        glance_client,
         COMMON_CONFIG.image_name,
         COMMON_CONFIG.image_path,
         COMMON_CONFIG.image_format,
         public='public')
+
+    if compute_nodes[0].run_cmd("arch") == "aarch64":
+        os_cmd_line = 'root=LABEL=cloudimg-rootfs ro'
+        glance_client.images.update(image_id, os_command_line=os_cmd_line)
+        initrd_id = os_utils.create_glance_image(glance_client,
+                                                 "initrd",
+                                                 COMMON_CONFIG.image_initrd,
+                                                 'ari',
+                                                 public='public')
+        glance_client.images.update(image_id, ramdisk_id=initrd_id)
+        kernel_id = os_utils.create_glance_image(glance_client,
+                                                 "kernel",
+                                                 COMMON_CONFIG.image_kernel,
+                                                 'aki',
+                                                 public='public')
+        glance_client.images.update(image_id, kernel_id=kernel_id)
 
     network_id = test_utils.setup_neutron(
         neutron_client,
