@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_c7ef5186",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-13T14:06:13Z",
+      "side": 1,
+      "message": "same check in 2 places.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_27e18d9a",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5579
+      },
+      "writtenOn": "2017-04-13T14:06:13Z",
+      "side": 1,
+      "message": "I would very much prefer if we had an aarch64 and an x86_64 image stored in artifacts and just download the appropriate one.\n\nIMHO this code is hard to understand and error prone.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
