@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_62d773c0",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-04-14T08:08:34Z",
+      "side": 1,
+      "message": "Maybe you can use an extra function to replace the IFs.\nAlso you can create a function which will include the common functionality e.g \n\nfunction checkforarch{\n\n    if arch\u003d\u003d aarch64:\n      new functionality\n      function common_functionality\n      new functionality\n    \n    else: \n      function common_functionality \n\n}\n\nIMHO this way the code is cleaner and readable.\nThis is just a thought.",
+      "parentUuid": "9ab8dda7_07824994",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 56
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_27e18d9a",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 1
