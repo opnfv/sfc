@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ab8dda7_01cd545d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-04-17T14:56:06Z",
+      "side": 1,
+      "message": "We are doing all the openstack calls using os_utils from functest: https://github.com/opnfv/functest/blob/master/functest/utils/openstack_utils.py. Unfortunately, that library does not include this glance API but it should not be difficult to create a patch in functest that adds it. I suggest to create a second patch in functest which adds that functionality. That way we continue doing openstack calls through functest and through openstack python libraries instead of doing it through cmd and thus we continue respecting the common practices. Besides, other projects can benefit from a more complete os_utils library.",
+      "range": {
+        "startLine": 663,
+        "startChar": 11,
+        "endLine": 663,
+        "endChar": 28
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_a73fbdd5",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
         "patchSetId": 1
