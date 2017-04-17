@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_21ff3869",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-04-17T15:01:46Z",
+      "side": 1,
+      "message": "Agreed. Even I thought so but couldn\u0027t find a right openstack rest API for the same to code it. Hence this nasty approach. apologies. I will submit another patch in functest soon.",
+      "parentUuid": "9ab8dda7_01cd545d",
+      "range": {
+        "startLine": 663,
+        "startChar": 11,
+        "endLine": 663,
+        "endChar": 28
+      },
+      "revId": "56053d5a1e0b76007655a6da7591698297851b74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_a73fbdd5",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
         "patchSetId": 1
