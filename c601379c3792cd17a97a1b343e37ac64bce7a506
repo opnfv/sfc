@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_eac49593",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5267
+      },
+      "writtenOn": "2017-04-19T11:14:35Z",
+      "side": 1,
+      "message": "What do you mean by this? Do you need to manually modify config.yaml before running the tests?",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 74
+      },
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_4ace01b6",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5267
+      },
+      "writtenOn": "2017-04-19T11:14:35Z",
+      "side": 1,
+      "message": "These images have arm64 in their name; is the main image without arm64?\nAnd also, how do these images get to the correct path? I didn\u0027t see any downloads.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
