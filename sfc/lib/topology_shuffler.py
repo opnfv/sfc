@@ -1,9 +1,9 @@
 import datetime
 import random
-import functest.utils.functest_logger as ft_logger
+import logging
 import sfc.lib.utils as sfc_utils
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 # The possible topologies we are testing
 TOPOLOGIES = [

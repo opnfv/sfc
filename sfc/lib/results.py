@@ -8,9 +8,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import functest.utils.functest_logger as ft_logger
+import logging
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class Results(object):
