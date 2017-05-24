@@ -1,12 +1,12 @@
 import sys
 
-import functest.utils.functest_logger as ft_logger
+import logging
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
 import sfc.lib.utils as utils
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = logging.getLogger("sfc")
 
 
 def delete_odl_resources(odl_ip, odl_port, resource):

@@ -12,7 +12,8 @@ import os
 import sys
 import threading
 
-import functest.utils.functest_logger as ft_logger
+import logging
+import logging.config
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -23,8 +24,9 @@ from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
+from functest.utils.constants import CONST
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = logging.getLogger("functest-odl-sfc")
 
 CLIENT = "client"
 SERVER = "server"
@@ -320,4 +322,6 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.config.fileConfig(
+        CONST.__getattribute__('dir_functest_logging_cfg'))
     main()
