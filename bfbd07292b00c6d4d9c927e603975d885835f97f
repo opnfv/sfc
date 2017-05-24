@@ -140,6 +140,23 @@
       "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7f798f92",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-05-24T17:00:16Z",
+      "side": 1,
+      "message": "In the Openstack community this change would be considered unrelated to the purpose of this patchset. Is it acceptable here?",
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
