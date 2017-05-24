@@ -12,11 +12,11 @@ import os
 import yaml
 
 from functest.utils.constants import CONST
-import functest.utils.functest_logger as ft_logger
+import logging
 import functest.utils.functest_utils as ft_utils
 
 
-logger = ft_logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class CommonConfig(object):
