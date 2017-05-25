@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aaae553_5f4a9384",
+        "filename": "sfc/lib/sfc_logger.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-05-25T06:45:32Z",
+      "side": 1,
+      "message": "what are the values of self.fail,self.success because I cannot see where they came from.\n\nAlso self.logger is an object of what class ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "bfbd07292b00c6d4d9c927e603975d885835f97f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_55e8f4b3",
         "filename": "sfc/lib/sfc_logger.py",
         "patchSetId": 2
