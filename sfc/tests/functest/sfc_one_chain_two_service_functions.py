@@ -125,7 +125,7 @@ def main():
     client_ip = client_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
     logger.info("Client instance received private ip [{}]".format(client_ip))
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
-    logger.info("Server instance received private ip [{}]".format(client_ip))
+    logger.info("Server instance received private ip [{}]".format(server_ip))
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
