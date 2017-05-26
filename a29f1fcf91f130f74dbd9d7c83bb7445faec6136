@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_a74a9953",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1331
+      },
+      "writtenOn": "2017-05-26T14:05:44Z",
+      "side": 1,
+      "message": "probably for readability, since its const utils unlike other utils. I can change if not liked.",
+      "parentUuid": "5aaae553_c402330b",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "a29f1fcf91f130f74dbd9d7c83bb7445faec6136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_67ffc102",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 3
