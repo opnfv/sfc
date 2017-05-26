@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_c402330b",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-05-26T13:44:03Z",
+      "side": 1,
+      "message": "just curious: why the uppercase?",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "a29f1fcf91f130f74dbd9d7c83bb7445faec6136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_67ffc102",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-05-26T13:44:03Z",
+      "side": 1,
+      "message": "Use just one whiteline when splitting import blocks",
+      "revId": "a29f1fcf91f130f74dbd9d7c83bb7445faec6136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_2709c92c",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 4393
+      },
+      "writtenOn": "2017-05-26T13:44:03Z",
+      "side": 1,
+      "message": "Use one whiteline to separate imports from the rest of the code",
+      "range": {
+        "startLine": 29,
+        "startChar": 35,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "a29f1fcf91f130f74dbd9d7c83bb7445faec6136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
