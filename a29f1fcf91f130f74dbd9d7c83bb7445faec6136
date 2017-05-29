@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_1dac1eed",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-05-29T07:13:17Z",
+      "side": 1,
+      "message": "I cannot understand why you add this __getattribute__ here \nmaybe is too obvious but I cannot see why this is useful.\nCan you please explain to me. Thanks",
+      "range": {
+        "startLine": 279,
+        "startChar": 8,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "a29f1fcf91f130f74dbd9d7c83bb7445faec6136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_67ffc102",
         "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
         "patchSetId": 3
