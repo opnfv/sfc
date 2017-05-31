@@ -65,8 +65,8 @@ NSP (NSH Path)
 
 NSI (NSH Index)
   The NSI is the Hop in the Service Chain. The NSI starts at 255 and is
-  decremented by every SF. If the NSI reaches 0, then the packet is dropped
-  which avoids loop detections.
+  decremented by every SF. If the NSI reaches 0, then the packet is dropped,
+  which avoids loops.
 
 NSH also has metadata fields, but that's beyond the scope of this architecture.
 
@@ -88,7 +88,7 @@ VNF Manager
 
 In OPNFV SFC, a VNF Manager is needed to spin-up VMs for Service Functions.
 It has been decided to use the OpenStack Tacker VNF Mgr to spin-up and manage
-the life cylcle of the SFs. Tacker will receive the ODL SFC configuration,
+the life cycle of the SFs. Tacker will receive the ODL SFC configuration,
 manage the SF VMs, and forward the configuration to ODL SFC. The following
 sequence diagram details the interactions with the VNF Mgr:
 
@@ -105,7 +105,7 @@ The following image details the Network Topology used in OPNFV Danube SFC:
 OVS NSH patch workaround
 ++++++++++++++++++++++++
 
-When using NSH with VXLAN tunnels, its important that the VXLAN tunnel is
+When using NSH with VXLAN tunnels, it is important that the VXLAN tunnel is
 terminated in the SF VM. This allows the SF to see the NSH header, allowing
 it to decrement the NSI and also to use the NSH metadata. When using VXLAN with
 OpenStack, the tunnels are not terminated in the VM, but in the "br-int" OVS

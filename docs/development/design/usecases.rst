@@ -22,6 +22,6 @@ Use Case 2 - One chain traverses two service functions
 ******************************************************
 
 This use case creates two service functions, and a chain that makes the traffic
-flow through both of them. More information is available in OPNFV-SFC wiki:
+flow through both of them. More information is available in the OPNFV-SFC wiki:
 
 https://wiki.opnfv.org/display/sfc/Functest+SFC-ODL+-+Test+2
