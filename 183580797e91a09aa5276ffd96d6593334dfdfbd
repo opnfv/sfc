@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_55cee15b",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-06-08T18:31:43Z",
+      "side": 1,
+      "message": "you could use __name__ in both cases.",
+      "parentUuid": "5aaae553_951459f6",
+      "range": {
+        "startLine": 155,
+        "startChar": 32,
+        "endLine": 155,
+        "endChar": 35
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_955d39ec",
         "filename": "sfc/tests/functest/run_tests.py",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "ch stands for console handler.\n\nThe name is taken from Python documentation, I didn\u0027t make it up :)\nhttps://docs.python.org/3.1/library/logging.html#configuring-logging",
       "parentUuid": "5aaae553_955d39ec",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f5da6d16",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-06-08T18:31:43Z",
+      "side": 1,
+      "message": "Yes but it doesn\u0027t respect pylint :)",
+      "parentUuid": "5aaae553_35f9e5c8",
       "range": {
         "startLine": 157,
         "startChar": 6,
