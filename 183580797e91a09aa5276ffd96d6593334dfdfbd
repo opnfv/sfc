@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_951459f6",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-06-08T13:13:32Z",
+      "side": 1,
+      "message": "this will be only executed when running the script manually to help debug/troubleshooting. E.g.:\n\n    python run_tests.py\n\nWhen executed from functest, this code is not executed and the internal functest logging mechanisms will be used.",
+      "parentUuid": "5aaae553_7558bdfa",
+      "range": {
+        "startLine": 155,
+        "startChar": 32,
+        "endLine": 155,
+        "endChar": 35
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_955d39ec",
         "filename": "sfc/tests/functest/run_tests.py",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-08T13:09:43Z",
       "side": 1,
       "message": "I\u0027m not able to figure out what \u0027ch\u0027 stands for. Can you pick a better variable name?",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_35f9e5c8",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-06-08T13:13:32Z",
+      "side": 1,
+      "message": "ch stands for console handler.\n\nThe name is taken from Python documentation, I didn\u0027t make it up :)\nhttps://docs.python.org/3.1/library/logging.html#configuring-logging",
+      "parentUuid": "5aaae553_955d39ec",
       "range": {
         "startLine": 157,
         "startChar": 6,
