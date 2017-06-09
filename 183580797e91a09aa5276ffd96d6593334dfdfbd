@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_b0e9631c",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-06-09T10:59:09Z",
+      "side": 1,
+      "message": "Done. Already declared in line 28",
+      "parentUuid": "5aaae553_55cee15b",
+      "range": {
+        "startLine": 155,
+        "startChar": 32,
+        "endLine": 155,
+        "endChar": 35
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_955d39ec",
         "filename": "sfc/tests/functest/run_tests.py",
         "patchSetId": 5
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes but it doesn\u0027t respect pylint :)",
       "parentUuid": "5aaae553_35f9e5c8",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "183580797e91a09aa5276ffd96d6593334dfdfbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d0ee5f22",
+        "filename": "sfc/tests/functest/run_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-06-09T10:59:09Z",
+      "side": 1,
+      "message": "Removed, just using basicConfig",
+      "parentUuid": "5aaae553_f5da6d16",
       "range": {
         "startLine": 157,
         "startChar": 6,
