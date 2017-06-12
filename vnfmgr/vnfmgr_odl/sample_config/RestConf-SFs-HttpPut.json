@@ -13,7 +13,6 @@
          }
        ],
        "rest-uri": "http://192.168.1.11:5000",
-       "nsh-aware": true,
        "ip-mgmt-address": "192.168.1.11",
        "type": "firewall"
      },
@@ -29,7 +28,6 @@
          }
        ],
        "rest-uri": "http://192.168.1.12:5000",
-       "nsh-aware": true,
        "ip-mgmt-address": "192.168.1.12",
        "type": "firewall"
      }

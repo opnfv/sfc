@@ -3,15 +3,14 @@
     "service-function-chain": [
       {
         "name": "sfc-chain-1",
-        "symmetric": true,
         "sfc-service-function": [
           {
             "name": "firewall-abstract1",
-            "type": "service-function-type:firewall"
+            "type": "firewall"
           },
           {
             "name": "firewall-abstract2",
-            "type": "service-function-type:firewall"
+            "type": "firewall"
           }
         ]
       }
