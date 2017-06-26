@@ -46,6 +46,30 @@
       "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_372580ab",
+        "filename": "setup.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-06-26T09:24:52Z",
+      "side": 1,
+      "message": "You can leave it. What about the files from other directories, will they also be copied to the $PATH even if they do not appear here (e.g. vnfmgr)?",
+      "parentUuid": "1aa4ed85_2cbbf773",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
