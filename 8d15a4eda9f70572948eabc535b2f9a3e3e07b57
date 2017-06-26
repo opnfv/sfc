@@ -70,6 +70,30 @@
       "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_1741640b",
+        "filename": "setup.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 459
+      },
+      "writtenOn": "2017-06-26T11:26:24Z",
+      "side": 1,
+      "message": "they won\u0027t be here. If you are using that library it should be included in the sfc package. Is it really used for Functest testing?",
+      "parentUuid": "1aa4ed85_372580ab",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
