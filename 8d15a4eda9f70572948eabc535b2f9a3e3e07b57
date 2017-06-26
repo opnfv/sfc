@@ -22,6 +22,30 @@
       "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_2cbbf773",
+        "filename": "setup.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-06-26T08:41:05Z",
+      "side": 1,
+      "message": "I don\u0027t know. I added it as scripts to be copied in $PATH. It seems an utility (internal?). As it\u0027s outside the package, it won\u0027t be copied in /usr/local...\n\nI can simply update this patch and remove it.",
+      "parentUuid": "1aa4ed85_cc53436b",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "8d15a4eda9f70572948eabc535b2f9a3e3e07b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
