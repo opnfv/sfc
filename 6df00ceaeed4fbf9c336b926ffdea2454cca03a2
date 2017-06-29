@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a0e283d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-06-29T21:08:13Z",
+      "side": 1,
+      "message": "Is it acceptable here to exceed 72 characters per line in the commit message?",
+      "range": {
+        "startLine": 9,
+        "startChar": 72,
+        "endLine": 9,
+        "endChar": 76
+      },
+      "revId": "6df00ceaeed4fbf9c336b926ffdea2454cca03a2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
