@@ -526,7 +526,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
         if timeout <= 0:
             logger.error("Timeout but classification rules are not updated")
 
-    except Exception, e:
+    except Exception as e:
         logger.error('Error when waiting for classification rules: %s' % e)
 
 

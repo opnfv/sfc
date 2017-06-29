@@ -187,7 +187,7 @@ def main():
                                 testTopology,))
     try:
         t1.start()
-    except Exception, e:
+    except Exception as e:
         logger.error("Unable to start the thread that counts time %s" % e)
 
     logger.info("Assigning floating IPs to instances")
