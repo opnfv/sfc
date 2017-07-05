@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_ded51244",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "separate",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_eac49593",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -42,6 +65,108 @@
         "endLine": 11,
         "endChar": 42
       },
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_fef00ecb",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "It seems you are running a command here in the compute node to find out if you are running in ARM architecture. Wouldn\u0027t it be cheaper to run the command once and store the result locally in a flag. An example might be:\n\nis_arm \u003d compute_nodes[0].run_cmd(\"arch\") \u003d\u003d \"aarch64\"\nif is_arm:",
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_1eee4aed",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "Please see comment to L67",
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_beba96df",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "Please see comment to https://gerrit.opnfv.org/gerrit/#/c/33339/5/sfc/tests/functest/sfc_one_chain_two_service_functions.py@67",
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_debf52cf",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "Please see comment to https://gerrit.opnfv.org/gerrit/#/c/33339/5/sfc/tests/functest/sfc_one_chain_two_service_functions.py@67",
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7eb41ef2",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "Please see comment to https://gerrit.opnfv.org/gerrit/#/c/33339/5/sfc/tests/functest/sfc_one_chain_two_service_functions.py@67",
+      "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9eb9daeb",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6807
+      },
+      "writtenOn": "2017-07-05T22:06:05Z",
+      "side": 1,
+      "message": "Please see comment to https://gerrit.opnfv.org/gerrit/#/c/33339/5/sfc/tests/functest/sfc_one_chain_two_service_functions.py@67",
       "revId": "c601379c3792cd17a97a1b343e37ac64bce7a506",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
