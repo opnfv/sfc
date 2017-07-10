@@ -2,8 +2,8 @@ Project: Service Function Chaining (sfc)
 Project Creation Date: May 5, 2015
 Project Category: Collaborative Development 
 Lifecycle State: Incubation 
-Primary Contact: Brady Johnson (brady.allen.johnson@ericsson.com) 
-Project Lead: Brady Johnson (brady.allen.johnson@ericsson.com) 
+Primary Contact: Manuel Buil mbuil@suse.com
+Project Lead: Manuel Buil mbuil@suse.com
 Jira Name: Service Function Chaining
 Jira Prefix: sfc
 Mailing list tag: [sfc] 
@@ -11,10 +11,10 @@ IRC: #opnfv-sfc
 repository: sfc
 
 Committers:
-brady.allen.johnson@ericsson.com
+bjohnson@inocybe.com
 rapenno@gmail.com
 jguichar@cisco.com
 shague@redhat.com
 trozet@redhat.com
 vmurgai@cisco.com
-manuel.buil@ericsson.com
+mbuil@suse.com
