@@ -1,0 +1,11 @@
+Code-Review+2: Sam Hague <shague@redhat.com>
+Code-Review+2: Tim Rozet <trozet@redhat.com>
+Code-Review+1: Miguel Lavalle <malavall@us.ibm.com>
+Code-Review+1: Juan Vidal <juan.vidal.allende@ericsson.com>
+Code-Review+2: Brady Johnson <bjohnson@inocybe.com>
+Verified+1: Brady Johnson <bjohnson@inocybe.com>
+Submitted-by: Brady Johnson <bjohnson@inocybe.com>
+Submitted-at: Wed, 12 Jul 2017 13:11:11 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/37125
+Project: sfc
+Branch: refs/heads/master
