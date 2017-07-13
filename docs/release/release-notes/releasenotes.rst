@@ -24,7 +24,7 @@ considered.
 
 More information about OpenDaylight and SFC can be found here.
 
-- `OpenDaylight <http://www.opendaylight.org/software>`_ version "Boron SR2"
+- `OpenDaylight <http://www.opendaylight.org/software>`_ version "Boron SR3"
 
 - `Service function chaining <https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home>`_
 
@@ -49,13 +49,13 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | danube 1.0                           |
+| **Repo/tag**                         | danube 3.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Danube base release                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | March 31 2017                        |
+| **Release date**                     | July 14 2017                         |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Add two new test cases and improve   |
@@ -73,7 +73,7 @@ following upstream versions:
 
 - OpenStack Newton release
 
-- OpenDaylight Boron SR2 release
+- OpenDaylight Boron SR3 release
 
 - Open vSwitch 2.6.1 with Yi Yang NSH patch
 
@@ -140,7 +140,7 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Danube 1.0 release has one limitation:
+The Danube 3.0 release has two limitations:
 
 1 - The symmetric test case only works when client, server and
 SFs are running in the same compute host. This is due to a missing
