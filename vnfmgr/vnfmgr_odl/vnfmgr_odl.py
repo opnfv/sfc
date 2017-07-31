@@ -26,7 +26,7 @@ class Context(object):
     """
 
     def __init__(self):
-        self.rest_path_prefix = 'sampleConfig'
+        self.rest_path_prefix = 'sample_config'
         self.rest_path_sf = 'RestConf-SFs-HttpPut.json'
         self.rest_path_sf_sel = 'RestConf-SFselect-HttpPut.json'
         self.rest_path_sfc = 'RestConf-SFCs-HttpPut.json'
