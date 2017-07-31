@@ -48,7 +48,7 @@ class Context(object):
             'operational/rendered-service-path:rendered-service-paths/')
         self.rest_url_rsp_rpc = (
             'operations/rendered-service-path:create-rendered-path')
-        self.rest_url_acl = ('config/ietf-acl:access-lists/')
+        self.rest_url_acl = ('config/ietf-access-control-list:access-lists/')
 
         self.http_headers = {
             'Content-Type': 'application/json', 'Cache-Control': 'no-cache'}
