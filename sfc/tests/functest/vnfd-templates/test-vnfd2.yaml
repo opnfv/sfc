@@ -1,31 +1,56 @@
-template_name: test-vnfd2
+tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
 description: firewall2-example
+metadata:
+  template_name: test-vnfd2
 
-service_properties:
-  Id: firewall2-vnfd
-  vendor: tacker
-  version: 1
-  type:
-      - firewall2
-vdus:
-  vdu1:
-    id: vdu1
-    vm_image: sfc_nsh_danube
-    instance_type: custom
-    service_type: firewall2
 
-    network_interfaces:
-      management:
-        network: example-net
+topology_template:
+  inputs:
+    zone:
+      type: string
+  node_templates:
+    VDU1:
+      type: tosca.nodes.nfv.VDU.Tacker
+      capabilities:
+        nfv_compute:
+          properties:
+            num_cpus: 1
+            mem_size: 2 GB
+            disk_size: 10 GB
+      properties:
+        image: sfc_nsh_danube
+        availability_zone: { get_input: zone }
+        mgmt_driver: noop
+        config: |
+          param0: key0
+          param1: key1
+        service_type: firewall
+        monitoring_policy:
+          name: ping
+          parameters:
+            monitoring_delay: 10
+            count: 3
+            interval: 2
+            timeout: 2
+            action:
+              failure: respawn
+            retry: 5
+            port: 22
+
+    CP1:
+      type: tosca.nodes.nfv.CP.Tacker
+      properties:
         management: true
+        order: 1
+        anti_spoofing_protection: false
+      requirements:
+        - virtualLink:
+            node: VL1
+        - virtualBinding:
+            node: VDU1
 
-    placement_policy:
-      availability_zone: { get_input: zone }
-
-    auto-scaling: noop
-    monitoring_policy: noop
-    failure_policy: respawn
-
-    config:
-      param0: key0
-      param1: key1
+    VL1:
+      type: tosca.nodes.nfv.VL
+      properties:
+        network_name: example-net
+        vendor: Tacker
