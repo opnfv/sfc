@@ -1,5 +1,55 @@
-template_name: test-vnfd1
+tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
 description: firewall1-example
+metadata:
+  template_name: test-vnfd1
+
+topology_template:
+  node_templates:
+    VDU11:
+      type: tosca.nodes.nfv.VDU.Tacker
+      capibilities:
+        nfv_compute:
+          properties:
+            num_cpus: 1
+            mem_size: 512 MB
+            disk_size: 1 GB
+      properties:
+        image: sfc_nsh_danube
+        availability_zone: { get_input: zone }
+        mgmt_driver: noop
+        config: |
+          param0: key1
+          param1: key2
+      service_type: firewall
+      monitoring_policy:
+        name: ping
+        parameters:
+          monitorying_delay: 10
+          count: 3
+          interval: 2
+          timeout: 2
+          action:
+            failure: respawn
+          retry: 5
+          port: 22
+
+  CP11:
+    type: tosca.nodes.nfv.CP.Tacker
+    properties:
+      management: true
+      order: 0
+      anti_spoofing_action: false
+    requirements:
+      - virtualLink:
+        node: VL11
+      - virtualBinding:
+        node: VDU11
+
+  VL11:
+    type: tosca.nodes.nfv.VL.Tacker
+    properties:
+      network_name: example-net
+      vendor: Tacker
 
 service_properties:
   Id: firewall1-vnfd
