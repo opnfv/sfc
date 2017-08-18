@@ -1,0 +1,37 @@
+tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
+
+description: firewall1-vnffgd
+
+topology_template:
+  description: firewall1-vnffgd
+  node-templates:
+    Forwarding_path1:
+      type: tosca.nodes.nfv.FP.Tacker
+      description: creates ports chains
+      properties:
+        id: 3
+        policy:
+          type: ACL
+          criteria:
+            - network_src_port_id:
+            - destination_port_range:
+            - ip_proto:
+            - ip_dst_prefix:
+        path:
+          - forwarder:
+            capability:
+          - forwarder:
+            capability:
+
+  groups:
+    VNFFG1:
+      type: tosca.groups.nfv.VNFFG
+      description: firewall1
+      properties:
+        vendor:
+        version:
+        number_of_endpoints:
+        dependent_virtual_link:
+        connection_point:
+        constituent_vnfs:
+      members: [Forwarding_path1]
