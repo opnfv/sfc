@@ -11,7 +11,4 @@ Service Function Chaining (SFC)
    :numbered:
    :maxdepth: 2
 
-   introduction.rst
-   definitions.rst
-   usecases.rst
-   architecture.rst
+   requirements.rst

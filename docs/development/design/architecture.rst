@@ -100,30 +100,3 @@ OPNFV SFC Network Topology
 The following image details the Network Topology used in OPNFV Danube SFC:
 
 .. image:: ./images/OPNFV_SFC_Brahmaputra_NW_Topology.jpg
-
-
-OVS NSH patch workaround
-++++++++++++++++++++++++
-
-When using NSH with VXLAN tunnels, it is important that the VXLAN tunnel is
-terminated in the SF VM. This allows the SF to see the NSH header, allowing
-it to decrement the NSI and also to use the NSH metadata. When using VXLAN with
-OpenStack, the tunnels are not terminated in the VM, but in the "br-int" OVS
-bridge. There is work ongoing in the upstream OVS community to implemement NSH
-encapsulation. To get around the way OpenStack handles VXLAN tunnels, the OVS
-work will also include the ability to encapsulate/decapsulate VXLAN tunnels from
-OpenFlow rules, instead of relying on the Vtep ports. The ongoing upstream OVS
-work will not be finished by the time OPNFV Danube is released, so
-a work-around has been created. This work-around will use a private branch of
-OVS that has a preliminary version of NSH implemented.
-
-The following diagram illustrates how packets will be sent to an SF, when the
-SFF has processed the packet and wants to send it to the SF:
-
-.. image:: ./images/OPNFV_SFC_BrahmaputraOvsNshWorkaround_toSf.jpg
-
-The following diagram illustrates how packets will sent from an SF to an SFF,
-once the SF has processed a packet:
-
-.. image:: ./images/OPNFV_SFC_BrahmaputraOvsNshWorkaround_fromSf.jpg
-
