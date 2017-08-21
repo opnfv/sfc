@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_b4d1acfd",
+        "filename": "sfc/tests/functest/vnfd-templates/test-vnfd1.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-21T14:01:17Z",
+      "side": 1,
+      "message": "This is too low. It should have 1.5GB of memory and 10GB of disk",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "79409e4e5ca156774acf94dca411265e2bc88bb9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
