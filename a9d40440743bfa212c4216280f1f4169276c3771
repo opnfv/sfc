@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_408976ea",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T15:19:57Z",
+      "side": 1,
+      "message": "We wrote os-odl-sfc-fdio-ha in https://wiki.opnfv.org/display/SWREL/Euphrates+Scenario+Status. Is it a wrong name for a scenario?",
+      "parentUuid": "da33351e_6010fa01",
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_806ffe91",
         "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
         "patchSetId": 2
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_e04ecac0",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T15:19:57Z",
+      "side": 1,
+      "message": "yep! thanks",
+      "parentUuid": "da33351e_806ffe91",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 21
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_e06c0a9f",
         "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
         "patchSetId": 2
@@ -76,6 +118,30 @@
       "writtenOn": "2017-08-22T14:08:43Z",
       "side": 1,
       "message": "FD.IO",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8051be64",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T15:19:57Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "da33351e_e06c0a9f",
       "range": {
         "startLine": 81,
         "startChar": 20,
@@ -122,6 +188,30 @@
       "writtenOn": "2017-08-22T14:08:43Z",
       "side": 1,
       "message": "is this really nitrogen sr1 release?  Or just Nitrogen pre-release?",
+      "range": {
+        "startLine": 11,
+        "startChar": 82,
+        "endLine": 11,
+        "endChar": 102
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a0db22ec",
+        "filename": "docs/release/scenarios/os-odl-sfc-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T15:19:57Z",
+      "side": 1,
+      "message": "I am planning for Nitrogen SR1. According to the release documents --\u003e Formal Nitrogen Release  9/7/2017, so we should be able to use it. Or is it too late?",
+      "parentUuid": "da33351e_2006f2ce",
       "range": {
         "startLine": 11,
         "startChar": 82,
