@@ -22,6 +22,30 @@
       "revId": "e2b1400152798325fa4e07ecfc05081056898a5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a520544a",
+        "filename": "sfc/tests/functest/vnfd-templates/test-vnfd1.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5761
+      },
+      "writtenOn": "2017-08-22T09:59:03Z",
+      "side": 1,
+      "message": "Do you mean \"we do `not` need 2 CPUs\", and that we should keep it to 1 ?",
+      "parentUuid": "da33351e_9a0c8f44",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "e2b1400152798325fa4e07ecfc05081056898a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
