@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_000beed6",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/index.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "os-odl-sfc_fdio-ha?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 16
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6010fa01",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "the scenario should have a \u0027_\u0027 not a \u0027-\u0027 between sfc and fdio",
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_806ffe91",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "configuration",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 21
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e06c0a9f",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "FD.IO",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c069068d",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-noha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "FD.IO",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2006f2ce",
+        "filename": "docs/release/scenarios/os-odl-sfc-ha/scenario.description.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-08-22T14:08:43Z",
+      "side": 1,
+      "message": "is this really nitrogen sr1 release?  Or just Nitrogen pre-release?",
+      "range": {
+        "startLine": 11,
+        "startChar": 82,
+        "endLine": 11,
+        "endChar": 102
+      },
+      "revId": "a9d40440743bfa212c4216280f1f4169276c3771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
