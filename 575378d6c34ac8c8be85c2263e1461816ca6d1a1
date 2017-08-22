@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_60a63a12",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-ha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T13:41:37Z",
+      "side": 1,
+      "message": "Good catch! I missed that one. We should write odl-netvirt-sfc",
+      "parentUuid": "da33351e_8510b04f",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "575378d6c34ac8c8be85c2263e1461816ca6d1a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_e51d3c68",
         "filename": "docs/release/scenarios/os-odl-sfc-fdio-noha/scenario.description.rst",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-22T08:47:00Z",
       "side": 1,
       "message": "odl-netvirt-openstack right ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "575378d6c34ac8c8be85c2263e1461816ca6d1a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_40ab36d8",
+        "filename": "docs/release/scenarios/os-odl-sfc-fdio-noha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T13:41:37Z",
+      "side": 1,
+      "message": "odl-netvirt-sfc",
+      "parentUuid": "da33351e_e51d3c68",
       "range": {
         "startLine": 52,
         "startChar": 25,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_00880e70",
+        "filename": "docs/release/scenarios/os-odl-sfc-ha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T13:41:37Z",
+      "side": 1,
+      "message": "odl-netvirt-sfc",
+      "parentUuid": "da33351e_65580c33",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "575378d6c34ac8c8be85c2263e1461816ca6d1a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_455d0821",
         "filename": "docs/release/scenarios/os-odl-sfc-noha/scenario.description.rst",
         "patchSetId": 1
@@ -105,6 +177,30 @@
       "writtenOn": "2017-08-22T08:47:00Z",
       "side": 1,
       "message": "odl-netvirt-openstack?",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "575378d6c34ac8c8be85c2263e1461816ca6d1a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_607d9a6e",
+        "filename": "docs/release/scenarios/os-odl-sfc-noha/scenario.description.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-22T13:41:37Z",
+      "side": 1,
+      "message": "odl-netvirt-sfc",
+      "parentUuid": "da33351e_455d0821",
       "range": {
         "startLine": 52,
         "startChar": 25,
