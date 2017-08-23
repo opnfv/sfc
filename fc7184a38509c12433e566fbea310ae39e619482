@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_ea6864f7",
+        "filename": "sfc/tests/functest/vnffgd-templates/test-vnffgd.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5761
+      },
+      "writtenOn": "2017-08-23T07:34:34Z",
+      "side": 1,
+      "message": "@Manuel: How do we manage to get these values dynamically ?\n\nWould we get the topology setup via functest ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "fc7184a38509c12433e566fbea310ae39e619482",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
