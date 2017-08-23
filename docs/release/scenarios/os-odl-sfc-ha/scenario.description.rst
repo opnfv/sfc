@@ -92,20 +92,6 @@ The older version of OVS only supported VXLAN-GPE + NSH encapsulation, but the n
 version supports both ETH + NSH and VXLAN-GPE + ETH + NSH. Currently SFC is only
 implemented with VXLAN-GPE + ETH + NSH.
 
-Workaround for VXLAN and OpenStack
-----------------------------------
-
-When using NSH with VXLAN tunnels, its important that the VXLAN tunnel is terminated
-in the SF VM. This allows the SF to see the NSH header, allowing it to decrement the
-NSI and also to use the NSH metadata. When using VXLAN with OpenStack, the tunnels
-are not terminated in the SF VM, but in the “br-int” OVS bridge. A work-around has
-been created to address this issue, which can be found here:
-
-http://artifacts.opnfv.org/sfc/danube/docs/design/architecture.html#ovs-nsh-patch-workaround
-
-In subsequent versions of SFC, we will change the SFF-SF transport to be ETH + NSH,
-which will obviate this work around.
-
 References
 ==========
 

@@ -33,11 +33,11 @@ More information about OpenDaylight and SFC can be found here.
 
   - Overall OPNFV documentation
 
-  - `Design document <http://artifacts.opnfv.org/sfc/danube/docs/design/index.html>`_
+  - `Design document <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/development/design/index.html>`_
 
-  - `User Guide <http://artifacts.opnfv.org/sfc/danube/docs/userguide/index.html>`_
+  - `User Guide <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/userguide/index.html>`_
 
-  - `Installation Instructions <http://artifacts.opnfv.org/sfc/danube/docs/installationprocedure/index.html>`_
+  - `Installation Instructions <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/configguide/index.html>`_
 
   - Release Notes (this document)
 
@@ -82,11 +82,11 @@ Document changes
 This is the first tracked version of OPNFV SFC Danube. It comes with
 the following documentation:
 
-- `Design document <http://artifacts.opnfv.org/sfc/danube/docs/design/index.html>`_
+- `Design document <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/development/design/index.html>`_
 
-- `User Guide <http://artifacts.opnfv.org/sfc/danube/docs/userguide/index.html>`_
+- `User Guide <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/userguide/index.html>`_
 
-- `Installation Instructions <http://artifacts.opnfv.org/sfc/danube/docs/installationprocedure/index.html>`_
+- `Installation Instructions <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/configguide/index.html>`_
 
 - Release notes (This document)
 
@@ -126,11 +126,11 @@ No specific deliverables are created, as SFC is included with Apex and Fuel.
 Documentation deliverables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `Design document <http://artifacts.opnfv.org/sfc/danube/docs/design/index.html>`_
+- `Design document <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/development/design/index.html>`_
 
-- `User Guide <http://artifacts.opnfv.org/sfc/danube/docs/userguide/index.html>`_
+- `User Guide <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/userguide/index.html>`_
 
-- `Installation Instructions <http://artifacts.opnfv.org/sfc/danube/docs/installationprocedure/index.html>`_
+- `Installation Instructions <http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/configguide/index.html>`_
 
 - Release notes (This document)
 

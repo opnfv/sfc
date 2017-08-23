@@ -12,9 +12,9 @@ SFC feature desciription
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
 
-- http://artifacts.opnfv.org/sfc/danube/docs/scenarios_os-odl_l2-sfc-ha/index.html
+- http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/scenarios/os-odl_l2-sfc-ha/index.html
 
-- http://artifacts.opnfv.org/sfc/danube/docs/scenarios_os-odl_l2-sfc-noha/index.html
+- http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/scenarios/os-odl_l2-sfc-noha/index.html
 
 
 The SFC feature enables creation of Service Fuction Chains - an ordered list
