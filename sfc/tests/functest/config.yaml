@@ -8,11 +8,13 @@ defaults:
   image_name: sfc_nsh_danube
   image_file_name: sfc_nsh_danube.qcow2
   installer:
-    type: fuel
-    ip: 10.20.0.2
-    user: root
-    password: r00tme
-    cluster: 1  # Change this to the id of the desired fuel env (1, 2, 3...)
+    fuel:
+      user: root
+      password: r00tme
+      cluster: 1  # Change this to the id of the desired fuel env (1, 2, 3...)
+    apex:
+      user: stack
+      pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/images"
   vnfd-dir: "vnfd-templates"
