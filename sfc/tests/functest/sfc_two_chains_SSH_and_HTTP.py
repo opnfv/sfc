@@ -11,8 +11,9 @@
 import os
 import sys
 import threading
-
 import logging
+
+from logging import config as logging_config
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -23,7 +24,6 @@ from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
-from functest.utils.constants import CONST
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,8 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file)
 
     cluster = COMMON_CONFIG.installer_cluster
     openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
@@ -50,10 +51,11 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
-    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
+    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes,
+                                                  COMMON_CONFIG.installer_type)
 
     for compute in compute_nodes:
-        logger.info("This is a compute: %s" % compute.info)
+        logger.info("This is a compute: %s" % compute.ip)
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
@@ -61,9 +63,9 @@ def main():
     results.add_to_summary(0, "=")
 
     installer_type = os.environ.get("INSTALLER_TYPE")
-    if installer_type != "fuel":
+    if installer_type != "fuel" and installer_type != "apex":
         logger.error(
-            '\033[91mCurrently supported only Fuel Installer type\033[0m')
+            '\033[91mCurrently supported only Fuel and Apex\033[0m')
         sys.exit(1)
 
     installer_ip = os.environ.get("INSTALLER_IP")
@@ -321,6 +323,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    logging_config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
