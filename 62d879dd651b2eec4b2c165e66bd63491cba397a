@@ -22,6 +22,30 @@
       "revId": "62d879dd651b2eec4b2c165e66bd63491cba397a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6d3585f6",
+        "filename": "sfc/tests/functest/vnffgd-templates/test2-vnffgd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5761
+      },
+      "writtenOn": "2017-08-25T05:37:29Z",
+      "side": 1,
+      "message": "No, not any specific reasons. I shall reduce the range to port 80 in the subsequent patches. \n\nI guess 80-80 is the right way to do it.",
+      "parentUuid": "da33351e_0ddcb9e3",
+      "range": {
+        "startLine": 17,
+        "startChar": 38,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "62d879dd651b2eec4b2c165e66bd63491cba397a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
