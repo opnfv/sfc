@@ -12,8 +12,9 @@
 import os
 import sys
 import threading
-
 import logging
+
+from logging import config as logging_config
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -25,7 +26,6 @@ from sfc.lib.results import Results
 import sfc.lib.topology_shuffler as topo_shuffler
 
 
-from functest.utils.constants import CONST
 logger = logging.getLogger(__name__)
 
 CLIENT = "client"
@@ -39,7 +39,8 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file)
 
     cluster = COMMON_CONFIG.installer_cluster
     all_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
@@ -49,7 +50,8 @@ def main():
     controller_nodes = [node for node in all_nodes if node.is_controller()]
     compute_nodes = [node for node in all_nodes if node.is_compute()]
 
-    odl_ip, odl_port = test_utils.get_odl_ip_port(all_nodes)
+    odl_ip, odl_port = test_utils.get_odl_ip_port(
+        all_nodes, COMMON_CONFIG.installer_type)
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
@@ -250,6 +252,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    logging_config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
