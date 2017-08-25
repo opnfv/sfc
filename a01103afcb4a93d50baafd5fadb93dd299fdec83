@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_6e4e1b98",
+        "filename": "sfc/tests/functest/vnffgd-templates/test2-vnffgd.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5761
+      },
+      "writtenOn": "2017-08-25T15:14:26Z",
+      "side": 1,
+      "message": "@Manuel, should this parameter be also provided as an input ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "a01103afcb4a93d50baafd5fadb93dd299fdec83",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
