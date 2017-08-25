@@ -12,7 +12,7 @@ import sys
 import threading
 import logging
 
-import functest.utils.openstack_tacker as os_tacker
+import sfc.lib.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 
