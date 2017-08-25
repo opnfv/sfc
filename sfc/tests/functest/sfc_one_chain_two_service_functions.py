@@ -40,9 +40,12 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
-
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file)
+        #installer_pwd=COMMON_CONFIG.installer_password)
+     
     cluster = COMMON_CONFIG.installer_cluster
+    
     openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
                        if cluster is not None
                        else deploymentHandler.get_nodes())
@@ -51,19 +54,20 @@ def main():
                         if node.is_controller()]
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
-
-    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
+ 
+    #odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
         logger.info("This is a compute: %s" % compute.info)
+        print compute.roles
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
     results.add_to_summary(2, "STATUS", "SUBTEST")
     results.add_to_summary(0, "=")
 
-    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
-    test_utils.configure_iptables(controller_nodes)
+    #test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
+    #test_utils.configure_iptables(controller_nodes)
 
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
@@ -275,6 +279,6 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    #logging.config.fileConfig(
+    #    CONST.__getattribute__('dir_functest_logging_cfg'))
     main()
