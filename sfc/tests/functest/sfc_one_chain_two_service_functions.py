@@ -7,13 +7,11 @@
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
-
 import os
 import sys
 import threading
-
 import logging
-from functest.utils.constants import CONST
+
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -40,9 +38,11 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file)
 
     cluster = COMMON_CONFIG.installer_cluster
+
     openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
                        if cluster is not None
                        else deploymentHandler.get_nodes())
@@ -55,7 +55,7 @@ def main():
     odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
-        logger.info("This is a compute: %s" % compute.info)
+        logger.info("This is a compute: %s" % compute.ip)
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
@@ -275,6 +275,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
