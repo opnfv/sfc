@@ -69,7 +69,9 @@ class SfcFunctest(testcase.OSGCTestCase):
             COMMON_CONFIG.installer_type,
             COMMON_CONFIG.installer_ip,
             COMMON_CONFIG.installer_user,
-            installer_pwd=COMMON_CONFIG.installer_password)
+            COMMON_CONFIG.installer_password,
+            COMMON_CONFIG.installer_key_file)
+     
 
         cluster = COMMON_CONFIG.installer_cluster
         nodes = (deploymentHandler.get_nodes({'cluster': cluster})

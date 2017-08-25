@@ -12,8 +12,9 @@
 import os
 import sys
 import threading
-
 import logging
+
+from logging import config as logging_config
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -39,7 +40,8 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file) 
 
     cluster = COMMON_CONFIG.installer_cluster
     all_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
@@ -250,6 +252,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    logging_config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()

@@ -10,7 +10,11 @@
 
 import os
 import yaml
+import sys
+import sfc
+import functest
 
+import sfc.lib.utils as test_utils
 from functest.utils.constants import CONST
 import logging
 import functest.utils.functest_utils as ft_utils
@@ -23,41 +27,46 @@ class CommonConfig(object):
     """
     Common configuration parameters across testcases
     """
-
+    installer_fields = {}
     def __init__(self):
         self.line_length = 30
         self.test_db = ft_utils.get_functest_config("results.test_db_url")
-        self.repo_path = CONST.dir_repo_sfc
+        self.functest_repo_path = os.path.dirname(functest.__file__)
+        self.functest_logging_api = os.path.join(self.functest_repo_path,"ci","logging.ini" )
+        self.sfc_repo_path = os.path.dirname(sfc.__file__)
         self.sfc_test_dir = os.path.join(
-            self.repo_path, "sfc", "tests", "functest")
+            self.sfc_repo_path,"tests", "functest")
         self.vnfd_dir = os.path.join(self.sfc_test_dir, "vnfd-templates")
         self.vnfd_default_params_file = os.path.join(
             self.sfc_test_dir, "vnfd-default-params-file")
         self.functest_results_dir = os.path.join(
             CONST.dir_results, "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir,  "config.yaml")
-        self.installer_type = ft_utils.get_parameter_from_yaml(
-            "defaults.installer.type", self.config_file)
-        self.installer_ip = ft_utils.get_parameter_from_yaml(
-            "defaults.installer.ip", self.config_file)
-        self.installer_user = ft_utils.get_parameter_from_yaml(
-            "defaults.installer.user", self.config_file)
 
+        self.installer_type = CONST.__getattribute__('INSTALLER_TYPE')
+
+        self.installer_fields = test_utils.fill_installer_dict(self.installer_type)
+
+        self.installer_ip = CONST.__getattribute__('INSTALLER_IP')
+
+        self.installer_user = ft_utils.get_parameter_from_yaml(
+            self.installer_fields['user'], self.config_file)
+        
         try:
             self.installer_password = ft_utils.get_parameter_from_yaml(
-                "defaults.installer.password", self.config_file)
+                self.installer_fields['password'], self.config_file)
         except:
             self.installer_password = None
 
         try:
             self.installer_key_file = ft_utils.get_parameter_from_yaml(
-                "defaults.installer.key_file", self.config_file)
+                self.installer_fields['pkey_file'], self.config_file)
         except:
             self.installer_key_file = None
 
         try:
             self.installer_cluster = ft_utils.get_parameter_from_yaml(
-                "defaults.installer.cluster", self.config_file)
+                self.installer_fields['cluster'], self.config_file)
         except:
             self.installer_cluster = None
 
@@ -81,6 +90,8 @@ class CommonConfig(object):
             "general.dir.functest_data")
         self.image_path = os.path.join(
             self.dir_functest_data, self.image_file_name)
+
+
 
 
 class TestcaseConfig(object):
