@@ -11,8 +11,9 @@
 import os
 import sys
 import threading
-
 import logging
+
+from logging import config as logging_config
 from functest.utils.constants import CONST
 import functest.utils.openstack_tacker as os_tacker
 import functest.utils.openstack_utils as os_utils
@@ -40,9 +41,11 @@ def main():
         COMMON_CONFIG.installer_type,
         COMMON_CONFIG.installer_ip,
         COMMON_CONFIG.installer_user,
-        installer_pwd=COMMON_CONFIG.installer_password)
-
+        COMMON_CONFIG.installer_password,
+        COMMON_CONFIG.installer_key_file)
+     
     cluster = COMMON_CONFIG.installer_cluster
+    
     openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
                        if cluster is not None
                        else deploymentHandler.get_nodes())
@@ -51,11 +54,12 @@ def main():
                         if node.is_controller()]
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
-
+ 
     odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
         logger.info("This is a compute: %s" % compute.info)
+        print compute.roles
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
@@ -275,6 +279,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(
-        CONST.__getattribute__('dir_functest_logging_cfg'))
+    logging_config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
