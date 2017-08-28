@@ -1,0 +1,8 @@
+Code-Review+2: Manuel Buil <mbuil@suse.com>
+Code-Review+2: Tim Rozet <trozet@redhat.com>
+Verified+1: Tim Rozet <trozet@redhat.com>
+Submitted-by: Tim Rozet <trozet@redhat.com>
+Submitted-at: Mon, 28 Aug 2017 21:36:40 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/40115
+Project: sfc
+Branch: refs/heads/master
