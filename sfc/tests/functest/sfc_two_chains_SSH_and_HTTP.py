@@ -74,8 +74,6 @@ def main():
             '\033[91mexport INSTALLER_IP=<ip>\033[0m')
         sys.exit(1)
 
-    test_utils.setup_compute_node(TESTCASE_CONFIG.subnet_cidr, compute_nodes)
-    test_utils.configure_iptables(controller_nodes)
 
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
