@@ -58,19 +58,6 @@ def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
     return run_cmd(ssh_cmd)
 
 
-def configure_iptables(controller_nodes):
-    """Configures IPTABLES on OpenStack Controller"""
-    iptable_cmds = ["iptables -P INPUT ACCEPT",
-                    "iptables -t nat -P INPUT ACCEPT",
-                    "iptables -A INPUT -m state \
-                    --state NEW,ESTABLISHED,RELATED -j ACCEPT"]
-
-    for cmd in iptable_cmds:
-        logger.info("Configuring %s on contoller" % cmd)
-        for controller in controller_nodes:
-            controller.run_cmd(cmd)
-
-
 def download_image(url, image_path):
     image_filename = os.path.basename(image_path)
     image_url = "%s/%s" % (url, image_filename)
@@ -528,20 +515,6 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
 
     except Exception as e:
         logger.error('Error when waiting for classification rules: %s' % e)
-
-
-def setup_compute_node(cidr, compute_nodes):
-    logger.info("bringing up br-int iface and flushing arp tables")
-    grep_cidr_routes = ("ip route | grep -o {0} || true".format(cidr)).strip()
-    add_cidr = "ip route add {0} dev br-int".format(cidr)
-    for compute in compute_nodes:
-        compute.run_cmd("ip -s -s neigh flush all")
-        compute.run_cmd("ifconfig br-int up")
-        if not compute.run_cmd(grep_cidr_routes):
-            logger.info("adding route %s in %s" % (cidr, compute.ip))
-            compute.run_cmd(add_cidr)
-        else:
-            logger.info("route %s already exists" % cidr)
 
 
 def get_nova_id(tacker_client, resource, vnf_id=None, vnf_name=None):
