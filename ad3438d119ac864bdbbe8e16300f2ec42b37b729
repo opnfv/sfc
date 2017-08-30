@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_fb4e61c0",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "Yes you are right.I think I just forget to remove it",
+      "parentUuid": "da33351e_bbf8597d",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9bf3d59e",
         "filename": "sfc/lib/config.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-30T10:37:31Z",
       "side": 1,
       "message": "why do we need now extra variables: functest_repo_path and functest_logging_api?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3bc8c921",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "Because in functest/master they removed some path variables\nfrom this file [0] that we used as reference.\n\n[0] https://github.com/opnfv/functest/blob/master/functest/ci/config_functest.yaml",
+      "parentUuid": "da33351e_9bf3d59e",
       "range": {
         "startLine": 34,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1bcb451f",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "They removed that dir_repo_sfc variable from this file.\n\n[0] https://github.com/opnfv/functest/blob/master/functest/ci/config_functest.yaml",
+      "parentUuid": "da33351e_dbed5db9",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 58
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_3b05697a",
         "filename": "sfc/lib/config.py",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2017-08-30T10:37:31Z",
       "side": 1,
       "message": "Now you are not getting it from yaml but from the dictionary installer_fields",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7bd251d3",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "I am still getting the values from yaml.\n\nThe dictionary doesn\u0027t contain the values but the keys to those values. Is the one that we talked about the last time when I asked you to do a review for me in github.\n\nCkeck this file: https://github.com/mardim91/sfc/blob/installer_adaptation/sfc/lib/utils.py#L674",
+      "parentUuid": "da33351e_3b05697a",
       "range": {
         "startLine": 54,
         "startChar": 30,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_5bd5cdb7",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "da33351e_1b086590",
+      "range": {
+        "startLine": 58,
+        "startChar": 38,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7bfff167",
         "filename": "sfc/lib/config.py",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2017-08-30T10:37:31Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 64,
+        "startChar": 38,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bbdb39ec",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "da33351e_7bfff167",
       "range": {
         "startLine": 64,
         "startChar": 38,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9bd635c2",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "da33351e_5b02ed6f",
+      "range": {
+        "startLine": 70,
+        "startChar": 37,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7bb1b1e0",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 6
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_3bef2989",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "OK I will see what I can do about that.",
+      "parentUuid": "da33351e_7bb1b1e0",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 69
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7be891b4",
         "filename": "sfc/tests/functest/run_sfc_tests.py",
         "patchSetId": 6
@@ -197,6 +389,24 @@
       "writtenOn": "2017-08-30T10:37:31Z",
       "side": 1,
       "message": "I think you are removing the __fetch_tackerc_file function which is needed by FUEL or?",
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dbf71d58",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "Yes it is needed for Fuel but is needed because we used a custom Tacker.\n\nWe are intended to not support the custom Tacker API any more right? \nWe are moving to Upstream Tacker so this tackerc file it will not needed anymore or ?\n\nAlso right now if we change the tacker API calls and adapt them with the upstream tacker (https://jira.opnfv.org/browse/SFC-102) our tests are not going to run in the Fuel deployment that we have now because in our current fuel deployment we have installed the custom tacker and not the upstream.",
+      "parentUuid": "da33351e_7be891b4",
       "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -237,6 +447,30 @@
       "writtenOn": "2017-08-30T10:37:31Z",
       "side": 1,
       "message": "Why changing this and not leave logging?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b9609f1",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-08-30T11:55:56Z",
+      "side": 1,
+      "message": "I think you are right about this. I will fix it.",
+      "parentUuid": "da33351e_3b89e926",
       "range": {
         "startLine": 16,
         "startChar": 0,
