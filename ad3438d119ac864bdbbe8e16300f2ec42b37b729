@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_db7c3db8",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T12:35:33Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "da33351e_3bc8c921",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_dbed5db9",
         "filename": "sfc/lib/config.py",
         "patchSetId": 6
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I am still getting the values from yaml.\n\nThe dictionary doesn\u0027t contain the values but the keys to those values. Is the one that we talked about the last time when I asked you to do a review for me in github.\n\nCkeck this file: https://github.com/mardim91/sfc/blob/installer_adaptation/sfc/lib/utils.py#L674",
       "parentUuid": "da33351e_3b05697a",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b4ba988",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T12:35:33Z",
+      "side": 1,
+      "message": "Aaaah ok, I remember",
+      "parentUuid": "da33351e_7bd251d3",
       "range": {
         "startLine": 54,
         "startChar": 30,
@@ -378,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1b4ea596",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T12:35:33Z",
+      "side": 1,
+      "message": "great",
+      "parentUuid": "da33351e_3bef2989",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 69
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7be891b4",
         "filename": "sfc/tests/functest/run_sfc_tests.py",
         "patchSetId": 6
@@ -407,6 +479,24 @@
       "side": 1,
       "message": "Yes it is needed for Fuel but is needed because we used a custom Tacker.\n\nWe are intended to not support the custom Tacker API any more right? \nWe are moving to Upstream Tacker so this tackerc file it will not needed anymore or ?\n\nAlso right now if we change the tacker API calls and adapt them with the upstream tacker (https://jira.opnfv.org/browse/SFC-102) our tests are not going to run in the Fuel deployment that we have now because in our current fuel deployment we have installed the custom tacker and not the upstream.",
       "parentUuid": "da33351e_7be891b4",
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7b45316f",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T12:35:33Z",
+      "side": 1,
+      "message": "Ahhhh yes! You are totally right. THe problem is that we are then mixing things in this patch (new Tacker API adaptation and installers, stuff). Could you remove this in the other patch \u003d\u003d\u003e https://gerrit.opnfv.org/gerrit/#/c/40265/",
+      "parentUuid": "da33351e_dbf71d58",
       "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -471,6 +561,30 @@
       "side": 1,
       "message": "I think you are right about this. I will fix it.",
       "parentUuid": "da33351e_3b89e926",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5b482d87",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T12:35:33Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "da33351e_3b9609f1",
       "range": {
         "startLine": 16,
         "startChar": 0,
