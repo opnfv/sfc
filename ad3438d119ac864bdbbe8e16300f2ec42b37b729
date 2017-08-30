@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_bbf8597d",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "Why do you initialize it?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9bf3d59e",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "why do we need now extra variables: functest_repo_path and functest_logging_api?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_dbed5db9",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "Can\u0027t we still use CONST.dir_repo_sfc?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 58
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b05697a",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "Now you are not getting it from yaml but from the dictionary installer_fields",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 62
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1b086590",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 58,
+        "startChar": 38,
+        "endLine": 58,
+        "endChar": 70
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7bfff167",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 64,
+        "startChar": 38,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5b02ed6f",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 70,
+        "startChar": 37,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7bb1b1e0",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "I would suggest using the same method for both installers (and I will use also the same for OSA). Either checking the ip from neutron plugin or from jetty.xml in the ODL file system. Then we don\u0027t need to add here a condition depending on the installer",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 69
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7be891b4",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "I think you are removing the __fetch_tackerc_file function which is needed by FUEL or?",
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_bb7cd921",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3b89e926",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-08-30T10:37:31Z",
+      "side": 1,
+      "message": "Why changing this and not leave logging?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "ad3438d119ac864bdbbe8e16300f2ec42b37b729",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
