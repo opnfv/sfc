@@ -1,3 +1,4 @@
+---
 tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
 description: test-case1
 
@@ -18,15 +19,15 @@ topology_template:
         policy:
           type: ACL
           criteria:
-            - network_src_port_id: { get_input: net_src_id }
+            - network_src_port_id: {get_input: net_src_id}
             - destination_port_range: 80-80
             - ip_proto: 6
-            - ip_dst_prefix: { get_input: ip_dst }
+            - ip_dst_prefix: {get_input: ip_dst}
         path:
-         - forwarder: VNFD1
-           capability: CP1
-         - forwarder: VNFD2
-           capability: CP1
+          - forwarder: VNFD1
+            capability: CP1
+          - forwarder: VNFD2
+            capability: CP1
 
   groups:
     VNFFG1:
@@ -36,7 +37,7 @@ topology_template:
         vendor: tacker
         version: 1.0
         number_of_endpoints: 2
-        dependent_virtual_link: [VL1,VL1]
-        connection_point: [CP1,CP1]
-        constituent_vnfs: [VNFD1,VNFD2]
+        dependent_virtual_link: [VL1, VL1]
+        connection_point: [CP1, CP1]
+        constituent_vnfs: [VNFD1, VNFD2]
       members: [Forwarding_path1]

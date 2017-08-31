@@ -1,3 +1,4 @@
+---
 tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
 description: firewall2-example
 metadata:
@@ -18,7 +19,7 @@ topology_template:
             disk_size: 10 GB
       properties:
         image: sfc_nsh_danube
-        availability_zone: { get_input: zone }
+        availability_zone: {get_input: zone}
         mgmt_driver: noop
         config: |
           param0: key1
