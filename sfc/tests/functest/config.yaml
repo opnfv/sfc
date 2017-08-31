@@ -15,6 +15,9 @@ defaults:
     apex:
       user: stack
       pkey_file: "/root/.ssh/id_rsa"
+    OSA:
+      user: root
+      pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
   url: "http://artifacts.opnfv.org/sfc/images"
   vnfd-dir: "vnfd-templates"
