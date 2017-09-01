@@ -1,8 +1,8 @@
 import sys
-
+import time
 import logging
 import functest.utils.openstack_utils as os_utils
-import functest.utils.openstack_tacker as os_tacker
+import sfc.lib.openstack_tacker as os_tacker
 import sfc.lib.utils as utils
 
 
@@ -44,24 +44,34 @@ def delete_vnfs():
         os_tacker.delete_vnf(t, vnf_id=vnf)
 
 
-def delete_sfcs():
+def delete_vnffgs():
     t = os_tacker.get_tacker_client()
-    sfcs = os_tacker.list_sfcs(t)
-    if sfcs is None:
+    vnffgs = os_tacker.list_vnffgs(t)
+    if vnffgs is None:
         return
-    for sfc in sfcs:
-        logger.info("Removing sfc: {0}".format(sfc))
-        os_tacker.delete_sfc(t, sfc_id=sfc)
+    for vnffg in vnffgs:
+        logger.info("Removing vnffg: {0}".format(vnffg))
+        os_tacker.delete_vnffg(t, vnffg_id=vnffg)
 
 
-def delete_sfc_clfs():
+def delete_vnffgds():
     t = os_tacker.get_tacker_client()
-    sfc_clfs = os_tacker.list_sfc_classifiers(t)
-    if sfc_clfs is None:
+    vnffgds = os_tacker.list_vnffgds(t)
+    if vnffgds is None:
         return
-    for sfc_clf in sfc_clfs:
-        logger.info("Removing sfc classifier: {0}".format(sfc_clf))
-        os_tacker.delete_sfc_classifier(t, sfc_clf_id=sfc_clf)
+    for vnffgd in vnffgds:
+        logger.info("Removing vnffgd: {0}".format(vnffgd))
+        os_tacker.delete_vnffgd(t, vnffgd_id=vnffgd)
+
+
+def delete_vims():
+    t = os_tacker.get_tacker_client()
+    vims = os_tacker.list_vims(t)
+    if vims is None:
+        return
+    for vim in vims:
+        logger.info("Removing vim: {0}".format(vim))
+        os_tacker.delete_vim(t, vim_id=vim)
 
 
 def delete_floating_ips():
@@ -102,10 +112,12 @@ def cleanup_odl(odl_ip, odl_port):
 
 
 def cleanup(odl_ip=None, odl_port=None):
-    delete_sfc_clfs()
-    delete_sfcs()
+    delete_vnffgs()
+    delete_vnffgds()
     delete_vnfs()
+    time.sleep(20)
     delete_vnfds()
+    delete_vims()
     delete_stacks()
     delete_floating_ips()
     delete_instances()
