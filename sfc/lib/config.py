@@ -42,6 +42,7 @@ class CommonConfig(object):
         self.functest_results_dir = os.path.join(
             CONST.dir_results, "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir,  "config.yaml")
+	self.vim_file =os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = CONST.__getattribute__('INSTALLER_TYPE')
 
