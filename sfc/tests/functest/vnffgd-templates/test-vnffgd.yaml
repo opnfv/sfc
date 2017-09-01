@@ -19,14 +19,13 @@ topology_template:
         policy:
           type: ACL
           criteria:
-            - network_src_port_id: {get_input: net_src_id}
+            - source_port_range: 0-0
             - destination_port_range: 80-80
             - ip_proto: 6
-            - ip_dst_prefix: {get_input: ip_dst}
         path:
-          - forwarder: VNFD1
+          - forwarder: test-vnfd1
             capability: CP1
-          - forwarder: VNFD2
+          - forwarder: test-vnfd2
             capability: CP1
 
   groups:
@@ -39,5 +38,6 @@ topology_template:
         number_of_endpoints: 2
         dependent_virtual_link: [VL1, VL1]
         connection_point: [CP1, CP1]
-        constituent_vnfs: [VNFD1, VNFD2]
+        constituent_vnfs: [test-vnfd1, test-vnfd2]
       members: [Forwarding_path1]
+
