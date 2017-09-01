@@ -13,13 +13,13 @@ import re
 import subprocess
 import requests
 import time
-import yaml
-
+import json
 
 import logging
+from functest.utils.constants import CONST
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
-import functest.utils.openstack_tacker as os_tacker
+import sfc.lib.openstack_tacker as os_tacker
 
 
 logger = logging.getLogger(__name__)
@@ -92,28 +92,27 @@ def get_av_zones():
 
 
 def create_vnf_in_av_zone(
-        tacker_client, vnf_name, vnfd_name, default_param_file, av_zone=None):
+                          tacker_client,
+                          vnf_name,
+                          vnfd_name,
+                          vim_name,
+                          default_param_file,
+                          av_zone=None):
     param_file = default_param_file
 
     if av_zone is not None or av_zone != 'nova':
         param_file = os.path.join(
             '/tmp',
-            'param_{0}.yaml'.format(av_zone.replace('::', '_')))
+            'param_{0}.json'.format(av_zone.replace('::', '_')))
         data = {
-            'vdus': {
-                'vdu1': {
-                    'param': {
-                        'zone': av_zone
-                    }
-                }
-            }
-        }
+               'zone': av_zone
+               }
         with open(param_file, 'w+') as f:
-            yaml.dump(data, f, default_flow_style=False)
-
+            json.dump(data, f)
     os_tacker.create_vnf(tacker_client,
                          vnf_name,
                          vnfd_name=vnfd_name,
+                         vim_name=vim_name,
                          param_file=param_file)
 
 
@@ -666,3 +665,18 @@ def fill_installer_dict(installer_type):
                              "pkey_file": default_string+"pkey_file"
                            }
         return installer_yaml_fields
+
+
+def register_vim(tacker_client, vim_file=None):
+    tmp_file = '/tmp/register-vim.json'
+    if vim_file is not None:
+        with open(vim_file) as f:
+            json_dict = json.load(f)
+
+        json_dict['vim']['auth_url'] = CONST.__getattribute__('OS_AUTH_URL')
+        json_dict['vim']['auth_cred']['password'] = CONST.__getattribute__(
+                                                        'OS_PASSWORD')
+
+        json.dump(json_dict, open(tmp_file, 'w'))
+
+    os_tacker.create_vim(tacker_client, vim_file=tmp_file)
