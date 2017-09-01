@@ -14,9 +14,10 @@ import subprocess
 import requests
 import time
 import yaml
-
+import json
 
 import logging
+from functest.utils.constants import CONST
 import functest.utils.functest_utils as ft_utils
 import functest.utils.openstack_utils as os_utils
 import functest.utils.openstack_tacker as os_tacker
@@ -666,3 +667,12 @@ def fill_installer_dict(installer_type):
                              "pkey_file": default_string+"pkey_file"
                            }
         return installer_yaml_fields
+
+def create_tacker_vim_file(vim_file=None):
+    with open(vim_file) as f:
+        json_dict = json.load(f)
+    
+    json_dict['vim']['auth_url']= CONST.__getattribute__('OS_AUTH_URL')
+    json_dict['vim']['auth_cred']['password']= CONST.__getattribute__('OS_PASSWORD')
+
+    json.dump(json_dict, open(vim_file,'w'))
