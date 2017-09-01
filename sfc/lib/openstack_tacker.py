@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+import json
 
 from tackerclient.tacker import client as tackerclient
 from functest.utils import openstack_utils as os_utils
@@ -64,7 +65,7 @@ def list_vnfds(tacker_client, verbose=False):
         return None
 
 
-def create_vnfd(tacker_client, tosca_file=None):
+def create_vnfd(tacker_client, tosca_file=None, vnfd_name=None):
     try:
         vnfd_body = {}
         if tosca_file is not None:
@@ -72,7 +73,7 @@ def create_vnfd(tacker_client, tosca_file=None):
                 vnfd_body = tosca_fd.read()
             logger.info('VNFD template:\n{0}'.format(vnfd_body))
         return tacker_client.create_vnfd(
-            body={"vnfd": {"attributes": {"vnfd": vnfd_body}}})
+            body={"vnfd": {"attributes": {"vnfd": vnfd_body},"name": vnfd_name}})
     except Exception, e:
         logger.error("Error [create_vnfd(tacker_client, '%s')]: %s"
                      % (tosca_file, e))
@@ -188,3 +189,18 @@ def delete_vnf(tacker_client, vnf_id=None, vnf_name=None):
         logger.error("Error [delete_vnf(tacker_client, '%s', '%s')]: %s"
                      % (vnf_id, vnf_name, e))
         return None
+
+def create_vim(tacker_client,vim_file=None):
+    try:
+        vim_body = {}
+        if vim_file is not None:
+            with open(vim_file) as vim_fd:
+                vim_body = json.load(vim_fd)
+            logger.info('VIM template:\n{0}'.format(vim_body))    
+        return tacker_client.create_vim(
+            body= vim_body)
+    except Exception, e:
+        logger.error("Error [create_vim(tacker_client, '%s')]: %s"
+                     % (vim_file, e))
+        return None
+
