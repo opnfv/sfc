@@ -133,15 +133,22 @@ def main():
 
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
+    test_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
+
     tosca_red = os.path.join(COMMON_CONFIG.sfc_test_dir,
                              COMMON_CONFIG.vnfd_dir,
                              TESTCASE_CONFIG.test_vnfd_red)
-    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_red)
+    os_tacker.create_vnfd(tacker_client,
+                          tosca_file=tosca_red,
+                          vnfd_name='test-vnfd1')
 
     tosca_blue = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
-    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_blue)
+
+    os_tacker.create_vnfd(tacker_client,
+                          tosca_file=tosca_blue,
+                          vnfd_name='test-vnfd2')
 
     default_param_file = os.path.join(
         COMMON_CONFIG.sfc_test_dir,
@@ -149,10 +156,10 @@ def main():
         COMMON_CONFIG.vnfd_default_params_file)
 
     test_utils.create_vnf_in_av_zone(
-        tacker_client, vnf_names[0], 'test-vnfd1',
+        tacker_client, vnf_names[0], 'test-vnfd1', 'test-vim',
         default_param_file, testTopology[vnf_names[0]])
     test_utils.create_vnf_in_av_zone(
-        tacker_client, vnf_names[1], 'test-vnfd2',
+        tacker_client, vnf_names[1], 'test-vnfd2', 'test-vim',
         default_param_file, testTopology[vnf_names[1]])
 
     vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_names[0])
@@ -161,33 +168,23 @@ def main():
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
-    vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf1_id)
+    vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf1_id)
     os_utils.add_secgroup_to_instance(nova_client, vnf1_instance_id, sg_id)
 
-    vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf2_id)
+    vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf2_id)
     os_utils.add_secgroup_to_instance(nova_client, vnf2_instance_id, sg_id)
 
-    os_tacker.create_sfc(tacker_client, 'red', chain_vnf_names=['testVNF1'])
-    os_tacker.create_sfc(tacker_client, 'blue', chain_vnf_names=['testVNF2'])
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnffgd_dir,
+                              TESTCASE_CONFIG.test_vnffgd_red)
 
-    os_tacker.create_sfc_classifier(
-        tacker_client, 'red_http', sfc_name='red',
-        match={
-            'source_port': 0,
-            'dest_port': 80,
-            'protocol': 6
-        })
+    os_tacker.create_vnffgd(tacker_client,
+                            tosca_file=tosca_file,
+                            vnffgd_name='red')
 
-    os_tacker.create_sfc_classifier(
-        tacker_client, 'red_ssh', sfc_name='red',
-        match={
-            'source_port': 0,
-            'dest_port': 22,
-            'protocol': 6
-        })
-
-    logger.info(test_utils.run_cmd('tacker sfc-list')[1])
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
+    os_tacker.create_vnffg(tacker_client,
+                           vnffgd_name='red',
+                           vnffg_name='red_http_works')
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -258,29 +255,22 @@ def main():
         results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Changing the classification")
-    test_utils.delete_classifier_and_acl(
-        tacker_client, 'red_http', odl_ip, odl_port)
 
-    test_utils.delete_classifier_and_acl(
-        tacker_client, 'red_ssh', odl_ip, odl_port)
+    os_tacker.delete_vnffg(tacker_client, vnffg_name='red_http_works')
 
-    os_tacker.create_sfc_classifier(
-        tacker_client, 'blue_http', sfc_name='blue',
-        match={
-            'source_port': 0,
-            'dest_port': 80,
-            'protocol': 6
-        })
+    os_tacker.delete_vnffgd(tacker_client, vnffgd_name='red')
 
-    os_tacker.create_sfc_classifier(
-        tacker_client, 'blue_ssh', sfc_name='blue',
-        match={
-            'source_port': 0,
-            'dest_port': 22,
-            'protocol': 6
-        })
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnffgd_dir,
+                              TESTCASE_CONFIG.test_vnffgd_blue)
 
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list')[1])
+    os_tacker.create_vnffgd(tacker_client,
+                            tosca_file=tosca_file,
+                            vnffgd_name='blue')
+
+    os_tacker.create_vnffg(tacker_client,
+                           vnffgd_name='blue',
+                           vnffg_name='blue_ssh_works')
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
