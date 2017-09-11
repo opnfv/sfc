@@ -36,6 +36,8 @@ testcases:
     secgroup_descr: "Example Security group"
     test_vnfd_red: "test-vnfd1.yaml"
     test_vnfd_blue: "test-vnfd2.yaml"
+    test_vnffgd_red: "test2-vnffgd1.yaml"
+    test_vnffgd_blue: "test2-vnffgd2.yaml"
 
   sfc_one_chain_two_service_functions:
     enabled: true
@@ -49,6 +51,7 @@ testcases:
     secgroup_descr: "Example Security group"
     test_vnfd_red: "test2-vnfd1.yaml"
     test_vnfd_blue: "test2-vnfd2.yaml"
+    test_vnffgd_red: "test-vnffgd.yaml"
 
   sfc_symmetric_chain:
     enabled: false

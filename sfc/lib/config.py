@@ -39,9 +39,11 @@ class CommonConfig(object):
         self.vnfd_dir = os.path.join(self.sfc_test_dir, "vnfd-templates")
         self.vnfd_default_params_file = os.path.join(
             self.sfc_test_dir, "vnfd-default-params-file")
+        self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
         self.functest_results_dir = os.path.join(
             CONST.dir_results, "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir,  "config.yaml")
+        self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = CONST.__getattribute__('INSTALLER_TYPE')
 

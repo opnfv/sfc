@@ -1,0 +1,18 @@
+{
+	"vim": {
+		"vim_project": {
+			"project_domain_name": "Default",
+			"id": "",
+			"name": "admin"
+		},
+		"auth_cred": {
+			"username": "admin",
+			"user_domain_name": "Default",
+			"password": "",
+			"user_id": ""
+		},
+		"auth_url": "",
+		"type": "openstack",
+		"name": "test-vim"
+	}
+}
