@@ -22,6 +22,30 @@
       "revId": "0b4689b24d1b251cbf95174b8e0c2ec4c01f2439",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f8e123ff",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-12T13:04:47Z",
+      "side": 1,
+      "message": "I tried the test and I found no problem with the heat cache, so I don\u0027t think it is needed",
+      "parentUuid": "da33351e_78ffd3aa",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 16
+      },
+      "revId": "0b4689b24d1b251cbf95174b8e0c2ec4c01f2439",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
