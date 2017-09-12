@@ -105,6 +105,8 @@ class SfcFunctest(testcase.OSGCTestCase):
             self.__disable_heat_resource_finder_cache_apex(controllers)
         elif installer_type == "fuel":
             self.__disable_heat_resource_finder_cache_fuel(controllers)
+        elif installer_type == "OSA":
+            pass
         else:
             raise Exception('Unsupported installer')
 
