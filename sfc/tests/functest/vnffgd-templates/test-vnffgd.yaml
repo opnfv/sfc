@@ -4,6 +4,9 @@ description: test-case1
 
 topology_template:
   description: topology-template-test1
+  inputs:
+    net_src_id:
+      type: string
 
   node_templates:
     Forwarding_path1:
@@ -14,7 +17,7 @@ topology_template:
         policy:
           type: ACL
           criteria:
-            - source_port_range: 0-0
+            - network_src_port_id:{ get_input: net_src_id }
             - destination_port_range: 80-80
             - ip_proto: 6
         path:
