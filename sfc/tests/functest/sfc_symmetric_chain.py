@@ -200,7 +200,7 @@ def main():
 
     for ip in (server_floating_ip, client_floating_ip, sf_floating_ip):
         logger.info("Checking connectivity towards floating IP [%s]" % ip)
-        if not test_utils.ping(ip, retries=50, retry_timeout=1):
+        if not test_utils.ping(ip, retries=50, retry_timeout=3):
             logger.error("Cannot ping floating IP [%s]" % ip)
             sys.exit(1)
         logger.info("Successful ping to floating IP [%s]" % ip)
