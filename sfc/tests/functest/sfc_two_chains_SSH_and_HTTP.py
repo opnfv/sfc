@@ -185,9 +185,11 @@ def main():
                             tosca_file=tosca_file,
                             vnffgd_name='red')
 
-    os_tacker.create_vnffg(tacker_client,
-                           vnffgd_name='red',
-                           vnffg_name='red_http_works')
+    neutron_port = test_utils.get_client_port_id(client_instance)
+    test_utils.create_vnffg_with_neutron_port_id(tacker_client, 'red',
+                                                 'red_http',
+                                                 default_param_file,
+                                                 neutron_port)
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -270,9 +272,10 @@ def main():
                             tosca_file=tosca_file,
                             vnffgd_name='blue')
 
-    os_tacker.create_vnffg(tacker_client,
-                           vnffgd_name='blue',
-                           vnffg_name='blue_ssh_works')
+    test_utils.create_vnffg_with_neutron_port_id(tacker_client, 'blue',
+                                                 'blue_ssh',
+                                                 default_param_file,
+                                                 neutron_port)
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
