@@ -174,9 +174,9 @@ def main():
                             tosca_file=tosca_file,
                             vnffgd_name='red')
 
-    os_tacker.create_vnffg(tacker_client,
-                           vnffgd_name='red',
-                           vnffg_name='red_http')
+    neutron_port = None                                      
+                                                                       
+    test_utils.create_vnffg(tacker_client, 'red', 'red_http', neutron_port)
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
