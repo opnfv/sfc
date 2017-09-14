@@ -249,10 +249,9 @@ def create_vnffgd(tacker_client, tosca_file=None, vnffgd_name=None):
 
 
 def create_vnffg(tacker_client, vnffg_name=None, vnffgd_id=None,
-                 vnffgd_name=None):
+                 vnffgd_name=None, param_file=None):
     '''
-      Tacker doesn't support Symmetrical chain and parameter file
-      in Openstack/Ocata
+      Creates the vnffg which will provide the RSP and the classifier
     '''
     try:
         vnffg_body = {
@@ -261,6 +260,11 @@ def create_vnffg(tacker_client, vnffg_name=None, vnffgd_id=None,
                 'name': vnffg_name
             }
         }
+        if param_file is not None:
+            params = None
+            with open(param_file) as f:
+                params = f.read()
+            vnffg_body['vnffg']['attributes']['param_values'] = params
         if vnffgd_id is not None:
             vnffg_body['vnffg']['vnffgd_id'] = vnffgd_id
         else:
