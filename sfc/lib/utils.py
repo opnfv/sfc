@@ -78,6 +78,20 @@ def get_av_zones():
     return ['nova::{0}'.format(host) for host in hosts]
 
 
+def get_compute_client():
+    '''
+    Return the compute where the client sits
+    '''
+    nova_client = os_utils.get_nova_client()
+    hosts = os_utils.get_hypervisors(nova_client)
+    for compute in hosts:
+        vms = nova_client.servers.list(search_opts={'host': compute})
+        for vm in vms:
+            if "client" in vm.name:
+                return compute
+    return False
+
+
 def create_vnf_in_av_zone(
                           tacker_client,
                           vnf_name,
@@ -361,18 +375,16 @@ def check_ssh(ips, retries=100):
 def actual_rsps_in_compute(ovs_logger, compute_ssh):
     '''
     Example flows that match the regex (line wrapped because of flake8)
-    cookie=0x1110010002280255, duration=4366.745s, table=11, n_packets=14,
-    n_bytes=980, tcp,reg0=0x1,tp_dst=22 actions=move:NXM_NX_TUN_ID[0..31]->
-    NXM_NX_NSH_C2[],push_nsh,load:0x1->NXM_NX_NSH_MDTYPE[],load:0x3->
-    NXM_NX_NSH_NP[],load:0xc0a80005->NXM_NX_NSH_C1[],load:0xe4->
-    NXM_NX_NSP[0..23],load:0xff->NXM_NX_NSI[],load:0xc0a80005->
-    NXM_NX_TUN_IPV4_DST[],load:0xe4->NXM_NX_TUN_ID[0..31],output:26
+    table=101, n_packets=7, n_bytes=595, priority=500,tcp,in_port=2,tp_dst=80
+    actions=push_nsh,load:0x1->NXM_NX_NSH_MDTYPE[],load:0x3->NXM_NX_NSH_NP[],
+    load:0x27->NXM_NX_NSP[0..23],load:0xff->NXM_NX_NSI[],
+    load:0xffffff->NXM_NX_NSH_C1[],load:0->NXM_NX_NSH_C2[],resubmit(,17)
     '''
     match_rsp = re.compile(
         r'.+tp_dst=([0-9]+).+load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\].+')
     # First line is OFPST_FLOW reply (OF1.3) (xid=0x2):
     # This is not a flow so ignore
-    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '11')
+    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '101')
              .strip().split('\n')[1:])
     matching_flows = [match_rsp.match(f) for f in flows]
     # group(1) = 22 (tp_dst value) | group(2) = 0xff (rsp value)
@@ -402,6 +414,10 @@ def get_active_rsps(odl_ip, odl_port):
             logger.warn('ACL {0} does not have an ACE'.format(
                 acl['acl-name']))
             continue
+
+        if not ('netvirt-sfc-acl:rsp-name' in ace['actions']):
+            continue
+
         rsp_name = ace['actions']['netvirt-sfc-acl:rsp-name']
         rsp = get_odl_resource_elem(odl_ip,
                                     odl_port,
@@ -432,76 +448,54 @@ def get_active_rsps(odl_ip, odl_port):
     return rsps
 
 
-def promised_rsps_in_computes(
-        odl_ip, odl_port, topology, all_compute_av_zones):
+def promised_rsps_in_computes(odl_ip, odl_port):
     '''
-    And the computes in the topology where we should expect to see them.
-    The returned  object is in the format 'path-id': [ch1_availability_zone,
-    ch2_availability_zone, ...] This means we should expect to see table=11
-    (classification) flow with path_id in ch1, ch2, ...
+    Return a list of rsp_port which represents the rsp id and the destination
+    port configured in ODL
     '''
     rsps = get_active_rsps(odl_ip, odl_port)
-    rsps_in_computes = {}
-    # A classification rule should be installed for all (rsp, tp_dst) pairs
-    # to every compute that has at least one SF
-    computes_with_sf = list(set(topology.values()))
-    if 'nova' in computes_with_sf:
-        # this does a glorified time.sleep(timeout) for now
-        # TODO: find a better way to do this
-        computes_with_sf = all_compute_av_zones
-    for rsp in rsps:
-        key = '{0}_{1}'.format(hex(rsp['path-id']), rsp['dst-port'])
-        rsps_in_computes[key] = computes_with_sf
+    rsps_in_computes = ['{0}_{1}'.format(hex(rsp['path-id']), rsp['dst-port'])
+                        for rsp in rsps]
+
     return rsps_in_computes
 
 
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
-                                  topology, timeout=200):
+                                  timeout=200):
+    '''
+    Check if the classification rules configured in ODL are implemented in OVS.
+    We know by experience that this process might take a while
+    '''
     try:
-        hypervisors = get_av_zones()
-        av_zone_regex = re.compile(r'nova::node-([0-9]+)\.(.+)')
-        # Example: String "nova::node-13.domain.tld" is matched
-        # It's deconstructed as:
-        # group(0) -> nova::node-13.domain.tld
-        # group(1) -> 13
-        # group(2) -> domain.tld
-        hypervisor_matches = [av_zone_regex.match(h) for h in hypervisors]
-        compute_av_zones = {
-            hypervisor_match.group(1): hypervisor_match.group(0)
-            for hypervisor_match in hypervisor_matches
-        }
+        # Find the compute where the client is
+        compute_client = get_compute_client()
 
-        # keep only vnfs
-        topology = {
-            key: host for key, host in topology.items()
-            if key not in ['client', 'server', 'id', 'description']
-        }
+        for compute_node in compute_nodes:
+            if compute_node.name in compute_client:
+                compute = compute_node
+        try:
+            compute
+        except NameError:
+            logger.debug("No compute where the client is was found")
+            raise Exception("No compute where the client is was found")
 
-        promised_rsps = promised_rsps_in_computes(
-            odl_ip, odl_port, topology, compute_av_zones.values())
+        # Find the configured rsps in ODL. Its format is nsp_destPort
+        promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
 
         while timeout > 0:
             logger.info("RSPs in ODL Operational DataStore:")
             logger.info("{0}".format(promised_rsps))
 
-            actual_rsps_in_computes = {}
-            for node in compute_nodes:
-                av_zone = compute_av_zones[node.id]
-                actual_rsps_in_computes[av_zone] = actual_rsps_in_compute(
-                    ovs_logger, node.ssh_client)
+            # Fetch the rsps implemented in the compute
+            compute_rsps = actual_rsps_in_compute(ovs_logger,
+                                                  compute_client.ssh_client)
 
             logger.info("RSPs in compute nodes:")
-            logger.info("{0}".format(actual_rsps_in_computes))
+            logger.info("{0}".format(compute_rsps))
 
-            promises_fulfilled = []
-            for rsp, computes in promised_rsps.items():
-                computes_have_rsp = [rsp
-                                     in actual_rsps_in_computes[compute]
-                                     for compute in computes]
-                promises_fulfilled.append(all(computes_have_rsp))
-
-            if all(promises_fulfilled):
+            # We use sets to compare as we will not have the same value twice
+            if not (set(promised_rsps) ^ set(compute_rsps)):
                 # OVS state is consistent with ODL
                 logger.info("Classification rules were updated")
                 return
