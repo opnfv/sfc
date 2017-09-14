@@ -241,7 +241,7 @@ def create_vnffgd(tacker_client, tosca_file=None, vnffgd_name=None):
         vnffgd_body = {}
         if tosca_file is not None:
             with open(tosca_file) as tosca_fd:
-                vnffgd_body = yaml.load(tosca_fd)
+                vnffgd_body = yaml.safe_load(tosca_fd)
             logger.info('VNFFGD template:\n{0}'.format(vnffgd_body))
         return tacker_client.create_vnffgd(
             body={'vnffgd': {'name': vnffgd_name,
@@ -253,10 +253,9 @@ def create_vnffgd(tacker_client, tosca_file=None, vnffgd_name=None):
 
 
 def create_vnffg(tacker_client, vnffg_name=None, vnffgd_id=None,
-                 vnffgd_name=None):
+                 vnffgd_name=None, param_file=None):
     '''
-      Tacker doesn't support Symmetrical chain and parameter file
-      in Openstack/Ocata
+      Creates the vnffg which will provide the RSP and the classifier
     '''
     try:
         vnffg_body = {
@@ -265,6 +264,12 @@ def create_vnffg(tacker_client, vnffg_name=None, vnffgd_id=None,
                 'name': vnffg_name
             }
         }
+        if param_file is not None:
+            params = None
+            with open(param_file) as f:
+                params = f.read()
+            params_dict = yaml.safe_load(params)
+            vnffg_body['vnffg']['attributes']['param_values'] = params_dict
         if vnffgd_id is not None:
             vnffg_body['vnffg']['vnffgd_id'] = vnffgd_id
         else:
