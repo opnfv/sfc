@@ -180,8 +180,7 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,
-                                testTopology,))
+                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,))
     try:
         t1.start()
     except Exception as e:
