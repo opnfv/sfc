@@ -117,6 +117,25 @@ def create_vnf_in_av_zone(
                          param_file=param_file)
 
 
+def create_vnffg_with_neutron_port_id(tacker_client, vnffgd_name, vnffg_name,
+                                      default_param_file, neutron_port):
+    param_file = default_param_file
+
+    if neutron_port is not None:
+        param_file = os.path.join(
+            '/tmp',
+            'param_{0}.json'.format(neutron_port))
+        data = {
+               'network_src_port_id': neutron_port
+               }
+        with open(param_file, 'w+') as f:
+            json.dump(data, f)
+    os_tacker.create_vnffg(tacker_client,
+                           vnffgd_name,
+                           vnffg_name,
+                           param_file=param_file)
+
+
 def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):
     n_dict = os_utils.create_network_full(neutron_client,
                                           net,
@@ -647,3 +666,22 @@ def register_vim(tacker_client, vim_file=None):
         json.dump(json_dict, open(tmp_file, 'w'))
 
     os_tacker.create_vim(tacker_client, vim_file=tmp_file)
+
+
+def get_neutron_interfaces(vm):
+    '''
+    Get the interfaces of an instance
+    '''
+    nova_client = os_utils.get_nova_client()
+    interfaces = nova_client.servers.interface_list(vm.id)
+    return interfaces
+
+
+def get_client_port_id(vm):
+    '''
+    Get the neutron port id of the client
+    '''
+    interfaces = get_neutron_interfaces(vm)
+    if len(interfaces) > 1:
+        raise Exception("Client has more than one interface. Not expected!")
+    return interfaces[0].id
