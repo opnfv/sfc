@@ -103,6 +103,25 @@ def create_vnf_in_av_zone(
                          param_file=param_file)
 
 
+def create_vnffg(tacker_client, vnffgd_name, vnffg_name, default_param_file,
+                 neutron_port):
+    param_file = default_param_file
+
+    if neutron_port is not None:
+        param_file = os.path.join(
+            '/tmp',
+            'param_{0}.json'.format(neutron_port))
+        data = {
+               'network_src_port_id': neutron_port
+               }
+        with open(param_file, 'w+') as f:
+            json.dump(data, f)
+    os_tacker.create_vnf(tacker_client,
+                         vnffgd_name,
+                         vnffg_name,
+                         param_file=param_file)
+
+
 def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):
     n_dict = os_utils.create_network_full(neutron_client,
                                           net,
