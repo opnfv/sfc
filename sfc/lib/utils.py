@@ -14,6 +14,7 @@ import subprocess
 import requests
 import time
 import json
+import yaml
 
 import logging
 from functest.utils.constants import CONST
@@ -653,3 +654,56 @@ def register_vim(tacker_client, vim_file=None):
         json.dump(json_dict, open(tmp_file, 'w'))
 
     os_tacker.create_vim(tacker_client, vim_file=tmp_file)
+
+
+def create_vnffgd_src_ip_port_id_clr(tacker_client,
+                                     tosca_file=None,
+                                     vnffgd_name=None,
+                                     src_ip=None,
+                                     src_port_id=None):
+
+    if tosca_file is not None:
+        tmp_tosca_file = os.path.join(
+            '/tmp',
+            'test2_{0}.yaml'.format(vnffgd_name))
+        with open(tosca_file) as fd:
+            tosca_dict = yaml.load(fd)
+            tosca_dict = add_ip_src_prefix_and_src_port_id(tosca_dict,
+                                                           src_ip,
+                                                           src_port_id)
+            yaml.dump(tosca_dict,
+                      open(tmp_tosca_file, 'w+'),
+                      default_flow_style=False)
+
+    os_tacker.create_vnffgd(tacker_client,
+                            tosca_file=tmp_tosca_file,
+                            vnffgd_name=vnffgd_name)
+
+
+def add_ip_src_prefix_and_src_port_id(tosca_dict, src_ip, src_port_id):
+    if 'criteria' in tosca_dict:
+        tosca_dict['criteria'][1]['ip_src_prefix'] = '{0}/24'.format(src_ip)
+        tosca_dict['criteria'][0]['network_src_port_id'] = src_port_id
+    else:
+        for k, v in tosca_dict.iteritems():
+            if isinstance(v, dict):
+                add_ip_src_prefix_and_src_port_id(v, src_ip, src_port_id)
+    return tosca_dict
+
+
+def get_port_id(neutron_client, fixed_ip=None):
+    if fixed_ip is None:
+        logger.error('IP is not provided')
+    else:
+        try:
+            port_list = neutron_client.list_ports()['ports']
+            if not port_list:
+                return None
+            else:
+                for i in range(len(port_list)):
+                    if port_list[i]['fixed_ips'][0]['ip_address'] == fixed_ip:
+                        return port_list[i]['id']
+        except Exception as e:
+            logger.error("Error [get_port_id(neutron_client, fixed_ip)]: %s"
+                         % e)
+    return None
