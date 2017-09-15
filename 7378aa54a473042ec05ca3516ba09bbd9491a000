@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_da44091d",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:12:35Z",
+      "side": 1,
+      "message": "We already have a create_vnffg in openstack_tacker.py \nAnd It seems a bit confusing to have two functions with the same name.",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "7378aa54a473042ec05ca3516ba09bbd9491a000",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3a4d353f",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:12:35Z",
+      "side": 1,
+      "message": "Here you mean create_vnffg right?",
+      "range": {
+        "startLine": 119,
+        "startChar": 14,
+        "endLine": 119,
+        "endChar": 24
+      },
+      "revId": "7378aa54a473042ec05ca3516ba09bbd9491a000",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
