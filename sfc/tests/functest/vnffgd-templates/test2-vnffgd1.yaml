@@ -14,9 +14,8 @@ topology_template:
         policy:
           type: ACL
           criteria:
-            - source_port_range: 0-0
-            - destination_port_range: 22-80
-            - ip_proto: 6
+            - network_src_port_id:
+            - ip_src_prefix:
         path:
           - forwarder: test-vnfd1
             capability: CP1
