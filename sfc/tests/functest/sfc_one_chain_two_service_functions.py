@@ -41,6 +41,23 @@ def main():
         COMMON_CONFIG.installer_password,
         COMMON_CONFIG.installer_key_file)
 
+    installer_type = os.environ.get("INSTALLER_TYPE")
+
+    supported_installers = ['fuel', 'apex', 'OSA']
+
+    if installer_type not in supported_installers:
+        logger.error(
+            '\033[91mYour installer is not supported yet\033[0m')
+        sys.exit(1)
+
+    installer_ip = os.environ.get("INSTALLER_IP")
+    if not installer_ip:
+        logger.error(
+            '\033[91minstaller ip is not set\033[0m')
+        logger.error(
+            '\033[91mexport INSTALLER_IP=<ip>\033[0m')
+        sys.exit(1)
+
     cluster = COMMON_CONFIG.installer_cluster
 
     openstack_nodes = (deploymentHandler.get_nodes({'cluster': cluster})
