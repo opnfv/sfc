@@ -115,7 +115,8 @@ def main():
 
     vnf_names = ['testVNF1', 'testVNF2']
 
-    topo_seed = topo_shuffler.get_seed()  # change to None for nova av zone
+    #topo_seed = topo_shuffler.get_seed()  # change to None for nova av zone
+    topo_seed = 1
     testTopology = topo_shuffler.topology(vnf_names, seed=topo_seed)
 
     logger.info('This test is run with the topology {0}'
@@ -130,6 +131,10 @@ def main():
     server_instance = test_utils.create_instance(
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['server'])
+
+    client_ip = client_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
+
+    client_port_id = test_utils.get_port_id(neutron_client,fixed_ip=client_ip)
 
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
@@ -178,13 +183,35 @@ def main():
                               COMMON_CONFIG.vnffgd_dir,
                               TESTCASE_CONFIG.test_vnffgd_red)
 
+
+    test_utils.create_vnffgd_src_ip_port_id_clr(tacker_client,
+                                                tosca_file=tosca_file,
+                                                vnffgd_name='red',
+                                                src_ip=client_ip,
+                                                src_port_id=client_port_id)
+
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnffgd_dir,
+                              TESTCASE_CONFIG.test_vnffgd_blue)
+
+
+    #test_utils.create_vnffgd_with_src_ip_classifier(tacker_client,
+    #                                               tosca_file=tosca_file,
+    #                                               vnffgd_name='blue',
+    #                                               src_ip=client_ip_blue)
+
     os_tacker.create_vnffgd(tacker_client,
                             tosca_file=tosca_file,
-                            vnffgd_name='red')
+                            vnffgd_name='blue')
 
     os_tacker.create_vnffg(tacker_client,
                            vnffgd_name='red',
                            vnffg_name='red_http_works')
+
+    os_tacker.create_vnffg(tacker_client,
+                           vnffgd_name='blue',
+                           vnffg_name='blue_ssh_works')
+
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -256,21 +283,21 @@ def main():
 
     logger.info("Changing the classification")
 
-    os_tacker.delete_vnffg(tacker_client, vnffg_name='red_http_works')
+    #os_tacker.delete_vnffg(tacker_client, vnffg_name='red_http_works')
 
-    os_tacker.delete_vnffgd(tacker_client, vnffgd_name='red')
+    #os_tacker.delete_vnffgd(tacker_client, vnffgd_name='red')
 
-    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                              COMMON_CONFIG.vnffgd_dir,
-                              TESTCASE_CONFIG.test_vnffgd_blue)
+    #tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+    #                          COMMON_CONFIG.vnffgd_dir,
+    #                          TESTCASE_CONFIG.test_vnffgd_blue)
 
-    os_tacker.create_vnffgd(tacker_client,
-                            tosca_file=tosca_file,
-                            vnffgd_name='blue')
+    #os_tacker.create_vnffgd(tacker_client,
+    #                        tosca_file=tosca_file,
+    #                        vnffgd_name='blue')
 
-    os_tacker.create_vnffg(tacker_client,
-                           vnffgd_name='blue',
-                           vnffg_name='blue_ssh_works')
+    #os_tacker.create_vnffg(tacker_client,
+    #                       vnffgd_name='blue',
+    #                       vnffg_name='blue_ssh_works')
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -308,5 +335,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
+    #logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
