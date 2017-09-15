@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_9aa281fb",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:12:35Z",
+      "side": 1,
+      "message": "We already have a create_vnffg function in openstack_tacker.py right?\n\nThis is think will cause problems",
+      "range": {
+        "startLine": 106,
+        "startChar": 3,
+        "endLine": 106,
+        "endChar": 16
+      },
+      "revId": "e0375d760758ac659b047f820ed8f43017bcd3bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
