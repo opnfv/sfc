@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_25123657",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T13:29:12Z",
+      "side": 1,
+      "message": "Can you cahnge this name to create_vnffg_with_param_file ?\n\nBecause if we are going to do the workaround with the dummy classifier we need to add some extra criteria not only the neutron_port_id.",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "d80fc42f4b30b5868b2996c57f0c6eadb8660918",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
