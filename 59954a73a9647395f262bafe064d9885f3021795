@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_7a017dae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:21:21Z",
+      "side": 1,
+      "message": "Yes I can change the commit message",
+      "parentUuid": "da33351e_faf10d02",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "59954a73a9647395f262bafe064d9885f3021795",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_7a533de2",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-15T09:12:26Z",
       "side": 1,
       "message": "Check my patch. I think doing a nova_client.servers.interfaces(client_vm) is easier than collecting all ports and then filter based on a fixed_ip. I guess this is the reason why you add a fix ip for the client",
+      "range": {
+        "startLine": 689,
+        "startChar": 4,
+        "endLine": 689,
+        "endChar": 15
+      },
+      "revId": "59954a73a9647395f262bafe064d9885f3021795",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1af831c2",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:21:21Z",
+      "side": 1,
+      "message": "Yes I saw yours patch I like the functionality that you used lets keep yours",
+      "parentUuid": "da33351e_7a533de2",
       "range": {
         "startLine": 689,
         "startChar": 4,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_1a715176",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:21:21Z",
+      "side": 1,
+      "message": "The patch is in a wip state so I set this for testing purposes",
+      "parentUuid": "da33351e_9a3e018b",
+      "revId": "59954a73a9647395f262bafe064d9885f3021795",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_fa3f4d85",
         "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
         "patchSetId": 1
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_7a6a1d82",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:21:21Z",
+      "side": 1,
+      "message": "Because I was need it to get the port_id",
+      "parentUuid": "da33351e_fa3f4d85",
+      "range": {
+        "startLine": 135,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 13
+      },
+      "revId": "59954a73a9647395f262bafe064d9885f3021795",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ba3945a6",
         "filename": "sfc/tests/functest/vnffgd-templates/test2-vnffgd1.yaml",
         "patchSetId": 1
@@ -99,6 +189,30 @@
       "writtenOn": "2017-09-15T09:12:26Z",
       "side": 1,
       "message": "Assuming that the correct way to do this is with: { get_input: net_src_id }, I would prefer if we leave the vnffgd yaml file in the correct format. Then we could manipulate it in python",
+      "range": {
+        "startLine": 17,
+        "startChar": 34,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "59954a73a9647395f262bafe064d9885f3021795",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3afb75c2",
+        "filename": "sfc/tests/functest/vnffgd-templates/test2-vnffgd1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-15T09:21:21Z",
+      "side": 1,
+      "message": "Ok I am good with that but for now I will use my patch so I can run the tests because the problem with the param_file is not yet solved.",
+      "parentUuid": "da33351e_ba3945a6",
       "range": {
         "startLine": 17,
         "startChar": 34,
