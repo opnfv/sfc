@@ -49,7 +49,7 @@ def delete_vnffgs():
     vnffgs = os_tacker.list_vnffgs(t)
     if vnffgs is None:
         return
-    for vnffg in vnffgs:
+    for vnffg in reversed(vnffgs):
         logger.info("Removing vnffg: {0}".format(vnffg))
         os_tacker.delete_vnffg(t, vnffg_id=vnffg)
 
