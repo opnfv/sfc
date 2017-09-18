@@ -141,18 +141,22 @@ def create_vnf(tacker_client, vnf_name, vnfd_id=None,
             with open(param_file) as f:
                 params = f.read()
             vnf_body['vnf']['attributes']['param_values'] = params
+
         if vnfd_id is not None:
             vnf_body['vnf']['vnfd_id'] = vnfd_id
-        if vim_id is not None:
-            vnf_body['vnf']['vim_id'] = vim_id
         else:
             if vnfd_name is None:
                 raise Exception('vnfd id or vnfd name is required')
             vnf_body['vnf']['vnfd_id'] = get_vnfd_id(tacker_client, vnfd_name)
+
+        if vim_id is not None:
+            vnf_body['vnf']['vim_id'] = vim_id
+        else:
             if vim_name is None:
                 raise Exception('vim id or vim name is required')
             vnf_body['vnf']['vim_id'] = get_vim_id(tacker_client, vim_name)
         return tacker_client.create_vnf(body=vnf_body)
+
     except Exception, e:
         logger.error("error [create_vnf(tacker_client,"
                      " '%s', '%s', '%s')]: %s"
