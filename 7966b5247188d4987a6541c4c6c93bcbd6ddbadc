@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_24e6afe8",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-19T15:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_a4bc7f07",
+      "range": {
+        "startLine": 660,
+        "startChar": 20,
+        "endLine": 660,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_e43967a5",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
@@ -83,6 +107,30 @@
       "writtenOn": "2017-09-19T14:27:02Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 686,
+        "startChar": 20,
+        "endLine": 686,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_04ebabb0",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-19T15:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_e43967a5",
       "range": {
         "startLine": 686,
         "startChar": 20,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_64d39704",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-19T15:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_c43ee38b",
+      "range": {
+        "startLine": 705,
+        "startChar": 19,
+        "endLine": 705,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_24406f06",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
@@ -129,6 +201,30 @@
       "writtenOn": "2017-09-19T14:27:02Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 735,
+        "startChar": 20,
+        "endLine": 735,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_44d013f6",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-19T15:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da33351e_24406f06",
       "range": {
         "startLine": 735,
         "startChar": 20,
