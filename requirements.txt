@@ -8,3 +8,4 @@ python-novaclient!=7.0.0,>=6.0.0 # Apache-2.0
 python-tackerclient>=0.8.0 # Apache-2.0
 PyYAML>=3.10.0 # MIT
 opnfv
+networking-sfc==4.0.0
