@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_644d573e",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-19T14:27:02Z",
+      "side": 1,
+      "message": "why do you need this?",
+      "range": {
+        "startLine": 658,
+        "startChar": 8,
+        "endLine": 658,
+        "endChar": 45
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_a4bc7f07",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-19T14:27:02Z",
+      "side": 1,
+      "message": "Use as instead of comma:\n\nhttps://www.python.org/dev/peps/pep-3110/",
+      "range": {
+        "startLine": 660,
+        "startChar": 20,
+        "endLine": 660,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_e43967a5",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-19T14:27:02Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 686,
+        "startChar": 20,
+        "endLine": 686,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_c43ee38b",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-19T14:27:02Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 705,
+        "startChar": 19,
+        "endLine": 705,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_24406f06",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-09-19T14:27:02Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 735,
+        "startChar": 20,
+        "endLine": 735,
+        "endChar": 21
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
