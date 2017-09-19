@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_647ef71a",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-19T15:00:50Z",
+      "side": 1,
+      "message": "Maybe you re right but I used the same procedure that we did here:\n\nhttps://github.com/opnfv/sfc/blob/master/sfc/lib/openstack_tacker.py#L34\n\nI cannot explain exactly why we did that in the openstack_tacker but I thought that if someone did it that way there maybe that someone had something in mind.",
+      "parentUuid": "da33351e_644d573e",
+      "range": {
+        "startLine": 658,
+        "startChar": 8,
+        "endLine": 658,
+        "endChar": 45
+      },
+      "revId": "7966b5247188d4987a6541c4c6c93bcbd6ddbadc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_a4bc7f07",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 2
