@@ -647,3 +647,93 @@ def register_vim(tacker_client, vim_file=None):
         json.dump(json_dict, open(tmp_file, 'w'))
 
     os_tacker.create_vim(tacker_client, vim_file=tmp_file)
+
+
+def get_id_from_name_netw_sfc(neutron_client, resource_type, resource_name):
+    try:
+        req_params = {'fields': 'id', 'name': resource_name}
+        endpoint = '/{0}s'.format(resource_type)
+        path = '/sfc{0}'.format(endpoint)
+        resp = neutron_client.get(path, params=req_params)
+        endpoint = endpoint.replace('-', '_')
+        return resp[endpoint[1:]][0]['id']
+    except Exception, e:
+        logger.error("Error [get_id_from_name_netw_sfc(neutron_client, "
+                     "resource_type, resource_name)]: %s" % e)
+
+        return None
+
+
+def clear_classifiers_from_chain(neutron_client,
+                                 chain_id=None,
+                                 chain_name=None):
+    try:
+        port_chain_body = {
+                'port_chain': {
+                    'flow_classifiers': []
+                    }
+                }
+
+        if chain_id is None:
+            if chain_name is None:
+                raise Exception('chain id or chain name is required')
+            else:
+                chain_id = get_id_from_name_netw_sfc(neutron_client,
+                                                     'port_chain',
+                                                     chain_name)
+        return neutron_client.update_port_chain(chain_id, body=port_chain_body)
+
+    except Exception, e:
+        logger.error("error [clear_classifiers_from_chain(neutron_client,"
+                     " '%s', '%s')]: %s"
+                     % (chain_id, chain_name, e))
+        return None
+
+
+def get_classifiers_of_chain(neutron_client, chain_id=None, chain_name=None):
+    try:
+        if chain_id is None:
+            if chain_name is None:
+                raise Exception('chain id or chain name is required')
+            else:
+                chain_id = get_id_from_name_netw_sfc(neutron_client,
+                                                     'port_chain',
+                                                     chain_name)
+        chain_dict = neutron_client.show_port_chain(chain_id)
+        return chain_dict['port_chain']['flow_classifiers']
+
+    except Exception, e:
+        logger.error("error [get_classifiers_of_chain(neutron_client,"
+                     " '%s', '%s')]: %s"
+                     % (chain_id, chain_name, e))
+        return None
+
+
+def update_chain_classifier(neutron_client,
+                            chain_id=None,
+                            chain_name=None,
+                            classifier_list=None):
+    try:
+        if classifier_list:
+            port_chain_body = {
+                'port_chain': {
+                    'flow_classifiers': classifier_list
+                     }
+                 }
+        else:
+            raise Exception('The list of the classifiers is empty')
+
+        if chain_id is None:
+            if chain_name is None:
+                raise Exception('chain id or chain name is required')
+            else:
+                chain_id = get_id_from_name_netw_sfc(neutron_client,
+                                                     'port_chain',
+                                                     chain_name)
+        return neutron_client.update_port_chain(chain_id, body=port_chain_body)
+
+    except Exception, e:
+        logger.error("error [update_chain_classifier(neutron_client,"
+                     " '%s', '%s', '%s')]: %s"
+                     % (chain_id, chain_name, classifier_list, e))
+        return None
