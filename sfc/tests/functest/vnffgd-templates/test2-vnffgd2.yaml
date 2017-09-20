@@ -4,10 +4,6 @@ description: test-case2_SSH Test
 
 topology_template:
   description: topology-template-test2
-  inputs:
-    net_src_port_id:
-      type: string
-
 
   node_templates:
     Forwarding_path1:
@@ -18,9 +14,7 @@ topology_template:
         policy:
           type: ACL
           criteria:
-            - network_src_port_id: {get_input: net_src_port_id}
-            - destination_port_range: 22-80
-            - ip_proto: 6
+            - ip_src_prefix: 15.0.0.3/24
         path:
           - forwarder: test-vnfd2
             capability: CP1
