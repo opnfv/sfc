@@ -500,7 +500,14 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             raise Exception("No compute where the client is was found")
 
         # Find the configured rsps in ODL. Its format is nsp_destPort
-        promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
+        promised_rsps = []
+        timeout2 = 10
+        while not promised_rsps:
+            promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
+            timeout2 -= 1
+            if timeout2 == 0:
+                raise Exception("RSPs not configured in ODL")
+            time.sleep(3)
 
         while timeout > 0:
             logger.info("RSPs in ODL Operational DataStore:")
