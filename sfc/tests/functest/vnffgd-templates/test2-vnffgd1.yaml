@@ -7,6 +7,8 @@ topology_template:
   inputs:
     net_src_port_id:
       type: string
+    ip_src_prefix:
+      type: string
 
   node_templates:
     Forwarding_path1:
@@ -18,6 +20,7 @@ topology_template:
           type: ACL
           criteria:
             - network_src_port_id: {get_input: net_src_port_id}
+            - ip_src_prefix: {get_input: ip_src_prefix}
             - destination_port_range: 22-80
             - ip_proto: 6
         path:

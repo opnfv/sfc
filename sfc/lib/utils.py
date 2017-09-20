@@ -118,18 +118,25 @@ def create_vnf_in_av_zone(
 
 
 def create_vnffg_with_param_file(tacker_client, vnffgd_name, vnffg_name,
-                                 default_param_file, neutron_port):
+                                 default_param_file, neutron_port,
+                                 ip_src_prefix=None):
     param_file = default_param_file
+
+    data = {}
 
     if neutron_port is not None:
         param_file = os.path.join(
             '/tmp',
             'param_{0}.json'.format(neutron_port))
-        data = {
+        data.update({
                'net_src_port_id': neutron_port
-               }
-        with open(param_file, 'w+') as f:
-            json.dump(data, f)
+               })
+    if ip_src_prefix is not None:
+        data.update({
+                'ip_src_prefix': ip_src_prefix
+               })
+    with open(param_file, 'w+') as f:
+        json.dump(data, f)
     os_tacker.create_vnffg(tacker_client,
                            vnffgd_name=vnffgd_name,
                            vnffg_name=vnffg_name,

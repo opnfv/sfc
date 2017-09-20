@@ -134,6 +134,8 @@ def main():
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['server'])
 
+    client_ip = client_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
+
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
 
     test_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
@@ -185,11 +187,27 @@ def main():
                             tosca_file=tosca_file,
                             vnffgd_name='red')
 
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnffgd_dir,
+                              TESTCASE_CONFIG.test_vnffgd_blue)
+
+    os_tacker.create_vnffgd(tacker_client,
+                            tosca_file=tosca_file,
+                            vnffgd_name='blue')
+
     neutron_port = test_utils.get_client_port_id(client_instance)
     test_utils.create_vnffg_with_param_file(tacker_client, 'red',
-                                            'red_http',
+                                            'red_http_works',
                                             default_param_file,
-                                            neutron_port)
+                                            neutron_port,
+                                            ip_src_prefix=client_ip)
+
+    os_tacker.create_vnffg(tacker_client,
+                           vnffgd_name='blue',
+                           vnffg_name='blue_ssh_works')
+
+    clrs = test_utils.get_classifiers_of_chain(
+            neutron_client, chain_name='red_http_works-port-chain')
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -260,22 +278,16 @@ def main():
 
     logger.info("Changing the classification")
 
-    os_tacker.delete_vnffg(tacker_client, vnffg_name='red_http_works')
+    test_utils.clear_classifiers_from_chain(
+            neutron_client, chain_name='red_http_works-port-chain')
 
-    os_tacker.delete_vnffgd(tacker_client, vnffgd_name='red')
+    test_utils.clear_classifiers_from_chain(
+            neutron_client, chain_name='blue_ssh_works-port-chain')
 
-    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                              COMMON_CONFIG.vnffgd_dir,
-                              TESTCASE_CONFIG.test_vnffgd_blue)
-
-    os_tacker.create_vnffgd(tacker_client,
-                            tosca_file=tosca_file,
-                            vnffgd_name='blue')
-
-    test_utils.create_vnffg_with_param_file(tacker_client, 'blue',
-                                            'blue_ssh',
-                                            default_param_file,
-                                            neutron_port)
+    test_utils.update_chain_classifier(
+            neutron_client,
+            chain_name='blue_ssh_works-port-chain',
+            classifier_list=clrs)
 
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=test_utils.wait_for_classification_rules,
@@ -307,6 +319,10 @@ def main():
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH works")
+
+    test_utils.clear_classifiers_from_chain(
+            neutron_client,
+            chain_name='blue_ssh_works-port-chain')
 
     return results.compile_summary()
 
