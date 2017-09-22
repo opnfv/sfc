@@ -43,7 +43,6 @@ topology_template:
       properties:
         management: true
         order: 0
-        anti_spoofing_protection: true
       requirements:
         - virtualLink:
             node: VL1

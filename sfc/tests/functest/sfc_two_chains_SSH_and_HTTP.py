@@ -172,10 +172,8 @@ def main():
         sys.exit(1)
 
     vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf1_id)
-    os_utils.add_secgroup_to_instance(nova_client, vnf1_instance_id, sg_id)
 
     vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf2_id)
-    os_utils.add_secgroup_to_instance(nova_client, vnf2_instance_id, sg_id)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnffgd_dir,
