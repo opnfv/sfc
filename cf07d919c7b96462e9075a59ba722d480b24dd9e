@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_e8c2d032",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-22T06:58:25Z",
+      "side": 1,
+      "message": "Yes you are right I will fix that.",
+      "parentUuid": "da33351e_d9da454b",
+      "revId": "cf07d919c7b96462e9075a59ba722d480b24dd9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_39dc1146",
         "filename": "sfc/lib/utils.py",
         "patchSetId": 4
@@ -47,6 +65,30 @@
       "writtenOn": "2017-09-21T15:50:01Z",
       "side": 1,
       "message": "why did you change file format?",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 58
+      },
+      "revId": "cf07d919c7b96462e9075a59ba722d480b24dd9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_88c9845b",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-22T06:58:25Z",
+      "side": 1,
+      "message": "Because the file that we are using is json:\n\nhttps://github.com/opnfv/sfc/blob/master/sfc/tests/functest/vnfd-templates/test-vnfd-default-params.json",
+      "parentUuid": "da33351e_19e14dfe",
       "range": {
         "startLine": 24,
         "startChar": 54,
