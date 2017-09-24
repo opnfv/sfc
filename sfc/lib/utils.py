@@ -360,10 +360,12 @@ def is_http_blocked(source_ip, destination_ip, source_port=None):
     return rc != 0
 
 
-def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
+def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error,
+                     ip_prefix):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
     ovs_logger.dump_ovs_logs(controller_clients,
                              compute_clients,
+                             host_prefix=ip_prefix,
                              related_error=error,
                              timestamp=timestamp)
 
@@ -391,7 +393,7 @@ def check_ssh(ips, retries=100):
     return False
 
 
-def actual_rsps_in_compute(ovs_logger, compute_ssh):
+def actual_rsps_in_compute(ovs_logger, compute_ssh, ip_prefix):
     '''
     Example flows that match the regex (line wrapped because of flake8)
     table=101, n_packets=7, n_bytes=595, priority=500,tcp,in_port=2,tp_dst=80
@@ -403,7 +405,8 @@ def actual_rsps_in_compute(ovs_logger, compute_ssh):
         r'.+tp_dst=([0-9]+).+load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\].+')
     # First line is OFPST_FLOW reply (OF1.3) (xid=0x2):
     # This is not a flow so ignore
-    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '101')
+    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '101',
+                                         host_prefix=ip_prefix)
              .strip().split('\n')[1:])
     matching_flows = [match_rsp.match(f) for f in flows]
     # group(1) = 22 (tp_dst value) | group(2) = 0xff (rsp value)
@@ -481,7 +484,7 @@ def promised_rsps_in_computes(odl_ip, odl_port):
 
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
-                                  timeout=200):
+                                  ip_prefix, timeout=200):
     '''
     Check if the classification rules configured in ODL are implemented in OVS.
     We know by experience that this process might take a while
@@ -515,7 +518,8 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
 
             # Fetch the rsps implemented in the compute
             compute_rsps = actual_rsps_in_compute(ovs_logger,
-                                                  compute.ssh_client)
+                                                  compute.ssh_client,
+                                                  ip_prefix)
 
             logger.info("RSPs in compute nodes:")
             logger.info("{0}".format(compute_rsps))
