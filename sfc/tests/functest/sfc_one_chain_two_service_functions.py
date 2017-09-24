@@ -249,7 +249,7 @@ def main():
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP blocked")
 
     logger.info("Changing the vxlan_tool to block HTTP traffic")
@@ -266,7 +266,7 @@ def main():
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP not blocked")
 
     # Make SF2 block http traffic
@@ -283,7 +283,7 @@ def main():
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP not blocked")
 
     return results.compile_summary()

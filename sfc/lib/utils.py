@@ -360,10 +360,9 @@ def is_http_blocked(source_ip, destination_ip, source_port=None):
     return rc != 0
 
 
-def capture_ovs_logs(ovs_logger, controller_clients, compute_clients, error):
+def capture_ovs_logs(ovs_logger, compute_clients, error):
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    ovs_logger.dump_ovs_logs(controller_clients,
-                             compute_clients,
+    ovs_logger.dump_ovs_logs(compute_clients,
                              related_error=error,
                              timestamp=timestamp)
 
