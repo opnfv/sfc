@@ -69,6 +69,8 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
+    ip_prefix = '.'.join(openstack_nodes[0].ip.split('.')[0:2])
+
     odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
@@ -121,7 +123,8 @@ def main():
 
     vnfs = ['testVNF1', 'testVNF2']
 
-    topo_seed = topo_shuffler.get_seed()
+    #topo_seed = topo_shuffler.get_seed()
+    topo_seed = 0
     testTopology = topo_shuffler.topology(vnfs, seed=topo_seed)
 
     logger.info('This test is run with the topology {0}'
@@ -290,5 +293,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
+    #logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
