@@ -69,6 +69,8 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
+    ip_prefix = '.'.join(openstack_nodes[0].ip.split('.')[0:3])
+
     odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
@@ -121,7 +123,8 @@ def main():
 
     vnfs = ['testVNF1', 'testVNF2']
 
-    topo_seed = topo_shuffler.get_seed()
+    #topo_seed = topo_shuffler.get_seed()
+    topo_seed = 0
     testTopology = topo_shuffler.topology(vnfs, seed=topo_seed)
 
     logger.info('This test is run with the topology {0}'
@@ -199,7 +202,8 @@ def main():
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,))
+                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,
+                                ip_prefix))
     try:
         t1.start()
     except Exception as e:
@@ -249,7 +253,8 @@ def main():
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, controller_clients, compute_clients, error,
+            ip_prefix)
         results.add_to_summary(2, "FAIL", "HTTP blocked")
 
     logger.info("Changing the vxlan_tool to block HTTP traffic")
@@ -266,7 +271,8 @@ def main():
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, controller_clients, compute_clients, error,
+            ip_prefix)
         results.add_to_summary(2, "FAIL", "HTTP not blocked")
 
     # Make SF2 block http traffic
@@ -283,12 +289,13 @@ def main():
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, controller_clients, compute_clients, error,
+            ip_prefix)
         results.add_to_summary(2, "FAIL", "HTTP not blocked")
 
     return results.compile_summary()
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
+    #logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()
