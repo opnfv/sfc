@@ -62,8 +62,6 @@ def main():
                        if cluster is not None
                        else deploymentHandler.get_nodes())
 
-    controller_nodes = [node for node in openstack_nodes
-                        if node.is_controller()]
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
@@ -93,7 +91,6 @@ def main():
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
 
-    controller_clients = test_utils.get_ssh_clients(controller_nodes)
     compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
     ovs_logger = ovs_log.OVSLogger(
@@ -245,7 +242,7 @@ def main():
         error = ('\033[91mTEST 1 [FAILED] ==> SSH NOT BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH Blocked")
 
     logger.info("Test HTTP")
@@ -255,7 +252,7 @@ def main():
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP works")
 
     logger.info("Changing the classification")
@@ -295,7 +292,7 @@ def main():
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
     logger.info("Test SSH")
@@ -305,7 +302,7 @@ def main():
         error = ('\033[91mTEST 4 [FAILED] ==> SSH BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
-            ovs_logger, controller_clients, compute_clients, error)
+            ovs_logger, compute_clients, error)
         results.add_to_summary(2, "FAIL", "SSH works")
 
     return results.compile_summary()
