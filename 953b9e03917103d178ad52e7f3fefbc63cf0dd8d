@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_0d50de09",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-09-25T16:24:04Z",
+      "side": 1,
+      "message": "This sleep is serving the output in the above line?\n\nAre we waiting until the output gets filled ?",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 304,
+        "endChar": 21
+      },
+      "revId": "953b9e03917103d178ad52e7f3fefbc63cf0dd8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
