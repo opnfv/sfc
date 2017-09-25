@@ -351,12 +351,50 @@ def is_ssh_blocked(source_ip, destination_ip, source_port=None):
     return rc != 0
 
 
+def is_ssh_blocked_loop(source_ip, destination_ip, source_port=None,
+                        retries=7):
+    """
+    When using conntrack in ODL Nitro, the conntrack flows delay packets and
+    that results in testing failures. When trying several times, it works
+    because the conntrack connection is established during the first tests
+    """
+    while retries > 0:
+        rc = netcat(
+            source_ip,
+            destination_ip,
+            destination_port="22",
+            source_port=source_port)
+        time.sleep(3)
+        retries -= 1
+        logger.debug("The result of the test is %s" % rc)
+    return rc != 0
+
+
 def is_http_blocked(source_ip, destination_ip, source_port=None):
     rc = netcat(
         source_ip,
         destination_ip,
         destination_port="80",
         source_port=source_port)
+    return rc != 0
+
+
+def is_http_blocked_loop(source_ip, destination_ip, source_port=None,
+                         retries=7):
+    """
+    When using conntrack in ODL Nitro, the conntrack flows delay packets and
+    that results in testing failures. When trying several times, it works
+    because the conntrack connection is established during the first tests
+    """
+    while retries > 0:
+        rc = netcat(
+            source_ip,
+            destination_ip,
+            destination_port="80",
+            source_port=source_port)
+        time.sleep(3)
+        retries -= 1
+        logger.debug("The result of the test is %s" % rc)
     return rc != 0
 
 
