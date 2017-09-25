@@ -243,7 +243,7 @@ def main():
     t1.join()
 
     logger.info("Test HTTP")
-    if not test_utils.is_http_blocked(client_floating_ip, server_ip):
+    if not test_utils.is_http_blocked_loop(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
@@ -260,7 +260,7 @@ def main():
     test_utils.start_vxlan_tool(sf1_floating_ip, block="80")
 
     logger.info("Test HTTP again blocking SF1")
-    if test_utils.is_http_blocked(client_floating_ip, server_ip):
+    if test_utils.is_http_blocked_loop(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
@@ -277,7 +277,7 @@ def main():
     test_utils.stop_vxlan_tool(sf1_floating_ip)
 
     logger.info("Test HTTP again blocking SF2")
-    if test_utils.is_http_blocked(client_floating_ip, server_ip):
+    if test_utils.is_http_blocked_loop(client_floating_ip, server_ip):
         results.add_to_summary(2, "PASS", "HTTP Blocked")
     else:
         error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
