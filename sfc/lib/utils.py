@@ -282,18 +282,34 @@ def assign_floating_ip(nova_client, neutron_client, instance_id):
     return floating_ip
 
 
-def start_http_server(ip):
-    """Start http server on a given machine, Can be VM"""
+def start_http_server(ip, iterations_check=5):
+    """
+    Start http server on a given machine. Wait until the process exists
+    and until the port is up
+    """
     cmd = "\'python -m SimpleHTTPServer 80"
     cmd = cmd + " > /dev/null 2>&1 &\'"
     run_cmd_remote(ip, cmd)
+
+    # Wait for the process to start before checking
+    time.sleep(3)
     _, output, _ = run_cmd_remote(ip, "ps aux | grep SimpleHTTPServer")
     if not output:
         logger.error("Failed to start http server")
         return False
-
     logger.info(output)
-    return True
+
+    while iterations_check > 0:
+        _, output, _ = run_cmd_remote(ip, "ss -na | grep *:80")
+        time.sleep(5)
+        if output:
+            return True
+        else:
+            logger.debug("Port 80 is not yet up")
+            iterations_check -= 1
+
+    logger.error("Failed to start http server")
+    return False
 
 
 def start_vxlan_tool(remote_ip, interface="eth0", block=None):
@@ -315,7 +331,16 @@ def start_vxlan_tool(remote_ip, interface="eth0", block=None):
         options=options,
         output_redirection=output_redirection)
 
-    return run_cmd_remote(remote_ip, full_command)
+    output_execution = run_cmd_remote(remote_ip, full_command)
+
+    # Wait for the process to start before checking
+    time.sleep(3)
+    _, output, _ = run_cmd_remote(remote_ip, "ps aux | grep vxlan_tool")
+    if not output:
+        logger.error("Failed to start the vxlan tool")
+        return False
+
+    return output_execution
 
 
 def stop_vxlan_tool(remote_ip):
