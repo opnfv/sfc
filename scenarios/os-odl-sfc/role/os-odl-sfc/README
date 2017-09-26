@@ -1,0 +1,61 @@
+This is the role which deploys the os-odl-sfc scenarios in xci.
+
+This role currently works with:
+
+- OpenStack stable/ocata
+- ODL Nitrogen RC1
+- OVS+NSH patch
+
+# SCENARIOS #
+
+## os-odl-sfc-noha ##
+
+To run os-odl-sfc-noha you should export the following variables before
+running xci-deploy.sh:
+
+export XCI_FLAVOR=noha
+export OPNFV_SCENARIO=os-odl-sfc
+export OPENSTACK_OSA_VERSION=stable/ocata
+export VM_MEMORY_SIZE=16384
+
+## os-odl-sfc-ha ##
+
+To run os-odl-sfc-noha you should export the following variables before
+running xci-deploy.sh:
+
+export XCI_FLAVOR=ha
+export OPNFV_SCENARIO=os-odl-sfc
+export OPENSTACK_OSA_VERSION=stable/ocata
+export VM_MEMORY_SIZE=16384
+
+
+# LIMITATIONS #
+
+1 - It is using a private branch for the os-neutron role. This is because
+there are several patches pending to be upstreamed. This is the branch we
+are using:
+
+https://github.com/mardim91/openstack-ansible-os_neutron/tree/ocata-backport-automated-twentyfourth-august
+
+We will stop doing this as soon as the patches are merged upstream. For example:
+
+https://review.openstack.org/#/c/496231/
+https://review.openstack.org/#/c/497458/
+
+2 -  Tacker is missing in this integration. Hopefully, it will be added in the
+following days
+
+
+# IN PROGRESS/FUTURE  #
+
+1 - Adding tacker to the scenarios
+
+https://gerrit.opnfv.org/gerrit/#/c/39511/
+
+2 - Supporting stable/Pike
+
+Waiting for the release to be ready
+
+3 - Supporting ODL Nitrogen SR1
+
+Waiting for the release to be ready (7th of September)

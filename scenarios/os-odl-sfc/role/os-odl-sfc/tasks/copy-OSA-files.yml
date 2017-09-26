@@ -1,0 +1,12 @@
+---
+#####
+
+- name: copy user_variables.yml
+  copy:
+    src: "{{XCI_FLAVOR}}/user_variables.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/user_variables.yml"
+
+- name: copy OPNFV role requirements
+  copy:
+    src: "ansible-role-requirements.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/ansible-role-requirements.yml"
