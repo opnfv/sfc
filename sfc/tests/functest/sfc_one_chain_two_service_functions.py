@@ -178,8 +178,11 @@ def main():
         sys.exit(1)
 
     vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf1_id)
-
+    neutron_port_SF1 = test_utils.get_vm_port_id(vnf1_instance_id)
+    test_utils.disable_sg_port(neutron_port_SF1)
     vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf2_id)
+    neutron_port_SF2 = test_utils.get_vm_port_id(vnf2_instance_id)
+    test_utils.disable_sg_port(neutron_port_SF2)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnffgd_dir,
@@ -189,11 +192,11 @@ def main():
                             tosca_file=tosca_file,
                             vnffgd_name='red')
 
-    neutron_port = test_utils.get_client_port_id(client_instance)
+    neutron_port_client = test_utils.get_vm_port_id(client_instance.id)
     test_utils.create_vnffg_with_param_file(tacker_client, 'red',
                                             'red_http',
                                             default_param_file,
-                                            neutron_port)
+                                            neutron_port_client)
 
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
