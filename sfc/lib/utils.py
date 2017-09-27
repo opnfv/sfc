@@ -705,11 +705,11 @@ def get_neutron_interfaces(vm):
     Get the interfaces of an instance
     '''
     nova_client = os_utils.get_nova_client()
-    interfaces = nova_client.servers.interface_list(vm.id)
+    interfaces = nova_client.servers.interface_list(vm)
     return interfaces
 
 
-def get_client_port_id(vm):
+def get_vm_port_id(vm):
     '''
     Get the neutron port id of the client
     '''
@@ -717,3 +717,24 @@ def get_client_port_id(vm):
     if len(interfaces) > 1:
         raise Exception("Client has more than one interface. Not expected!")
     return interfaces[0].id
+
+
+# The following method should be part of os_utils in functest but that lib is
+# being deprecated. I place it here until we know what to do for F release
+
+def disable_sg_port(neutron_port):
+    '''
+    Disable the security groups in the provided neutron port
+    '''
+
+    json_body = {'port': {
+             'security_groups': [],
+             'port_security_enabled': 'False',
+    }}
+    neutron_client = os_utils.get_neutron_client()
+    try:
+        port_result = neutron_client.update_port(neutron_port, body=json_body)
+    except Exception as e:
+        logger.debug("Error while disabling sg in port %s" % e)
+
+    return port_result
