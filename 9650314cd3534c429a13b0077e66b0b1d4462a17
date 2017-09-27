@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_1638e9ed",
+        "filename": "sfc/lib/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2017-09-27T18:53:18Z",
+      "side": 1,
+      "message": "shouldnt this be a boolean?",
+      "range": {
+        "startLine": 732,
+        "startChar": 38,
+        "endLine": 732,
+        "endChar": 45
+      },
+      "revId": "9650314cd3534c429a13b0077e66b0b1d4462a17",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
