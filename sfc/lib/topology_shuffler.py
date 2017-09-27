@@ -15,13 +15,6 @@ TOPOLOGIES = [
         '''
     },
     {
-        'id': 'CLIENT_SERVER_SAME_HOST_SPLIT_VNF',
-        'description': '''
-        Client and server are on the same host.
-        The VNFs are split between hosts Round Robin.
-        '''
-    },
-    {
         'id': 'CLIENT_VNF_SAME_HOST',
         'description': '''
         Client instance and vnfs are on the same
@@ -36,17 +29,24 @@ TOPOLOGIES = [
         '''
     },
     {
-        'id': 'CLIENT_SERVER_SAME_HOST',
-        'description': '''
-        Client instance and server instance are on the same
-        compute host. All VNFs are on a different host.
-        '''
-    },
-    {
         'id': 'SERVER_VNF_SAME_HOST',
         'description': '''
         Server instance and vnfs are on the same
         compute host. Client instance is on a different host
+        '''
+    },
+    {
+        'id': 'CLIENT_SERVER_SAME_HOST_SPLIT_VNF',
+        'description': '''
+        Client and server are on the same host.
+        The VNFs are split between hosts Round Robin.
+        '''
+    },
+    {
+        'id': 'CLIENT_SERVER_SAME_HOST',
+        'description': '''
+        Client instance and server instance are on the same
+        compute host. All VNFs are on a different host.
         '''
     }
 ]
@@ -59,9 +59,9 @@ DEFAULT_TOPO = {
 }
 
 WORKING_TOPOLOGIES = ['CLIENT_SERVER_VNF_SAME_HOST',
-                      'CLIENT_SERVER_SAME_HOST_SPLIT_VNF',
                       'CLIENT_VNF_SAME_HOST',
-                      'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF']
+                      'CLIENT_SERVER_DIFFERENT_HOST_SPLIT_VNF',
+                      'SERVER_VNF_SAME_HOST']
 
 
 def get_seed():
