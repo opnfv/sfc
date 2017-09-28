@@ -4,7 +4,6 @@ description: firewall2-example
 metadata:
   template_name: test-vnfd2
 
-
 topology_template:
   inputs:
     zone:
