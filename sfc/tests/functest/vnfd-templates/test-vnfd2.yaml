@@ -4,7 +4,6 @@ description: firewall2-example
 metadata:
   template_name: test-vnfd2
 
-
 topology_template:
   inputs:
     zone:
@@ -23,8 +22,8 @@ topology_template:
         availability_zone: {get_input: zone}
         mgmt_driver: noop
         config: |
-          param0: key0
-          param1: key1
+          param0: key1
+          param1: key2
         service_type: firewall
         monitoring_policy:
           name: ping
