@@ -84,15 +84,6 @@ def delete_floating_ips():
         os_utils.delete_floating_ip(n, fip.id)
 
 
-def delete_stacks():
-    logger.info("Removing stack: sfc")
-    utils.run_cmd('openstack stack delete sfc --y')
-    logger.info("Removing stack: sfc_test1")
-    utils.run_cmd('openstack stack delete sfc_test1 --y')
-    logger.info("Removing stack: sfc_test2")
-    utils.run_cmd('openstack stack delete sfc_test2 --y')
-
-
 def delete_instances():
     n = os_utils.get_nova_client()
     instances = os_utils.get_instances(n)
@@ -118,7 +109,6 @@ def cleanup(odl_ip=None, odl_port=None):
     time.sleep(20)
     delete_vnfds()
     delete_vims()
-    delete_stacks()
     delete_floating_ips()
     delete_instances()
     if odl_ip is not None and odl_port is not None:
