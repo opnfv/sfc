@@ -24,21 +24,6 @@ defaults:
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
 testcases:
-  sfc_two_chains_SSH_and_HTTP:
-    enabled: true
-    order: 1
-    description: "ODL-SFC tests"
-    net_name: example-net
-    subnet_name: example-subnet
-    router_name: example-router
-    subnet_cidr: "11.0.0.0/24"
-    secgroup_name: "example-sg"
-    secgroup_descr: "Example Security group"
-    test_vnfd_red: "test-vnfd1.yaml"
-    test_vnfd_blue: "test-vnfd2.yaml"
-    test_vnffgd_red: "test2-vnffgd1.yaml"
-    test_vnffgd_blue: "test2-vnffgd2.yaml"
-
   sfc_one_chain_two_service_functions:
     enabled: true
     order: 0
@@ -49,9 +34,24 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    test_vnfd_red: "test-vnfd1.yaml"
+    test_vnfd_blue: "test-vnfd2.yaml"
+    test_vnffgd_red: "test-vnffgd.yaml"
+
+  sfc_two_chains_SSH_and_HTTP:
+    enabled: true
+    order: 1
+    description: "ODL-SFC tests with two chains and one SF per chain"
+    net_name: example-net
+    subnet_name: example-subnet
+    router_name: example-router
+    subnet_cidr: "11.0.0.0/24"
+    secgroup_name: "example-sg"
+    secgroup_descr: "Example Security group"
     test_vnfd_red: "test2-vnfd1.yaml"
     test_vnfd_blue: "test2-vnfd2.yaml"
-    test_vnffgd_red: "test-vnffgd.yaml"
+    test_vnffgd_red: "test2-vnffgd1.yaml"
+    test_vnffgd_blue: "test2-vnffgd2.yaml"
 
   sfc_symmetric_chain:
     enabled: false
