@@ -28,7 +28,7 @@ topology_template:
         monitoring_policy:
           name: ping
           parameters:
-            monitorying_delay: 10
+            monitoring_delay: 10
             count: 3
             interval: 2
             timeout: 2
@@ -45,9 +45,9 @@ topology_template:
         anti_spoofing_protection: false
       requirements:
         - virtualLink:
-          node: VL1
+            node: VL1
         - virtualBinding:
-          node: VDU1
+            node: VDU1
 
     VL1:
       type: tosca.nodes.nfv.VL
