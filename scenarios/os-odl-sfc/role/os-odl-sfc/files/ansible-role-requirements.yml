@@ -102,7 +102,7 @@
 - name: os_neutron
   scm: git
   src: https://github.com/mardim91/openstack-ansible-os_neutron
-  version: ocata-backport-automated-twentyfourth-august
+  version: ocata-backport-automated-twentyninth-september
 - name: os_nova
   scm: git
   src: https://git.openstack.org/openstack/openstack-ansible-os_nova
@@ -190,4 +190,8 @@
 - name: opendaylight
   scm: git
   src: https://git.opendaylight.org/gerrit/p/integration/packaging/ansible-opendaylight.git
-  version: bdda0786326a2b2598210e930d2b686eb14696bc
+  version: cf095a4f71ff054f305f14ffdef7cdd7233e3d71
+- name: os_tacker
+  scm: git
+  src: https://github.com/manuelbuil/tacker
+  version: ocata-insecured-bug-fixed
