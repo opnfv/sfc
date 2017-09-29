@@ -20,13 +20,13 @@ export VM_MEMORY_SIZE=16384
 
 ## os-odl-sfc-ha ##
 
-To run os-odl-sfc-noha you should export the following variables before
+To run os-odl-sfc-ha you should export the following variables before
 running xci-deploy.sh:
 
 export XCI_FLAVOR=ha
 export OPNFV_SCENARIO=os-odl-sfc
 export OPENSTACK_OSA_VERSION=stable/ocata
-export VM_MEMORY_SIZE=16384
+export VM_MEMORY_SIZE=20480
 
 
 # LIMITATIONS #
