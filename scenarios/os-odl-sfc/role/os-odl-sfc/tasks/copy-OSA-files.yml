@@ -10,3 +10,48 @@
   copy:
     src: "ansible-role-requirements.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/ansible-role-requirements.yml"
+
+- name: copy openstack_user_config.yml
+  copy:
+    src: "tacker_files/{{XCI_FLAVOR}}/openstack_user_config.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/openstack_user_config.yml"
+
+- name: copy tacker inventory file
+  copy:
+    src: "tacker_files/tacker.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/env.d/tacker.yml"
+
+- name: copy user_secrets.yml for tacker
+  copy:
+    src: "tacker_files/user_secrets.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/user_secrets.yml"
+
+- name: copy haproxy_config.yml for tacker
+  copy:
+    src: "tacker_files/haproxy_config.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/vars/configs/haproxy_config.yml"
+
+- name: copy openstack_services.yml with tacker
+  copy:
+    src: "tacker_files/openstack_services.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/openstack_services.yml"
+
+- name: copy all.yml with tacker stuff
+  copy:
+    src: "tacker_files/all.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/inventory/group_vars/all.yml"
+
+- name: copy tacker_all.yml
+  copy:
+    src: "tacker_files/tacker_all.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/inventory/group_vars/tacker_all.yml"
+
+- name: copy setup-openstack.yml
+  copy:
+    src: "tacker_files/setup-openstack.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/setup-openstack.yml"
+
+- name: copy os-tacker-install.yml
+  copy:
+    src: "tacker_files/os-tacker-install.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/os-tacker-install.yml"
