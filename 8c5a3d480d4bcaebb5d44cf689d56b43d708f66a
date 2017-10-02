@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_ca0a4578",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5761
+      },
+      "writtenOn": "2017-10-02T08:04:31Z",
+      "side": 1,
+      "message": "Should this not be `Apex` ?",
+      "range": {
+        "startLine": 21,
+        "startChar": 55,
+        "endLine": 21,
+        "endChar": 59
+      },
+      "revId": "8c5a3d480d4bcaebb5d44cf689d56b43d708f66a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
