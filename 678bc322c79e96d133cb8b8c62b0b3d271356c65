@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_305084d3",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2017-10-02T14:28:40Z",
+      "side": 1,
+      "message": "We cant add extra functionality in OPNFV sub releases, so this should be changed to just \"releases\".",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "678bc322c79e96d133cb8b8c62b0b3d271356c65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_505388e1",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2017-10-02T14:28:40Z",
+      "side": 1,
+      "message": "There are no OpenDaylight SR0 releases. There is the main Nitrogen release, then SR1, SR2, etc. So, can you change this to \"OpenDaylight Nitrogen release\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 15,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "678bc322c79e96d133cb8b8c62b0b3d271356c65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
