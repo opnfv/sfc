@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_9597c2eb",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-10-02T12:20:39Z",
+      "side": 1,
+      "message": "ok, thanks :)",
+      "parentUuid": "da33351e_55d9ba20",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_35d6b6f1",
         "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
         "patchSetId": 8
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_759cbe0f",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-10-02T12:20:39Z",
+      "side": 1,
+      "message": "As far as I understood, this is not needed when we have:\n\novs_nsh_support: true\n\nbut let me send an email to Dimitris with you in CC to confirm this",
+      "parentUuid": "da33351e_35d6b6f1",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_9506a284",
         "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
         "patchSetId": 8
@@ -81,6 +117,24 @@
       "writtenOn": "2017-10-02T10:46:28Z",
       "side": 1,
       "message": "can you change it to url: \"http://{{ internal_lb_vip_address }}:8080/controller/nb/v2/neutron\" ?",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_5591baef",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-10-02T12:20:39Z",
+      "side": 1,
+      "message": "done, thanks! Do you think I should do the same for other flavors?",
+      "parentUuid": "da33351e_9506a284",
       "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
