@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_15d3b204",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6895
+      },
+      "writtenOn": "2017-10-02T10:46:28Z",
+      "side": 1,
+      "message": "change it to os-odl-sfc-ha",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f5cf2e54",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6895
+      },
+      "writtenOn": "2017-10-02T10:46:28Z",
+      "side": 1,
+      "message": "in ha scenario, the vm memory 16384 was not even sufficient when ODL is in longevity. I have noticed it in one of my test. Please recommend 20480.",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_55d9ba20",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6895
+      },
+      "writtenOn": "2017-10-02T10:46:28Z",
+      "side": 1,
+      "message": "add cluster: true to make ODL to be running in cluster.",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_35d6b6f1",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6895
+      },
+      "writtenOn": "2017-10-02T10:46:28Z",
+      "side": 1,
+      "message": "why is this being commented ?",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9506a284",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_variables.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6895
+      },
+      "writtenOn": "2017-10-02T10:46:28Z",
+      "side": 1,
+      "message": "can you change it to url: \"http://{{ internal_lb_vip_address }}:8080/controller/nb/v2/neutron\" ?",
+      "revId": "d30165d8461cc7f15e2ddccf1db68bcde28d5719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
