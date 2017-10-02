@@ -9,7 +9,7 @@ Introduction
 The os-odl-sfc-noha is intended to be used to install the OPNFV SFC project in a standard
 OPNFV Non-High Availability mode. The OPNFV SFC project integrates the OpenDaylight SFC
 project into the OPNFV environment. The OPNFV SFC Euphrates release uses the OpenDaylight
-Nitrogen SR1 release.
+Nitrogen SR0 release.
 
 Scenario components and composition
 ===================================
