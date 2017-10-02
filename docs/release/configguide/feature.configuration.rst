@@ -5,16 +5,16 @@
 Abstract
 ========
 This document provides information on how to install the OpenDaylight SFC
-features in OPNFV with the use of os_odl-l2_sfc-(no)ha scenario.
+features in OPNFV with the use of os_odl-sfc-(no)ha scenario.
 
 SFC feature desciription
 ========================
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
 
-- http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/scenarios/os-odl_l2-sfc-ha/index.html
+- http://docs.opnfv.org/en/stable-euphrates/submodules/sfc/docs/release/scenarios/os-odl-sfc-ha/index.html
 
-- http://docs.opnfv.org/en/stable-danube/submodules/sfc/docs/release/scenarios/os-odl_l2-sfc-noha/index.html
+- http://docs.opnfv.org/en/stable-euphrates/submodules/sfc/docs/release/scenarios/os-odl-sfc-noha/index.html
 
 
 The SFC feature enables creation of Service Fuction Chains - an ordered list
@@ -44,22 +44,11 @@ http://artifacts.opnfv.org/pharos/docs/pharos-spec.html
 
 Virtual deployment
 ------------------
-To perform a virtual deployment of an OPNFV SFC scenario on a single host,
-that host has to meet the following hardware requirements:
+SFC scenarios can be deployed using APEX installer and xci utility. Check the
+requirements from those in order to be able to deploy the OPNFV-SFC:
 
-- SandyBridge compatible CPU with virtualization support
-
-- capable to host 5 virtual cores (5 physical ones at least)
-
-- 8-12 GBytes RAM for virtual hosts (controller, compute), 48GByte at least
-
-- 128 GiBiBytes room on disk for each virtual host (controller, compute) +
-  64GiBiBytes for fuel master, 576 GiBiBytes at least
-
-- Ubuntu Trusty Tahr - 14.04(.5) server operating system with at least ssh
-  service selected at installation.
-
-- Internet Connection (preferably http proxyless)
+Apex: https://wiki.opnfv.org/display/apex/Apex
+XCI: https://wiki.opnfv.org/display/INF/XCI+Developer+Sandbox
 
 
 Pre-configuration activites - Preparing the host to install Fuel by script
