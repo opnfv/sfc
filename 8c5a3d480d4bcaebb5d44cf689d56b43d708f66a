@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "da33351e_ea5c694d",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-10-02T08:43:23Z",
+      "side": 1,
+      "message": "Should you change this or ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 5,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "8c5a3d480d4bcaebb5d44cf689d56b43d708f66a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4a9115f0",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-10-02T08:43:23Z",
+      "side": 1,
+      "message": "Are we gonna include this ?\n\nBecause we didn\u0027t have any succesfull runs on the Apex",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 5
+      },
+      "revId": "8c5a3d480d4bcaebb5d44cf689d56b43d708f66a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da33351e_ca0a4578",
         "filename": "docs/release/release-notes/releasenotes.rst",
         "patchSetId": 1
