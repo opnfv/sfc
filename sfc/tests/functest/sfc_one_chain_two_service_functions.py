@@ -43,7 +43,7 @@ def main():
 
     installer_type = os.environ.get("INSTALLER_TYPE")
 
-    supported_installers = ['fuel', 'apex', 'OSA']
+    supported_installers = ['fuel', 'apex', 'osa']
 
     if installer_type not in supported_installers:
         logger.error(

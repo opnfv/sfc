@@ -15,7 +15,7 @@ defaults:
     apex:
       user: stack
       pkey_file: "/root/.ssh/id_rsa"
-    OSA:
+    osa:
       user: root
       pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
