@@ -53,7 +53,7 @@
 - name: openstack_openrc
   scm: git
   src: https://git.openstack.org/openstack/openstack-ansible-openstack_openrc
-  version: dfdf65b3db7c6240fa173a3a62af4e5028023626
+  version: 2e4a1d87b75d816b95cdc6a4b94a36f66657d76c # 2017 5th August to get tacker
 - name: os_aodh
   scm: git
   src: https://git.openstack.org/openstack/openstack-ansible-os_aodh
