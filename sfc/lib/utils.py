@@ -282,7 +282,7 @@ def assign_floating_ip(nova_client, neutron_client, instance_id):
     return floating_ip
 
 
-def start_http_server(ip, iterations_check=5):
+def start_http_server(ip, iterations_check=10):
     """
     Start http server on a given machine. Wait until the process exists
     and until the port is up
