@@ -5,8 +5,8 @@ defaults:
   ram_size_in_mb: 1500
   disk_size_in_gb: 10
   vcpu_count: 1
-  image_name: sfc_nsh_danube
-  image_file_name: sfc_nsh_danube.qcow2
+  image_name: sfc_nsh_euphrates
+  image_file_name: sfc_nsh_euphrates.qcow2
   installer:
     fuel:
       user: root
