@@ -33,8 +33,8 @@ SFC capabilities and usage
 .. Describe the specific capabilities and usage for <XYZ> feature.
 .. Provide enough information that a user will be able to operate the feature on a deployed scenario.
 
-The OPNFV SFC feature can be deployed with either the "os-odl_l2-sfc-ha" or the
-"os-odl_l2-sfc-noha" scenario. SFC usage for both of these scenarios is the same.
+The OPNFV SFC feature can be deployed with either the "os-odl-sfc-ha" or the
+"os-odl-sfc-noha" scenario. SFC usage for both of these scenarios is the same.
 
 As previously mentioned, Tacker is used as a VNF Manager and SFC Orchestrator. All
 the configuration necessary to create working service chains and classifiers can
