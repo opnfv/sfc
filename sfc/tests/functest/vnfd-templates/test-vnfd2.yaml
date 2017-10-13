@@ -18,7 +18,7 @@ topology_template:
             mem_size: 2 GB
             disk_size: 10 GB
       properties:
-        image: sfc_nsh_danube
+        image: sfc_nsh_euphrates
         availability_zone: {get_input: zone}
         mgmt_driver: noop
         config: |
