@@ -531,6 +531,8 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
             timeout2 -= 1
             if timeout2 == 0:
+                os_tacker.get_tacker_items()
+                get_odl_items(odl_ip, odl_port)
                 raise Exception("RSPs not configured in ODL")
             time.sleep(3)
 
@@ -652,6 +654,33 @@ def format_odl_acl_list_url(odl_ip, odl_port,
                     .format(usr=odl_user, pwd=odl_pwd,
                             ip=odl_ip, port=odl_port))
     return acl_list_url
+
+
+def improve_json_layout(json_response):
+    return json.dumps(json_response, indent=4, separators=(',', ': '))
+
+
+def get_odl_items(odl_ip, odl_port):
+    acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
+    sf_list_url = format_odl_resource_list_url(odl_ip, odl_port,
+                                               "service-function")
+    sff_list_url = format_odl_resource_list_url(odl_ip, odl_port,
+                                                "service-function-forwarder")
+    sfc_list_url = format_odl_resource_list_url(odl_ip, odl_port,
+                                                "service-function-chain")
+    rsp_list_url = format_odl_resource_list_url(odl_ip, odl_port,
+                                                "rendered-service-path",
+                                                datastore="operational")
+    r_acl = requests.get(acl_list_url).json()
+    r_sf = requests.get(sf_list_url).json()
+    r_sff = requests.get(sff_list_url).json()
+    r_sfc = requests.get(sfc_list_url).json()
+    r_rsp = requests.get(rsp_list_url).json()
+    logger.debug("Configured ACLs in ODL: %s" % improve_json_layout(r_acl))
+    logger.debug("Configured SFs in ODL: %s" % improve_json_layout(r_sf))
+    logger.debug("Configured SFFs in ODL: %s" % improve_json_layout(r_sff))
+    logger.debug("Configured SFCs in ODL: %s" % improve_json_layout(r_sfc))
+    logger.debug("Configured RSPs in ODL: %s" % improve_json_layout(r_rsp))
 
 
 def get_odl_acl_list(odl_ip, odl_port):
