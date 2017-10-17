@@ -531,6 +531,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
             timeout2 -= 1
             if timeout2 == 0:
+                get_odl_logs(odl_ip, odl_port)
                 raise Exception("RSPs not configured in ODL")
             time.sleep(3)
 
@@ -653,6 +654,55 @@ def format_odl_acl_list_url(odl_ip, odl_port,
                             ip=odl_ip, port=odl_port))
     return acl_list_url
 
+def format_odl_sf_list_url(odl_ip, odl_port,
+                            odl_user='admin', odl_pwd='admin'):
+    sf_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/'
+                   'service-function:service-functions'
+                   .format(usr=odl_user, pwd=odl_pwd,
+                           ip=odl_ip, port=odl_port))
+    return sf_list_url
+
+
+def format_odl_sff_list_url(odl_ip, odl_port,
+                            odl_user='admin', odl_pwd='admin'):
+    sff_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/'
+                    'service-function-forwarder:service-function-forwarders'
+                    .format(usr=odl_user, pwd=odl_pwd,
+                            ip=odl_ip, port=odl_port))
+    return sff_list_url
+
+def format_odl_sfc_list_url(odl_ip, odl_port,
+                            odl_user='admin', odl_pwd='admin'):
+    sfc_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/'
+                    'service-function-chain:service-function-chains'
+                    .format(usr=odl_user, pwd=odl_pwd,
+                            ip=odl_ip, port=odl_port))
+    return sfc_list_url
+
+def format_odl_rsp_list_url(odl_ip, odl_port,
+                            odl_user='admin', odl_pwd='admin'):
+    rsp_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/operational/'
+                    'rendered-service-path:rendered-service-paths'
+                    .format(usr=odl_user, pwd=odl_pwd,
+                            ip=odl_ip, port=odl_port))
+    return rsp_list_url
+
+def get_odl_logs(odl_ip, odl_port):
+    acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
+    sf_list_url = format_odl_sf_list_url(odl_ip, odl_port)
+    sff_list_url = format_odl_sff_list_url(odl_ip, odl_port)
+    sfc_list_url = format_odl_sfc_list_url(odl_ip, odl_port)
+    rsp_list_url = format_odl_rsp_list_url(odl_ip, odl_port)
+    r_acl = requests.get(acl_list_url).json()
+    r_sf = requests.get(sf_list_url).json()
+    r_sff = requests.get(sff_list_url).json()
+    r_sfc = requests.get(sfc_list_url).json()
+    r_rsp = requests.get(rsp_list_url).json()
+    logger.debug("Configured ACLs in ODL: %s" %r_acl)
+    logger.debug("Configured SFs in ODL: %s" %r_sf)
+    logger.debug("Configured SFFs in ODL: %s" %r_sff)
+    logger.debug("Configured SFCs in ODL: %s" %r_sfc)
+    logger.debug("Configured RSPs in ODL: %s" %r_rsp)
 
 def get_odl_acl_list(odl_ip, odl_port):
     acl_list_url = format_odl_acl_list_url(odl_ip, odl_port)
