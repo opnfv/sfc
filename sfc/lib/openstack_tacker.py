@@ -358,3 +358,10 @@ def delete_vim(tacker_client, vim_id=None, vim_name=None):
         logger.error("Error [delete_vim(tacker_client, '%s', '%s')]: %s"
                      % (vim_id, vim_name, e))
         return None
+
+def get_tacker_items():
+    logger.debug("VIMs: %s" % list_vims(tacker_client))
+    logger.debug("VNFDs: %s" % list_vnfds(tacker_client))
+    logger.debug("VNFs: %s" % list_vnfs(tacker_client))
+    logger.debug("VNFFGDs: %s" % list_vnffgds(tacker_client))
+    logger.debug("VNFFGs: %s" % list_vnffgs(tacker_client))

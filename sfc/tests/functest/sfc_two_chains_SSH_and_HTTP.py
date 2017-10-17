@@ -215,6 +215,8 @@ def main():
         logger.info("Checking connectivity towards floating IP [%s]" % ip)
         if not test_utils.ping(ip, retries=50, retry_timeout=3):
             logger.error("Cannot ping floating IP [%s]" % ip)
+            os_tacker.get_tacker_items()
+            test_utils.get_odl_items(odl_ip, odl_port)
             sys.exit(1)
         logger.info("Successful ping to floating IP [%s]" % ip)
 
