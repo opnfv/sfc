@@ -11,12 +11,15 @@ This role currently works with:
 ## os-odl-sfc-noha ##
 
 To run os-odl-sfc-noha you should export the following variables before
-running xci-deploy.sh:
+running xci-deploy.sh. Note that you should change xxxx by the path where
+your releng-xci code is:
 
 export XCI_FLAVOR=noha
 export OPNFV_SCENARIO=os-odl-sfc
 export OPENSTACK_OSA_VERSION=stable/ocata
 export VM_MEMORY_SIZE=16384
+export OPNFV_RELENG_DEV_PATH=/xxxxx/releng-xci
+
 
 ## os-odl-sfc-ha ##
 
@@ -27,6 +30,8 @@ export XCI_FLAVOR=ha
 export OPNFV_SCENARIO=os-odl-sfc
 export OPENSTACK_OSA_VERSION=stable/ocata
 export VM_MEMORY_SIZE=20480
+export OPNFV_RELENG_DEV_PATH=/xxxxx/releng-xci
+
 
 
 # LIMITATIONS #
@@ -37,25 +42,14 @@ are using:
 
 https://github.com/mardim91/openstack-ansible-os_neutron/tree/ocata-backport-automated-twentyfourth-august
 
-We will stop doing this as soon as the patches are merged upstream. For example:
+We will stop doing this as soon as the patches are merged upstream
 
-https://review.openstack.org/#/c/496231/
-https://review.openstack.org/#/c/497458/
-
-2 -  Tacker is missing in this integration. Hopefully, it will be added in the
-following days
+2 -  It is using a private branch for tacker code because a bug does not
+allow SSL. We will stop doing this as soon as the bug is fixed
 
 
 # IN PROGRESS/FUTURE  #
 
-1 - Adding tacker to the scenarios
+1 - Supporting stable/Pike
 
-https://gerrit.opnfv.org/gerrit/#/c/39511/
-
-2 - Supporting stable/Pike
-
-Waiting for the release to be ready
-
-3 - Supporting ODL Nitrogen SR1
-
-Waiting for the release to be ready (7th of September)
+2 - Support openSUSE
