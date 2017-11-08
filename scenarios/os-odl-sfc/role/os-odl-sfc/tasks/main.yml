@@ -8,8 +8,18 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-- name: Add SFC repos and inventory
-  include: add-sfc-repos-and-inventory.yml
+- name: Add SFC repos and inventory for Pike
+  include: add-sfc-repos-and-inventory-pike.yml
+  when: OPENSTACK_OSA_VERSION == "stable/pike"
 
-- name: Copy the OSA not-yet-upstreamed files
-  include: copy-OSA-files.yml
+- name: Add SFC repos and inventory for master
+  include: add-sfc-repos-and-inventory-master.yml
+  when: OPENSTACK_OSA_VERSION != "stable/pike"
+
+- name: Copy the OSA not-yet-upstreamed files for Pike
+  include: copy-OSA-files-pike.yml
+  when: OPENSTACK_OSA_VERSION == "stable/pike"
+
+- name: Copy the OSA not-yet-upstreamed files for master
+  include: copy-OSA-files-master.yml
+  when: OPENSTACK_OSA_VERSION != "stable/pike"
