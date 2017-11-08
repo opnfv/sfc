@@ -14,9 +14,9 @@
 # limitations under the License.
 
 networking_odl_git_repo: https://git.openstack.org/openstack/networking-odl
-networking_odl_git_install_branch: stable/ocata
+networking_odl_git_install_branch: stable/pike
 networking_odl_project_group: neutron_all
 
 networking_sfc_git_repo: https://git.openstack.org/openstack/networking-sfc
-networking_sfc_git_install_branch: stable/ocata
+networking_sfc_git_install_branch: stable/pike
 networking_sfc_project_group: neutron_all
