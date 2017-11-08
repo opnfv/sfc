@@ -2,7 +2,7 @@
 
 - name: Add networking-odl and networking-sfc repos
   copy:
-    src: openstack-ansible/playbooks/defaults/repo_packages/opendaylight.yml
+    src: openstack-ansible/playbooks/defaults/repo_packages/opendaylight-pike.yml
     dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/opendaylight.yml"
 
 - name: Provide nova inventory which adds OVS-NSH hosts
