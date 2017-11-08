@@ -8,7 +8,7 @@
 
 - name: copy OPNFV role requirements
   copy:
-    src: "ansible-role-requirements.yml"
+    src: "ansible-role-requirements-pike.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/ansible-role-requirements.yml"
 
 - name: copy openstack_user_config.yml
@@ -33,7 +33,7 @@
 
 - name: copy openstack_services.yml with tacker
   copy:
-    src: "tacker_files/openstack_services.yml"
+    src: "tacker_files/openstack_services-pike.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/openstack_services.yml"
 
 - name: copy all.yml with tacker stuff
