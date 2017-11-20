@@ -16,6 +16,24 @@
       "revId": "ae7da9629fe03a0f7b0e4ed3c99d5b631ca4eae9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b242370e",
+        "filename": "sfc/tests/functest/docker/Dockerfile",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-11-20T14:05:18Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9a3d3df0_f2c4bf93",
+      "revId": "ae7da9629fe03a0f7b0e4ed3c99d5b631ca4eae9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
