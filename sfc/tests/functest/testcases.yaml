@@ -1,0 +1,24 @@
+tiers:
+    -
+        name: features
+        order: 2
+        ci_loop: '(daily)|(weekly)'
+        description : >-
+            Test suites from feature projects
+            integrated in functest
+        testcases:
+            -
+                case_name: functest-odl-sfc
+                project_name: sfc
+                criteria: 100
+                blocking: false
+                description: >-
+                    Test suite for odl-sfc to test two chains with one SF and one chain with two SFs
+                dependencies:
+                    installer: ''
+                    scenario: 'odl.*sfc'
+                run:
+                    module: 'functest.core.feature'
+                    class: 'BashFeature'
+                    args:
+                        cmd: 'run_sfc_tests.py'
