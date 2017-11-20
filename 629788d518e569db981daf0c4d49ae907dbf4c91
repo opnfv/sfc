@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_d291bb9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-11-20T13:52:39Z",
+      "side": 1,
+      "message": "There is one typo: testcases.yaml\nYou could also wrap after 70 chars.",
+      "revId": "629788d518e569db981daf0c4d49ae907dbf4c91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1e1ccf76",
         "filename": "sfc/tests/functest/docker/Dockerfile",
         "patchSetId": 3
@@ -25,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9280d347",
+        "filename": "sfc/tests/functest/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-11-20T13:52:39Z",
+      "side": 1,
+      "message": "They must be in the same working dir (Docker forbids to change to an upper dir).\nThen you must move testcases.yaml (Dockerfile is right).",
+      "parentUuid": "9a3d3df0_1e1ccf76",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "629788d518e569db981daf0c4d49ae907dbf4c91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d20edb31",
         "filename": "sfc/tests/functest/testcases.yaml",
         "patchSetId": 3
@@ -36,6 +77,30 @@
       "writtenOn": "2017-11-20T12:40:15Z",
       "side": 1,
       "message": "Is this related tp the name of the docker container or ?\n\nI am asking you because the previous container had the name feature and was inheriting from functest-core container.",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 50
+      },
+      "revId": "629788d518e569db981daf0c4d49ae907dbf4c91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f2967f93",
+        "filename": "sfc/tests/functest/testcases.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2017-11-20T13:52:39Z",
+      "side": 1,
+      "message": "That\u0027s the python modules located in functest-core.\nIt\u0027s not linked to functest-features which includes all OPNFV features.\n\nThen the file is correct.",
+      "parentUuid": "9a3d3df0_d20edb31",
       "range": {
         "startLine": 23,
         "startChar": 20,
