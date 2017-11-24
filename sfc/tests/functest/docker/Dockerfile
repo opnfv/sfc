@@ -15,4 +15,4 @@ RUN apk --no-cache add --update sshpass && \
         /src/sfc && \
     rm -r upper-constraints.txt /src/sfc
 COPY testcases.yaml /usr/lib/python2.7/site-packages/functest/ci/testcases.yaml
-CMD ["bash","-c","prepare_env start && run_tests -t all"]
+CMD ["run_tests", "-t", "all"]
