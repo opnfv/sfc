@@ -29,7 +29,7 @@
 - name: copy haproxy_config.yml for tacker
   copy:
     src: "tacker_files/haproxy_config.yml"
-    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/vars/configs/haproxy_config.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/group_vars/all/haproxy_config.yml"
 
 - name: copy openstack_services.yml with tacker
   copy:
@@ -38,13 +38,13 @@
 
 - name: copy all.yml with tacker stuff
   copy:
-    src: "tacker_files/all.yml"
-    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/inventory/group_vars/all.yml"
+    src: "tacker_files/all_tacker.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/group_vars/all/tacker.yml"
 
 - name: copy tacker_all.yml
   copy:
     src: "tacker_files/tacker_all.yml"
-    dest: "{{OPENSTACK_OSA_PATH}}/playbooks/inventory/group_vars/tacker_all.yml"
+    dest: "{{OPENSTACK_OSA_PATH}}/group_vars/tacker_all.yml"
 
 - name: copy setup-openstack.yml
   copy:
