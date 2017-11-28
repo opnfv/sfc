@@ -22,6 +22,18 @@ from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
 
+from snaps.openstack.create_image import OpenStackImage
+from snaps.config.image import ImageConfig
+
+from snaps.config.network import NetworkConfig, SubnetConfig
+from snaps.openstack.create_network import OpenStackNetwork
+
+from snaps.config.flavor import FlavorConfig
+from snaps.openstack.create_flavor import OpenStackFlavor
+
+from snaps.config.router import RouterConfig
+from snaps.openstack.create_router import OpenStackRouter
+
 """ logging configuration """
 logger = logging.getLogger(__name__)
 
@@ -81,17 +93,18 @@ def main():
 
     test_utils.download_image(COMMON_CONFIG.url,
                               COMMON_CONFIG.image_path)
-    _, custom_flv_id = os_utils.get_or_create_flavor(
-        COMMON_CONFIG.flavor,
-        COMMON_CONFIG.ram_size_in_mb,
-        COMMON_CONFIG.disk_size_in_gb,
-        COMMON_CONFIG.vcpu_count,
-        public=True)
-    if not custom_flv_id:
+
+    flavor_settings = FlavorConfig(
+        name=COMMON_CONFIG.flavor,
+        ram=COMMON_CONFIG.ram_size_in_mb,
+        disk=COMMON_CONFIG.disk_size_in_gb,
+        vcpus=COMMON_CONFIG.vcpu_count)
+    flavor = OpenStackFlavor(os_creds, flavor_settings)
+    flavor_id = flavor_creator.create()
+    if flavor is None or flavor_id is None:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
 
-    glance_client = os_utils.get_glance_client()
     neutron_client = os_utils.get_neutron_client()
     nova_client = os_utils.get_nova_client()
     tacker_client = os_tacker.get_tacker_client()
@@ -103,17 +116,37 @@ def main():
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 
-    image_id = os_utils.create_glance_image(glance_client,
-                                            COMMON_CONFIG.image_name,
-                                            COMMON_CONFIG.image_path,
-                                            COMMON_CONFIG.image_format,
-                                            public='public')
 
-    network_id = test_utils.setup_neutron(neutron_client,
-                                          TESTCASE_CONFIG.net_name,
-                                          TESTCASE_CONFIG.subnet_name,
-                                          TESTCASE_CONFIG.router_name,
-                                          TESTCASE_CONFIG.subnet_cidr)
+    image_settings = ImageConfig(name=COMMON_CONFIG.image_name,
+                                 img_format=COMMON_CONFIG.image_format,
+                                 url=COMMON_CONFIG.image_path
+                                 public=True)
+    image = OpenStackImage(os_creds, image_settings)
+    image_id = image.create()
+    if image_id is None:
+        logger.error("Failed to create the image")
+        sys.exit(1)
+
+    subnet_settings = SubnetConfig(name=TESTCASE_CONFIG.subnet_name,
+                                   cidr=TESTCASE_CONFIG.subnet_cidr)
+    network_settings = NetworkConfig(name=TESTCASE_CONFIG.net_name,
+                                     subnet_settings=[subnet_settings])
+    network = OpenStackNetwork(os_creds, network_settings)
+    network_id = network.create()
+
+   if network_id is None:
+        logger.error("Failed to create the network")
+        sys.exit(1)
+
+    router_settings = RouterConfig(name=TESTCASE_CONFIG.router_name,
+                                   external_gateway=...,
+                                   internal_subnets=TESTCASE_CONFIG.subnet_name)
+    router_creator = OpenStackRouter(os_creds, router_settings)
+    router_id = router_creator.create()
+
+    if router_id is None:
+        logger.error("Failed to create the router")
+        sys.exit(1)
 
     sg_id = test_utils.create_security_groups(neutron_client,
                                               TESTCASE_CONFIG.secgroup_name,
