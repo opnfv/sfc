@@ -2,3 +2,4 @@
 host=gerrit.opnfv.org
 port=29418
 project=sfc.git
+defaultbranch=stable/euphrates
