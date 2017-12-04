@@ -28,6 +28,7 @@ haproxy_keepalived_internal_interface: br-mgmt
 gnocchi_db_sync_options: ""
 
 ovs_nsh_support: true
+cluster: true
 
 # Ensure the openvswitch kernel module is loaded
 # openstack_host_specific_kernel_modules:
@@ -101,7 +102,14 @@ provider_networks:
         - cinder_volume
         - nova_compute
 
+user_external_repos_list:
+  - repo: 'ppa:mardim/mardim-ppa'
+
 openstack_host_specific_kernel_modules:
   - name: openvswitch
+
+ovs_nsh_required_metal_packages:
+  - linux-headers-{{ ansible_kernel }}
+  - openvswitch-datapath-dkms
 
 openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"

@@ -101,6 +101,15 @@ provider_networks:
         - cinder_volume
         - nova_compute
 
+user_external_repos_list:
+  - name: 'manuel_repo'
+    repo: 'https://download.opensuse.org/repositories/home:/mosquetero/openSUSE_Leap_42.3/'
+    auto_import_keys: true
+    priority: 98
+
+ovs_nsh_required_metal_packages:
+  - openvswitch-kmp
+
 openstack_host_specific_kernel_modules:
   - name: openvswitch
 
