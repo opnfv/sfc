@@ -13,5 +13,29 @@
 
 - name: copy openstack_services.yml with tacker
   copy:
-    src: "tacker_files/openstack_services-master.yml"
+    src: "tacker_files/openstack_services_master.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/openstack_services.yml"
+
+# To get the mano_host variable (can only be defined here for the inventory)
+- name: copy openstack_user_config.yml
+  copy:
+    src: "tacker_files/{{XCI_FLAVOR}}/openstack_user_config.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/openstack_user_config.yml"
+
+- name: copy distro variables for ovs-nsh kernel load
+  copy:
+    src: "releng-xci-suse.yml"
+    dest: "${OPNFV_XCI_PATH}/xci/var/Suse.yml"
+  ignore_errors: True
+
+- name: copy distro variables for ovs-nsh kernel load1
+  copy:
+    src: "releng-xci-suse.yml"
+    dest: "${OPNFV_XCI_PATH}/Suse1.yml"
+  ignore_errors: True
+
+- name: copy distro variables for ovs-nsh kernel load2
+  copy:
+    src: "releng-xci-suse.yml"
+    dest: "${OPNFV_XCI_PATH}/xci/Suse2.yml"
+  ignore_errors: True
