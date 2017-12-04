@@ -13,5 +13,5 @@
 
 - name: copy openstack_services.yml with tacker
   copy:
-    src: "tacker_files/openstack_services-master.yml"
+    src: "tacker_files/openstack_services_master.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/openstack_services.yml"
