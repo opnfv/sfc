@@ -48,3 +48,74 @@ neutron_plugin_base:
   - metering
   - networking_sfc.services.flowclassifier.plugin.FlowClassifierPlugin
   - networking_sfc.services.sfc.plugin.SfcPlugin
+provider_networks:
+  - network:
+      container_bridge: "br-mgmt"
+      container_type: "veth"
+      container_interface: "eth1"
+      ip_from_q: "container"
+      type: "raw"
+      group_binds:
+        - all_containers
+        - hosts
+      is_container_address: true
+      is_ssh_address: true
+  - network:
+      container_bridge: "br-vxlan"
+      container_type: "veth"
+      container_interface: "eth10"
+      ip_from_q: "tunnel"
+      type: "vxlan"
+      range: "1:1000"
+      net_name: "vxlan"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-vlan"
+      container_type: "veth"
+      container_interface: "eth12"
+      host_bind_override: "eth12"
+      type: "flat"
+      net_name: "flat"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-vlan"
+      container_type: "veth"
+      container_interface: "eth11"
+      host_bind_override: "eth12"
+      type: "vlan"
+      range: "1:1"
+      net_name: "vlan"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-storage"
+      container_type: "veth"
+      container_interface: "eth2"
+      ip_from_q: "storage"
+      type: "raw"
+      group_binds:
+        - glance_api
+        - cinder_api
+        - cinder_volume
+        - nova_compute
+
+user_external_repos_list:
+  - name: 'manuel_repo'
+    repo: 'https://download.opensuse.org/repositories/home:/mosquetero/openSUSE_Leap_42.3/'
+    auto_import_keys: true
+    priority: 98
+
+openstack_host_specific_kernel_modules:
+  - name: openvswitch
+
+ovs_nsh_required_metal_packages:
+  - openvswitch-kmp
+
+openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"
+
+# tacker
+mano_hosts:
+  controller00:
+    ip: 172.29.236.11
