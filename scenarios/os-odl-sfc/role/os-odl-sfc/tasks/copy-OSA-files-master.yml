@@ -1,10 +1,17 @@
 ---
 #
 
-- name: copy user_sfc_scenarios_variables.yml
+- name: copy user_sfc_scenarios_variables.yml (SUSE)
   copy:
-    src: "{{XCI_FLAVOR}}/user_sfc_scenarios_variables.yml"
+    src: "{{XCI_FLAVOR}}/user_sfc_scenarios_variables_suse.yml"
     dest: "{{OPENSTACK_OSA_ETC_PATH}}/user_sfc_scenarios_variables.yml"
+  when: ansible_pkg_mgr == 'zypper'
+
+- name: copy user_sfc_scenarios_variables.yml (Ubuntu)
+  copy:
+    src: "{{XCI_FLAVOR}}/user_sfc_scenarios_variables_ubuntu.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/user_sfc_scenarios_variables.yml"
+  when: ansible_pkg_mgr == 'apt'
 
 - name: copy OPNFV role requirements
   copy:
@@ -13,5 +20,11 @@
 
 - name: copy openstack_services.yml with tacker
   copy:
-    src: "tacker_files/openstack_services-master.yml"
+    src: "tacker_files/openstack_services_master.yml"
     dest: "{{OPENSTACK_OSA_PATH}}/playbooks/defaults/repo_packages/openstack_services.yml"
+
+# To get the mano_host variable (can only be defined here for the inventory)
+- name: copy openstack_user_config.yml
+  copy:
+    src: "tacker_files/{{XCI_FLAVOR}}/openstack_user_config.yml"
+    dest: "{{OPENSTACK_OSA_ETC_PATH}}/openstack_user_config.yml"
