@@ -31,7 +31,7 @@
 
 ## Global Requirements
 requirements_git_repo: https://git.openstack.org/openstack/requirements
-requirements_git_install_branch: 6d9fe55d3697d46c8e10de829ebbdc8bcddf0111 # HEAD of "master" as of 14.10.2017
+requirements_git_install_branch: 6d9fe55d3697d46c8e10de829ebbdc8bcddf0111 # HEAD of 'master' as of 14.10.2017
 
 
 ## Aodh service
@@ -220,3 +220,8 @@ molteniron_git_project_group: molteniron_all
 tacker_git_repo: https://git.openstack.org/openstack/tacker
 tacker_git_install_branch: 9ca9cf28cec8ae70a7795f7267ddd9909f5e307a # HEAD of "master" as of 14.10.2017
 tacker_git_project_group: tacker_all
+
+## Tacker service
+#tacker_git_repo: https://github.com/manuelbuil/tacker
+#tacker_git_install_branch: 14th-October-insecured-bug-fixed
+#tacker_git_project_group: tacker_all
