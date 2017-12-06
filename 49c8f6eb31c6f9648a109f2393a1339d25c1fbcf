@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae63d9da",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_sfc_scenarios_variables.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-06T12:58:43Z",
+      "side": 1,
+      "message": "This will work only when we have SUse OS.The configuration here is different when we are running ubuntu. We need to add some jinja code here so we can incude the variables which correspond to the distro which we are running each time.\n\nAlso I am not seeing the ovs_nsh_support variable in this file.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 117
+      },
+      "revId": "49c8f6eb31c6f9648a109f2393a1339d25c1fbcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e5ed510",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/mini/user_sfc_scenarios_variables.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-06T12:58:43Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 104,
+        "startChar": 1,
+        "endLine": 116,
+        "endChar": 117
+      },
+      "revId": "49c8f6eb31c6f9648a109f2393a1339d25c1fbcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ee9cc1c2",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/noha/user_sfc_scenarios_variables.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-06T12:58:43Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 117
+      },
+      "revId": "49c8f6eb31c6f9648a109f2393a1339d25c1fbcf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
