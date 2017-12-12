@@ -14,7 +14,7 @@ import sys
 import threading
 import logging
 
-import sfc.lib.openstack_tacker as os_tacker
+import sfc.lib.openstack_utils as os_tacker
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 from opnfv.deployment.factory import Factory as DeploymentFactory
