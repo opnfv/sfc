@@ -12,12 +12,13 @@ import sys
 import threading
 import logging
 
-import sfc.lib.openstack_tacker as os_tacker
+import sfc.lib.openstack_utils as os_sfc_utils
+import sfc.lib.odl_utils as odl_utils
 import functest.utils.openstack_utils as os_utils
 import opnfv.utils.ovs_logger as ovs_log
 
 import sfc.lib.config as sfc_config
-import sfc.lib.utils as test_utils
+import sfc.lib.test_utils as test_utils
 from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 import sfc.lib.topology_shuffler as topo_shuffler
@@ -69,7 +70,7 @@ def main():
     compute_nodes = [node for node in openstack_nodes
                      if node.is_compute()]
 
-    odl_ip, odl_port = test_utils.get_odl_ip_port(openstack_nodes)
+    odl_ip, odl_port = odl_utils.get_odl_ip_port(openstack_nodes)
 
     for compute in compute_nodes:
         logger.info("This is a compute: %s" % compute.ip)
@@ -94,7 +95,7 @@ def main():
     glance_client = os_utils.get_glance_client()
     neutron_client = os_utils.get_neutron_client()
     nova_client = os_utils.get_nova_client()
-    tacker_client = os_tacker.get_tacker_client()
+    tacker_client = os_sfc_utils.get_tacker_client()
 
     controller_clients = test_utils.get_ssh_clients(controller_nodes)
     compute_clients = test_utils.get_ssh_clients(compute_nodes)
@@ -109,15 +110,15 @@ def main():
                                             COMMON_CONFIG.image_format,
                                             public='public')
 
-    network_id = test_utils.setup_neutron(neutron_client,
-                                          TESTCASE_CONFIG.net_name,
-                                          TESTCASE_CONFIG.subnet_name,
-                                          TESTCASE_CONFIG.router_name,
-                                          TESTCASE_CONFIG.subnet_cidr)
+    network_id = os_sfc_utils.setup_neutron(neutron_client,
+                                            TESTCASE_CONFIG.net_name,
+                                            TESTCASE_CONFIG.subnet_name,
+                                            TESTCASE_CONFIG.router_name,
+                                            TESTCASE_CONFIG.subnet_cidr)
 
-    sg_id = test_utils.create_security_groups(neutron_client,
-                                              TESTCASE_CONFIG.secgroup_name,
-                                              TESTCASE_CONFIG.secgroup_descr)
+    sg_id = os_sfc_utils.create_security_groups(neutron_client,
+                                                TESTCASE_CONFIG.secgroup_name,
+                                                TESTCASE_CONFIG.secgroup_descr)
 
     vnfs = ['testVNF1', 'testVNF2']
 
@@ -129,11 +130,11 @@ def main():
     logger.info('Topology description: {0}'
                 .format(testTopology['description']))
 
-    client_instance = test_utils.create_instance(
+    client_instance = os_sfc_utils.create_instance(
         nova_client, CLIENT, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['client'])
 
-    server_instance = test_utils.create_instance(
+    server_instance = os_sfc_utils.create_instance(
         nova_client, SERVER, COMMON_CONFIG.flavor, image_id,
         network_id, sg_id, av_zone=testTopology['server'])
 
@@ -142,20 +143,20 @@ def main():
     server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
     logger.info("Server instance received private ip [{}]".format(server_ip))
 
-    test_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
+    os_sfc_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_red)
 
-    os_tacker.create_vnfd(
+    os_sfc_utils.create_vnfd(
         tacker_client,
         tosca_file=tosca_file, vnfd_name='test-vnfd1')
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_blue)
-    os_tacker.create_vnfd(
+    os_sfc_utils.create_vnfd(
         tacker_client,
         tosca_file=tosca_file, vnfd_name='test-vnfd2')
 
@@ -164,39 +165,39 @@ def main():
         COMMON_CONFIG.vnfd_dir,
         COMMON_CONFIG.vnfd_default_params_file)
 
-    test_utils.create_vnf_in_av_zone(
+    os_sfc_utils.create_vnf_in_av_zone(
         tacker_client, vnfs[0], 'test-vnfd1', 'test-vim',
         default_param_file, testTopology[vnfs[0]])
-    test_utils.create_vnf_in_av_zone(
+    os_sfc_utils.create_vnf_in_av_zone(
         tacker_client, vnfs[1], 'test-vnfd2', 'test-vim',
         default_param_file, testTopology[vnfs[1]])
 
-    vnf1_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnfs[0])
-    vnf2_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnfs[1])
+    vnf1_id = os_sfc_utils.wait_for_vnf(tacker_client, vnf_name=vnfs[0])
+    vnf2_id = os_sfc_utils.wait_for_vnf(tacker_client, vnf_name=vnfs[1])
     if vnf1_id is None or vnf2_id is None:
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
-    vnf1_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf1_id)
+    vnf1_instance_id = os_sfc_utils.get_nova_id(tacker_client, 'VDU1', vnf1_id)
 
-    vnf2_instance_id = test_utils.get_nova_id(tacker_client, 'VDU1', vnf2_id)
+    vnf2_instance_id = os_sfc_utils.get_nova_id(tacker_client, 'VDU1', vnf2_id)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnffgd_dir,
                               TESTCASE_CONFIG.test_vnffgd_red)
 
-    os_tacker.create_vnffgd(tacker_client,
-                            tosca_file=tosca_file,
-                            vnffgd_name='red')
+    os_sfc_utils.create_vnffgd(tacker_client,
+                               tosca_file=tosca_file,
+                               vnffgd_name='red')
 
-    neutron_port = test_utils.get_client_port_id(client_instance)
-    test_utils.create_vnffg_with_param_file(tacker_client, 'red',
-                                            'red_http',
-                                            default_param_file,
-                                            neutron_port)
+    neutron_port = os_sfc_utils.get_client_port_id(client_instance)
+    os_sfc_utils.create_vnffg_with_param_file(tacker_client, 'red',
+                                              'red_http',
+                                              default_param_file,
+                                              neutron_port)
 
     # Start measuring the time it takes to implement the classification rules
-    t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
+    t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_nodes, odl_ip, odl_port,))
     try:
         t1.start()
@@ -204,13 +205,13 @@ def main():
         logger.error("Unable to start the thread that counts time %s" % e)
 
     logger.info("Assigning floating IPs to instances")
-    server_floating_ip = test_utils.assign_floating_ip(
+    server_floating_ip = os_sfc_utils.assign_floating_ip(
         nova_client, neutron_client, server_instance.id)
-    client_floating_ip = test_utils.assign_floating_ip(
+    client_floating_ip = os_sfc_utils.assign_floating_ip(
         nova_client, neutron_client, client_instance.id)
-    sf1_floating_ip = test_utils.assign_floating_ip(
+    sf1_floating_ip = os_sfc_utils.assign_floating_ip(
         nova_client, neutron_client, vnf1_instance_id)
-    sf2_floating_ip = test_utils.assign_floating_ip(
+    sf2_floating_ip = os_sfc_utils.assign_floating_ip(
         nova_client, neutron_client, vnf2_instance_id)
 
     for ip in (server_floating_ip,
@@ -220,8 +221,8 @@ def main():
         logger.info("Checking connectivity towards floating IP [%s]" % ip)
         if not test_utils.ping(ip, retries=50, retry_timeout=3):
             logger.error("Cannot ping floating IP [%s]" % ip)
-            os_tacker.get_tacker_items()
-            test_utils.get_odl_items(odl_ip, odl_port)
+            os_sfc_utils.get_tacker_items()
+            odl_utils.get_odl_items(odl_ip, odl_port)
             sys.exit(1)
         logger.info("Successful ping to floating IP [%s]" % ip)
 
