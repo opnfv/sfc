@@ -28,7 +28,6 @@ haproxy_keepalived_internal_interface: br-mgmt
 gnocchi_db_sync_options: ""
 
 ovs_nsh_support: true
-cluster: true
 
 # Ensure the openvswitch kernel module is loaded
 # openstack_host_specific_kernel_modules:
@@ -101,8 +100,3 @@ provider_networks:
         - cinder_api
         - cinder_volume
         - nova_compute
-
-openstack_host_specific_kernel_modules:
-  - name: openvswitch
-
-openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"

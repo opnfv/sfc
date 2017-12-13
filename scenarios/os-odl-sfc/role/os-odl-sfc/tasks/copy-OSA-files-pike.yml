@@ -3,7 +3,7 @@
 
 - name: copy user_sfc_scenarios_variables.yml
   copy:
-    src: "{{XCI_FLAVOR}}/user_sfc_scenarios_variables.yml"
+    src: "{{XCI_FLAVOR}}/user_sfc_scenarios_variables_pike.yml"
     dest: "{{OPENSTACK_OSA_ETC_PATH}}/user_sfc_scenarios_variables.yml"
 
 - name: copy OPNFV role requirements
