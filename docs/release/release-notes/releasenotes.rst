@@ -49,13 +49,13 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | euphrates 1.0                        |
+| **Repo/tag**                         | euphrates 2.0                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Release designation**              | Euphrates base release               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 6th October 2017                     |
+| **Release date**                     | 15th December 2017                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Integrate neutron networking-sfc     |
@@ -148,7 +148,7 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Euphrates 3.0 release has a few limitations:
+The Euphrates 2.0 release has a few limitations:
 
 1 - The testcase sfc_two_chains_SSH_and_HTTP is disabled in this release due to
 bugs in ODL, Tacker and networking-sfc:
