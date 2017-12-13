@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2fdfb96a",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/ha/user_sfc_scenarios_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-13T15:38:36Z",
+      "side": 0,
+      "message": "if you remove this will work in Pike but it will not work in master or ?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 117
+      },
+      "revId": "70a03eeda1163056dba689f470199c2c84f7123e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
