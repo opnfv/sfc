@@ -14,8 +14,8 @@ import sys
 import threading
 import logging
 
-import sfc.lib.openstack_utils as os_tacker
-import functest.utils.openstack_utils as os_utils
+import sfc.lib.openstack_utils as os_sfc_utils
+import sfc.lib.odl_utils as odl_utils
 import opnfv.utils.ovs_logger as ovs_log
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
@@ -49,26 +49,23 @@ def main():
     controller_nodes = [node for node in all_nodes if node.is_controller()]
     compute_nodes = [node for node in all_nodes if node.is_compute()]
 
-    odl_ip, odl_port = test_utils.get_odl_ip_port(all_nodes)
+    odl_ip, odl_port = odl_utils.get_odl_ip_port(all_nodes)
 
     results = Results(COMMON_CONFIG.line_length)
     results.add_to_summary(0, "=")
     results.add_to_summary(2, "STATUS", "SUBTEST")
     results.add_to_summary(0, "=")
 
-    test_utils.download_image(COMMON_CONFIG.url, COMMON_CONFIG.image_path)
+    openstack_sfc = os_sfc_utils.OpenStackSFC()
 
-    neutron_client = os_utils.get_neutron_client()
-    nova_client = os_utils.get_nova_client()
-    tacker_client = os_tacker.get_tacker_client()
+    tacker_client = os_sfc_utils.get_tacker_client()
 
-    _, custom_flavor_id = os_utils.get_or_create_flavor(
+    _, custom_flavor = openstack_sfc.get_or_create_flavor(
         COMMON_CONFIG.flavor,
         COMMON_CONFIG.ram_size_in_mb,
         COMMON_CONFIG.disk_size_in_gb,
-        COMMON_CONFIG.vcpu_count,
-        public=True)
-    if custom_flavor_id is None:
+        COMMON_CONFIG.vcpu_count)
+    if custom_flavor is None:
         logger.error("Failed to create custom flavor")
         sys.exit(1)
 
@@ -79,52 +76,38 @@ def main():
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 
-    image_id = os_utils.create_glance_image(
-        os_utils.get_glance_client(),
+    image_creator = openstack_sfc.register_glance_image(
         COMMON_CONFIG.image_name,
-        COMMON_CONFIG.image_path,
+        COMMON_CONFIG.image_url,
         COMMON_CONFIG.image_format,
-        public='public')
+        'public')
 
-    network_id = test_utils.setup_neutron(
-        neutron_client,
+    network, router = openstack_sfc.create_network_infrastructure(
         TESTCASE_CONFIG.net_name,
         TESTCASE_CONFIG.subnet_name,
-        TESTCASE_CONFIG.router_name,
-        TESTCASE_CONFIG.subnet_cidr)
+        TESTCASE_CONFIG.subnet_cidr,
+        TESTCASE_CONFIG.router_name)
 
-    sg_id = test_utils.create_security_groups(
-        neutron_client,
-        TESTCASE_CONFIG.secgroup_name,
-        TESTCASE_CONFIG.secgroup_descr)
+    sg = openstack_sfc.create_security_group(TESTCASE_CONFIG.secgroup_name)
 
     vnf_name = 'testVNF1'
     # Using seed=0 uses the baseline topology: everything in the same host
-    testTopology = topo_shuffler.topology([vnf_name], seed=0)
+    testTopology = topo_shuffler.topology([vnf_name], openstack_sfc, seed=0)
     logger.info('This test is run with the topology {0}'
                 .format(testTopology['id']))
     logger.info('Topology description: {0}'
                 .format(testTopology['description']))
 
-    client_instance = test_utils.create_instance(
-        nova_client,
-        CLIENT,
-        COMMON_CONFIG.flavor,
-        image_id,
-        network_id,
-        sg_id,
-        av_zone=testTopology[CLIENT])
+    client_instance, client_creator = openstack_sfc.create_instance(
+        CLIENT, COMMON_CONFIG.flavor, image_creator, network, sg,
+        av_zone=testTopology['client'])
 
-    server_instance = test_utils.create_instance(
-        nova_client,
-        SERVER,
-        COMMON_CONFIG.flavor,
-        image_id,
-        network_id,
-        sg_id,
-        av_zone=testTopology[SERVER])
+    server_instance, server_creator = openstack_sfc.create_instance(
+        SERVER, COMMON_CONFIG.flavor, image_creator, network, sg,
+        av_zone=testTopology['server'])
 
-    server_ip = server_instance.networks.get(TESTCASE_CONFIG.net_name)[0]
+    server_ip = server_instance.ports[0].ips[0]['ip_address']
+    logger.info("Server instance received private ip [{}]".format(server_ip))
 
     tosca_file = os.path.join(
         COMMON_CONFIG.sfc_test_dir,
@@ -136,7 +119,7 @@ def main():
         COMMON_CONFIG.vnfd_dir,
         COMMON_CONFIG.vnfd_default_params_file)
 
-    os_tacker.create_vnfd(tacker_client, tosca_file=tosca_file)
+    os_sfc_utils.create_vnfd(tacker_client, tosca_file=tosca_file)
     test_utils.create_vnf_in_av_zone(
         tacker_client,
         vnf_name,
@@ -144,21 +127,18 @@ def main():
         default_param_file,
         testTopology[vnf_name])
 
-    vnf_id = os_tacker.wait_for_vnf(tacker_client, vnf_name=vnf_name)
+    vnf_id = os_sfc_utils.wait_for_vnf(tacker_client, vnf_name=vnf_name)
     if vnf_id is None:
         logger.error('ERROR while booting VNF')
         sys.exit(1)
 
-    vnf_instance_id = test_utils.get_nova_id(tacker_client, 'vdu1', vnf_id)
-    os_utils.add_secgroup_to_instance(nova_client, vnf_instance_id, sg_id)
-
-    os_tacker.create_sfc(
+    os_sfc_utils.create_sfc(
         tacker_client,
         sfc_name='red',
         chain_vnf_names=[vnf_name],
         symmetrical=True)
 
-    os_tacker.create_sfc_classifier(
+    os_sfc_utils.create_sfc_classifier(
         tacker_client, 'red_http', sfc_name='red',
         match={
             'source_port': 0,
@@ -169,7 +149,7 @@ def main():
     # FIXME: JIRA SFC-86
     # Tacker does not allow to specify the direction of the chain to be used,
     # only references the SFP (which for symmetric chains results in two RSPs)
-    os_tacker.create_sfc_classifier(
+    os_sfc_utils.create_sfc_classifier(
         tacker_client, 'red_http_reverse', sfc_name='red',
         match={
             'source_port': 80,
@@ -181,7 +161,7 @@ def main():
     logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
 
     # Start measuring the time it takes to implement the classification rules
-    t1 = threading.Thread(target=test_utils.wait_for_classification_rules,
+    t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_nodes, odl_ip, odl_port,))
 
     try:
@@ -190,14 +170,18 @@ def main():
         logger.error("Unable to start the thread that counts time %s" % e)
 
     logger.info("Assigning floating IPs to instances")
-    server_floating_ip = test_utils.assign_floating_ip(
-        nova_client, neutron_client, server_instance.id)
-    client_floating_ip = test_utils.assign_floating_ip(
-        nova_client, neutron_client, client_instance.id)
-    sf_floating_ip = test_utils.assign_floating_ip(
-        nova_client, neutron_client, vnf_instance_id)
+    client_floating_ip = openstack_sfc.assign_floating_ip(router,
+                                                          client_instance,
+                                                          client_creator)
+    server_floating_ip = openstack_sfc.assign_floating_ip(router,
+                                                          server_instance,
+                                                          server_creator)
+    fips_sfs = openstack_sfc.assign_floating_ip_vnfs(router)
+    sf_floating_ip = fips_sfs[0]
 
-    for ip in (server_floating_ip, client_floating_ip, sf_floating_ip):
+    fips = [client_floating_ip, server_floating_ip, fips_sfs[0]]
+
+    for ip in fips:
         logger.info("Checking connectivity towards floating IP [%s]" % ip)
         if not test_utils.ping(ip, retries=50, retry_timeout=3):
             logger.error("Cannot ping floating IP [%s]" % ip)
@@ -243,7 +227,7 @@ def main():
             ovs_logger, controller_clients, compute_clients, error)
         results.add_to_summary(2, "FAIL", "HTTP Blocked")
 
-    return results.compile_summary()
+    return results.compile_summary(), openstack_sfc.creators
 
 
 if __name__ == '__main__':
