@@ -83,16 +83,12 @@ class CommonConfig(object):
             "defaults.vcpu_count", self.config_file)
         self.image_name = ft_utils.get_parameter_from_yaml(
             "defaults.image_name", self.config_file)
-        self.image_file_name = ft_utils.get_parameter_from_yaml(
-            "defaults.image_file_name", self.config_file)
         self.image_format = ft_utils.get_parameter_from_yaml(
             "defaults.image_format", self.config_file)
-        self.url = ft_utils.get_parameter_from_yaml(
-            "defaults.url", self.config_file)
+        self.image_url = ft_utils.get_parameter_from_yaml(
+            "defaults.image_url", self.config_file)
         self.dir_functest_data = ft_utils.get_functest_config(
             "general.dir.functest_data")
-        self.image_path = os.path.join(
-            self.dir_functest_data, self.image_file_name)
 
 
 class TestcaseConfig(object):
