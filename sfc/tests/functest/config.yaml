@@ -6,7 +6,6 @@ defaults:
   disk_size_in_gb: 10
   vcpu_count: 1
   image_name: sfc_nsh_euphrates
-  image_file_name: sfc_nsh_euphrates.qcow2
   installer:
     fuel:
       user: root
@@ -19,7 +18,7 @@ defaults:
       user: root
       pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
-  url: "http://artifacts.opnfv.org/sfc/images"
+  image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_euphrates.qcow2"
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 

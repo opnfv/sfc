@@ -1,7 +1,6 @@
 import datetime
 import random
 import logging
-import sfc.lib.utils as sfc_utils
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +77,7 @@ def get_seed():
     return seed
 
 
-def topology(vnf_names, av_zones=None, seed=None):
+def topology(vnf_names, os_sfc_util, av_zones=None, seed=None):
     '''
     Get the topology for client, server and vnfs.
     The topology is returned as a dict in the form
@@ -93,7 +92,7 @@ def topology(vnf_names, av_zones=None, seed=None):
     '''
 
     if av_zones is None:
-        av_zones = sfc_utils.get_av_zones()
+        av_zones = os_sfc_util.get_av_zones()
 
     if len(av_zones) < 2 or seed is None:
         # fall back to nova availability zone
