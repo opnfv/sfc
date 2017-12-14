@@ -14,13 +14,12 @@ import time
 import sys
 import yaml
 
-from functest.utils import openstack_utils as os_utils
 from functest.core import testcase
 from opnfv.utils import ovs_logger as ovs_log
 from opnfv.deployment.factory import Factory as DeploymentFactory
 from sfc.lib import cleanup as sfc_cleanup
 from sfc.lib import config as sfc_config
-from sfc.lib import utils as sfc_utils
+from sfc.lib import odl_utils as odl_utils
 
 from collections import OrderedDict
 import logging
@@ -127,20 +126,7 @@ class SfcFunctest(testcase.OSGCTestCase):
         self.__disable_heat_resource_finder_cache(nodes,
                                                   COMMON_CONFIG.installer_type)
 
-        if COMMON_CONFIG.installer_type == 'fuel':
-            a_controller = [node for node in nodes
-                            if node.is_controller()][0]
-
-            rc_file = self.__fetch_tackerc_file(a_controller)
-            os_utils.source_credentials(rc_file)
-
-            logger.info("Updating env with {0}".format(rc_file))
-            logger.info("OS credentials:")
-            for var, value in os.environ.items():
-                if var.startswith("OS_"):
-                    logger.info("\t{0}={1}".format(var, value))
-
-        odl_ip, odl_port = sfc_utils.get_odl_ip_port(nodes)
+        odl_ip, odl_port = odl_utils.get_odl_ip_port(nodes)
 
         ovs_logger = ovs_log.OVSLogger(
             os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
@@ -168,7 +154,7 @@ class SfcFunctest(testcase.OSGCTestCase):
                     package=None)
                 start_time = time.time()
                 try:
-                    result = t.main()
+                    result, creators = t.main()
                 except Exception as e:
                     logger.error("Exception when executing: %s" % test_name)
                     logger.error(e)
@@ -190,7 +176,7 @@ class SfcFunctest(testcase.OSGCTestCase):
 
                 dic = {"duration": duration, "status": status}
                 self.details.update({test_name: dic})
-                sfc_cleanup.cleanup(odl_ip=odl_ip, odl_port=odl_port)
+                sfc_cleanup.cleanup(creators, odl_ip=odl_ip, odl_port=odl_port)
 
         self.stop_time = time.time()
 
