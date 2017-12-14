@@ -1,7 +1,7 @@
 import datetime
 import random
 import logging
-import sfc.lib.utils as sfc_utils
+import sfc.lib.test_utils as sfc_utils
 
 logger = logging.getLogger(__name__)
 
