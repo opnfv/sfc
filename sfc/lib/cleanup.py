@@ -73,26 +73,13 @@ def delete_vims():
         logger.info("Removing vim: {0}".format(vim))
         os_tacker.delete_vim(t, vim_id=vim)
 
-
-def delete_floating_ips():
-    n = os_utils.get_nova_client()
-    fips = os_utils.get_floating_ips(n)
-    if fips is None:
-        return
-    for fip in fips:
-        logger.info("Removing floating ip: {0}".format(fip.ip))
-        os_utils.delete_floating_ip(n, fip.id)
-
-
-def delete_instances():
-    n = os_utils.get_nova_client()
-    instances = os_utils.get_instances(n)
-    if instances is None:
-        return
-    for inst in instances:
-        logger.info("Removing instance: {0}".format(inst.id))
-        os_utils.delete_instance(n, inst.id)
-
+# Creators is a list full of SNAPs objects
+def delete_openstack_objects(creators):
+    for creator in reversed(creators):
+        try:
+            creator.clean()
+        except Exception as e:
+            logger.error('Unexpected error cleaning - %s', e)
 
 def cleanup_odl(odl_ip, odl_port):
     delete_odl_resources(odl_ip, odl_port, 'service-function-forwarder')
@@ -102,15 +89,14 @@ def cleanup_odl(odl_ip, odl_port):
     delete_odl_ietf_access_lists(odl_ip, odl_port)
 
 
-def cleanup(odl_ip=None, odl_port=None):
+def cleanup(odl_ip=None, odl_port=None, creators):
     delete_vnffgs()
     delete_vnffgds()
     delete_vnfs()
     time.sleep(20)
     delete_vnfds()
     delete_vims()
-    delete_floating_ips()
-    delete_instances()
+    delete_openstack_objects(creators)
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)
 
