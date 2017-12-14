@@ -7,196 +7,208 @@ import functest.utils.openstack_utils as os_utils
 from tackerclient.tacker import client as tackerclient
 from functest.utils.constants import CONST
 
+from snaps.openstack.tests import openstack_tests
+from snaps.openstack.create_image import OpenStackImage
+from snaps.config.image import ImageConfig
+
+from snaps.config.flavor import FlavorConfig
+from snaps.openstack.create_flavor import OpenStackFlavor
+
+from snaps.config.network import NetworkConfig, SubnetConfig, PortConfig
+from snaps.openstack.create_network import OpenStackNetwork
+
+from snaps.config.router import RouterConfig
+from snaps.openstack.create_router import OpenStackRouter
+
+from snaps.config.security_group import (
+    Protocol, SecurityGroupRuleConfig, Direction, SecurityGroupConfig)
+
+from snaps.openstack.create_security_group import OpenStackSecurityGroup
+
+from snaps.openstack.create_instance import OpenStackVmInstance
+
+from snaps.config.vm_inst import VmInstanceConfig, FloatingIpConfig
 
 logger = logging.getLogger(__name__)
 DEFAULT_TACKER_API_VERSION = '1.0'
 
 
-def get_av_zones():
-    '''
-    Return the availability zone each host belongs to
-    '''
-    nova_client = os_utils.get_nova_client()
-    hosts = os_utils.get_hypervisors(nova_client)
-    return ['nova::{0}'.format(host) for host in hosts]
+class OpenStackSFC:
 
+    def __init__(self):
+        creds_override = None
+        self.os_creds = openstack_tests.get_credentials(
+            os_env_file=CONST.__getattribute__('openstack_creds'),
+            overrides=creds_override)
+        self.creators = []
 
-def get_compute_client():
-    '''
-    Return the compute where the client sits
-    '''
-    nova_client = os_utils.get_nova_client()
-    hosts = os_utils.get_hypervisors(nova_client)
-    for compute in hosts:
-        vms = nova_client.servers.list(search_opts={'host': compute})
-        for vm in vms:
-            if "client" in vm.name:
-                return compute
-    return False
+    def register_glance_image(self, name, img_format, url, public):
+        image_settings = ImageConfig(name=name, img_format=img_format, url=url,
+                                     public=public)
+        image = OpenStackImage(self.os_creds, image_settings)
+        image_id = image.create()
+        if image_id is None:
+            logger.error("Failed to create the image")
+            raise Exception("Failed to create the image")
 
+        self.creators.append(image)
+        return image_id
 
-def setup_neutron(neutron_client, net, subnet, router, subnet_cidr):
-    n_dict = os_utils.create_network_full(neutron_client,
-                                          net,
-                                          subnet,
-                                          router,
-                                          subnet_cidr)
-    if not n_dict:
-        logger.error("failed to create neutron network")
+    def create_flavor(self, name, ram, disk, vcpus):
+        flavor_settings = FlavorConfig(name=name, ram=ram, disk=disk,
+                                       vcpus=vcpus)
+        flavor = OpenStackFlavor(self.os_creds, flavor_settings)
+        flavor_id = flavor.create()
+        if flavor is None or flavor_id is None:
+            logger.error("Failed to create custom flavor")
+            raise Exception("Failed to create custom flavor")
+
+        self.creators.append(flavor)
+        return flavor_id
+
+    def create_network_infrastructure(self, net_name, subnet_name, subnet_cidr,
+                                      router_name):
+        # Network and subnet
+        subnet_settings = SubnetConfig(name=subnet_name, cidr=subnet_cidr)
+        network_settings = NetworkConfig(name=net_name,
+                                         subnet_settings=subnet_settings)
+        network = OpenStackNetwork(self.os_creds, network_settings)
+        network_id = network.create()
+
+        if network_id is None:
+            logger.error("Failed to create the network")
+            raise Exception("Failed to create the network")
+
+        self.creators.append(network)
+
+        # Router
+        ext_network_name = CONST.__getattribute__('EXTERNAL_NETWORK')
+
+        router_settings = RouterConfig(name=router_name,
+                                       external_gateway=ext_network_name,
+                                       internal_subnets=subnet_name)
+
+        router = OpenStackRouter(self.os_creds, router_settings)
+        router_id = router.create()
+
+        if router_id is None:
+            logger.error("Failed to create the router")
+            raise Exception("Failed to create the router")
+
+        self.creators.append(router)
+
+        return network_id, router_id
+
+    def create_security_group(self, sec_grp_name):
+        rule_ping = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
+                                            direction=Direction.ingress,
+                                            protocol=Protocol.icmp)
+
+        rule_ssh = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
+                                           direction=Direction.ingress,
+                                           protocol=Protocol.tcp,
+                                           port_range_min=22,
+                                           port_range_max=22)
+
+        rule_http = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
+                                            direction=Direction.ingress,
+                                            protocol=Protocol.tcp,
+                                            port_range_min=80,
+                                            port_range_max=80)
+
+        rules = [rule_ping, rule_ssh, rule_http]
+
+        secgroup_settings = SecurityGroupConfig(name=sec_grp_name,
+                                                rule_settings=rules)
+
+        sec_grp = OpenStackSecurityGroup(self.os_creds, secgroup_settings)
+        sec_group_id = sec_grp.create()
+        if sec_group_id is None:
+            logger.error("Failed to create the security group")
+            raise Exception("Failed to create the router")
+
+        self.creators.append(sec_grp)
+
+        return sec_group_id
+
+    def create_instance(self, vm_name, flavor_name, image_name, network_name,
+                        secgrp_name, av_zone):
+
+        port_settings = PortConfig(name=vm_name + '-port',
+                                   network_name=network_name)
+
+        instance_settings = VmInstanceConfig(name=vm_name, flavor=flavor_name,
+                                             security_group_names=secgrp_name,
+                                             port_settings=[port_settings],
+                                             availability_zone=av_zone)
+
+        instance = OpenStackVmInstance(self.os_creds, instance_settings,
+                                       image_name)
+
+        instance_id = instance.create()
+
+        if instance_id is None:
+            logger.error("Failed to create the instance")
+            raise Exception("Failed to create the instance")
+
+        self.creators.append(instance)
+        return instance_id
+
+    def get_av_zones(self):
+        '''
+        Return the availability zone each host belongs to
+        '''
+        nova_client = os_utils.get_nova_client()
+        hosts = os_utils.get_hypervisors(nova_client)
+        return ['nova::{0}'.format(host) for host in hosts]
+
+    def get_compute_client(self):
+        '''
+        Return the compute where the client sits
+        '''
+        nova_client = os_utils.get_nova_client()
+        hosts = os_utils.get_hypervisors(nova_client)
+        for compute in hosts:
+            vms = nova_client.servers.list(search_opts={'host': compute})
+            for vm in vms:
+                if "client" in vm.name:
+                    return compute
         return False
 
-    return n_dict["net_id"]
+    def assign_floating_ips(self, router_name):
+        '''
+        Assign a floating ips to all the VMs
+        '''
+        fips = []
+        for creator in self.creators:
+            if (type(creator) == "OpenStackVmInstance"):
+                name = creator.instance_settings.name + "-float"
+                port_name = creator.instance_settings.port_settings
+                float_ip = FloatingIpConfig(name=name,
+                                            port_name=port_name,
+                                            router_name=router_name)
+                ip = creator.add_floating_ip(float_ip)
+                fips.append(ip)
 
+        return fips
 
-def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
-                         port_range_min=None, port_range_max=None):
-    # We create a security group in 2 steps
-    # 1 - we check the format and set the json body accordingly
-    # 2 - we call neturon client to create the security group
+    def get_neutron_interfaces(self, vm):
+        '''
+        Get the interfaces of an instance
+        '''
+        nova_client = os_utils.get_nova_client()
+        interfaces = nova_client.servers.interface_list(vm.id)
+        return interfaces
 
-    # Format check
-    json_body = {'security_group_rule': {'direction': direction,
-                                         'security_group_id': sg_id,
-                                         'protocol': protocol}}
-    # parameters may be
-    # - both None => we do nothing
-    # - both Not None => we add them to the json description
-    # but one cannot be None is the other is not None
-    if (port_range_min is not None and port_range_max is not None):
-        # add port_range in json description
-        json_body['security_group_rule']['port_range_min'] = port_range_min
-        json_body['security_group_rule']['port_range_max'] = port_range_max
-        logger.debug("Security_group format set (port range included)")
-    else:
-        # either both port range are set to None => do nothing
-        # or one is set but not the other => log it and return False
-        if port_range_min is None and port_range_max is None:
-            logger.debug("Security_group format set (no port range mentioned)")
-        else:
-            logger.error("Bad security group format."
-                         "One of the port range is not properly set:"
-                         "range min: {},"
-                         "range max: {}".format(port_range_min,
-                                                port_range_max))
-            return False
-
-    # Create security group using neutron client
-    try:
-        neutron_client.create_security_group_rule(json_body)
-        return True
-    except:
-        return False
-
-
-def setup_ingress_egress_secgroup(neutron_client, protocol,
-                                  min_port=None, max_port=None):
-    secgroups = os_utils.get_security_groups(neutron_client)
-    for sg in secgroups:
-        # TODO: the version of the create_secgroup_rule function in
-        # functest swallows the exception thrown when a secgroup rule
-        # already exists and prints a ton of noise in the test output.
-        # Instead of making changes in functest code this late in the
-        # release cycle, we keep our own version without the exception
-        # logging. We must find a way to properly cleanup sec group
-        # rules using "functest openstack clean" or pretty printing the
-        # specific exception in the next release
-        create_secgroup_rule(neutron_client, sg['id'],
-                             'ingress', protocol,
-                             port_range_min=min_port,
-                             port_range_max=max_port)
-        create_secgroup_rule(neutron_client, sg['id'],
-                             'egress', protocol,
-                             port_range_min=min_port,
-                             port_range_max=max_port)
-
-
-def create_security_groups(neutron_client, secgroup_name, secgroup_descr):
-    sg_id = os_utils.create_security_group_full(neutron_client,
-                                                secgroup_name, secgroup_descr)
-    setup_ingress_egress_secgroup(neutron_client, "icmp")
-    setup_ingress_egress_secgroup(neutron_client, "tcp", 22, 22)
-    setup_ingress_egress_secgroup(neutron_client, "tcp", 80, 80)
-    setup_ingress_egress_secgroup(neutron_client, "udp", 67, 68)
-    return sg_id
-
-
-def create_instance(nova_client, name, flavor, image_id, network_id, sg_id,
-                    secgroup_name=None, fixed_ip=None,
-                    av_zone='', userdata=None, files=None):
-    logger.info("Creating instance '%s'..." % name)
-    logger.debug(
-        "Configuration:\n name=%s \n flavor=%s \n image=%s \n"
-        " network=%s\n secgroup=%s \n hypervisor=%s \n"
-        " fixed_ip=%s\n files=%s\n userdata=\n%s\n"
-        % (name, flavor, image_id, network_id, sg_id,
-           av_zone, fixed_ip, files, userdata))
-    instance = os_utils.create_instance_and_wait_for_active(
-        flavor,
-        image_id,
-        network_id,
-        name,
-        config_drive=True,
-        userdata=userdata,
-        av_zone=av_zone,
-        fixed_ip=fixed_ip,
-        files=files)
-
-    if instance is None:
-        logger.error("Error while booting instance.")
-        return None
-
-    if secgroup_name:
-        logger.debug("Adding '%s' to security group '%s'..."
-                     % (name, secgroup_name))
-    else:
-        logger.debug("Adding '%s' to security group '%s'..."
-                     % (name, sg_id))
-    os_utils.add_secgroup_to_instance(nova_client, instance.id, sg_id)
-
-    return instance
-
-
-def assign_floating_ip(nova_client, neutron_client, instance_id):
-    instance = nova_client.servers.get(instance_id)
-    floating_ip = os_utils.create_floating_ip(neutron_client)['fip_addr']
-    instance.add_floating_ip(floating_ip)
-    logger.info("Assigned floating ip [%s] to instance [%s]"
-                % (floating_ip, instance.name))
-
-    return floating_ip
-
-
-def get_nova_id(tacker_client, resource, vnf_id=None, vnf_name=None):
-    vnf = get_vnf(tacker_client, vnf_id, vnf_name)
-    try:
-        if vnf is None:
-            raise Exception("VNF not found")
-        heat = os_utils.get_heat_client()
-        resource = heat.resources.get(vnf['instance_id'], resource)
-        return resource.attributes['id']
-    except:
-        logger.error("Cannot get nova ID for VNF (id='%s', name='%s')"
-                     % (vnf_id, vnf_name))
-        return None
-
-
-def get_neutron_interfaces(vm):
-    '''
-    Get the interfaces of an instance
-    '''
-    nova_client = os_utils.get_nova_client()
-    interfaces = nova_client.servers.interface_list(vm.id)
-    return interfaces
-
-
-def get_client_port_id(vm):
-    '''
-    Get the neutron port id of the client
-    '''
-    interfaces = get_neutron_interfaces(vm)
-    if len(interfaces) > 1:
-        raise Exception("Client has more than one interface. Not expected!")
-    return interfaces[0].id
+    def get_client_port_id(self, vm):
+        '''
+        Get the neutron port id of the client
+        '''
+        interfaces = self.get_neutron_interfaces(vm)
+        if len(interfaces) > 1:
+            raise Exception("Client has more than one interface."
+                            "Not expected!")
+        return interfaces[0].id
 
 # TACKER SECTION #
 
