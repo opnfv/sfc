@@ -168,7 +168,7 @@ class SfcFunctest(testcase.OSGCTestCase):
                     package=None)
                 start_time = time.time()
                 try:
-                    result = t.main()
+                    result, creators = t.main()
                 except Exception as e:
                     logger.error("Exception when executing: %s" % test_name)
                     logger.error(e)
@@ -190,7 +190,7 @@ class SfcFunctest(testcase.OSGCTestCase):
 
                 dic = {"duration": duration, "status": status}
                 self.details.update({test_name: dic})
-                sfc_cleanup.cleanup(odl_ip=odl_ip, odl_port=odl_port)
+                sfc_cleanup.cleanup(creators, odl_ip=odl_ip, odl_port=odl_port)
 
         self.stop_time = time.time()
 
