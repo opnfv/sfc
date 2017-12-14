@@ -1,17 +1,8 @@
 # Remember to source the env variables $creds before
-tacker sfc-classifier-delete red_http
-tacker sfc-classifier-delete blue_ssh
-tacker sfc-classifier-delete red_ssh
-tacker sfc-classifier-delete blue_http
-tacker sfc-delete red
-tacker sfc-delete blue
-tacker vnf-delete testVNF1
-tacker vnf-delete testVNF2
-tacker vnfd-delete test-vnfd1
-tacker vnfd-delete test-vnfd2
-openstack stack delete sfc --y
-openstack stack delete sfc_test1 --y
-openstack stack delete sfc_test2 --y
+FILE=$(readlink -f $0)
+FILE_PATH=$(dirname $FILE)
+cd $FILE_PATH
+python ../../../lib/cleanup.py $1 $2
 nova delete client
 nova delete server
 for line in $(neutron floatingip-list | cut -d" " -f2);do neutron floatingip-delete $line;done
