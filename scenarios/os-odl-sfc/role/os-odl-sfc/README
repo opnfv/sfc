@@ -2,11 +2,27 @@ This is the role which deploys the os-odl-sfc scenarios in xci.
 
 This role currently works with:
 
-- OpenStack stable/ocata
+- OpenStack stable/pike
 - ODL Nitrogen RC1
 - OVS+NSH patch
+- OpenSUSE 42.3 or Ubuntu 16.04
 
-# SCENARIOS #
+# PREPARATIONS #
+
+1 - If you don’t have a key already, generate an SSH key in $HOME/.ssh
+ssh-keygen -t rsa
+
+2 - Clone OPNFV releng-xci repository
+git clone https://gerrit.opnfv.org/gerrit/releng-xci.git
+
+3 - Change into directory where the sandbox script is located:
+cd releng-xci/xci
+
+4 - Use a version of releng-xci which we know works
+
+git checkout cf2cd4e4b87a5e392bc4ba49749a349925ba2f86
+
+Then, depending on the scenario which will be run:
 
 ## os-odl-sfc-noha ##
 
@@ -16,7 +32,7 @@ your releng-xci code is:
 
 export XCI_FLAVOR=noha
 export OPNFV_SCENARIO=os-odl-sfc
-export OPENSTACK_OSA_VERSION=stable/ocata
+export OPENSTACK_OSA_VERSION=stable/pike
 export VM_MEMORY_SIZE=16384
 export OPNFV_RELENG_DEV_PATH=/xxxxx/releng-xci
 
@@ -28,7 +44,7 @@ running xci-deploy.sh:
 
 export XCI_FLAVOR=ha
 export OPNFV_SCENARIO=os-odl-sfc
-export OPENSTACK_OSA_VERSION=stable/ocata
+export OPENSTACK_OSA_VERSION=stable/pike
 export VM_MEMORY_SIZE=20480
 export OPNFV_RELENG_DEV_PATH=/xxxxx/releng-xci
 
@@ -40,16 +56,9 @@ export OPNFV_RELENG_DEV_PATH=/xxxxx/releng-xci
 there are several patches pending to be upstreamed. This is the branch we
 are using:
 
-https://github.com/mardim91/openstack-ansible-os_neutron/tree/ocata-backport-automated-twentyfourth-august
+https://github.com/manuelbuil/openstack-ansible-os_neutron/tree/testing-ovs-nsh2
 
 We will stop doing this as soon as the patches are merged upstream
 
 2 -  It is using a private branch for tacker code because a bug does not
 allow SSL. We will stop doing this as soon as the bug is fixed
-
-
-# IN PROGRESS/FUTURE  #
-
-1 - Supporting stable/Pike
-
-2 - Support openSUSE

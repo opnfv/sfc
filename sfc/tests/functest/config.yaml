@@ -35,9 +35,9 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    test_vnfd_red: "test-vnfd1.yaml"
-    test_vnfd_blue: "test-vnfd2.yaml"
-    test_vnffgd_red: "test-vnffgd.yaml"
+    test_vnfd_red: "test-one-chain-vnfd1.yaml"
+    test_vnfd_blue: "test-one-chain-vnfd2.yaml"
+    test_vnffgd_red: "test-one-chain-vnffgd.yaml"
 
   sfc_two_chains_SSH_and_HTTP:
     enabled: false
@@ -49,10 +49,10 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    test_vnfd_red: "test2-vnfd1.yaml"
-    test_vnfd_blue: "test2-vnfd2.yaml"
-    test_vnffgd_red: "test2-vnffgd1.yaml"
-    test_vnffgd_blue: "test2-vnffgd2.yaml"
+    test_vnfd_red: "test-two-chains-vnfd1.yaml"
+    test_vnfd_blue: "test-two-chains-vnfd2.yaml"
+    test_vnffgd_red: "test-two-chains-vnffgd1.yaml"
+    test_vnffgd_blue: "test-two-chains-vnffgd2.yaml"
 
   sfc_symmetric_chain:
     enabled: false
@@ -64,6 +64,6 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    test_vnfd: "test3-vnfd1.yaml"
+    test_vnfd: "test-symmetric-vnfd.yaml"
     allowed_source_port: 22222
     blocked_source_port: 33333
