@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae5462ff",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-18T14:01:43Z",
+      "side": 1,
+      "message": "Maybe is better to add here the SHAs of Bifrost and releng-xci which we are having in the wiki",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "9841cdebefcb6a03ce74f205dcb200ee4b181597",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e562e06",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-18T14:01:43Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "9841cdebefcb6a03ce74f205dcb200ee4b181597",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
