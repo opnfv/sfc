@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_31af132c",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-19T08:31:35Z",
+      "side": 1,
+      "message": "I am not sure but you should add the SHA number to \"\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 33,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "759e0751465747acfb9cf840aaad7761ba1327dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_51b29794",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/README",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-19T08:31:35Z",
+      "side": 1,
+      "message": "I am not sure but I think you should add the SHA number to \"\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 73
+      },
+      "revId": "759e0751465747acfb9cf840aaad7761ba1327dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
