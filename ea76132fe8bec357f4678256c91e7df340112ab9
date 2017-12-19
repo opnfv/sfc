@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a77f65aa",
+        "filename": "requirements.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "You will want to pull from gerrit/git here. The snaps library in pip is old (euphrates)",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c71f096b",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "When creating name for your objects, I recommend using some sort of GUID which would ensure that multiple instances of this test can run simultaneously on the same pod and will avoid any contention when this occurs",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6760bd01",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "No real need for creds_override here unless you are planning on supporting this functionality later down-the-road.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a7564528",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "see openstack_tests helper methods for obtaining ImageConfig objects. These also support overrides which could be valuable should you require to support offline testing via file-based images",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c738a9f1",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_273a35e7",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_073f31d7",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_67271dcb",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_472499c4",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_872a218e",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "If you want to block until active, you can use the parameter block\u003dTrue",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e71a0d7c",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "Exception really should be raised in the create() method so you may not require this check.",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a7048518",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2017-12-19T16:47:11Z",
+      "side": 1,
+      "message": "You should now be able to extract this information directly from the VmInst object after the SNAPS-OO most recent merge",
+      "revId": "ea76132fe8bec357f4678256c91e7df340112ab9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
