@@ -16,6 +16,24 @@
       "revId": "103dd98cb6419551805ecde480402e9543827955",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2da574b",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-12-19T17:30:20Z",
+      "side": 1,
+      "message": "I like this one more :)",
+      "parentUuid": "9a3d3df0_62154b3f",
+      "revId": "103dd98cb6419551805ecde480402e9543827955",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
