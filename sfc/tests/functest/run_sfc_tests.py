@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 COMMON_CONFIG = sfc_config.CommonConfig()
 
 
-class SfcFunctest(testcase.OSGCTestCase):
+class SfcFunctest(testcase.TestCase):
 
     def __fetch_tackerc_file(self, controller_node):
         rc_file = os.path.join(COMMON_CONFIG.sfc_test_dir, 'tackerc')
