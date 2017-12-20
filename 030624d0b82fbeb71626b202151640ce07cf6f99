@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_41fda46d",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-20T16:26:33Z",
+      "side": 1,
+      "message": "We are using that script to delete things by hand which means that it will not work as it is now if we want just to execute thit script to do a quick cleanup.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "030624d0b82fbeb71626b202151640ce07cf6f99",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2102206f",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2017-12-20T16:26:33Z",
+      "side": 1,
+      "message": "Why do we should remove this when tacker is part of snaps?",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "030624d0b82fbeb71626b202151640ce07cf6f99",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
