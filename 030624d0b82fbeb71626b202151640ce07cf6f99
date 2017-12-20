@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_410be47c",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-12-20T16:36:33Z",
+      "side": 1,
+      "message": "It will still work. We can still remove stuff through openstack with the script instead of using the creators way",
+      "parentUuid": "9a3d3df0_41fda46d",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "030624d0b82fbeb71626b202151640ce07cf6f99",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2102206f",
         "filename": "sfc/lib/openstack_utils.py",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-20T16:26:33Z",
       "side": 1,
       "message": "Why do we should remove this when tacker is part of snaps?",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 55
+      },
+      "revId": "030624d0b82fbeb71626b202151640ce07cf6f99",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c11ed4ba",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-12-20T16:36:33Z",
+      "side": 1,
+      "message": "Long story short, look in line 187. As VNFs are not created through SNAPs, we need to generate a creator object which represents the VNFs if we want to assign the floating ips through SNAPs. To generate the creator, it requires an ImageConfig object.",
+      "parentUuid": "9a3d3df0_2102206f",
       "range": {
         "startLine": 53,
         "startChar": 8,
