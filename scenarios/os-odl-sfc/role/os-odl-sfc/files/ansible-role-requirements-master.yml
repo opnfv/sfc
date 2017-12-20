@@ -96,7 +96,7 @@
 - name: os_heat
   scm: git
   src: https://git.openstack.org/openstack/openstack-ansible-os_heat
-  version: 8fcd29197797eef409254605f0ce73ef8d1bda6b
+  version: 0b3eb9348d55d6b1cf077a2c45b297f9a1be730d
 - name: os_horizon
   scm: git
   src: https://git.openstack.org/openstack/openstack-ansible-os_horizon
