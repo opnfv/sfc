@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $XCI_FLAVOR == "ha" ]]; then
+    export VM_MEMORY_SIZE=20480
+else
+    export VM_MEMORY_SIZE=16384
+fi
