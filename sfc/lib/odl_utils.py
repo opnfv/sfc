@@ -283,3 +283,37 @@ def delete_acl(clf_name, odl_ip, odl_port):
                    odl_port,
                    'ietf-access-control-list:ipv4-acl',
                    clf_name)
+
+
+def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, retries=20):
+    '''
+    First, RSPs are checked in the oprational datastore of ODL. Nothing should
+    should exist. As it might take a while for ODL to remove that, some
+    retries are needed.
+
+    Secondly, we check that the classification rules are removed too
+    '''
+
+    while retries > 0:
+        if (get_active_rsps(odl_ip, odl_port)):
+            retries -= 1
+            time.sleep(3)
+        else:
+            break
+
+    # Find the compute where the client is
+    compute_client = os_sfc_utils.get_compute_client()
+
+    for compute_node in compute_nodes:
+        if compute_node.name in compute_client:
+            compute = compute_node
+    try:
+        compute
+    except NameError:
+        logger.debug("No compute where the client is was found")
+        raise Exception("No compute where the client is was found")
+
+    if (actual_rsps_in_compute(ovs_logger, compute.ssh_client)):
+        return False
+
+    return True
