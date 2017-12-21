@@ -108,14 +108,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
     We know by experience that this process might take a while
     '''
     try:
-        for compute_node in compute_nodes:
-            if compute_node.name in compute_client_name:
-                compute = compute_node
-        try:
-            compute
-        except NameError:
-            logger.debug("No compute where the client is was found")
-            raise Exception("No compute where the client is was found")
+        compute = find_compute(compute_client_name, compute_nodes)
 
         # Find the configured rsps in ODL. Its format is nsp_destPort
         promised_rsps = []
@@ -280,3 +273,79 @@ def delete_acl(clf_name, odl_ip, odl_port):
                    odl_port,
                    'ietf-access-control-list:ipv4-acl',
                    clf_name)
+
+
+def find_compute(compute_client_name, compute_nodes):
+    for compute_node in compute_nodes:
+        if compute_node.name in compute_client_name:
+            compute = compute_node
+    try:
+        compute
+    except NameError:
+        logger.debug("No compute, where the client is, was found")
+        raise Exception("No compute, where the client is, was found")
+
+    return compute
+
+
+def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, compute_client_name,
+                         compute_nodes, retries=20):
+    '''
+    First, RSPs are checked in the oprational datastore of ODL. Nothing should
+    should exist. As it might take a while for ODL to remove that, some
+    retries are needed.
+
+    Secondly, we check that the classification rules are removed too
+    '''
+
+    retries_counter = retries
+
+    # Check RSPs
+    while retries_counter > 0:
+        if (get_active_rsps(odl_ip, odl_port)):
+            retries_counter -= 1
+            time.sleep(3)
+        else:
+            break
+
+    if not retries_counter:
+        logger.debug("RSPs are still active in the MD-SAL")
+        return False
+
+    # Get the compute where the client is running
+    try:
+        compute = find_compute(compute_client_name, compute_nodes)
+    except Exception as e:
+        logger.debug("There was an error getting the compute: e" % e)
+
+    retries_counter = retries
+
+    # Check classification flows
+    while retries_counter > 0:
+        if (actual_rsps_in_compute(ovs_logger, compute.ssh_client)):
+            retries_counter -= 1
+            time.sleep(3)
+        else:
+            break
+
+    if not retries_counter:
+        logger.debug("Classification flows still in the compute")
+        return False
+
+    return True
+
+def create_chain(tacker_client, default_param_file, neutron_port,
+                 COMMON_CONFIG, TESTCASE_CONFIG):
+
+    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                              COMMON_CONFIG.vnffgd_dir,
+                              TESTCASE_CONFIG.test_vnffgd_red)
+
+    os_sfc_utils.create_vnffgd(tacker_client,
+                               tosca_file=tosca_file,
+                               vnffgd_name='red')
+
+    os_sfc_utils.create_vnffg_with_param_file(tacker_client, 'red',
+                                              'red_http',
+                                              default_param_file,
+                                              neutron_port.id)
