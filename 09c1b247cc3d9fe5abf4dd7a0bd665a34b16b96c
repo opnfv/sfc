@@ -69,6 +69,30 @@
       "revId": "09c1b247cc3d9fe5abf4dd7a0bd665a34b16b96c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0abd71d8",
+        "filename": "scenarios/os-odl-sfc/xci_overrides",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2017-12-21T14:46:05Z",
+      "side": 1,
+      "message": "good point",
+      "parentUuid": "9a3d3df0_ca01c9b0",
+      "range": {
+        "startLine": 3,
+        "startChar": 5,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "09c1b247cc3d9fe5abf4dd7a0bd665a34b16b96c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
