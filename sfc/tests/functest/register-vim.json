@@ -9,7 +9,8 @@
 			"username": "admin",
 			"user_domain_name": "Default",
 			"password": "",
-			"user_id": ""
+			"user_id": "",
+                        "cert_verify": "False"
 		},
 		"auth_url": "",
 		"type": "openstack",
