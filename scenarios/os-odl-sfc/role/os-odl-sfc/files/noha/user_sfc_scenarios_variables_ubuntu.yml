@@ -42,7 +42,7 @@ neutron_opendaylight_conf_ini_overrides:
     username: "admin"
     password: "admin"
     port_binding_controller: "pseudo-agentdb-binding"
-    url: "http://{{ hostvars[groups['neutron_server'][0]]['ansible_eth1']['ipv4']['address'] }}:8080/controller/nb/v2/neutron"
+    url: "http://{{ hostvars[groups['neutron_server'][0]]['ansible_eth1']['ipv4']['address'] }}:8180/controller/nb/v2/neutron"
 neutron_plugin_base:
   - odl-router_v2
   - metering
