@@ -193,6 +193,7 @@ class OpenStackSFC:
                                         port_name=port_name,
                                         router_name=router.name)
             ip = sf_creator.add_floating_ip(float_ip)
+            self.creators.append(sf_creator)
             fips.append(ip.ip)
 
         return fips
