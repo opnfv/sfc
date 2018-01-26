@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9a051448",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-01-26T12:41:50Z",
+      "side": 1,
+      "message": "Good idea! And we already have the code to do that. I have a proposal but let\u0027s try to first merge this one: https://gerrit.opnfv.org/gerrit/#/c/51191/ because it impacts the solution",
+      "parentUuid": "9a3d3df0_9ad4f4ec",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 222,
+        "endChar": 64
+      },
+      "revId": "5d2a968f858376175c97cc2fad2178e1bf1322d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7acf7056",
         "filename": "sfc/tests/functest/sfc_chain_deletion.py",
         "patchSetId": 10
@@ -59,6 +83,30 @@
       "writtenOn": "2018-01-26T10:37:03Z",
       "side": 1,
       "message": "Not sure why you started the firewall to block in 22 when you are actually testing http traffic. You can just start the vxlan_tool without blocking any port right ?",
+      "range": {
+        "startLine": 235,
+        "startChar": 49,
+        "endLine": 235,
+        "endChar": 59
+      },
+      "revId": "5d2a968f858376175c97cc2fad2178e1bf1322d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_faf4205c",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-01-26T12:41:50Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "9a3d3df0_7acf7056",
       "range": {
         "startLine": 235,
         "startChar": 49,
