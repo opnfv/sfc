@@ -102,17 +102,14 @@ def promised_rsps_in_computes(odl_ip, odl_port):
 
 @ft_utils.timethis
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
-                                  timeout=200):
+                                  compute_client_name, timeout=200):
     '''
     Check if the classification rules configured in ODL are implemented in OVS.
     We know by experience that this process might take a while
     '''
     try:
-        # Find the compute where the client is
-        compute_client = os_sfc_utils.get_compute_client()
-
         for compute_node in compute_nodes:
-            if compute_node.name in compute_client:
+            if compute_node.name in compute_client_name:
                 compute = compute_node
         try:
             compute

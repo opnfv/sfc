@@ -156,8 +156,15 @@ class OpenStackSFC:
         '''
         Return the compute where the client sits
         '''
-        compute = nova_utils.get_server(self.nova, server_name='client')
-        return compute
+        for creator in self.creators:
+            # We want to filter the vm creators
+            if hasattr(creator, 'get_vm_info'):
+                vm_info = creator.get_vm_info()
+                # We want to fetch only the client
+                if vm_info['name'] == 'client':
+                    return vm_info['OS-EXT-SRV-ATTR:host']
+
+        raise Exception("There is no client VM!!")
 
     def assign_floating_ip(self, router, vm, vm_creator):
         '''
