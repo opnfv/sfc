@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_da92fcf4",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-26T12:56:32Z",
+      "side": 1,
+      "message": "I think you have to catch this exception where this method called and Log the message that produce. Also I think that we need into the future to create a library of our custom exceptions so we do not need to use the generic exception \u0027Exception\u0027 all the time.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 50
+      },
+      "revId": "377231517e6162278eec943638c53cbf37d6bb21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
