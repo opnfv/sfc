@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7af65090",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-26T10:37:03Z",
+      "side": 1,
+      "message": "why chains? you delete and create only one chain right?\n\nAlso can you describe a bit the pipeline(steps) that the testcase is follows in the commit message?\n\nThanks :)",
+      "range": {
+        "startLine": 7,
+        "startChar": 21,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "5d2a968f858376175c97cc2fad2178e1bf1322d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ad4f4ec",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-26T10:37:03Z",
+      "side": 1,
+      "message": "IMHO you should add a check here to see if ODL actually deleted the openflow rules because after the deletion of the first chain you create again the same chain and there is a case ODL didn\u0027t deleted the old openflow rules and because you created exactly the same chain the openflow rules which are not deleted can be eligible for the new chain too because is an identically chain as before.",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 222,
+        "endChar": 64
+      },
+      "revId": "5d2a968f858376175c97cc2fad2178e1bf1322d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7acf7056",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-26T10:37:03Z",
+      "side": 1,
+      "message": "Not sure why you started the firewall to block in 22 when you are actually testing http traffic. You can just start the vxlan_tool without blocking any port right ?",
+      "range": {
+        "startLine": 235,
+        "startChar": 49,
+        "endLine": 235,
+        "endChar": 59
+      },
+      "revId": "5d2a968f858376175c97cc2fad2178e1bf1322d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
