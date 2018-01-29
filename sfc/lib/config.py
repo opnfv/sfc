@@ -29,7 +29,7 @@ class CommonConfig(object):
 
     def __init__(self):
         self.line_length = 30
-        self.test_db = ft_utils.get_functest_config("results.test_db_url")
+        self.test_db = os.environ['TEST_DB_URL']
         self.functest_repo_path = os.path.dirname(functest.__file__)
         self.functest_logging_api = os.path.join(self.functest_repo_path,
                                                  "ci", "logging.ini")
