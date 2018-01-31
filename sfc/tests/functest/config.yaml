@@ -2,10 +2,10 @@
 defaults:
   # odl-sfc uses custom flavors as per below params
   flavor: custom
-  ram_size_in_mb: 1500
-  disk_size_in_gb: 10
+  ram_size_in_mb: 500
+  disk_size_in_gb: 1
   vcpu_count: 1
-  image_name: sfc_nsh_euphrates
+  image_name: sfc_nsh_fraser
   installer:
     fuel:
       user: root
@@ -18,7 +18,7 @@ defaults:
       user: root
       pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
-  image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_euphrates.qcow2"
+  image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
