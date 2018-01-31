@@ -15,10 +15,10 @@ topology_template:
         nfv_compute:
           properties:
             num_cpus: 1
-            mem_size: 2 GB
-            disk_size: 10 GB
+            mem_size: 500 MB
+            disk_size: 1 GB
       properties:
-        image: sfc_nsh_euphrates
+        image: sfc_nsh_fraser
         availability_zone: {get_input: zone}
         mgmt_driver: noop
         config: |
