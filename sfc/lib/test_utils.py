@@ -95,7 +95,7 @@ def start_http_server(ip, iterations_check=10):
     logger.info(output)
 
     while iterations_check > 0:
-        _, output, _ = run_cmd_remote(ip, "ss -na | grep *:80")
+        _, output, _ = run_cmd_remote(ip, "netstat -pntl | grep :80")
         if output:
             return True
         else:
