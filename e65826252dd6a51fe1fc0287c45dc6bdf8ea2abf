@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e71090b",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-01-31T15:56:49Z",
+      "side": 1,
+      "message": "What\u0027s the point of this assignment if you never use it?",
+      "range": {
+        "startLine": 301,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 22
+      },
+      "revId": "e65826252dd6a51fe1fc0287c45dc6bdf8ea2abf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae637540",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-01-31T15:56:49Z",
+      "side": 1,
+      "message": "You should never modify a parameter passed in to a function, unless its an object. Perhaps this should be retries2??",
+      "range": {
+        "startLine": 304,
+        "startChar": 10,
+        "endLine": 304,
+        "endChar": 17
+      },
+      "revId": "e65826252dd6a51fe1fc0287c45dc6bdf8ea2abf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
