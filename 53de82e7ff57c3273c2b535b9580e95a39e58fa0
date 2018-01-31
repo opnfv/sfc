@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ee7bbd78",
+        "filename": "sfc/tests/functest/vnfd-templates/test-two-chains-vnfd1.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-31T10:48:46Z",
+      "side": 1,
+      "message": "You need to change this too.",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "53de82e7ff57c3273c2b535b9580e95a39e58fa0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ce7eb969",
+        "filename": "sfc/tests/functest/vnfd-templates/test-two-chains-vnfd2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-01-31T10:48:46Z",
+      "side": 1,
+      "message": "here too.",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "53de82e7ff57c3273c2b535b9580e95a39e58fa0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
