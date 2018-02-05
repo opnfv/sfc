@@ -1,26 +1,33 @@
 ---
 tosca_definitions_version: tosca_simple_profile_for_nfv_1_0_0
-description: test-case2_HTTP Test
+description: test-two-chains_HTTP Test
 
 topology_template:
-  description: topology-template-test2
+  description: topology-template-test-two-chains
   inputs:
     net_src_port_id:
       type: string
 
   node_templates:
     Forwarding_path1:
-      type: tosca.nodes.nfv.FP.Tacker
+      type: tosca.nodes.nfv.FP.TackerV2
       description: creates path
       properties:
         id: 1
         policy:
           type: ACL
           criteria:
-            - network_src_port_id: {get_input: net_src_port_id}
-              destination_port_range: 22-80
-              ip_proto: 6
-        path:
+            - name: get_ssh
+              classifier:
+                network_src_port_id: {get_input: net_src_port_id}
+                destination_port_range: 22-22
+                ip_proto: 6
+            - name: get_http
+              classifier:
+                network_src_port_id: {get_input: net_src_port_id}
+                destination_port_range: 80-80
+                ip_proto: 6
+         path:
           - forwarder: test-vnfd1
             capability: CP1
 
