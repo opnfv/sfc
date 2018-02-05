@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_077cff70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-02-05T09:44:57Z",
+      "side": 1,
+      "message": "VNFFG",
+      "range": {
+        "startLine": 7,
+        "startChar": 10,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "e6db33e903cfaf88eb58f1097062078dfb87ead2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e77e3b69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-02-05T09:44:57Z",
+      "side": 1,
+      "message": "This is a wrong link. The patch which requires modification to the VNFFG templates is this: https://review.openstack.org/#/c/532203/\n\nAnd it is already merged ;)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "e6db33e903cfaf88eb58f1097062078dfb87ead2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
