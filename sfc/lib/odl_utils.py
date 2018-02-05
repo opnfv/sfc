@@ -5,7 +5,6 @@ import time
 import json
 import re
 import logging
-import functest.utils.functest_utils as ft_utils
 import sfc.lib.openstack_utils as os_sfc_utils
 
 
@@ -100,7 +99,21 @@ def promised_rsps_in_computes(odl_ip, odl_port):
     return rsps_in_computes
 
 
-@ft_utils.timethis
+def timethis(func):
+    """Measure the time it takes for a function to complete"""
+    @functools.wraps(func)
+    def timed(*args, **kwargs):
+        ts = time.time()
+        result = func(*args, **kwargs)
+        te = time.time()
+        elapsed = '{0}'.format(te - ts)
+        logger.info('{f}(*{a}, **{kw}) took: {t} sec'.format(
+            f=func.__name__, a=args, kw=kwargs, t=elapsed))
+        return result, elapsed
+    return timed
+
+
+@timethis
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
                                   compute_client_name, timeout=200):
     '''
