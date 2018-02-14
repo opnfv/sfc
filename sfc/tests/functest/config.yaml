@@ -37,6 +37,14 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-one-chain-vnfd1.yaml"
     test_vnfd_blue: "test-one-chain-vnfd2.yaml"
     test_vnffgd_red: "test-one-chain-vnffgd.yaml"
@@ -51,6 +59,14 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-two-chains-vnfd1.yaml"
     test_vnfd_blue: "test-two-chains-vnfd2.yaml"
     test_vnffgd_red: "test-two-chains-vnffgd1.yaml"
@@ -66,6 +82,13 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd: "test-symmetric-vnfd.yaml"
     test_vnffgd: "test-symmetric-vnffgd.yaml"
     source_port: 22222
@@ -80,5 +103,13 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-one-chain-vnfd1.yaml"
     test_vnffgd_red: "test-deletion-vnffgd.yaml"
