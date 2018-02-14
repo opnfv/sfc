@@ -13,6 +13,7 @@ import os
 import time
 import yaml
 import sys
+import inspect
 
 from xtesting.core import testcase
 from opnfv.utils import ovs_logger as ovs_log
@@ -149,12 +150,23 @@ class SfcFunctest(testcase.TestCase):
                          (test_name, test_descr))
                 logger.info(title)
                 logger.info("%s\n" % ("=" * len(title)))
-                t = importlib.import_module(
+                module = importlib.import_module(
                     "sfc.tests.functest.{0}".format(test_name),
                     package=None)
+
+                for name, obj in inspect.getmembers(module):
+                    if inspect.isclass(obj):
+                        tc_class_name = name
+
+                testcase_config = sfc_config.TestcaseConfig(test_name)
+                supported_installers = test_cfg['supported_installers']
+                vnf_names = test_cfg['vnf_names']
+                tc_class = getattr(module, tc_class_name)
+                tc_instance = tc_class(testcase_config, supported_installers,
+                                       vnf_names)
                 start_time = time.time()
                 try:
-                    result, creators = t.main()
+                    result, creators = tc_instance.run()
                 except Exception as e:
                     logger.error("Exception when executing: %s" % test_name)
                     logger.error(e)
