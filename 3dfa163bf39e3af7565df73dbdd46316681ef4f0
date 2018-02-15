@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3294b636",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I was more thinking about each test being a class inherited from the common class and adding a method named TestRun() which is called by the run_sfc_tests script: https://github.com/opnfv/sfc/blob/master/sfc/tests/functest/run_sfc_tests.py#L157 instead of calling main(). That way, each test just defines a class. What do you think?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b278c62c",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "You are doing this here and in line 74. Probably this should be created everytime a test is triggered because that object includes a creators list which contains everything that was created in openstack. We use that list at the end of the test to remove everything and have eventually a clean environment: https://github.com/opnfv/sfc/blob/master/sfc/lib/cleanup.py#L77. That\u0027s why there should be one instantiation of OpenStackSFC class per test. Therefore, I\u0027d remove it from the parent class definition",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_52b6a2dd",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I\u0027d name it preparation_openstack because it creates a network, router, flavor...",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2a9ae7c",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "You duplicated this in line 188. Be careful!",
+      "range": {
+        "startLine": 91,
+        "startChar": 40,
+        "endLine": 91,
+        "endChar": 69
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b2c60648",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I would add this to the preparation openstack method because this is common to all test cases",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 81
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b2cd6660",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "This is not needed. The testcase will create two different chains (red and blue) and will dynamically change the classification rules to move from one to another. But the testcase is the same. So, both vnfds need to be created. Or are you doing this to adapt to the other testcases too? BTW, not sure if Dimitris explained you the test cases that we have \u003d\u003d\u003e https://wiki.opnfv.org/display/sfc/SFC-ODL+Fraser+Testing",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 35
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2d7eeeb",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "You are creating the network infrastructure again here. You should do this only once",
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5204e27d",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I\u0027d move this to prepare_openstack",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 79
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_32095696",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I\u0027d move this to prepare openstack",
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_92fe6a6a",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "Creating network infrastructure again",
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b2f44688",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "I\u0027d put prepare client and server in the same method because all tests have a client and a server",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 31
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_12f25a9a",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2eeceb3",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_32303656",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "This parameter might change between tests, so it should be passed as a parameter",
+      "range": {
+        "startLine": 318,
+        "startChar": 49,
+        "endLine": 318,
+        "endChar": 76
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9235ca48",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-15T12:20:11Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 320,
+        "startChar": 50,
+        "endLine": 320,
+        "endChar": 67
+      },
+      "revId": "3dfa163bf39e3af7565df73dbdd46316681ef4f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
