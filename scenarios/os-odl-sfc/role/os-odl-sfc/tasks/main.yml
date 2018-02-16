@@ -12,10 +12,6 @@
   include: add-sfc-repos-and-inventory-pike.yml
   when: OPENSTACK_OSA_VERSION == "stable/pike"
 
-- name: Add SFC repos and inventory for master
-  include: add-sfc-repos-and-inventory-master.yml
-  when: OPENSTACK_OSA_VERSION != "stable/pike"
-
 - name: Copy the OSA not-yet-upstreamed files for Pike
   include: copy-OSA-files-pike.yml
   when: OPENSTACK_OSA_VERSION == "stable/pike"
