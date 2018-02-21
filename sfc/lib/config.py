@@ -8,15 +8,17 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
+import logging
 import os
 import yaml
-import sfc
 import functest
 
-import sfc.lib.test_utils as test_utils
 from functest.utils.constants import CONST
-import logging
+from functest.utils import env
 import functest.utils.functest_utils as ft_utils
+
+import sfc
+import sfc.lib.test_utils as test_utils
 
 
 logger = logging.getLogger(__name__)
@@ -41,16 +43,16 @@ class CommonConfig(object):
             self.sfc_test_dir, "vnfd-default-params-file")
         self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
         self.functest_results_dir = os.path.join(
-            CONST.dir_results, "odl-sfc")
-        self.config_file = os.path.join(self.sfc_test_dir,  "config.yaml")
+            getattr(CONST, 'dir_results'), "odl-sfc")
+        self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
-        self.installer_type = CONST.__getattribute__('INSTALLER_TYPE')
+        self.installer_type = env.get('INSTALLER_TYPE')
 
         self.installer_fields = test_utils.fill_installer_dict(
-                self.installer_type)
+            self.installer_type)
 
-        self.installer_ip = CONST.__getattribute__('INSTALLER_IP')
+        self.installer_ip = env.get('INSTALLER_IP')
 
         self.installer_user = ft_utils.get_parameter_from_yaml(
             self.installer_fields['user'], self.config_file)
@@ -58,19 +60,19 @@ class CommonConfig(object):
         try:
             self.installer_password = ft_utils.get_parameter_from_yaml(
                 self.installer_fields['password'], self.config_file)
-        except:
+        except Exception:
             self.installer_password = None
 
         try:
             self.installer_key_file = ft_utils.get_parameter_from_yaml(
                 self.installer_fields['pkey_file'], self.config_file)
-        except:
+        except Exception:
             self.installer_key_file = None
 
         try:
             self.installer_cluster = ft_utils.get_parameter_from_yaml(
                 self.installer_fields['cluster'], self.config_file)
-        except:
+        except Exception:
             self.installer_cluster = None
 
         self.flavor = ft_utils.get_parameter_from_yaml(
@@ -104,7 +106,8 @@ class TestcaseConfig(object):
             testcases_yaml = yaml.safe_load(f)
             test_config = testcases_yaml['testcases'].get(testcase, None)
         if test_config is None:
-            logger.error('Test {0} configuration is not present in {1}'
-                         .format(testcase, common_config.config_file))
+            logger.error(
+                'Test %s configuration is not present in %s',
+                testcase, common_config.config_file)
         # Update class fields with configuration variables dynamically
         self.__dict__.update(**test_config)
