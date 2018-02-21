@@ -5,6 +5,7 @@ import json
 import yaml
 from tackerclient.tacker import client as tackerclient
 from functest.utils.constants import CONST
+from functest.utils import env
 
 from snaps.openstack.tests import openstack_tests
 
@@ -80,7 +81,7 @@ class OpenStackSFC:
         self.creators.append(network_creator)
 
         # Router
-        ext_network_name = CONST.__getattribute__('EXTERNAL_NETWORK')
+        ext_network_name = env.get('EXTERNAL_NETWORK')
 
         router_settings = RouterConfig(name=router_name,
                                        external_gateway=ext_network_name,
@@ -582,9 +583,8 @@ def register_vim(tacker_client, vim_file=None):
         with open(vim_file) as f:
             json_dict = json.load(f)
 
-        json_dict['vim']['auth_url'] = CONST.__getattribute__('OS_AUTH_URL')
-        json_dict['vim']['auth_cred']['password'] = CONST.__getattribute__(
-                                                        'OS_PASSWORD')
+        json_dict['vim']['auth_url'] = os.environ['OS_AUTH_URL']
+        json_dict['vim']['auth_cred']['password'] = os.environ['OS_PASSWORD']
 
         json.dump(json_dict, open(tmp_file, 'w'))
 
