@@ -39,7 +39,7 @@ class OpenStackSFC:
 
     def __init__(self):
         self.os_creds = openstack_tests.get_credentials(
-            os_env_file=CONST.__getattribute__('openstack_creds'))
+            os_env_file=CONST.__getattribute__('env_file'))
         self.creators = []
         self.nova = nova_utils.nova_client(self.os_creds)
         self.neutron = neutron_utils.neutron_client(self.os_creds)
@@ -227,7 +227,7 @@ def get_tacker_client_version():
 def get_tacker_client(other_creds={}):
     creds_override = None
     os_creds = openstack_tests.get_credentials(
-        os_env_file=CONST.__getattribute__('openstack_creds'),
+        os_env_file=CONST.__getattribute__('env_file'),
         overrides=creds_override)
     sess = keystone_utils.keystone_session(os_creds)
     return tackerclient.Client(get_tacker_client_version(), session=sess)
