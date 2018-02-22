@@ -4,7 +4,7 @@ import time
 import json
 import yaml
 from tackerclient.tacker import client as tackerclient
-from functest.utils.constants import CONST
+from functest.utils import constants
 from functest.utils import env
 
 from snaps.openstack.tests import openstack_tests
@@ -40,7 +40,7 @@ class OpenStackSFC:
 
     def __init__(self):
         self.os_creds = openstack_tests.get_credentials(
-            os_env_file=CONST.__getattribute__('env_file'))
+            os_env_file=constants.ENV_FILE)
         self.creators = []
         self.nova = nova_utils.nova_client(self.os_creds)
         self.neutron = neutron_utils.neutron_client(self.os_creds)
@@ -228,7 +228,7 @@ def get_tacker_client_version():
 def get_tacker_client(other_creds={}):
     creds_override = None
     os_creds = openstack_tests.get_credentials(
-        os_env_file=CONST.__getattribute__('env_file'),
+        os_env_file=constants.ENV_FILE,
         overrides=creds_override)
     sess = keystone_utils.keystone_session(os_creds)
     return tackerclient.Client(get_tacker_client_version(), session=sess)
