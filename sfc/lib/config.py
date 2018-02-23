@@ -13,7 +13,7 @@ import os
 import yaml
 import functest
 
-from functest.utils.constants import CONST
+from functest.utils import config
 from functest.utils import env
 import functest.utils.functest_utils as ft_utils
 
@@ -43,7 +43,7 @@ class CommonConfig(object):
             self.sfc_test_dir, "vnfd-default-params-file")
         self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
         self.functest_results_dir = os.path.join(
-            getattr(CONST, 'dir_results'), "odl-sfc")
+            getattr(config.CONF, 'dir_results'), "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
