@@ -1,5 +1,5 @@
 if [[ $XCI_FLAVOR == "ha" ]]; then
-    export VM_MEMORY_SIZE=20480
+    export VM_MEMORY_SIZE=20481
 else
     export VM_MEMORY_SIZE=16384
 fi
