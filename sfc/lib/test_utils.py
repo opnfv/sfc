@@ -10,9 +10,10 @@
 import os
 import subprocess
 import time
+import shutil
+import urllib
 
 import logging
-import functest.utils.functest_utils as ft_utils
 
 
 logger = logging.getLogger(__name__)
@@ -51,13 +52,29 @@ def run_cmd_remote(ip, cmd, username="root", passwd="opnfv"):
     return run_cmd(ssh_cmd)
 
 
+def download_url(url, dest_path):
+    """
+    Download a file to a destination path given a URL
+    """
+    name = url.rsplit('/')[-1]
+    dest = dest_path + "/" + name
+    try:
+        response = urllib.urlopen(url)
+    except Exception:
+        return False
+
+    with open(dest, 'wb') as lfile:
+        shutil.copyfileobj(response, lfile)
+    return True
+
+
 def download_image(url, image_path):
     image_filename = os.path.basename(image_path)
     image_url = "%s/%s" % (url, image_filename)
     image_dir = os.path.dirname(image_path)
     if not os.path.isfile(image_path):
         logger.info("Downloading image")
-        ft_utils.download_url(image_url, image_dir)
+        download_url(image_url, image_dir)
     else:
         logger.info("Using old image")
 

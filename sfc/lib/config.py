@@ -89,8 +89,7 @@ class CommonConfig(object):
             "defaults.image_format", self.config_file)
         self.image_url = ft_utils.get_parameter_from_yaml(
             "defaults.image_url", self.config_file)
-        self.dir_functest_data = ft_utils.get_functest_config(
-            "general.dir.functest_data")
+        self.dir_functest_data = getattr(config.CONF, 'dir_functest_data')
 
 
 class TestcaseConfig(object):
