@@ -46,6 +46,7 @@ class OpenStackSFC:
         self.neutron = neutron_utils.neutron_client(self.os_creds)
         self.glance = glance_utils.glance_client(self.os_creds)
         self.heat = heat_utils.heat_client(self.os_creds)
+        self.keystone = keystone_utils.keystone_client(self.os_creds)
 
     def register_glance_image(self, name, url, img_format, public):
         image_settings = ImageConfig(name=name, img_format=img_format, url=url,
@@ -210,7 +211,7 @@ class OpenStackSFC:
         '''
         Get the neutron port id of the client
         '''
-        port_id = neutron_utils.get_port(self.neutron,
+        port_id = neutron_utils.get_port(self.neutron, self.keystone,
                                          port_name=vm.name + "-port")
         return port_id
 
