@@ -210,8 +210,8 @@ class OpenStackSFC:
         '''
         Get the neutron port id of the client
         '''
-        port_id = neutron_utils.get_port(self.neutron,
-                                         port_name=vm.name + "-port")
+        vm_name = vm.get_vm_info()['name']
+        port_id = vm.get_port_by_name(vm_name + "-port")
         return port_id
 
 # TACKER SECTION #
