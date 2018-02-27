@@ -155,7 +155,8 @@ def main():
         logger.error('ERROR while booting vnfs')
         sys.exit(1)
 
-    neutron_port = openstack_sfc.get_client_port_id(client_instance)
+    neutron_port = openstack_sfc.get_client_port(client_instance,
+                                                 client_creator)
     odl_utils.create_chain(tacker_client, default_param_file, neutron_port,
                            COMMON_CONFIG, TESTCASE_CONFIG)
 
