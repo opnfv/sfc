@@ -206,13 +206,20 @@ class OpenStackSFC:
 
         return fips
 
-    def get_client_port_id(self, vm):
+    def get_client_port(self, vm):
         '''
         Get the neutron port id of the client
         '''
-        port_id = neutron_utils.get_port(self.neutron,
-                                         port_name=vm.name + "-port")
-        return port_id
+        vm_name = vm.get_vm_info()['name']
+        port_name = vm_name + "-port"
+        port = vm.get_port_by_name(port_name)
+        if port is not None:
+            return port
+        else:
+            logger.error("The VM {0} does not have any port"
+                         " with name {1}".format(vm_name, port_name))
+            raise Exception("Client VM does not have the desired port")
+
 
 # TACKER SECTION #
 

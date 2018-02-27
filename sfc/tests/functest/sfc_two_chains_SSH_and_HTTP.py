@@ -175,7 +175,7 @@ def main():
                                tosca_file=tosca_file,
                                vnffgd_name='red')
 
-    neutron_port = openstack_sfc.get_client_port_id(client_instance)
+    neutron_port = openstack_sfc.get_client_port_id(client_creator)
     os_sfc_utils.create_vnffg_with_param_file(tacker_client, 'red',
                                               'red_http',
                                               default_param_file,
