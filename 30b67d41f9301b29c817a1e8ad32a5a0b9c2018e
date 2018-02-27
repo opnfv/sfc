@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3ee46a3a",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-27T17:19:32Z",
+      "side": 1,
+      "message": "OpenStackVmInstance has a method to retrieve ports. Using this method should help to avoid having to make changes when utility function signatures change. You may want to send in the project_name as well just in case you believe there will be other ports defined against different projects with the same name.",
+      "revId": "30b67d41f9301b29c817a1e8ad32a5a0b9c2018e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
