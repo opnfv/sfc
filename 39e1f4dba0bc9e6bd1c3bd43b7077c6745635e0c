@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_87e44e3c",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T17:20:35Z",
+      "side": 1,
+      "message": "you really don\u0027t need both the VmInst object and vm_creator which has direct access to it so both of these parameters are somewhat redundant.",
+      "revId": "39e1f4dba0bc9e6bd1c3bd43b7077c6745635e0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
