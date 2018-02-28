@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_676822bb",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-28T17:04:19Z",
+      "side": 1,
+      "message": "Thanks for the heads up! I will update this. However, I am using the get_vm_info in the \"get_compute_client\" method too. And I don\u0027t think there is another way to fetch the host where the VM is running, or?",
+      "parentUuid": "5a3f45e8_075dde21",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_67414239",
         "filename": "sfc/tests/functest/sfc_chain_deletion.py",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c7793695",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-28T17:04:19Z",
+      "side": 1,
+      "message": "thanks, I was too quick",
+      "parentUuid": "5a3f45e8_67414239",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a74b4a58",
         "filename": "sfc/tests/functest/sfc_chain_deletion.py",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2018-02-28T16:57:09Z",
       "side": 1,
       "message": "I\u0027m guessing you\u0027ll probably need the IP here for neutron_port.ip",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0774be97",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-28T17:04:19Z",
+      "side": 1,
+      "message": "Nope, I just need the id",
+      "parentUuid": "5a3f45e8_a74b4a58",
       "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
