@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_07267eb7",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-28T16:40:57Z",
+      "side": 1,
+      "message": "You are right. I should not be lazy and name it correctly :)",
+      "parentUuid": "5a3f45e8_64af80e4",
+      "revId": "b62f335b59ce17123522bac34a0192d4328f905d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_64966096",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-28T14:34:57Z",
       "side": 1,
       "message": "The naming of your method \"get_client_port_id()\" is incorrect as a snaps Port domain object or None is being returned. The way you implemented is generally fine but neutron_port could be None",
+      "revId": "b62f335b59ce17123522bac34a0192d4328f905d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2721fa9f",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-02-28T16:40:57Z",
+      "side": 1,
+      "message": "Yep, you have a point. thanks!",
+      "parentUuid": "5a3f45e8_64966096",
       "revId": "b62f335b59ce17123522bac34a0192d4328f905d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
