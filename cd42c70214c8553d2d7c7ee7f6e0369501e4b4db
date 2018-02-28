@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_075dde21",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T16:57:09Z",
+      "side": 1,
+      "message": "My last comment was lost between reviews and I missed on my original. Please use vm.get_vm_inst() rather than get_vm_info() which really should be deprecated. The VmInst object returned in get_vm_inst() will have the name you are seeking. Also, you may want to check for None just in case.",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_67414239",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T16:57:09Z",
+      "side": 1,
+      "message": "I think the function\u0027s name should be \u0027get_client_port()\u0027",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a74b4a58",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T16:57:09Z",
+      "side": 1,
+      "message": "I\u0027m guessing you\u0027ll probably need the IP here for neutron_port.ip",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_473ec6b9",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T16:57:09Z",
+      "side": 1,
+      "message": "I think the function\u0027s name should be \u0027get_client_port()\u0027",
+      "revId": "cd42c70214c8553d2d7c7ee7f6e0369501e4b4db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
