@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_64af80e4",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T14:34:57Z",
+      "side": 1,
+      "message": "The return value of get_port_by_name() is a snaps.domain.network.Port object or None. You will want to check the return value (incorrectly named port_id) that it is not None then return the object\u0027s value \u0027id\u0027.",
+      "revId": "b62f335b59ce17123522bac34a0192d4328f905d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_64966096",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1421
+      },
+      "writtenOn": "2018-02-28T14:34:57Z",
+      "side": 1,
+      "message": "The naming of your method \"get_client_port_id()\" is incorrect as a snaps Port domain object or None is being returned. The way you implemented is generally fine but neutron_port could be None",
+      "revId": "b62f335b59ce17123522bac34a0192d4328f905d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
