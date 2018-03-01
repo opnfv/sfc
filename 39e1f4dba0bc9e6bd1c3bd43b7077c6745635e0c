@@ -16,6 +16,24 @@
       "revId": "39e1f4dba0bc9e6bd1c3bd43b7077c6745635e0c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3b9ab363",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-01T16:49:32Z",
+      "side": 1,
+      "message": "yes, I know. But as we had it anyway in the test script because we use it to assign the floating ip, I am just using it",
+      "parentUuid": "5a3f45e8_87e44e3c",
+      "revId": "39e1f4dba0bc9e6bd1c3bd43b7077c6745635e0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
