@@ -187,7 +187,8 @@ def main():
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_nodes, odl_ip,
-                                odl_port, openstack_sfc.get_compute_client(),))
+                                odl_port, openstack_sfc.get_compute_client(),
+                                neutron_port,))
     try:
         t1.start()
     except Exception as e:
