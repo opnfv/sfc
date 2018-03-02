@@ -30,7 +30,7 @@ import snaps.openstack.create_instance as cr_inst
 from snaps.config.vm_inst import VmInstanceConfig, FloatingIpConfig
 
 from snaps.openstack.utils import (
-    nova_utils, neutron_utils, glance_utils, heat_utils, keystone_utils)
+    nova_utils, neutron_utils, heat_utils, keystone_utils)
 
 logger = logging.getLogger(__name__)
 DEFAULT_TACKER_API_VERSION = '1.0'
@@ -44,7 +44,6 @@ class OpenStackSFC:
         self.creators = []
         self.nova = nova_utils.nova_client(self.os_creds)
         self.neutron = neutron_utils.neutron_client(self.os_creds)
-        self.glance = glance_utils.glance_client(self.os_creds)
         self.heat = heat_utils.heat_client(self.os_creds)
 
     def register_glance_image(self, name, url, img_format, public):
