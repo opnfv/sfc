@@ -163,7 +163,8 @@ def main():
     # Start measuring the time it takes to implement the classification rules
     t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_nodes, odl_ip,
-                                odl_port, openstack_sfc.get_compute_client(),))
+                                odl_port, openstack_sfc.get_compute_client(),
+                                neutron_port,))
 
     try:
         t1.start()
@@ -209,8 +210,9 @@ def main():
     os_sfc_utils.delete_vnffgd(tacker_client, vnffgd_name='red')
 
     if not odl_utils.check_vnffg_deletion(odl_ip, odl_port, ovs_logger,
-                                      openstack_sfc.get_compute_client(),
-                                      compute_nodes):
+                                          neutron_port,
+                                          openstack_sfc.get_compute_client(),
+                                          compute_nodes):
         logger.debug("The chains were not correctly removed")
         raise Exception("Chains not correctly removed, test failed")
 
@@ -220,7 +222,8 @@ def main():
     # Start measuring the time it takes to implement the classification rules
     t2 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                           args=(ovs_logger, compute_nodes, odl_ip,
-                                odl_port, openstack_sfc.get_compute_client(),))
+                                odl_port, openstack_sfc.get_compute_client(),
+                                neutron_port,))
     try:
         t2.start()
     except Exception as e:
