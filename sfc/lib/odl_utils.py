@@ -12,6 +12,15 @@ import sfc.lib.openstack_utils as os_sfc_utils
 logger = logging.getLogger(__name__)
 
 
+ODL_MODULE_EXCEPTIONS = {
+    "service-function-path-state": "service-function-path"
+}
+
+ODL_PLURAL_EXCEPTIONS = {
+    "service-function-path-state": "service-function-paths-state"
+}
+
+
 def actual_rsps_in_compute(ovs_logger, compute_ssh):
     '''
     Example flows that match the regex (line wrapped because of flake8)
@@ -20,31 +29,36 @@ def actual_rsps_in_compute(ovs_logger, compute_ssh):
     load:0x27->NXM_NX_NSP[0..23],load:0xff->NXM_NX_NSI[],
     load:0xffffff->NXM_NX_NSH_C1[],load:0->NXM_NX_NSH_C2[],resubmit(,17)
     '''
-    match_rsp = re.compile(
-        r'.+tp_dst=([0-9]+).+load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\].+')
+    match_rsp = re.compile(r'.+'
+                           r'(tp_(?:src|dst)=[0-9]+)'
+                           r'.+'
+                           r'load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\]'
+                           r'.+')
     # First line is OFPST_FLOW reply (OF1.3) (xid=0x2):
     # This is not a flow so ignore
     flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '101')
              .strip().split('\n')[1:])
     matching_flows = [match_rsp.match(f) for f in flows]
-    # group(1) = 22 (tp_dst value) | group(2) = 0xff (rsp value)
-    rsps_in_compute = ['{0}_{1}'.format(mf.group(2), mf.group(1))
+    # group(1) = tsp_dst=22 | group(2) = 0xff (rsp value)
+    rsps_in_compute = ['{0}|{1}'.format(mf.group(2), mf.group(1))
                        for mf in matching_flows if mf is not None]
     return rsps_in_compute
 
 
-def get_active_rsps(odl_ip, odl_port):
+def get_active_rsps_on_ports(odl_ip, odl_port, neutron_ports):
     '''
     Queries operational datastore and returns the RSPs for which we have
-    created a classifier (ACL). These are considered as active RSPs
-    for which classification rules should exist in the compute nodes
+    created a classifier (ACL) on the specified neutron ports. These are
+    considered as active RSPs on those ports for which classification rules
+    should exist in the compute node on which such ports are located.
 
-    This function enhances the returned dictionary with the
-    destination port of the ACL.
+    This function enhances each returned RSP with the openflow matches on
+    the tcp ports that classify traffic into that RSP.
     '''
 
+    port_ids = [port.id for port in neutron_ports]
     acls = get_odl_acl_list(odl_ip, odl_port)
-    rsps = []
+    rsps = {}
     for acl in acls['access-lists']['acl']:
         try:
             # We get the first ace. ODL creates a new ACL
@@ -55,47 +69,94 @@ def get_active_rsps(odl_ip, odl_port):
                 acl['acl-name']))
             continue
 
-        if not ('netvirt-sfc-acl:rsp-name' in ace['actions']):
+        matches = ace['matches']
+
+        # We are just interested in the destination-port-range matches
+        # that we use throughout the tests
+        if 'destination-port-range' not in matches:
+            continue
+        tcp_port = matches['destination-port-range']['lower-port']
+
+        # A single ace may classify traffic into a forward path
+        # and optionally into a reverse path if destination port is set
+        src_port = matches.get('netvirt-sfc-acl:source-port-uuid', None)
+        dst_port = matches.get('netvirt-sfc-acl:destination-port-uuid', None)
+        forward_of_match = None
+        reverse_of_match = None
+        if src_port in port_ids:
+            forward_of_match = 'tp_dst=' + tcp_port
+        if dst_port in port_ids:
+            # For classification to the reverse path
+            # the openflow match inverts
+            reverse_of_match = 'tp_src=' + tcp_port
+
+        # This ACL does not apply to any of the given ports
+        if not forward_of_match and not reverse_of_match:
             continue
 
-        rsp_name = ace['actions']['netvirt-sfc-acl:rsp-name']
-        rsp = get_odl_resource_elem(odl_ip,
-                                    odl_port,
-                                    'rendered-service-path',
-                                    rsp_name,
-                                    datastore='operational')
-        '''
-        Rsps are returned in the format:
-        {
-           "rendered-service-path": [
-               {
-                   "name": "Path-red-Path-83",
-                   "path-id": 83,
-                    ...
-                    "rendered-service-path-hop": [
-                        {
-                            ...
-                            "service-function-name": "testVNF1",
-                            "service-index": 255
-               ...
-           'rendered-service-path' Is returned as a list with one
-           element (we select by name and the names are unique)
-        '''
-        rsp_port = rsp['rendered-service-path'][0]
-        rsp_port['dst-port'] = (ace['matches']
-                                ['destination-port-range']['lower-port'])
-        rsps.append(rsp_port)
-    return rsps
+        actions = ace['actions']
+        rsp_names = get_rsps_from_netvirt_acl_actions(odl_ip,
+                                                      odl_port,
+                                                      actions)
+
+        for rsp_name in rsp_names:
+            rsp = rsps.get(rsp_name, None)
+            if not rsp:
+                rsp = get_rsp(odl_ip, odl_port, rsp_name)
+            if rsp['reverse-path'] and reverse_of_match:
+                rsp.get('of-matches', []).append(reverse_of_match)
+                rsp[rsp_name] = rsp
+            elif not rsp['reverse-path'] and forward_of_match:
+                rsp.get('of-matches', []).append(forward_of_match)
+                rsp[rsp_name] = rsp
+
+    return rsps.values()
 
 
-def promised_rsps_in_computes(odl_ip, odl_port):
+def get_rsps_from_netvirt_acl_actions(odl_ip, odl_port, netvirt_acl_actions):
     '''
-    Return a list of rsp_port which represents the rsp id and the destination
-    port configured in ODL
+    Return the list of RSPs referenced from the netvirt sfc redirect action
     '''
-    rsps = get_active_rsps(odl_ip, odl_port)
-    rsps_in_computes = ['{0}_{1}'.format(hex(rsp['path-id']), rsp['dst-port'])
-                        for rsp in rsps]
+    rsp_names = []
+
+    if 'netvirt-sfc-acl:rsp-name' in netvirt_acl_actions:
+        rsp_names.append(netvirt_acl_actions['netvirt-sfc-acl:rsp-name'])
+
+    if 'netvirt-sfc-acl:sfp-name' in netvirt_acl_actions:
+        # If the acl redirect action is a sfp instead of rsp
+        # we need to get the rsps associated to that sfp
+        sfp_name = netvirt_acl_actions['netvirt-sfc-acl:sfp-name']
+        sfp_state = get_odl_resource_elem(odl_ip,
+                                          odl_port,
+                                          'service-function-path-state',
+                                          sfp_name,
+                                          datastore='operational')
+        sfp_rsps = sfp_state.get('sfp-rendered-service-path', [])
+        sfp_rsp_names = [rsp['name'] for rsp in sfp_rsps if 'name' in rsp]
+        rsp_names.extend(sfp_rsp_names)
+
+    return rsp_names
+
+
+def get_rsp(odl_ip, odl_port, rsp_name):
+    rsp = get_odl_resource_elem(odl_ip,
+                                odl_port,
+                                'rendered-service-path',
+                                rsp_name,
+                                datastore='operational')
+    return rsp
+
+
+def promised_rsps_in_compute(odl_ip, odl_port, compute_ports):
+    '''
+    Return a list of rsp|of_match which represents the RSPs and openflow
+    matches on the source/destination port that classify traffic into such
+    RSP as configured in ODL ACLs
+    '''
+    rsps = get_active_rsps_on_ports(odl_ip, odl_port, compute_ports)
+    rsps_in_computes = ['{0}|{1}'.format(rsp['path-id'], of_match)
+                        for rsp in rsps
+                        for of_match in rsp['of-matches']]
 
     return rsps_in_computes
 
@@ -116,19 +177,20 @@ def timethis(func):
 
 @timethis
 def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
-                                  compute_client_name, timeout=200):
+                                  compute_name, compute_ports, timeout=200):
     '''
     Check if the classification rules configured in ODL are implemented in OVS.
     We know by experience that this process might take a while
     '''
     try:
-        compute = find_compute(compute_client_name, compute_nodes)
+        compute = find_compute(compute_name, compute_nodes)
 
         # Find the configured rsps in ODL. Its format is nsp_destPort
         promised_rsps = []
         timeout2 = 10
         while not promised_rsps:
-            promised_rsps = promised_rsps_in_computes(odl_ip, odl_port)
+            promised_rsps = promised_rsps_in_compute(odl_ip, odl_port,
+                                                     compute_ports)
             timeout2 -= 1
             if timeout2 == 0:
                 os_sfc_utils.get_tacker_items()
@@ -137,7 +199,8 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             time.sleep(3)
 
         while timeout > 0:
-            logger.info("RSPs in ODL Operational DataStore:")
+            logger.info("RSPs in ODL Operational DataStore"
+                        "for compute '{}':".format(compute_name))
             logger.info("{0}".format(promised_rsps))
 
             # Fetch the rsps implemented in the compute
@@ -181,8 +244,18 @@ def get_odl_ip_port(nodes):
     return ip, port
 
 
-def pluralize(s):
-    return '{0}s'.format(s)
+def pluralize(resource):
+    plural = ODL_PLURAL_EXCEPTIONS.get(resource, None)
+    if not plural:
+        plural = '{0}s'.format(resource)
+    return plural
+
+
+def get_module(resource):
+    module = ODL_MODULE_EXCEPTIONS.get(resource, None)
+    if not module:
+        module = resource
+    return module
 
 
 def format_odl_resource_list_url(odl_ip, odl_port, resource,
@@ -190,7 +263,8 @@ def format_odl_resource_list_url(odl_ip, odl_port, resource,
                                  odl_pwd='admin'):
     return ('http://{usr}:{pwd}@{ip}:{port}/restconf/{ds}/{rsrc}:{rsrcs}'
             .format(usr=odl_user, pwd=odl_pwd, ip=odl_ip, port=odl_port,
-                    ds=datastore, rsrc=resource, rsrcs=pluralize(resource)))
+                    ds=datastore, rsrc=get_module(resource),
+                    rsrcs=pluralize(resource)))
 
 
 def format_odl_resource_elem_url(odl_ip, odl_port, resource,
@@ -216,7 +290,12 @@ def get_odl_resource_elem(odl_ip, odl_port, resource,
                           elem_name, datastore='config'):
     url = format_odl_resource_elem_url(
         odl_ip, odl_port, resource, elem_name, datastore=datastore)
-    return requests.get(url).json()
+    response = requests.get(url).json()
+    # Response is in the format of a dictionary containing
+    # a single value that is an array with the element requested:
+    #   {'resource' : [element]}
+    # Return just the element
+    return response.get(resource, [{}])[0]
 
 
 def delete_odl_resource_elem(odl_ip, odl_port, resource, elem_name,
@@ -302,10 +381,10 @@ def find_compute(compute_client_name, compute_nodes):
     return compute
 
 
-def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, compute_client_name,
-                         compute_nodes, retries=20):
+def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, neutron_ports,
+                         compute_client_name, compute_nodes, retries=20):
     '''
-    First, RSPs are checked in the oprational datastore of ODL. Nothing should
+    First, RSPs are checked in the operational datastore of ODL. Nothing
     should exist. As it might take a while for ODL to remove that, some
     retries are needed.
 
@@ -316,7 +395,7 @@ def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, compute_client_name,
 
     # Check RSPs
     while retries_counter > 0:
-        if (get_active_rsps(odl_ip, odl_port)):
+        if get_active_rsps_on_ports(odl_ip, odl_port, neutron_ports):
             retries_counter -= 1
             time.sleep(3)
         else:
