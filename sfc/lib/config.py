@@ -31,7 +31,7 @@ class CommonConfig(object):
 
     def __init__(self):
         self.line_length = 30
-        self.test_db = os.environ['TEST_DB_URL']
+        self.test_db = os.environ.get('TEST_DB_URL', None)
         self.functest_repo_path = os.path.dirname(functest.__file__)
         self.functest_logging_api = os.path.join(self.functest_repo_path,
                                                  "ci", "logging.ini")
