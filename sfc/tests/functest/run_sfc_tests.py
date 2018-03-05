@@ -14,7 +14,7 @@ import time
 import sys
 import yaml
 
-from functest.core import testcase
+from xtesting.core import testcase
 from opnfv.utils import ovs_logger as ovs_log
 from opnfv.deployment.factory import Factory as DeploymentFactory
 from sfc.lib import cleanup as sfc_cleanup
