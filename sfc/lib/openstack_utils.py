@@ -45,6 +45,7 @@ class OpenStackSFC:
         self.nova = nova_utils.nova_client(self.os_creds)
         self.neutron = neutron_utils.neutron_client(self.os_creds)
         self.heat = heat_utils.heat_client(self.os_creds)
+        self.keystone = keystone_utils.keystone_client(self.os_creds)
 
     def register_glance_image(self, name, url, img_format, public):
         image_settings = ImageConfig(name=name, img_format=img_format, url=url,
@@ -186,14 +187,18 @@ class OpenStackSFC:
         '''
         stacks = self.heat.stacks.list()
         fips = []
+        project_name = 'admin'
         for stack in stacks:
             servers = heat_utils.get_stack_servers(self.heat,
                                                    self.nova,
                                                    self.neutron,
-                                                   stack)
+                                                   self.keystone,
+                                                   stack,
+                                                   project_name)
             sf_creator = cr_inst.generate_creator(self.os_creds,
                                                   servers[0],
-                                                  self.image_settings)
+                                                  self.image_settings,
+                                                  project_name)
             port_name = servers[0].ports[0].name
             name = servers[0].name + "-float"
             float_ip = FloatingIpConfig(name=name,
