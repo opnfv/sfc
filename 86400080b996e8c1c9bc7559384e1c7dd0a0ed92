@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e32b7d2e",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-05T08:43:51Z",
+      "side": 1,
+      "message": "It can be safely removed",
+      "revId": "86400080b996e8c1c9bc7559384e1c7dd0a0ed92",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
