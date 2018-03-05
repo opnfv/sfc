@@ -11,7 +11,6 @@
 import importlib
 import os
 import time
-import sys
 import yaml
 
 from xtesting.core import testcase
@@ -185,10 +184,3 @@ class SfcFunctest(testcase.TestCase):
             return testcase.TestCase.EX_OK
 
         return testcase.TestCase.EX_RUN_ERROR
-
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s'
-                        '- %(levelname)s - %(message)s')
-    SFC = SfcFunctest()
-    sys.exit(SFC.run())
