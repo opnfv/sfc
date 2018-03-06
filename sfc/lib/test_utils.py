@@ -94,6 +94,17 @@ def ping(remote, retries=100, retry_timeout=1):
     return False
 
 
+def get_interface_name(host_ip, interface_ip):
+    cmd = ("ip a | grep -B2 'inet %s' | "
+           "awk '/^[0-9]/ {split($2,r,\":\"); print r[1]}'" % interface_ip)
+    rc, name, error = run_cmd_remote(host_ip, cmd)
+    if rc != 0:
+        raise Exception(
+            "Failed to get interface name for ip {} on host {}: {}".format(
+                interface_ip, host_ip, error))
+    return name
+
+
 def start_http_server(ip, iterations_check=10):
     """
     Start http server on a given machine. Wait until the process exists

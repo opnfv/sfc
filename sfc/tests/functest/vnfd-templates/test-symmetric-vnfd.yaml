@@ -15,12 +15,15 @@ topology_template:
         nfv_compute:
           properties:
             num_cpus: 1
-            mem_size: 2 GB
-            disk_size: 10 GB
+            mem_size: 500 MB
+            disk_size: 1 GB
       properties:
-        image: sfc_nsh_euphrates
+        image: sfc_nsh_fraser
         availability_zone: {get_input: zone}
         mgmt_driver: noop
+        config: |
+          param0: key1
+          param1: key2
         service_type: firewall
         monitoring_policy:
           name: ping
@@ -39,6 +42,18 @@ topology_template:
       properties:
         management: true
         order: 0
+        anti_spoofing_protection: false
+      requirements:
+        - virtualLink:
+            node: VL1
+        - virtualBinding:
+            node: VDU1
+
+    CP2:
+      type: tosca.nodes.nfv.CP.Tacker
+      properties:
+        management: true
+        order: 1
         anti_spoofing_protection: false
       requirements:
         - virtualLink:
