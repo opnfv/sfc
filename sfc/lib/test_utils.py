@@ -124,17 +124,20 @@ def start_http_server(ip, iterations_check=10):
     return False
 
 
-def start_vxlan_tool(remote_ip, interface="eth0", block=None):
+def start_vxlan_tool(remote_ip, interface="eth0", output=None, block=None):
     """
     Starts vxlan_tool on a remote host.
     vxlan_tool.py converts a regular Service Function into a NSH-aware SF
     when the "--do forward" option is used, it decrements the NSI appropiately.
-    'block' parameters allows to specify a port where packets will be dropped.
+    'output' allows to specify an interface through which to forward if
+    different than the input interface.
+    'block' parameter allows to specify a port where packets will be dropped.
     """
     command = "nohup python /root/vxlan_tool.py"
-    options = "{do} {interface} {block_option}".format(
+    options = "{do} {interface} {output_option} {block_option}".format(
         do="--do forward",
         interface="--interface {}".format(interface),
+        output_option="--output {}".format(output) if output else "",
         block_option="--block {}".format(block) if block is not None else "")
     output_redirection = "> /dev/null 2>&1"
 
