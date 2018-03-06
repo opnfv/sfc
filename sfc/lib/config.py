@@ -30,7 +30,7 @@ class CommonConfig(object):
     """
 
     def __init__(self):
-        self.line_length = 30
+        self.line_length = 40
         self.functest_repo_path = os.path.dirname(functest.__file__)
         self.functest_logging_api = os.path.join(self.functest_repo_path,
                                                  "ci", "logging.ini")

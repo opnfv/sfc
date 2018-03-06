@@ -94,6 +94,17 @@ def ping(remote, retries=100, retry_timeout=1):
     return False
 
 
+def get_interface_name(host_ip, interface_ip):
+    cmd = ("ip a | grep -B2 'inet %s' | "
+           "awk '/^[0-9]/ {split($2,r,\":\"); print r[1]}'" % interface_ip)
+    rc, name, error = run_cmd_remote(host_ip, cmd)
+    if rc != 0:
+        raise Exception(
+            "Failed to get interface name for ip {} on host {}: {}".format(
+                interface_ip, host_ip, error))
+    return name
+
+
 def start_http_server(ip, iterations_check=10):
     """
     Start http server on a given machine. Wait until the process exists
@@ -124,17 +135,20 @@ def start_http_server(ip, iterations_check=10):
     return False
 
 
-def start_vxlan_tool(remote_ip, interface="eth0", block=None):
+def start_vxlan_tool(remote_ip, interface="eth0", output=None, block=None):
     """
     Starts vxlan_tool on a remote host.
     vxlan_tool.py converts a regular Service Function into a NSH-aware SF
     when the "--do forward" option is used, it decrements the NSI appropiately.
-    'block' parameters allows to specify a port where packets will be dropped.
+    'output' allows to specify an interface through which to forward if different
+    than the input interface.
+    'block' parameter allows to specify a port where packets will be dropped.
     """
     command = "nohup python /root/vxlan_tool.py"
-    options = "{do} {interface} {block_option}".format(
+    options = "{do} {interface} {output_option} {block_option}".format(
         do="--do forward",
         interface="--interface {}".format(interface),
+        output_option="--output {}".format(output) if output else "",
         block_option="--block {}".format(block) if block is not None else "")
     output_redirection = "> /dev/null 2>&1"
 
