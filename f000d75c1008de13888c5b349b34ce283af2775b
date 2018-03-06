@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2f5b8455",
+        "filename": "sfc/tests/functest/vnfd-templates/test-symmetric-vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-06T19:27:28Z",
+      "side": 1,
+      "message": "order should be 1",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "f000d75c1008de13888c5b349b34ce283af2775b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f5ed046",
+        "filename": "sfc/tests/functest/vnffgd-templates/test-symmetric-vnffgd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-06T19:27:28Z",
+      "side": 1,
+      "message": "Missing inputs",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "f000d75c1008de13888c5b349b34ce283af2775b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
