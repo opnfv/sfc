@@ -20,7 +20,7 @@ import opnfv.utils.ovs_logger as ovs_log
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
 import sfc.lib.config as sfc_config
-import sfc.lib.utils as test_utils
+import sfc.lib.test_utils as test_utils
 from sfc.lib.results import Results
 import sfc.lib.topology_shuffler as topo_shuffler
 
@@ -60,7 +60,7 @@ def main():
 
     tacker_client = os_sfc_utils.get_tacker_client()
 
-    _, custom_flavor = openstack_sfc.get_or_create_flavor(
+    custom_flavor = openstack_sfc.create_flavor(
         COMMON_CONFIG.flavor,
         COMMON_CONFIG.ram_size_in_mb,
         COMMON_CONFIG.disk_size_in_gb,
@@ -91,8 +91,8 @@ def main():
     sg = openstack_sfc.create_security_group(TESTCASE_CONFIG.secgroup_name)
 
     vnf_name = 'testVNF1'
-    # Using seed=0 uses the baseline topology: everything in the same host
-    testTopology = topo_shuffler.topology([vnf_name], openstack_sfc, seed=0)
+    topo_seed = topo_shuffler.get_seed()
+    testTopology = topo_shuffler.topology([vnf_name], openstack_sfc, seed=topo_seed)
     logger.info('This test is run with the topology {0}'
                 .format(testTopology['id']))
     logger.info('Topology description: {0}'
@@ -100,14 +100,16 @@ def main():
 
     client_instance, client_creator = openstack_sfc.create_instance(
         CLIENT, COMMON_CONFIG.flavor, image_creator, network, sg,
-        av_zone=testTopology['client'])
+        av_zone=testTopology[CLIENT])
 
     server_instance, server_creator = openstack_sfc.create_instance(
         SERVER, COMMON_CONFIG.flavor, image_creator, network, sg,
-        av_zone=testTopology['server'])
+        av_zone=testTopology[SERVER])
 
     server_ip = server_instance.ports[0].ips[0]['ip_address']
     logger.info("Server instance received private ip [{}]".format(server_ip))
+
+    os_sfc_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
 
     tosca_file = os.path.join(
         COMMON_CONFIG.sfc_test_dir,
@@ -119,11 +121,15 @@ def main():
         COMMON_CONFIG.vnfd_dir,
         COMMON_CONFIG.vnfd_default_params_file)
 
-    os_sfc_utils.create_vnfd(tacker_client, tosca_file=tosca_file)
-    test_utils.create_vnf_in_av_zone(
+    os_sfc_utils.create_vnfd(
+        tacker_client,
+        tosca_file=tosca_file,
+        vnfd_name='test-vnfd1')
+    os_sfc_utils.create_vnf_in_av_zone(
         tacker_client,
         vnf_name,
         'test-vnfd1',
+        'test-vim',
         default_param_file,
         testTopology[vnf_name])
 
@@ -132,37 +138,40 @@ def main():
         logger.error('ERROR while booting VNF')
         sys.exit(1)
 
-    os_sfc_utils.create_sfc(
+    tosca_file = os.path.join(
+        COMMON_CONFIG.sfc_test_dir,
+        COMMON_CONFIG.vnffgd_dir,
+        TESTCASE_CONFIG.test_vnffgd)
+    os_sfc_utils.create_vnffgd(
         tacker_client,
-        sfc_name='red',
-        chain_vnf_names=[vnf_name],
-        symmetrical=True)
+        tosca_file=tosca_file,
+        vnffgd_name='test-vnffgd')
 
-    os_sfc_utils.create_sfc_classifier(
-        tacker_client, 'red_http', sfc_name='red',
-        match={
-            'source_port': 0,
-            'dest_port': 80,
-            'protocol': 6
-        })
+    client_port = openstack_sfc.get_client_port(
+        client_instance,
+        client_creator)
+    server_port = openstack_sfc.get_client_port(
+        server_instance,
+        server_creator)
 
-    # FIXME: JIRA SFC-86
-    # Tacker does not allow to specify the direction of the chain to be used,
-    # only references the SFP (which for symmetric chains results in two RSPs)
-    os_sfc_utils.create_sfc_classifier(
-        tacker_client, 'red_http_reverse', sfc_name='red',
-        match={
-            'source_port': 80,
-            'dest_port': 0,
-            'protocol': 6
-        })
+    server_ip_prefix = server_ip + '/32'
 
-    logger.info(test_utils.run_cmd('tacker sfc-list'))
-    logger.info(test_utils.run_cmd('tacker sfc-classifier-list'))
+    os_sfc_utils.create_vnffg_with_param_file(
+        tacker_client,
+        'test-vnffgd',
+        'test-vnffg',
+        default_param_file,
+        client_port.id,
+        server_port.id,
+        server_ip_prefix)
 
     # Start measuring the time it takes to implement the classification rules
-    t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
-                          args=(ovs_logger, compute_nodes, odl_ip, odl_port,))
+    t1 = threading.Thread(
+        target=wait_for_classification_rules,
+        args=(ovs_logger, compute_nodes,
+              openstack_sfc.get_compute_server(), server_port,
+              openstack_sfc.get_compute_client(), client_port,
+              odl_ip, odl_port,))
 
     try:
         t1.start()
@@ -176,15 +185,19 @@ def main():
     server_floating_ip = openstack_sfc.assign_floating_ip(router,
                                                           server_instance,
                                                           server_creator)
-    fips_sfs = openstack_sfc.assign_floating_ip_vnfs(router)
+
+    vnf_ip = os_sfc_utils.get_vnf_ip(tacker_client, vnf_id=vnf_id)
+    fips_sfs = openstack_sfc.assign_floating_ip_vnfs(router, [vnf_ip])
     sf_floating_ip = fips_sfs[0]
 
-    fips = [client_floating_ip, server_floating_ip, fips_sfs[0]]
+    fips = [client_floating_ip, server_floating_ip, sf_floating_ip]
 
     for ip in fips:
         logger.info("Checking connectivity towards floating IP [%s]" % ip)
         if not test_utils.ping(ip, retries=50, retry_timeout=3):
             logger.error("Cannot ping floating IP [%s]" % ip)
+            os_sfc_utils.get_tacker_items()
+            odl_utils.get_odl_items(odl_ip, odl_port)
             sys.exit(1)
         logger.info("Successful ping to floating IP [%s]" % ip)
 
@@ -197,37 +210,113 @@ def main():
         logger.error('\033[91mFailed to start the HTTP server\033[0m')
         sys.exit(1)
 
-    blocked_port = TESTCASE_CONFIG.blocked_source_port
-    logger.info("Firewall started, blocking traffic port %d" % blocked_port)
-    test_utils.start_vxlan_tool(sf_floating_ip, block=blocked_port)
+    logger.info("Starting vxlan_tool on %s" % sf_floating_ip)
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth0',
+                                output='eth1')
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth1',
+                                output='eth0')
 
     logger.info("Wait for ODL to update the classification rules in OVS")
     t1.join()
 
-    allowed_port = TESTCASE_CONFIG.allowed_source_port
-    logger.info("Test if HTTP from port %s works" % allowed_port)
-    if not test_utils.is_http_blocked(
-            client_floating_ip, server_ip, allowed_port):
+    logger.info("Test HTTP")
+    if not test_utils.is_http_blocked(client_floating_ip,
+                                      server_ip,
+                                      TESTCASE_CONFIG.source_port):
         results.add_to_summary(2, "PASS", "HTTP works")
     else:
         error = ('\033[91mTEST 1 [FAILED] ==> HTTP BLOCKED\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "HTTP works")
+        results.add_to_summary(2, "FAIL", "HTTP blocked")
 
-    logger.info("Test if HTTP from port %s is blocked" % blocked_port)
-    if test_utils.is_http_blocked(
-            client_floating_ip, server_ip, blocked_port):
-        results.add_to_summary(2, "PASS", "HTTP Blocked")
+    logger.info("Changing the vxlan_tool to block HTTP request traffic")
+
+    # Make SF1 block http request traffic
+    test_utils.stop_vxlan_tool(sf_floating_ip)
+    logger.info("Starting HTTP firewall on %s" % sf_floating_ip)
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth0',
+                                output='eth1', block="80")
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth1',
+                                output='eth0')
+
+    logger.info("Test HTTP again blocking request on SF1")
+    if test_utils.is_http_blocked(client_floating_ip,
+                                  server_ip,
+                                  TESTCASE_CONFIG.source_port):
+        results.add_to_summary(2, "PASS", "HTTP uplink blocked")
     else:
         error = ('\033[91mTEST 2 [FAILED] ==> HTTP WORKS\033[0m')
         logger.error(error)
         test_utils.capture_ovs_logs(
             ovs_logger, controller_clients, compute_clients, error)
-        results.add_to_summary(2, "FAIL", "HTTP Blocked")
+        results.add_to_summary(2, "FAIL", "HTTP works")
+
+    logger.info("Changing the vxlan_tool to block HTTP response traffic")
+
+    # Make SF1 block response http traffic
+    test_utils.stop_vxlan_tool(sf_floating_ip)
+    logger.info("Starting HTTP firewall on %s" % sf_floating_ip)
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth0',
+                                output='eth1')
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth1',
+                                output='eth0',
+                                block=TESTCASE_CONFIG.source_port)
+
+    logger.info("Test HTTP again blocking response on SF1")
+    if test_utils.is_http_blocked(client_floating_ip,
+                                  server_ip,
+                                  TESTCASE_CONFIG.source_port):
+        results.add_to_summary(2, "PASS", "HTTP downlink blocked")
+    else:
+        error = ('\033[91mTEST 3 [FAILED] ==> HTTP WORKS\033[0m')
+        logger.error(error)
+        test_utils.capture_ovs_logs(
+            ovs_logger, controller_clients, compute_clients, error)
+        results.add_to_summary(2, "FAIL", "HTTP works")
+
+    logger.info("Changing the vxlan_tool to allow HTTP traffic")
+
+    # Make SF1 allow http traffic
+    test_utils.stop_vxlan_tool(sf_floating_ip)
+    logger.info("Starting HTTP firewall on %s" % sf_floating_ip)
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth0',
+                                output='eth1')
+    test_utils.start_vxlan_tool(sf_floating_ip, interface='eth1',
+                                output='eth0')
+
+    logger.info("Test HTTP")
+    if not test_utils.is_http_blocked(client_floating_ip, server_ip):
+        results.add_to_summary(2, "PASS", "HTTP restored")
+    else:
+        error = ('\033[91mTEST 4 [FAILED] ==> HTTP BLOCKED\033[0m')
+        logger.error(error)
+        test_utils.capture_ovs_logs(
+            ovs_logger, controller_clients, compute_clients, error)
+        results.add_to_summary(2, "FAIL", "HTTP blocked")
 
     return results.compile_summary(), openstack_sfc.creators
+
+
+def wait_for_classification_rules(ovs_logger, compute_nodes,
+                                  server_compute, server_port,
+                                  client_compute, client_port,
+                                  odl_ip, odl_port):
+    odl_utils.wait_for_classification_rules(
+        ovs_logger,
+        compute_nodes,
+        odl_ip,
+        odl_port,
+        client_compute,
+        client_port)
+    odl_utils.wait_for_classification_rules(
+        ovs_logger,
+        compute_nodes,
+        odl_ip,
+        odl_port,
+        server_compute,
+        server_port)
 
 
 if __name__ == '__main__':
