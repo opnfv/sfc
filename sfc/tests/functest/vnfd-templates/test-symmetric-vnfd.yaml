@@ -46,6 +46,18 @@ topology_template:
         - virtualBinding:
             node: VDU1
 
+    CP2:
+      type: tosca.nodes.nfv.CP.Tacker
+      properties:
+        management: true
+        order: 1
+        anti_spoofing_protection: false
+      requirements:
+        - virtualLink:
+            node: VL1
+        - virtualBinding:
+            node: VDU1
+
     VL1:
       type: tosca.nodes.nfv.VL
       properties:
