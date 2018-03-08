@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Steven Pisarski <s.pisarski@cablelabs.com>
+Code-Review+2: Dimitrios Markou <mardim@intracom-telecom.com>
+Submitted-by: Dimitrios Markou <mardim@intracom-telecom.com>
+Submitted-at: Thu, 08 Mar 2018 10:49:42 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/53097
+Project: sfc
+Branch: refs/heads/master
