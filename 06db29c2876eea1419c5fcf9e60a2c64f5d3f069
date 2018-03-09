@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6e510462",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-09T18:08:05Z",
+      "side": 1,
+      "message": "API wise, support was introduced at the same time as \u0027source-port-uuid\u0027. From ODL Oxygen, this attribute is actually used as the port where classification happens for the reverse path of a symmetric chain. In the specific context of the symmetric test case that actually sets a value, it is the server port.\nIn any case, if the attribute is not present, it defaults to None and causes no harm.",
+      "parentUuid": "5a3f45e8_6e3c6430",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 77
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cef2d899",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-09T16:55:11Z",
       "side": 1,
       "message": "how can this happen? If the SFP has two RSPs, then which one is chosen? The classifier will point to two RSPs? I am confused",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eeccf437",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-09T18:08:05Z",
+      "side": 1,
+      "message": "An SFP configured by the ODL networking-sfc translator will have one RSP asociated if the chain is not symmetric or two RSPs if it is symmetric. ODL Oxygen introduces a new attribute in the RSP, \u0027reverse-path\u0027, that tells if that RSP is for the forward path or the reverse path. We use that property to filter exactly with RSP we need to look into in L110 based on which port we are looking into: either the source port or the destination port of the ACL.\n\nIn Oxygen, it will still be technically possible to add more RSPs to an SFP that the max of two explained before if someone manually tampers with the automatic configuration done by the networking-sfc trasnlator. This possibility will be removed in Fluorine.",
+      "parentUuid": "5a3f45e8_cef2d899",
       "range": {
         "startLine": 129,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ee9a3413",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-09T18:08:05Z",
+      "side": 1,
+      "message": "You are right, I did not think that this was also being used to check for removal. At the same time the previous approach wouldnt work if the we have ACLs on multiple ports that might be located in different computes. I will think of something.",
+      "parentUuid": "5a3f45e8_8e261015",
+      "range": {
+        "startLine": 216,
+        "startChar": 39,
+        "endLine": 216,
+        "endChar": 40
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6e6aa41b",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-09T16:55:11Z",
       "side": 1,
       "message": "isn\u0027t it easier to do:\n\nif \u0027service-function-path-state\u0027 in resource:\n   return service-function-path\nelse:\n   return \u0027{}s\u0027.format(resource)\n\nThen we don\u0027t need to define global dictionaries. Why do you define them outside of the pluralize and get_module functions?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 17
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4e136866",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-09T18:08:05Z",
+      "side": 1,
+      "message": "Isn\u0027t it easier and cleaner to add an entry on a dictionary at the beguinning of the file than having to write an if clause for each exception on a function some place within the file? What\u0027s wrong with the global variable? :P",
+      "parentUuid": "5a3f45e8_6e6aa41b",
       "range": {
         "startLine": 250,
         "startChar": 0,
