@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_6e3c6430",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-09T16:55:11Z",
+      "side": 1,
+      "message": "Is this currently supported in ODL?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 77
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cef2d899",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-09T16:55:11Z",
+      "side": 1,
+      "message": "how can this happen? If the SFP has two RSPs, then which one is chosen? The classifier will point to two RSPs? I am confused",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8e261015",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-09T16:55:11Z",
+      "side": 1,
+      "message": "According to https://docs.python.org/2/library/sets.html, if promised_rsps \u003d (31) and compute_rsps \u003d (31, 35) (e.g. one RSP was not properly removed), it would return 0. I think ^ expresses better what we want to do: return a set of values which are not present in both.",
+      "range": {
+        "startLine": 216,
+        "startChar": 39,
+        "endLine": 216,
+        "endChar": 40
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6e6aa41b",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-09T16:55:11Z",
+      "side": 1,
+      "message": "isn\u0027t it easier to do:\n\nif \u0027service-function-path-state\u0027 in resource:\n   return service-function-path\nelse:\n   return \u0027{}s\u0027.format(resource)\n\nThen we don\u0027t need to define global dictionaries. Why do you define them outside of the pluralize and get_module functions?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 17
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
