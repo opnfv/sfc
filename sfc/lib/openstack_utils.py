@@ -159,11 +159,10 @@ class OpenStackSFC:
         '''
         for creator in self.creators:
             # We want to filter the vm creators
-            if hasattr(creator, 'get_vm_info'):
-                vm_info = creator.get_vm_info()
+            if hasattr(creator, 'get_vm_inst'):
                 # We want to fetch only the client
-                if vm_info['name'] == 'client':
-                    return vm_info['OS-EXT-SRV-ATTR:host']
+                if creator.get_vm_inst().name == 'client':
+                    return creator.get_vm_inst().compute_host
 
         raise Exception("There is no client VM!!")
 
