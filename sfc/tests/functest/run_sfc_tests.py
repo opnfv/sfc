@@ -12,6 +12,7 @@ import importlib
 import os
 import time
 import yaml
+import sys
 
 from xtesting.core import testcase
 from opnfv.utils import ovs_logger as ovs_log
@@ -184,3 +185,9 @@ class SfcFunctest(testcase.TestCase):
             return testcase.TestCase.EX_OK
 
         return testcase.TestCase.EX_RUN_ERROR
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s'
+                        '- %(levelname)s - %(message)s')
+    SFC = SfcFunctest()
+    sys.exit(SFC.run())
