@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_08c66249",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-03-16T14:11:11Z",
+      "side": 1,
+      "message": "So what I did here now is that you pass the list of neutron ports located on the compute instead of just one, that way the global RSP status on the compute can be evaluated and the expected list of RSPs have to exactly match the actual ones as before.\n\nSo the difference towards what was at the very beguinning is that:\n\n1. Now this evaluates single a compute state whereas before it would evaluate a single compute real RSP list vs the global ACL configuration (so it wouldn\u0027t work with ACLs affecting multiple computes)\n\n2. Now this evaluates both forward and reverse classification from an ACL.",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
