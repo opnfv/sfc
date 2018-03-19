@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2967df26",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:26:23Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "5a3f45e8_6e510462",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 77
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cef2d899",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "An SFP configured by the ODL networking-sfc translator will have one RSP asociated if the chain is not symmetric or two RSPs if it is symmetric. ODL Oxygen introduces a new attribute in the RSP, \u0027reverse-path\u0027, that tells if that RSP is for the forward path or the reverse path. We use that property to filter exactly with RSP we need to look into in L110 based on which port we are looking into: either the source port or the destination port of the ACL.\n\nIn Oxygen, it will still be technically possible to add more RSPs to an SFP that the max of two explained before if someone manually tampers with the automatic configuration done by the networking-sfc trasnlator. This possibility will be removed in Fluorine.",
       "parentUuid": "5a3f45e8_cef2d899",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_896ef3ff",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:26:23Z",
+      "side": 1,
+      "message": "Ok, thanks for the explanation",
+      "parentUuid": "5a3f45e8_eeccf437",
       "range": {
         "startLine": 129,
         "startChar": 0,
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Isn\u0027t it easier and cleaner to add an entry on a dictionary at the beguinning of the file than having to write an if clause for each exception on a function some place within the file? What\u0027s wrong with the global variable? :P",
       "parentUuid": "5a3f45e8_6e6aa41b",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 17
+      },
+      "revId": "06db29c2876eea1419c5fcf9e60a2c64f5d3f069",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a9592f5d",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:26:23Z",
+      "side": 1,
+      "message": "I am fine with global variables as long as they are used in several places. However, when only one function uses them, I prefer to have it within the function. I don\u0027t know, I would agree with your approach if some other exceptions were present. We need a third developer to decide what is best :)",
+      "parentUuid": "5a3f45e8_4e136866",
       "range": {
         "startLine": 250,
         "startChar": 0,
