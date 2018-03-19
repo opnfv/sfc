@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_a9200fb1",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:49:08Z",
+      "side": 1,
+      "message": "rsps is a list of dictionaries which is being filled. Assuming there is no duplication in rsp_names, why would this function ever return a rsp?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 42
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_08c66249",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 6
@@ -13,6 +36,30 @@
       "writtenOn": "2018-03-16T14:11:11Z",
       "side": 1,
       "message": "So what I did here now is that you pass the list of neutron ports located on the compute instead of just one, that way the global RSP status on the compute can be evaluated and the expected list of RSPs have to exactly match the actual ones as before.\n\nSo the difference towards what was at the very beguinning is that:\n\n1. Now this evaluates single a compute state whereas before it would evaluate a single compute real RSP list vs the global ACL configuration (so it wouldn\u0027t work with ACLs affecting multiple computes)\n\n2. Now this evaluates both forward and reverse classification from an ACL.",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_49198b87",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:49:08Z",
+      "side": 1,
+      "message": "OK, sounds cool. I think it would be nice to change compute_ports by neutron_ports, it is clearer. The first time I read this, I thought that by compute_ports you meant the tap port attached to OVS.",
+      "parentUuid": "5a3f45e8_08c66249",
       "range": {
         "startLine": 180,
         "startChar": 0,
