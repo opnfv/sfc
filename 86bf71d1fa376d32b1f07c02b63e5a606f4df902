@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_69160757",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-03-19T14:57:45Z",
+      "side": 1,
+      "message": "blank",
+      "range": {
+        "startLine": 175,
+        "startChar": 45,
+        "endLine": 175,
+        "endChar": 46
+      },
+      "revId": "86bf71d1fa376d32b1f07c02b63e5a606f4df902",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
