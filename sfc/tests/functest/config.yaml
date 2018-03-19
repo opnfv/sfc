@@ -17,6 +17,9 @@ defaults:
     osa:
       user: root
       pkey_file: "/root/.ssh/id_rsa"
+    compass:
+      user: root
+      pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
   image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
   vnfd-dir: "vnfd-templates"
