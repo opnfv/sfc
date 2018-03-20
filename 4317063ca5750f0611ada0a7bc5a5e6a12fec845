@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_92845cb2",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T13:32:13Z",
+      "side": 0,
+      "message": "Why did you removed these ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "4317063ca5750f0611ada0a7bc5a5e6a12fec845",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
