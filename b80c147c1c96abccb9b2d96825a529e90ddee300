@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_b7a34a9d",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "I think you can replace this with:\n\nif matches.get(\u0027destination-port-range\u0027) is None:",
+      "range": {
+        "startLine": 76,
+        "startChar": 11,
+        "endLine": 76,
+        "endChar": 50
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b726aa14",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "Does this means that if the user setted the src_port and destination_port it will classify symmetrically the traffc?\n\nAm I missing something here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 71
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f7add289",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "I think you do not need those.",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a9200fb1",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 6
@@ -13,6 +82,53 @@
       "writtenOn": "2018-03-19T14:49:08Z",
       "side": 1,
       "message": "rsps is a list of dictionaries which is being filled. Assuming there is no duplication in rsp_names, why would this function ever return a rsp?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 42
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_57b486d0",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "YOu do not need None. It will return None by default if a RSP is not found.",
+      "range": {
+        "startLine": 103,
+        "startChar": 36,
+        "endLine": 103,
+        "endChar": 42
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_17bafebf",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_a9200fb1",
       "range": {
         "startLine": 103,
         "startChar": 0,
@@ -60,6 +176,30 @@
       "side": 1,
       "message": "OK, sounds cool. I think it would be nice to change compute_ports by neutron_ports, it is clearer. The first time I read this, I thought that by compute_ports you meant the tap port attached to OVS.",
       "parentUuid": "5a3f45e8_08c66249",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "b80c147c1c96abccb9b2d96825a529e90ddee300",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_97c56e3f",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-20T08:32:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_49198b87",
       "range": {
         "startLine": 180,
         "startChar": 0,
