@@ -245,12 +245,12 @@ def get_tacker_client(other_creds={}):
 
 def get_id_from_name(tacker_client, resource_type, resource_name):
     try:
-        req_params = {'fields': 'id', 'name': resource_name}
-        endpoint = '/{0}s'.format(resource_type)
-        resp = tacker_client.get(endpoint, params=req_params)
-        endpoint = endpoint.replace('-', '_')
-        return resp[endpoint[1:]][0]['id']
-    except Exception, e:
+        params = {'fields': 'id', 'name': resource_name}
+        collection = resource_type + 's'
+        path = '/' + collection
+        resp = tacker_client.list(collection, path, **params)
+        return resp[collection][0]['id']
+    except Exception as e:
         logger.error("Error [get_id_from_name(tacker_client, "
                      "resource_type, resource_name)]: %s" % e)
         return None
