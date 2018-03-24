@@ -18,8 +18,8 @@ topology_template:
           type: ACL
           criteria:
             - network_src_port_id: {get_input: net_src_port_id}
-            - destination_port_range: 80-80
-            - ip_proto: 6
+              destination_port_range: 80-80
+              ip_proto: 6
         path:
           - forwarder: test-vnfd1
             capability: CP1
