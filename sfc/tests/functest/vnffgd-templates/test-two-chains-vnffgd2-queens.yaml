@@ -27,7 +27,7 @@ topology_template:
                 network_src_port_id: {get_input: net_src_port_id}
                 destination_port_range: 80-80
                 ip_proto: 6
-         path:
+        path:
           - forwarder: test-vnfd2
             capability: CP1
 
