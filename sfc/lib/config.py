@@ -43,7 +43,21 @@ class CommonConfig(object):
         self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
         self.functest_results_dir = os.path.join(
             getattr(config.CONF, 'dir_results'), "odl-sfc")
-        self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
+
+        # We need to know the openstack version in order to use one config or
+        # another. For Pike we will use config-pike.yaml. Queens and Rocky
+        # will use config.yaml
+        if 'OPENSTACK_OSA_VERSION' in os.environ:
+            if os.environ['OPENSTACK_OSA_VERSION'] == 'stable/pike':
+                self.config_file = os.path.join(self.sfc_test_dir,
+                                                "config-pike.yaml")
+            else:
+                self.config_file = os.path.join(self.sfc_test_dir,
+                                                "config.yaml")
+        else:
+            self.config_file = os.path.join(self.sfc_test_dir,
+                                            "config-pike.yaml")
+
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = env.get('INSTALLER_TYPE')
