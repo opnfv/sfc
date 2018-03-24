@@ -43,7 +43,11 @@ class CommonConfig(object):
         self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
         self.functest_results_dir = os.path.join(
             getattr(config.CONF, 'dir_results'), "odl-sfc")
-        self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
+        if os.env['OPENSTACK_OSA_VERSION'] == 'stable/pike'
+            self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
+        elif
+            self.config_file = os.path.join(self.sfc_test_dir, "config-queens.yaml")
+
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = env.get('INSTALLER_TYPE')
