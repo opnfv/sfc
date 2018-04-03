@@ -186,6 +186,7 @@ class SfcFunctest(testcase.TestCase):
 
         return testcase.TestCase.EX_RUN_ERROR
 
+
 def main():
     logging.basicConfig(level=logging.INFO)
     SFC = SfcFunctest()
