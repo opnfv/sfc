@@ -209,8 +209,8 @@ def main():
     os_sfc_utils.delete_vnffgd(tacker_client, vnffgd_name='red')
 
     if not odl_utils.check_vnffg_deletion(odl_ip, odl_port, ovs_logger,
-                                      openstack_sfc.get_compute_client(),
-                                      compute_nodes):
+                                          openstack_sfc.get_compute_client(),
+                                          compute_nodes):
         logger.debug("The chains were not correctly removed")
         raise Exception("Chains not correctly removed, test failed")
 

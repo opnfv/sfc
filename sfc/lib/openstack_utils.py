@@ -219,7 +219,7 @@ class OpenStackSFC:
             return port
         else:
             logger.error("The VM {0} does not have any port"
-                         " with name {1}".format(vm_name, port_name))
+                         " with name {1}".format(vm.name, port_name))
             raise Exception("Client VM does not have the desired port")
 
 
