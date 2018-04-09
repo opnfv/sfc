@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1385cdcf",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "why this change?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b37df9e9",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This is not needed. The SfcOneChainTwoServiceTC inherits all the methods from the parent class directly, so you can use \u0027self.method1\u0027 to consume the parent methods",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f3eb01ae",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "python common practices say that all class definitions should have a parent object. In this case, it should be \u0027object\u0027. So:\n\nclass CommonTestCase(object):",
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_53d2b500",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "I would add SFC to the class name. Something like: SFCTestCase or SFCCommonTestCase, etc.",
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_33cd695e",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "elements is too broad. I\u0027d say VMs",
+      "range": {
+        "startLine": 129,
+        "startChar": 29,
+        "endLine": 129,
+        "endChar": 38
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d305257b",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "Could you use a more descriptive name for the method? Something like: assign_floating_ips",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 26
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_73d7f1ed",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This method assigns fips to service functions. For client and server instances, we use the previous method",
+      "range": {
+        "startLine": 161,
+        "startChar": 47,
+        "endLine": 161,
+        "endChar": 56
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b3085992",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This part is not checking the floating ips. The first part is starting the HTTP server in the server VM and the other part is starting the vxlan_tool in the SFs. I think we could have both parts in one method (e.g. start_services_in_vms) but they should be out of this method",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 55
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_13002d66",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This has nothing to do with the method",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 77
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_73eed1b5",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "The classification is not being changed here, why is this line here?",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 50
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_93f39d9d",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "remove_vnffg, vnff does not have a meaning",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 19
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_53f9157f",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "The method is creating the vnffgd and the vnffg. It should be named something like: create_vnffg. I think path_join is not a good name. However, there is another method which is creating the vnffgd and vnffg already called create_chain, please decide which one should do it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 8,
+        "endLine": 231,
+        "endChar": 17
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f3394142",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "I think \u0027get_installer_deployment_nodes\u0027 would be better",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_333ba939",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "get_deployment_odl",
+      "range": {
+        "startLine": 302,
+        "startChar": 8,
+        "endLine": 302,
+        "endChar": 32
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_934a7dc3",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This part is already covered by the \"preparation_openstack\" method and it makes more sense to be there",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 23
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_53275512",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "This code is already in the \u0027preparation_openstack\u0027 method",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 388,
+        "endChar": 23
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_33228901",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "You are fetching openstack_nodes in half of the methods. I think it would be better to have one method that fetches them and passes it as a variable to the rest of methods",
+      "range": {
+        "startLine": 418,
+        "startChar": 8,
+        "endLine": 418,
+        "endChar": 23
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9321ddfd",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "I think you mean vxlan",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 13
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_731c11c2",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-09T11:11:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 27
+      },
+      "revId": "faf9de93e65992ccb6740ff60fffbebc18d0be8d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
