@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_665e0d14",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-04-09T13:52:43Z",
+      "side": 1,
+      "message": "Could you add a comment stating this config file is valid for both queens and rocky.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 69
+      },
+      "revId": "eceebdb2ce1aa8e28d83d41e0f253c1be0e17804",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
