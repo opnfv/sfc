@@ -1,0 +1,67 @@
+---
+project: 'Service Function Chaining (sfc)'
+project_creation_date: 'May 5, 2015'
+project_category: 'Collaborative Development'
+lifecycle_state: 'Incubation'
+project_lead: &opnfv_sfc_ptl
+    name: 'Manuel Buil'
+    email: 'manuelbuil87@gmail.com'
+    company: 'gmail.com'
+    timezone: 'Unkown'
+primary_contact: *opnfv_sfc_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.opnfv.org/projects/sfc'
+    key: 'sfc'
+mailing_list:
+    type: 'mailman2'
+    url: 'opnfv-tech-discuss@lists.opnfv.org'
+    tag: '[sfc]'
+realtime_discussion:
+    type: irc
+    server: 'freenode.net'
+    channel: '#opnfv-sfc'
+meetings:
+    - type: 'gotomeeting+irc'
+      agenda:  # eg: 'https://wiki.opnfv.org/display/'
+      url:  # eg: 'https://global.gotomeeting.com/join/819733085'
+      server: 'freenode.net'
+      channel: '#opnfv-meeting'
+      repeats: 'weekly'
+      time:  # eg: '16:00 UTC'
+repositories:
+    - 'sfc'
+committers:
+    - <<: *opnfv_sfc_ptl
+    - name: 'Brady Johnson'
+      email: 'brady.allen.johnson@ericsson.com'
+      company: 'ericsson.com'
+      id: 'ebrjohn'
+    - name: 'Reinaldo Penno'
+      email: 'rapenno@gmail.com'
+      company: 'gmail.com'
+      id: 'repenno'
+    - name: 'Sam Hague'
+      email: 'shague@redhat.com'
+      company: 'redhat.com'
+      id: 'shague'
+    - name: 'Vishal Murgai'
+      email: 'vmurgai@cavium.com'
+      company: 'cavium.com'
+      id: 'vmurgai'
+    - name: 'Tim Rozet'
+      email: 'trozet@redhat.com'
+      company: 'redhat.com'
+      id: 'trozet'
+    - name: 'Manuel Buil'
+      email: 'manuelbuil87@gmail.com'
+      company: 'gmail.com'
+      id: 'mbuil'
+    - name: 'Dimitrios Markou'
+      email: 'mardim@intracom-telecom.com'
+      company: 'intracom-telecom.com'
+      id: 'mardim'
+tsc:
+    # yamllint disable rule:line-length
+    approval: ''
+    # yamllint enable rule:line-length
