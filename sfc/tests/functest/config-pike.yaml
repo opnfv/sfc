@@ -67,8 +67,8 @@ testcases:
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
     test_vnfd: "test-symmetric-vnfd.yaml"
-    allowed_source_port: 22222
-    blocked_source_port: 33333
+    test_vnffgd: "test-symmetric-vnffgd.yaml"
+    source_port: 22222
 
   sfc_chain_deletion:
     enabled: false
