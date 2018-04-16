@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Dimitrios Markou <mardim@intracom-telecom.com>
+Code-Review+1: Panagiotis Karalis <pkaralis@intracom-telecom.com>
+Submitted-by: Dimitrios Markou <mardim@intracom-telecom.com>
+Submitted-at: Mon, 16 Apr 2018 08:39:01 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/54787
+Project: sfc
+Branch: refs/heads/master
