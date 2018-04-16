@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_efb780f3",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-16T09:59:14Z",
+      "side": 1,
+      "message": "The text normally starts after the quotes. For example: https://github.com/opnfv/snaps/blob/master/snaps/openstack/create_instance.py#L39",
+      "revId": "7d0398ba99a331e40ab2fff7ba8fff53f9665bd7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f810cfb",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-16T09:59:14Z",
+      "side": 1,
+      "message": "if you save openstack_nodes in a class variable of the sfc_parent class (as explained in a comment there), you don\u0027t need this line. Then, the next method \"present_results_allowed_http\" does not need openstack_nodes as argument",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "7d0398ba99a331e40ab2fff7ba8fff53f9665bd7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f9a506f",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-16T09:59:14Z",
+      "side": 1,
+      "message": "Why don\u0027t you use get_installer_deployment_nodes method? Then, I would save openstack_nodes, compute_nodes and controller nodes in a class variable because you are accessing those parameters in different methods (e.g. present_results_xxx) and they will be shared by all the objects. Then, you could refer to those variables as: self.openstack_nodes or self.compute_nodes...",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "7d0398ba99a331e40ab2fff7ba8fff53f9665bd7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af96183d",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-16T09:59:14Z",
+      "side": 1,
+      "message": "I think it is easier to read if you move the whole variable to the next line, i.e openstack_sfc.creators under return",
+      "range": {
+        "startLine": 100,
+        "startChar": 63,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "7d0398ba99a331e40ab2fff7ba8fff53f9665bd7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
