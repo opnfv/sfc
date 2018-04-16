@@ -18,6 +18,7 @@
 # ## the defaults for each role to find additional override options.
 # ##
 
+{% raw %}
 # # Debug and Verbose options.
 debug: false
 
@@ -112,3 +113,8 @@ ovs_nsh_required_metal_packages:
   - openvswitch-datapath-dkms
 
 openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"
+{% endraw %}
+
+{% if odl_repo_version is defined %}
+odl_version: "{{ odl_repo_version }}"
+{% endif %}
