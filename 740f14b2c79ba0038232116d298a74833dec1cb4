@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e014afa1",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "you are only using deployment_handler in this method; therefore, you can leave it as a simple variable. Only use self.var when that variable is going to be used in other methods or subclasses",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8044cbb7",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "you are only using openstack_nodes in this method; therefore, you can leave it as a simple variable. Only use self.var when that variable is going to be used in other methods or subclasses",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 28
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c019b3d8",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "you are only using controller_nodes in this method; therefore, you can leave it as a simple variable. Only use self.var when that variable is going to be used in other methods or subclasses",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0010bba6",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "you are only using custom_flv in this method; therefore, you can leave it as a simple variable. Only use self.var when that variable is going to be used in other methods or subclasses",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_406c8335",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "You don\u0027t need this slash symbol",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 37
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_208217c8",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-17T09:30:35Z",
+      "side": 1,
+      "message": "I don\u0027t think this one makes sense here. Each test should return openstack_sfc.creators",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 46
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
