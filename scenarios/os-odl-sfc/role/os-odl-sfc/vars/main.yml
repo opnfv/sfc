@@ -1,0 +1,2 @@
+---
+odl_version: "{{ lookup('env','ODL_VERSION') }}"
