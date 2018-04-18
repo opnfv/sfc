@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_818b2cc2",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-18T15:09:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_e014afa1",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8044cbb7",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 19
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-17T09:30:35Z",
       "side": 1,
       "message": "you are only using openstack_nodes in this method; therefore, you can leave it as a simple variable. Only use self.var when that variable is going to be used in other methods or subclasses",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 28
+      },
+      "revId": "740f14b2c79ba0038232116d298a74833dec1cb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6188a0c5",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-18T15:09:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_8044cbb7",
       "range": {
         "startLine": 55,
         "startChar": 8,
