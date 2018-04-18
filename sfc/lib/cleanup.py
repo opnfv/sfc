@@ -82,6 +82,13 @@ def delete_openstack_objects(creators):
             logger.error('Unexpected error cleaning - %s', e)
 
 
+# Networking-odl generates a new security group when creating a router
+# which is not tracked by SNAPs
+def delete_untracked_security_groups():
+    openstack_sfc = os_sfc_utils.OpenStackSFC()
+    openstack_sfc.delete_all_security_groups()
+
+
 def cleanup_odl(odl_ip, odl_port):
     delete_odl_resources(odl_ip, odl_port, 'service-function-forwarder')
     delete_odl_resources(odl_ip, odl_port, 'service-function-chain')
@@ -98,6 +105,7 @@ def cleanup(creators, odl_ip=None, odl_port=None):
     delete_vnfds()
     delete_vims()
     delete_openstack_objects(creators)
+    delete_untracked_security_groups()
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)
 
