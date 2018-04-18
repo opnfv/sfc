@@ -253,10 +253,18 @@ class OpenStackSFC:
                          " with name {1}".format(vm.name, port_name))
             raise Exception("Client VM does not have the desired port")
 
+    def delete_all_security_groups(self):
+        '''
+        Deletes all the available security groups
+
+        Needed until this bug is fixed:
+        https://bugs.launchpad.net/networking-odl/+bug/1763705
+        '''
+        sec_groups = neutron_utils.list_security_groups(self.neutron)
+        for sg in sec_groups:
+            neutron_utils.delete_security_group(self.neutron, sg)
 
 # TACKER SECTION #
-
-
 def get_tacker_client_version():
     api_version = os.getenv('OS_TACKER_API_VERSION')
     if api_version is not None:
