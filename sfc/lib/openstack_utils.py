@@ -92,6 +92,9 @@ class OpenStackSFC:
 
         self.creators.append(router_creator)
 
+        # Networking-odl generates a new security group when creating a router
+        self.track_all_security_groups()
+
         return network, router
 
     def create_security_group(self, sec_grp_name):
@@ -253,10 +256,21 @@ class OpenStackSFC:
                          " with name {1}".format(vm.name, port_name))
             raise Exception("Client VM does not have the desired port")
 
+    def track_all_security_groups(self):
+        '''
+        Appends all the existing security groups to creators.
+
+        Needed until this bug is fixed:
+        https://bugs.launchpad.net/networking-odl/+bug/1763705
+        '''
+        sec_groups = neutron_utils.list_security_groups(self.neutron)
+        for sg in sec_groups:
+            SecGrp = neutron_utils.get_security_group_by_id(self.neutron,
+                                                            sg['id'])
+            self.creators.append(SecGrp)
+
 
 # TACKER SECTION #
-
-
 def get_tacker_client_version():
     api_version = os.getenv('OS_TACKER_API_VERSION')
     if api_version is not None:
