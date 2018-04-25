@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f471020d",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-25T11:39:26Z",
+      "side": 1,
+      "message": "I have never seen the symbol \\ being used in Python. Why don\u0027t you do:\n\n        openstack_nodes \u003d (deployment_handler.get_nodes(\n                           {\u0027cluster\u0027: cluster})\n                           if cluster is not None\n                           else deployment_handler.get_nodes())",
+      "parentUuid": "5a3f45e8_d4cfa67d",
+      "range": {
+        "startLine": 84,
+        "startChar": 26,
+        "endLine": 84,
+        "endChar": 27
+      },
+      "revId": "8aa3529b5898db8e56c52df21ee1a5031fdf16dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b4cc9a8a",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 24
@@ -59,6 +83,30 @@
       "writtenOn": "2018-04-25T10:12:18Z",
       "side": 1,
       "message": "AFAIK, This is not needed",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 30
+      },
+      "revId": "8aa3529b5898db8e56c52df21ee1a5031fdf16dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5462763e",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-25T11:39:26Z",
+      "side": 1,
+      "message": "Same here:\n        self.compute_nodes \u003d [node for node in openstack_nodes\n                              if node.is_compute()]",
+      "parentUuid": "5a3f45e8_b4cc9a8a",
       "range": {
         "startLine": 89,
         "startChar": 29,
