@@ -16,7 +16,7 @@ in an OPNFV environment.
 Detailed Requirements
 +++++++++++++++++++++
 
-These are the Euphrates specific requirements:
+These are the Fraser specific requirements:
 
 1 The supported Service Chaining encapsulation will be NSH VXLAN-GPE.
 
@@ -36,7 +36,7 @@ These are the Euphrates specific requirements:
 Long Term Requirements
 ++++++++++++++++++++++
 
-These requirements are out of the scope of the Euphrates release.
+These requirements are out of the scope of the Fraser release.
 
 1 Dynamic movement of SFs across multiple Compute nodes.
 
