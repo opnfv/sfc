@@ -6,10 +6,9 @@ Introduction
 ============
 .. In this section explain the purpose of the scenario and the types of capabilities provided
 
-The os-odl-sfc-noha is intended to be used to install the OPNFV SFC project in a standard
-OPNFV Non-High Availability mode. The OPNFV SFC project integrates the OpenDaylight SFC
-project into the OPNFV environment. The OPNFV SFC Euphrates release uses the OpenDaylight
-Nitrogen SR1 release.
+The os-odl-sfc-ha is intended to be used to install the OPNFV SFC project in a standard
+OPNFV High Availability mode. The OPNFV SFC project integrates the OpenDaylight SFC project
+into the OPNFV environment. The OPNFV SFC Fraser release uses the OpenDaylight Oxygen SR1 release.
 
 Scenario components and composition
 ===================================
@@ -18,9 +17,8 @@ Scenario components and composition
 .. to communicate to the user the capabilities available in this scenario.
 
 This scenario installs everything needed to use the SFC OpenDaylight project in an OPNFV
-environment. Since this scenario is Non-High Availability, then only one controller and
-one compute node will be deployed. The classifier used in this scenario is implemented
-by the Netvirt OpenDaylight project.
+environment. The classifier used in this scenario is implemented by the Netvirt OpenDaylight
+project.
 
 Following is a detailed list of what is included with this scenario:
 
@@ -58,7 +56,7 @@ The VNF Manager
 In order to create a VM for each Service Function, a VNF Manager is needed. The OPNFV
 SFC project currently uses the Tacker OpenStack project as a VNF Manager. Tacker is
 installed on the controller node and manages VNF life cycle, and coordinates VM creation
-with the OpenDaylight SFC project.
+and SFC configuration with OpenStack and OpenDaylight SFC project.
 
 Scenario usage overview
 =======================
@@ -76,17 +74,13 @@ Limitations, Issues and Workarounds
 .. faults or bugs.  If the system design only provide some expected functionality then provide
 .. some insight at this point.
 
-The *client* virtual machine needs to be located in a compute node where at least
-one of the service functions (SFs) is placed. This is due to a limitation in OpenDaylight,
-Nitrogen, which only installs the traffic classifier in the compute nodes where the SFs are.
-
 Specific version of OVS
 -----------------------
 
 SFC needs changes in OVS to include the Network Service Headers (NSH) Service Chaining
 encapsulation. This OVS patch has been ongoing for quite a while (2 years+), and still
 has not been officially merged. Previously, SFC used NSH from a branched version of OVS
-based on 2.3.90, called the "Pritesh Patch". In the OpenDaylight Nitrogen SR1 release, SFC was
+based on 2.3.90, called the "Pritesh Patch". In the OpenDaylight Oxygen SR1 release, SFC was
 changed to use a newer, branched version of OVS based on 2.6.1, called the "Yi Yang
 Patch".
 
@@ -103,7 +97,6 @@ https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home
 
 https://wiki.opendaylight.org/view/Service_Function_Chaining:Main
 
-For more information on the OPNFV Euphrates release, please visit:
+For more information on the OPNFV Fraser release, please visit:
 
-http://www.opnfv.org/euphrates
-
+http://www.opnfv.org/fraser

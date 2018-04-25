@@ -12,9 +12,9 @@ SFC feature desciription
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
 
-- http://docs.opnfv.org/en/stable-euphrates/submodules/sfc/docs/release/scenarios/os-odl-sfc-ha/index.html
+- http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/scenarios/os-odl-sfc-ha/index.html
 
-- http://docs.opnfv.org/en/stable-euphrates/submodules/sfc/docs/release/scenarios/os-odl-sfc-noha/index.html
+- http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/scenarios/os-odl-sfc-noha/index.html
 
 
 The SFC feature enables creation of Service Fuction Chains - an ordered list
