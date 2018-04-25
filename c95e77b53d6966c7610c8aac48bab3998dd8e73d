@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_97fc0074",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2409
+      },
+      "writtenOn": "2018-04-25T15:27:10Z",
+      "side": 1,
+      "message": "I think we are supposed to use: opnfv-6.0.0\nlook here https://wiki.opnfv.org/display/SWREL/Git+Tagging+Instructions+for+Fraser",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "c95e77b53d6966c7610c8aac48bab3998dd8e73d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
