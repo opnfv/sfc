@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_261e98bb",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-26T15:20:37Z",
+      "side": 1,
+      "message": "Be careful because there are test cases where only one SF is created and thus fips_sfs[1] will not exist",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 37
+      },
+      "revId": "6e238f4b93efd833dd0097553728efa2abeabefc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e6279010",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 25
