@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_461924d6",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-26T15:18:04Z",
+      "side": 1,
+      "message": "You should use\nfips_sfs \u003d self.custom_sf_floating_ip()",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 69
+      },
+      "revId": "6e238f4b93efd833dd0097553728efa2abeabefc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_860fac87",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-26T15:18:04Z",
+      "side": 1,
+      "message": "can you call it: assign_floating_ip_SF?",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 29
+      },
+      "revId": "6e238f4b93efd833dd0097553728efa2abeabefc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e6279010",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-26T15:18:04Z",
+      "side": 1,
+      "message": "Let\u0027s follow the same procedure we use in \"assign_floating_ip\". In that method you don\u0027t return any ip and here you return the ips. It is a bit confusing I think if you do it differently. I don\u0027t have a preference :P",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 47
+      },
+      "revId": "6e238f4b93efd833dd0097553728efa2abeabefc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a60aa876",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-26T15:18:04Z",
+      "side": 1,
+      "message": "you should use:         \nfips_sfs \u003d self.custom_sf_floating_ip()",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 79
+      },
+      "revId": "6e238f4b93efd833dd0097553728efa2abeabefc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
