@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_496010a5",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "I think it is hard to understand where are you assigning the floating ip. I suggest we call it: assign_floating_ip_client_server for example",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 33
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2965c4b4",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "Some testcases have two SFs, I suggest you call this method: assign_floating_ip_sfs (using the plural)",
+      "range": {
+        "startLine": 62,
+        "startChar": 31,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c973807e",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "check my comment in the parent class, I think this line could be removed",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e94f5c32",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "you are passing sf1_floating_ip 3 times, one is coming inside fips and then you pass the same parameter twice. Check my comment in the parent class",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 71
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a970b472",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "check my comment in the parent class. I think this line could be removed",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 49
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_695b4cf6",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "fips has already the sf_floating_ips. Why don\u0027t you create fips here in this method? You have the client_ and server_floating_ip because they are class variables and you just have to add the sf_floating_ip(s) which are passed to this method",
+      "range": {
+        "startLine": 241,
+        "startChar": 33,
+        "endLine": 241,
+        "endChar": 71
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_096a8880",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "Check my comment in the parent class, I think this line could be removed",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_890df8ea",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "you are passing sf_floating_ip twice",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 69
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a9f714d2",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "you are passing sf_floating_ip twice",
+      "range": {
+        "startLine": 111,
+        "startChar": 34,
+        "endLine": 111,
+        "endChar": 64
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_89db384e",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "I think this line could be removed, check my comment in the parent class",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 49
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_09ef28ea",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T08:06:50Z",
+      "side": 1,
+      "message": "Let\u0027s discuss this but reading this line it seems like you are just starting services in the SFs. I would either return the 4 (or 3) floating ips or none. Right now you are returning only the 2 floating ips of the SFs when executing assign_floating_ip_sf and I think that could create confusion",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 67
+      },
+      "revId": "58c95403f043645349e551ef60c06590c2fdb63b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
