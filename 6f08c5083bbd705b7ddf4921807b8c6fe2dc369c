@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a43d7b2d",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-04-30T15:36:02Z",
+      "side": 1,
+      "message": "what do you think about returning the client and server floating ip? I am not 100% sure what is best. We can discuss it on Wednesday with Dimitrios",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
