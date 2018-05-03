@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_337c0eb5",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-03T21:28:12Z",
+      "side": 1,
+      "message": "please use logging instead.",
+      "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
