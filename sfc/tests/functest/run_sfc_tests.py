@@ -16,15 +16,15 @@ import sys
 
 from xtesting.core import testcase
 from opnfv.utils import ovs_logger as ovs_log
+from opnfv.utils import opnfv_logger as logger
 from opnfv.deployment.factory import Factory as DeploymentFactory
 from sfc.lib import cleanup as sfc_cleanup
 from sfc.lib import config as sfc_config
 from sfc.lib import odl_utils as odl_utils
 
 from collections import OrderedDict
-import logging
 
-logger = logging.getLogger(__name__)
+logger = logger.Logger(__name__).getLogger()
 COMMON_CONFIG = sfc_config.CommonConfig()
 
 
