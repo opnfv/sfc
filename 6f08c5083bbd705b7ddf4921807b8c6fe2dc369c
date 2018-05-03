@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_25604400",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "See the comment in the parent class reagarding the right way to write docstrings",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a43d7b2d",
         "filename": "sfc/tests/functest/sfc_chain_deletion.py",
         "patchSetId": 27
@@ -25,6 +48,126 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_055d4847",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "I think we discussed about this in the meeting right ?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_856af8eb",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "Please aggreagate all the \u0027from \u0027 in one group and all the imports in another group. Like this:\n\nimport os\nimport sys\nimport logging\nimport sfc.lib.openstack_utils as os_sfc_utils\nimport sfc.lib.topology_shuffler as topo_shuffler\n\n\nfrom opnfv.utils import ovs_logger as ovs_log\nfrom opnfv.deployment.factory import Factory as DeploymentFactory\nfrom sfc.lib import config as sfc_config",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e56bfcee",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "Insert an empty line before \u0027Input\u0027",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c57080de",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_257964c8",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0576e8d6",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "I think you need to rewrite this with a list approach regarding the sf_floating_ips",
+      "range": {
+        "startLine": 233,
+        "startChar": 7,
+        "endLine": 239,
+        "endChar": 34
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e44303ad",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 27
@@ -41,6 +184,120 @@
         "startChar": 50,
         "endLine": 241,
         "endChar": 70
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_657fecab",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_457c70b5",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "I think you will need to rewrite a bit this if you follow the list approach :)",
+      "range": {
+        "startLine": 248,
+        "startChar": 8,
+        "endLine": 271,
+        "endChar": 27
+      },
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a54c549f",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_85515838",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e542dc66",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c547e075",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T06:32:24Z",
+      "side": 1,
+      "message": "This is not the right way to write docstring:\n\ncheck this:\n\nhttps://github.com/openstack/tacker/blob/master/tacker/nfvo/nfvo_plugin.py#L510-L515",
+      "range": {
+        "startLine": 352,
+        "startChar": 7,
+        "endLine": 358,
+        "endChar": 11
       },
       "revId": "6f08c5083bbd705b7ddf4921807b8c6fe2dc369c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
