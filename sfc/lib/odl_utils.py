@@ -4,12 +4,12 @@ import requests
 import time
 import json
 import re
-import logging
 import functools
 import sfc.lib.openstack_utils as os_sfc_utils
 
+from opnfv.utils import opnfv_logger as logger
 
-logger = logging.getLogger(__name__)
+logger = logger.Logger(__name__).getLogger()
 
 
 ODL_MODULE_EXCEPTIONS = {

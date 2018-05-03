@@ -8,21 +8,18 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-import logging
 import os
 import yaml
+import functest.utils.functest_utils as ft_utils
+import sfc
+import sfc.lib.test_utils as test_utils
 import functest
 
 from functest.utils import config
 from functest.utils import env
-import functest.utils.functest_utils as ft_utils
+from opnfv.utils import opnfv_logger as logger
 
-import sfc
-import sfc.lib.test_utils as test_utils
-
-
-logger = logging.getLogger(__name__)
-
+logger = logger.Logger(__name__).getLogger()
 
 class CommonConfig(object):
     """

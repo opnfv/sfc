@@ -1,12 +1,11 @@
 import sys
 import time
-import logging
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 
+from opnfv.utils import opnfv_logger as logger
 
-logger = logging.getLogger(__name__)
-
+logger = logger.Logger(__name__).getLogger()
 
 def delete_odl_resources(odl_ip, odl_port, resource):
     rsrc_list = odl_utils.get_odl_resource_list(odl_ip, odl_port, resource)
