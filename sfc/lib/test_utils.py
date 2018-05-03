@@ -13,10 +13,9 @@ import time
 import shutil
 import urllib
 
-import logging
+from opnfv.utils import opnfv_logger as logger
 
-
-logger = logging.getLogger(__name__)
+logger = logger.Logger(__name__).getLogger()
 SSH_OPTIONS = '-q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 FUNCTEST_RESULTS_DIR = os.path.join("home", "opnfv",
                                     "functest", "results", "odl-sfc")
