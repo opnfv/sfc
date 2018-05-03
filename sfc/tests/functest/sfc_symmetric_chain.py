@@ -12,20 +12,19 @@
 import os
 import sys
 import threading
-import logging
-
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 import opnfv.utils.ovs_logger as ovs_log
-from opnfv.deployment.factory import Factory as DeploymentFactory
-
 import sfc.lib.config as sfc_config
 import sfc.lib.test_utils as test_utils
-from sfc.lib.results import Results
 import sfc.lib.topology_shuffler as topo_shuffler
 
+from opnfv.utils import opnfv_logger as logger
+from sfc.lib.results import Results
+from opnfv.deployment.factory import Factory as DeploymentFactory
 
-logger = logging.getLogger(__name__)
+""" logging configuration """
+logger = logger.Logger(__name__).getLogger()
 
 CLIENT = "client"
 SERVER = "server"
@@ -330,5 +329,4 @@ def wait_for_classification_rules(ovs_logger, compute_nodes,
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(COMMON_CONFIG.functest_logging_api)
     main()

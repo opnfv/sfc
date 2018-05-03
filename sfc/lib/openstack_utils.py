@@ -1,38 +1,30 @@
-import logging
 import os
 import time
 import json
 import yaml
+
+from opnfv.utils import opnfv_logger as logger
 from tackerclient.tacker import client as tackerclient
 from functest.utils import constants
 from functest.utils import env
-
 from snaps.openstack.tests import openstack_tests
-
 from snaps.openstack.create_image import OpenStackImage
 from snaps.config.image import ImageConfig
-
 from snaps.config.flavor import FlavorConfig
 from snaps.openstack.create_flavor import OpenStackFlavor
-
 from snaps.config.network import NetworkConfig, SubnetConfig, PortConfig
 from snaps.openstack.create_network import OpenStackNetwork
-
 from snaps.config.router import RouterConfig
 from snaps.openstack.create_router import OpenStackRouter
-
 from snaps.config.security_group import (
     Protocol, SecurityGroupRuleConfig, Direction, SecurityGroupConfig)
-
 from snaps.openstack.create_security_group import OpenStackSecurityGroup
-
 import snaps.openstack.create_instance as cr_inst
 from snaps.config.vm_inst import VmInstanceConfig, FloatingIpConfig
-
 from snaps.openstack.utils import (
     nova_utils, neutron_utils, heat_utils, keystone_utils)
 
-logger = logging.getLogger(__name__)
+logger = logger.Logger(__name__).getLogger()
 DEFAULT_TACKER_API_VERSION = '1.0'
 
 
