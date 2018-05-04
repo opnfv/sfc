@@ -34,6 +34,24 @@
       "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ee491932",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-04T07:44:23Z",
+      "side": 1,
+      "message": "I have the same question. I am basing my patch on what is done in releng: https://github.com/opnfv/releng/blob/master/modules/opnfv/deployment/osa/adapter.py#L12 because I was able to see those logs when running the tests through functest",
+      "parentUuid": "5a3f45e8_ce6c1dd3",
+      "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
