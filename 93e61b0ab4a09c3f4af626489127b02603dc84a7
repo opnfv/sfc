@@ -52,6 +52,24 @@
       "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_54bc2006",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-05T17:50:23Z",
+      "side": 1,
+      "message": "Yes you will see the logs. But I was speaking about its design. I don\u0027t understand why creating a new class on top of it. I could have understood a classical function just for a little help...\n\nHopefully you don\u0027t use it as a Singleton as it had been used in Functest.\n\nLast but not the least you\u0027re linking SFC to a project which is rolling and the drawbacks are huge compared to the benefits.\n\nBut you\u0027re free to merge your change.",
+      "parentUuid": "5a3f45e8_ee491932",
+      "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
