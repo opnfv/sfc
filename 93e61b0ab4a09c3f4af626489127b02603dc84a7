@@ -70,6 +70,24 @@
       "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_687b3c8c",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-07T06:56:58Z",
+      "side": 1,
+      "message": "I like the Olivier\u0027s suggestion I will go with +1 on this.\n\nWhat do you think MAnuel ?",
+      "parentUuid": "5a3f45e8_54bc2006",
+      "revId": "93e61b0ab4a09c3f4af626489127b02603dc84a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
