@@ -1,0 +1,10 @@
+# The order of packages is significant, because pip processes them in the order
+# of appearance. Changing the order has an impact on the overall integration
+# process, which may cause wedges in the gate later.
+coverage!=4.4,>=4.0 # Apache-2.0
+mock>=2.0.0 # BSD
+nose>=1.3.7 # LGPL
+git+https://gerrit.opnfv.org/gerrit/releng#egg=opnfv&subdirectory=modules
+git+https://gerrit.opnfv.org/gerrit/snaps#egg=snaps
+git+https://github.com/openstack/refstack-client@a59189eaacda24b787ecb65e6634257beba361ec#egg=refstack-client
+git+https://gerrit.opnfv.org/gerrit/functest#egg=functest
