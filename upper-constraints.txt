@@ -1,0 +1,4 @@
+git+https://gerrit.opnfv.org/gerrit/releng#egg=opnfv&subdirectory=modules
+git+https://gerrit.opnfv.org/gerrit/snaps#egg=snaps
+git+https://github.com/openstack/refstack-client@a59189eaacda24b787ecb65e6634257beba361ec#egg=refstack-client
+git+https://gerrit.opnfv.org/gerrit/functest#egg=functest
