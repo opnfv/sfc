@@ -40,6 +40,7 @@ class OpenStackSFC:
         self.keystone = keystone_utils.keystone_client(self.os_creds)
 
     def register_glance_image(self, name, url, img_format, public):
+        logger.info("Registering the image...")
         image_settings = ImageConfig(name=name, img_format=img_format, url=url,
                                      public=public, image_user='admin')
 
@@ -53,6 +54,7 @@ class OpenStackSFC:
         return image_creator
 
     def create_flavor(self, name, ram, disk, vcpus):
+        logger.info("Creating the flavor...")
         flavor_settings = FlavorConfig(name=name, ram=ram, disk=disk,
                                        vcpus=vcpus)
         flavor_creator = OpenStackFlavor(self.os_creds, flavor_settings)
@@ -63,6 +65,7 @@ class OpenStackSFC:
 
     def create_network_infrastructure(self, net_name, subnet_name, subnet_cidr,
                                       router_name):
+        logger.info("Creating networks...")
         # Network and subnet
         subnet_settings = SubnetConfig(name=subnet_name, cidr=subnet_cidr)
         network_settings = NetworkConfig(name=net_name,
@@ -73,6 +76,7 @@ class OpenStackSFC:
         self.creators.append(network_creator)
 
         # Router
+        logger.info("Creating the router...")
         ext_network_name = env.get('EXTERNAL_NETWORK')
 
         router_settings = RouterConfig(name=router_name,
@@ -87,6 +91,7 @@ class OpenStackSFC:
         return network, router
 
     def create_security_group(self, sec_grp_name):
+        logger.info("Creating the security groups...")
         rule_ping = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
                                             direction=Direction.ingress,
                                             protocol=Protocol.icmp)
@@ -118,7 +123,7 @@ class OpenStackSFC:
 
     def create_instance(self, vm_name, flavor_name, image_creator, network,
                         secgrp, av_zone):
-
+        logger.info("Creating the instance {}...".format(vm_name))
         port_settings = PortConfig(name=vm_name + '-port',
                                    network_name=network.name)
 
@@ -336,6 +341,7 @@ def list_vnfds(tacker_client, verbose=False):
 
 
 def create_vnfd(tacker_client, tosca_file=None, vnfd_name=None):
+    logger.info("Creating the vnfd...")
     try:
         vnfd_body = {}
         if tosca_file is not None:
@@ -378,6 +384,7 @@ def list_vnfs(tacker_client, verbose=False):
 
 def create_vnf(tacker_client, vnf_name, vnfd_id=None,
                vnfd_name=None, vim_id=None, vim_name=None, param_file=None):
+    logger.info("Creating the vnf...")
     try:
         vnf_body = {
             'vnf': {
@@ -488,6 +495,7 @@ def delete_vnf(tacker_client, vnf_id=None, vnf_name=None):
 
 
 def create_vim(tacker_client, vim_file=None):
+    logger.info("Creating the vim...")
     try:
         vim_body = {}
         if vim_file is not None:
@@ -502,6 +510,7 @@ def create_vim(tacker_client, vim_file=None):
 
 
 def create_vnffgd(tacker_client, tosca_file=None, vnffgd_name=None):
+    logger.info("Creating the vnffgd...")
     try:
         vnffgd_body = {}
         if tosca_file is not None:
@@ -522,6 +531,7 @@ def create_vnffg(tacker_client, vnffg_name=None, vnffgd_id=None,
     '''
       Creates the vnffg which will provide the RSP and the classifier
     '''
+    logger.info("Creating the vnffg...")
     try:
         vnffg_body = {
             'vnffg': {
