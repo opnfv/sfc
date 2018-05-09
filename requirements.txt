@@ -13,3 +13,4 @@ PyYAML>=3.12 # MIT
 opnfv
 snaps
 xtesting # Apache-2.0
+functest
