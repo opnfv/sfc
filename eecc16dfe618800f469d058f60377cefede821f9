@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_171bb5ca",
+        "filename": "scenarios/os-odl-sfc/xci_overrides",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-09T15:26:45Z",
+      "side": 1,
+      "message": "initialized",
+      "range": {
+        "startLine": 7,
+        "startChar": 55,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "eecc16dfe618800f469d058f60377cefede821f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
