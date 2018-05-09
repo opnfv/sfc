@@ -86,8 +86,8 @@ def main():
         logger.error("Failed to create custom flavor")
         sys.exit(1)
 
+    logger.info("Fetching the ssh clients...")
     tacker_client = os_sfc_utils.get_tacker_client()
-
     controller_clients = test_utils.get_ssh_clients(controller_nodes)
     compute_clients = test_utils.get_ssh_clients(compute_nodes)
 

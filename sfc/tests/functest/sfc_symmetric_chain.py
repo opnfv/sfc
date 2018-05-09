@@ -57,8 +57,6 @@ def main():
 
     openstack_sfc = os_sfc_utils.OpenStackSFC()
 
-    tacker_client = os_sfc_utils.get_tacker_client()
-
     custom_flavor = openstack_sfc.create_flavor(
         COMMON_CONFIG.flavor,
         COMMON_CONFIG.ram_size_in_mb,
@@ -68,6 +66,8 @@ def main():
         logger.error("Failed to create custom flavor")
         sys.exit(1)
 
+    logger.info("Fetching the ssh clients...")
+    tacker_client = os_sfc_utils.get_tacker_client()
     controller_clients = test_utils.get_ssh_clients(controller_nodes)
     compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
