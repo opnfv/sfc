@@ -80,6 +80,7 @@ def main():
 
     openstack_sfc = os_sfc_utils.OpenStackSFC()
 
+    logger.info("Creating the flavor...")
     custom_flv = openstack_sfc.create_flavor(
         COMMON_CONFIG.flavor,
         COMMON_CONFIG.ram_size_in_mb,
@@ -89,8 +90,8 @@ def main():
         logger.error("Failed to create custom flavor")
         sys.exit(1)
 
+    logger.info("Fetching the ssh clients...")
     tacker_client = os_sfc_utils.get_tacker_client()
-
     controller_clients = test_utils.get_ssh_clients(controller_nodes)
     compute_clients = test_utils.get_ssh_clients(compute_nodes)
 
@@ -98,18 +99,21 @@ def main():
         os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
         COMMON_CONFIG.functest_results_dir)
 
+    logger.info("Creating the image...")
     image_creator = openstack_sfc.register_glance_image(
         COMMON_CONFIG.image_name,
         COMMON_CONFIG.image_url,
         COMMON_CONFIG.image_format,
         'public')
 
+    logger.info("Creating the router and networks...")
     network, router = openstack_sfc.create_network_infrastructure(
         TESTCASE_CONFIG.net_name,
         TESTCASE_CONFIG.subnet_name,
         TESTCASE_CONFIG.subnet_cidr,
         TESTCASE_CONFIG.router_name)
 
+    logger.info("Creating the security groups...")
     sg = openstack_sfc.create_security_group(TESTCASE_CONFIG.secgroup_name)
 
     vnfs = ['testVNF1', 'testVNF2']
@@ -122,10 +126,12 @@ def main():
     logger.info('Topology description: {0}'
                 .format(testTopology['description']))
 
+    logger.info("Creating the client...")
     client_instance, client_creator = openstack_sfc.create_instance(
         CLIENT, COMMON_CONFIG.flavor, image_creator, network, sg,
         av_zone=testTopology['client'])
 
+    logger.info("Creating the server...")
     server_instance, server_creator = openstack_sfc.create_instance(
         SERVER, COMMON_CONFIG.flavor, image_creator, network, sg,
         av_zone=testTopology['server'])
@@ -133,12 +139,14 @@ def main():
     server_ip = server_instance.ports[0].ips[0]['ip_address']
     logger.info("Server instance received private ip [{}]".format(server_ip))
 
+    logger.info("Registering the VIM...")
     os_sfc_utils.register_vim(tacker_client, vim_file=COMMON_CONFIG.vim_file)
 
     tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
                               COMMON_CONFIG.vnfd_dir,
                               TESTCASE_CONFIG.test_vnfd_red)
 
+    logger.info("Creating the vnfd...")
     os_sfc_utils.create_vnfd(
         tacker_client,
         tosca_file=tosca_file, vnfd_name='test-vnfd1')
@@ -155,6 +163,7 @@ def main():
         COMMON_CONFIG.vnfd_dir,
         COMMON_CONFIG.vnfd_default_params_file)
 
+    logger.info("Creating the vnfs...")
     os_sfc_utils.create_vnf_in_av_zone(
         tacker_client, vnfs[0], 'test-vnfd1', 'test-vim',
         default_param_file, testTopology[vnfs[0]])
@@ -172,12 +181,14 @@ def main():
                               COMMON_CONFIG.vnffgd_dir,
                               TESTCASE_CONFIG.test_vnffgd_red)
 
+    logger.info("Creating the vnffgd...")
     os_sfc_utils.create_vnffgd(tacker_client,
                                tosca_file=tosca_file,
                                vnffgd_name='red')
 
     neutron_port = openstack_sfc.get_client_port(client_instance,
                                                  client_creator)
+    logger.info("Creating the vnffg...")
     os_sfc_utils.create_vnffg_with_param_file(tacker_client, 'red',
                                               'red_http',
                                               default_param_file,
