@@ -19,7 +19,7 @@ def delete_odl_resources(odl_ip, odl_port, resource):
 def delete_odl_ietf_access_lists(odl_ip, odl_port):
     acl_list = odl_utils.get_odl_acl_list(odl_ip, odl_port)
     acl_types_names = odl_utils.odl_acl_types_names(acl_list)
-    for acl_type, acl_name in acl_types_names:
+    for acl_type, acl_name in acl_types_names.iteritems():
         odl_utils.delete_odl_acl(odl_ip, odl_port, acl_type, acl_name)
 
 
