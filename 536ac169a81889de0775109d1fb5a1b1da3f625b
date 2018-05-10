@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2d565e2a",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 31
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-10T21:00:48Z",
+      "side": 1,
+      "message": "supported installers per test could be useful because not all installer might support the latest versions of a specific component and thus a test might fail",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0d53a239",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-10T21:00:48Z",
+      "side": 1,
+      "message": "This complicates things quite a lot but I don\u0027t see a better way to solve the problem since you don\u0027t know by default the name of the class. Let\u0027s see what Dimitris suggests since he saw something in functest which was doing this in an elegant way",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
