@@ -62,6 +62,145 @@
       "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_3bb657dd",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "I like it a bit but I do not like the inspect thing that you are doing. \n\nYou can add an extra line in the config file which maps to the actuall name of the testcase class. Like :\n\none_chain_two_service_functios: OneChainTwoServiceFunctions",
+      "parentUuid": "5a3f45e8_0d53a239",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_9b504b60",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_7b5a9f84",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "You can replace this with a a class memeber when you instantiate the obj of this class",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_bb53876b",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 72,
+        "startChar": 26,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_fb4d0fc6",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "What are you trying to do here ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 59
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_1bcc3b35",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-14T10:13:19Z",
+      "side": 1,
+      "message": "I think you can move those inside the class as static variables.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 44
+      },
+      "revId": "536ac169a81889de0775109d1fb5a1b1da3f625b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
