@@ -1,5 +1,4 @@
 import os
-import sys
 import logging
 import sfc.lib.test_utils as test_utils
 import sfc.lib.openstack_utils as os_sfc_utils
@@ -74,17 +73,15 @@ class SfcCommonTestCase(object):
         installer_type = os.environ.get("INSTALLER_TYPE")
 
         if installer_type not in supported_installers:
-            logger.error(
+            raise ValueError(
                 '\033[91mYour installer is not supported yet\033[0m')
-            sys.exit(1)
 
         installer_ip = os.environ.get("INSTALLER_IP")
         if not installer_ip:
             logger.error(
                 '\033[91minstaller ip is not set\033[0m')
-            logger.error(
+            raise ValueError(
                 '\033[91mexport INSTALLER_IP=<ip>\033[0m')
-            sys.exit(1)
 
         cluster = COMMON_CONFIG.installer_cluster
         openstack_nodes = (deployment_handler.get_nodes({'cluster': cluster})
@@ -107,8 +104,7 @@ class SfcCommonTestCase(object):
             COMMON_CONFIG.disk_size_in_gb,
             COMMON_CONFIG.vcpu_count)
         if not custom_flv:
-            logger.error("Failed to create custom flavor")
-            sys.exit(1)
+            raise ValueError("Failed to create custom flavor")
 
         controller_nodes = [node for node in openstack_nodes
                             if node.is_controller()]
@@ -213,8 +209,7 @@ class SfcCommonTestCase(object):
         self.vnf_id = os_sfc_utils.wait_for_vnf(self.tacker_client,
                                                 vnf_name=vnf_names)
         if self.vnf_id is None:
-            logger.error('ERROR while booting vnfs')
-            sys.exit(1)
+            raise ValueError('ERROR while booting vnfs')
 
     def assign_floating_ip_client_server(self):
         """Assign floating IPs on the router about server and the client
@@ -257,15 +252,13 @@ class SfcCommonTestCase(object):
         for ip in fips:
             logger.info("Checking connectivity towards floating IP [%s]" % ip)
             if not test_utils.ping(ip, retries=50, retry_timeout=3):
-                logger.error("Cannot ping floating IP [%s]" % ip)
                 os_sfc_utils.get_tacker_items()
                 odl_utils.get_odl_items(self.odl_ip, self.odl_port)
-                sys.exit(1)
+                raise ValueError("Cannot ping floating IP [%s]" % ip)
             logger.info("Successful ping to floating IP [%s]" % ip)
 
         if not test_utils.check_ssh(self.fips_sfs):
-            logger.error("Cannot establish SSH connection to the SFs")
-            sys.exit(1)
+            raise ValueError("Cannot establish SSH connection to the SFs")
 
     def start_services_in_vm(self):
         """Start the HTTP server in the server VM as well as the vxlan tool for
@@ -276,9 +269,8 @@ class SfcCommonTestCase(object):
 
         logger.info("Starting HTTP server on %s" % self.server_floating_ip)
         if not test_utils.start_http_server(self.server_floating_ip):
-            logger.error('\033[91mFailed to start HTTP server on %s\033[0m'
-                         % self.server_floating_ip)
-            sys.exit(1)
+            raise ValueError('\033[91mFailed to start HTTP server on %s\033[0m'
+                             % self.server_floating_ip)
 
         for sf_floating_ip in self.fips_sfs:
             logger.info("Starting vxlan_tool on %s" % sf_floating_ip)

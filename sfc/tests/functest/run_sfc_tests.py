@@ -29,6 +29,13 @@ COMMON_CONFIG = sfc_config.CommonConfig()
 
 class SfcFunctest(testcase.TestCase):
 
+    def __init__(self):
+        super(SfcFunctest, self).__init__()
+
+        self.cleanup_flag = True
+        if '--nocleanup' in sys.argv:
+            self.cleanup_flag = False
+
     def __fetch_tackerc_file(self, controller_node):
         rc_file = os.path.join(COMMON_CONFIG.sfc_test_dir, 'tackerc')
         if not os.path.exists(rc_file):
@@ -159,6 +166,7 @@ class SfcFunctest(testcase.TestCase):
                 tc_class = getattr(module, test_cfg['class_name'])
                 tc_instance = tc_class(testcase_config, supported_installers,
                                        vnf_names)
+                cleanup_run_flag = False
                 start_time = time.time()
                 try:
                     result, creators = tc_instance.run()
@@ -166,6 +174,11 @@ class SfcFunctest(testcase.TestCase):
                     logger.error("Exception when executing: %s" % test_name)
                     logger.error(e)
                     result = {'status': 'FAILED'}
+                    creators = tc_instance.get_creators()
+                    if self.cleanup_flag is True:
+                        sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                                            odl_port=odl_port)
+                        cleanup_run_flag = True
                 end_time = time.time()
                 duration = end_time - start_time
                 logger.info("Results of test case '%s - %s':\n%s\n" %
@@ -183,7 +196,10 @@ class SfcFunctest(testcase.TestCase):
 
                 dic = {"duration": duration, "status": status}
                 self.details.update({test_name: dic})
-                sfc_cleanup.cleanup(creators, odl_ip=odl_ip, odl_port=odl_port)
+
+                if cleanup_run_flag is not True and self.cleanup_flag is True:
+                    sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                                        odl_port=odl_port)
 
         self.stop_time = time.time()
 
