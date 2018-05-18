@@ -28,6 +28,7 @@ defaults:
 
 testcases:
   sfc_one_chain_two_service_functions:
+    class_name: "SfcOneChainTwoServiceTC"
     enabled: true
     order: 0
     description: "ODL-SFC Testing SFs when they are located on the same chain"
@@ -37,11 +38,20 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-one-chain-vnfd1.yaml"
     test_vnfd_blue: "test-one-chain-vnfd2.yaml"
     test_vnffgd_red: "test-one-chain-vnffgd.yaml"
 
   sfc_two_chains_SSH_and_HTTP:
+    class_name: "SfcTwoChainsSSHandHTTP"
     enabled: false
     order: 1
     description: "ODL-SFC tests with two chains and one SF per chain"
@@ -51,12 +61,21 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-two-chains-vnfd1.yaml"
     test_vnfd_blue: "test-two-chains-vnfd2.yaml"
     test_vnffgd_red: "test-two-chains-vnffgd1.yaml"
     test_vnffgd_blue: "test-two-chains-vnffgd2.yaml"
 
   sfc_symmetric_chain:
+    class_name: "SfcSymmetricChain"
     enabled: false
     order: 2
     description: "Verify the behavior of a symmetric service chain"
@@ -66,11 +85,19 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd: "test-symmetric-vnfd.yaml"
     test_vnffgd: "test-symmetric-vnffgd.yaml"
     source_port: 22222
 
   sfc_chain_deletion:
+    class_name: "SfcChainDeletion"
     enabled: false
     order: 3
     description: "Verify if chains work correctly after deleting one"
@@ -80,5 +107,13 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
+    vnf_names:
+      - 'testVNF1'
+      - 'testVNF2'
+    supported_installers:
+      - 'fuel'
+      - 'apex'
+      - 'osa'
+      - 'compass'
     test_vnfd_red: "test-one-chain-vnfd1.yaml"
     test_vnffgd_red: "test-deletion-vnffgd.yaml"
