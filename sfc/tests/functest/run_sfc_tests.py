@@ -111,6 +111,10 @@ class SfcFunctest(testcase.TestCase):
 
     def run(self):
 
+        noclean_flag = False
+        if 'noclean' in sys.argv:
+            noclean_flag = True
+
         deploymentHandler = DeploymentFactory.get_handler(
             COMMON_CONFIG.installer_type,
             COMMON_CONFIG.installer_ip,
@@ -160,6 +164,7 @@ class SfcFunctest(testcase.TestCase):
                 tc_class = getattr(module, test_cfg['class_name'])
                 tc_instance = tc_class(testcase_config, supported_installers,
                                        vnf_names)
+                cleanup_run_flag = False
                 start_time = time.time()
                 try:
                     result, creators = tc_instance.run()
@@ -167,6 +172,11 @@ class SfcFunctest(testcase.TestCase):
                     logger.error("Exception when executing: %s" % test_name)
                     logger.error(e)
                     result = {'status': 'FAILED'}
+                    creators = tc_instance.get_creators()
+                    if noclean_flag is False:
+                        sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                                            odl_port=odl_port)
+                        cleanup_run_flag = True
                 end_time = time.time()
                 duration = end_time - start_time
                 logger.info("Results of test case '%s - %s':\n%s\n" %
@@ -184,7 +194,10 @@ class SfcFunctest(testcase.TestCase):
 
                 dic = {"duration": duration, "status": status}
                 self.details.update({test_name: dic})
-                sfc_cleanup.cleanup(creators, odl_ip=odl_ip, odl_port=odl_port)
+
+                if cleanup_run_flag is not True and noclean_flag is False:
+                    sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                                        odl_port=odl_port)
 
         self.stop_time = time.time()
 
