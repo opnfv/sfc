@@ -136,6 +136,14 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
         if __name__ == 'sfc.tests.functest.sfc_symmetric_chain':
             return results.compile_summary(), self.creators
 
+    def get_creators(self):
+        """Return the creators info, specially in case the info is not
+        returned due to an exception.
+
+        :return: creators
+        """
+        return self.creators
+
 
 def wait_for_classification_rules(ovs_logger, compute_nodes,
                                   server_compute, server_port,

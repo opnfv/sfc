@@ -93,6 +93,14 @@ class SfcChainDeletion(sfc_parent_function.SfcCommonTestCase):
         if __name__ == 'sfc.tests.functest.sfc_chain_deletion':
             return results.compile_summary(), self.creators
 
+    def get_creators(self):
+        """Return the creators info, specially in case the info is not
+        returned due to an exception.
+
+        :return: creators
+        """
+        return self.creators
+
 
 if __name__ == '__main__':
 

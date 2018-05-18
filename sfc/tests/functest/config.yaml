@@ -24,6 +24,7 @@ defaults:
   image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
+  cleanup: true
 
 
 testcases:
