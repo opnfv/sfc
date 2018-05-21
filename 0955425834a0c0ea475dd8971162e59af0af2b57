@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_9d8316cc",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-21T10:31:29Z",
+      "side": 1,
+      "message": "better to add this from the config file. We are executing these tests using the functest framework and I don\u0027t think it propagates the arguments we pass when executing the test",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 31
+      },
+      "revId": "0955425834a0c0ea475dd8971162e59af0af2b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_7d88cae7",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-21T10:31:29Z",
+      "side": 1,
+      "message": "what is the relation between cleanup_run_flag and noclean_flag?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 40
+      },
+      "revId": "0955425834a0c0ea475dd8971162e59af0af2b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_dd6c7e39",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-21T10:31:29Z",
+      "side": 1,
+      "message": "This is a great idea in my opinion!",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "0955425834a0c0ea475dd8971162e59af0af2b57",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
