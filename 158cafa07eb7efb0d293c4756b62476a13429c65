@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_18b6f43d",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-05-21T14:20:29Z",
+      "side": 1,
+      "message": "The 3 of these logging statements could be combined into 1 after the if/else on line 61 as follows: logger.info(\"Config file path: %s\" % (self.config_file)). Notice this also shows the complete path to the config file.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "158cafa07eb7efb0d293c4756b62476a13429c65",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
