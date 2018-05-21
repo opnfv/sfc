@@ -346,8 +346,9 @@ def create_vnfd(tacker_client, tosca_file=None, vnfd_name=None):
         vnfd_body = {}
         if tosca_file is not None:
             with open(tosca_file) as tosca_fd:
-                vnfd_body = tosca_fd.read()
-            logger.info('VNFD template:\n{0}'.format(vnfd_body))
+                vnfd = tosca_fd.read()
+                vnfd_body = yaml.safe_load(vnfd)
+            logger.info('VNFD template:\n{0}'.format(vnfd))
         return tacker_client.create_vnfd(
             body={"vnfd": {"attributes": {"vnfd": vnfd_body},
                   "name": vnfd_name}})
@@ -515,8 +516,9 @@ def create_vnffgd(tacker_client, tosca_file=None, vnffgd_name=None):
         vnffgd_body = {}
         if tosca_file is not None:
             with open(tosca_file) as tosca_fd:
-                vnffgd_body = yaml.safe_load(tosca_fd)
-            logger.info('VNFFGD template:\n{0}'.format(vnffgd_body))
+                vnffgd = tosca_fd.read()
+                vnffgd_body = yaml.safe_load(vnffgd)
+            logger.info('VNFFGD template:\n{0}'.format(vnffgd))
         return tacker_client.create_vnffgd(
             body={'vnffgd': {'name': vnffgd_name,
                   'template': {'vnffgd': vnffgd_body}}})
