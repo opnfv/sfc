@@ -49,12 +49,15 @@ class CommonConfig(object):
             if os.environ['OPENSTACK_OSA_VERSION'] == 'stable/pike':
                 self.config_file = os.path.join(self.sfc_test_dir,
                                                 "config-pike.yaml")
+                logger.info("The config file used is config-pike.yaml")
             else:
                 self.config_file = os.path.join(self.sfc_test_dir,
                                                 "config.yaml")
+                logger.info("The config file used is config.yaml")
         else:
             self.config_file = os.path.join(self.sfc_test_dir,
                                             "config-pike.yaml")
+            logger.info("The config file used is config-pike.yaml")
 
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
