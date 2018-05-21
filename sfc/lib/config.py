@@ -56,6 +56,7 @@ class CommonConfig(object):
             self.config_file = os.path.join(self.sfc_test_dir,
                                             "config-pike.yaml")
 
+        logger.info("The config file used is {}".format(self.config_file))
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = env.get('INSTALLER_TYPE')
