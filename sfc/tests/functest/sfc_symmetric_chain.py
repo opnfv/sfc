@@ -116,14 +116,16 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
         self.vxlan_start_interface(self.fips_sfs[0], 'eth0', 'eth1', "80")
         self.vxlan_start_interface(self.fips_sfs[0], 'eth1', 'eth0', None)
 
-        results = self.present_results_blocked_port_http(self.testcase_config)
+        results = self.present_results_blocked_port_http(self.testcase_config,
+                                                         'HTTP uplink')
 
         self.vxlan_blocking_stop(self.fips_sfs[0])
         self.vxlan_start_interface(self.fips_sfs[0], 'eth0', 'eth1', None)
         self.vxlan_start_interface(self.fips_sfs[0], 'eth1', 'eth0',
                                    self.testcase_config.source_port)
 
-        results = self.present_results_blocked_port_http(self.testcase_config)
+        results = self.present_results_blocked_port_http(self.testcase_config,
+                                                         'HTTP downlink')
 
         self.vxlan_blocking_stop(self.fips_sfs[0])
         self.vxlan_start_interface(self.fips_sfs[0], 'eth0', 'eth1', None)
