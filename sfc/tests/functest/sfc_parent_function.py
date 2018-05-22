@@ -408,26 +408,28 @@ class SfcCommonTestCase(object):
 
         return results
 
-    def present_results_blocked_port_http(self, testcase_config):
+    def present_results_blocked_port_http(self, testcase_config,
+                                          test='HTTP'):
         """Check whether the connection between server and client using
         HTTP protocol and for a specific port is blocked or not.
 
         :param testcase_config: The config input of the test case
+        :param test: custom test string to print on result summary 
         :return: The results for the specific action of the scenario
         """
 
         allowed_port = testcase_config.source_port
-        logger.info("Test if HTTP from port %s doesn't work" % allowed_port)
+        logger.info("Test if %s from port HTTP doesn't work" % allowed_port)
         if test_utils.is_http_blocked(
                 self.client_floating_ip, self.server_ip, allowed_port):
-            results.add_to_summary(2, "PASS", "HTTP uplink blocked")
+            results.add_to_summary(2, "PASS", test + " blocked")
         else:
-            error = ('\033[91mTEST [FAILED] ==> HTTP BLOCKED\033[0m')
+            error = ('\033[91mTEST [FAILED] ==> HTTP WORKS\033[0m')
             logger.error(error)
             test_utils.capture_ovs_logs(
                 self.ovs_logger, self.controller_clients, self.compute_clients,
                 error)
-            results.add_to_summary(2, "FAIL", "HTTP works")
+            results.add_to_summary(2, "FAIL", test + " works")
 
         return results
 
