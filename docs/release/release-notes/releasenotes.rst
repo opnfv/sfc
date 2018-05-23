@@ -48,13 +48,13 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | opnfv-6.0.0                          |
+| **Repo/tag**                         | opnfv-6.1.0                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Fraser base release                  |
+| **Release designation**              | Fraser 6.1                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     |  27th April 2018                     |
+| **Release date**                     |  25th May 2018                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Move to OpenStack Pike and ODL Oxygen|
