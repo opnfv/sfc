@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_8dbc836e",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-05-23T19:11:54Z",
+      "side": 1,
+      "message": "Does this need to be updated?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "f21e55e683f446596565caba8cf86fa15e048fd0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
