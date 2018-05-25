@@ -7,10 +7,9 @@
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
+import logging
 
-from opnfv.utils import opnfv_logger as logger
-
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class Results(object):

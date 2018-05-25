@@ -11,20 +11,19 @@
 import importlib
 import os
 import time
-import yaml
+import logging
 import sys
+import yaml
 
-from xtesting.core import testcase
+from collections import OrderedDict
 from opnfv.utils import ovs_logger as ovs_log
-from opnfv.utils import opnfv_logger as logger
 from opnfv.deployment.factory import Factory as DeploymentFactory
 from sfc.lib import cleanup as sfc_cleanup
 from sfc.lib import config as sfc_config
 from sfc.lib import odl_utils as odl_utils
+from xtesting.core import testcase
 
-from collections import OrderedDict
-
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 COMMON_CONFIG = sfc_config.CommonConfig()
 
 
