@@ -223,7 +223,7 @@ class SfcCommonTestCase(object):
         :return: Floating IPs for client and server
         """
 
-        logger.info("Assigning floating IPs to client amd server instances")
+        logger.info("Assigning floating IPs to client and server instances")
 
         self.client_floating_ip = openstack_sfc.assign_floating_ip(
             self.router, self.client_instance, self.client_creator)

@@ -14,12 +14,12 @@ import functest.utils.functest_utils as ft_utils
 import sfc
 import sfc.lib.test_utils as test_utils
 import functest
+import logging
 
 from functest.utils import config
 from functest.utils import env
-from opnfv.utils import opnfv_logger as logger
 
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class CommonConfig(object):
