@@ -11,6 +11,8 @@
 import os
 import sys
 import threading
+import logging
+
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 import opnfv.utils.ovs_logger as ovs_log
@@ -18,11 +20,10 @@ import sfc.lib.topology_shuffler as topo_shuffler
 import sfc.lib.config as sfc_config
 import sfc.lib.test_utils as test_utils
 
-from opnfv.utils import opnfv_logger as logger
 from sfc.lib.results import Results
 from opnfv.deployment.factory import Factory as DeploymentFactory
 
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 CLIENT = "client"
 SERVER = "server"

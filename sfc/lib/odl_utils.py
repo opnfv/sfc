@@ -1,15 +1,15 @@
 import ConfigParser
+import functools
+import json
+import logging
 import os
+import re
 import requests
 import time
-import json
-import re
-import functools
+
 import sfc.lib.openstack_utils as os_sfc_utils
 
-from opnfv.utils import opnfv_logger as logger
-
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 ODL_MODULE_EXCEPTIONS = {
