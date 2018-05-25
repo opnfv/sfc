@@ -1,9 +1,10 @@
 import os
 import time
 import json
+import logging
 import yaml
 
-from opnfv.utils import opnfv_logger as logger
+
 from tackerclient.tacker import client as tackerclient
 from functest.utils import constants
 from functest.utils import env
@@ -24,7 +25,7 @@ from snaps.config.vm_inst import VmInstanceConfig, FloatingIpConfig
 from snaps.openstack.utils import (
     nova_utils, neutron_utils, heat_utils, keystone_utils)
 
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 DEFAULT_TACKER_API_VERSION = '1.0'
 
 

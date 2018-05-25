@@ -9,13 +9,13 @@
 #
 
 import threading
+import logging
 import sfc.lib.odl_utils as odl_utils
 import sfc.lib.config as sfc_config
 from sfc.tests.functest import sfc_parent_function
-from opnfv.utils import opnfv_logger as logger
 
 """ logging configuration """
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
