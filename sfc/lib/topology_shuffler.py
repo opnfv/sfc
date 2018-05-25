@@ -1,9 +1,8 @@
 import datetime
 import random
+import logging
 
-from opnfv.utils import opnfv_logger as logger
-
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 # The possible topologies we are testing
 TOPOLOGIES = [

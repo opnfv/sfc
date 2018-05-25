@@ -8,13 +8,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 import threading
+import logging
 import sfc.lib.odl_utils as odl_utils
 import sfc.lib.config as sfc_config
-from opnfv.utils import opnfv_logger as logger
 from sfc.tests.functest import sfc_parent_function
 
 """ logging configuration """
-logger = logger.Logger(__name__).getLogger()
+logger = logging.getLogger(__name__)
 
 
 class SfcOneChainTwoServiceTC(sfc_parent_function.SfcCommonTestCase):
