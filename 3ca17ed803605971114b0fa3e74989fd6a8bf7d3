@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_a1aa28d2",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-25T13:13:42Z",
+      "side": 1,
+      "message": "wrong import order",
+      "revId": "3ca17ed803605971114b0fa3e74989fd6a8bf7d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_01af9ce4",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-25T13:13:42Z",
+      "side": 1,
+      "message": "I would advise to conform with OpenStack coding rules.\nhttps://docs.openstack.org/hacking/latest/user/hacking.html",
+      "revId": "3ca17ed803605971114b0fa3e74989fd6a8bf7d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
