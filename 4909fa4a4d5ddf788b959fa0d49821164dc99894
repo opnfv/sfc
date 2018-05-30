@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_79761040",
+        "filename": "test-requirements.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-30T11:39:01Z",
+      "side": 1,
+      "message": "Here you must list abstract dependencies due to pbr.\nhttp://testresults.opnfv.org/functest/dockerslicing/",
+      "revId": "4909fa4a4d5ddf788b959fa0d49821164dc99894",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_1979cc2f",
+        "filename": "tox.ini",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-05-30T11:39:01Z",
+      "side": 1,
+      "message": "Please add upper constraints too else env would differ between testing env and containers.",
+      "revId": "4909fa4a4d5ddf788b959fa0d49821164dc99894",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
