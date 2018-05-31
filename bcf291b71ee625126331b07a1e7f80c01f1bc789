@@ -16,6 +16,52 @@
       "revId": "bcf291b71ee625126331b07a1e7f80c01f1bc789",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0c518c62",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-31T09:21:47Z",
+      "side": 1,
+      "message": "I guess you moved requests under logging because of the alphabetically order, why don\u0027t you order all imports so that we comply with python rules?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 15
+      },
+      "revId": "bcf291b71ee625126331b07a1e7f80c01f1bc789",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8ccc7c37",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-05-31T09:21:47Z",
+      "side": 1,
+      "message": "why you move this one here?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "bcf291b71ee625126331b07a1e7f80c01f1bc789",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
