@@ -42,8 +42,19 @@ class OpenStackSFC:
 
     def register_glance_image(self, name, url, img_format, public):
         logger.info("Registering the image...")
-        image_settings = ImageConfig(name=name, img_format=img_format, url=url,
-                                     public=public, image_user='admin')
+        # Check whether the image is local or not
+        if 'http' in url:
+            image_settings = ImageConfig(name=name,
+                                         img_format=img_format,
+                                         url=url,
+                                         public=public,
+                                         image_user='admin')
+        else:
+            image_settings = ImageConfig(name=name,
+                                         img_format=img_format,
+                                         image_file=url,
+                                         public=public,
+                                         image_user='admin')
 
         # TODO Remove this when tacker is part of SNAPS
         self.image_settings = image_settings
