@@ -6,6 +6,7 @@ defaults:
   disk_size_in_gb: 1
   vcpu_count: 1
   image_name: sfc_nsh_fraser
+  # vnf_image_name: sfc_nsh_fraser
   installer:
     fuel:
       user: root
@@ -21,6 +22,7 @@ defaults:
       user: root
       pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
+  # vnf_image_url: ""
   image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
