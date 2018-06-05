@@ -99,10 +99,14 @@ class CommonConfig(object):
             "defaults.vcpu_count", self.config_file)
         self.image_name = ft_utils.get_parameter_from_yaml(
             "defaults.image_name", self.config_file)
+        self.vnf_image_name = ft_utils.get_parameter_from_yaml(
+            "defaults.vnf_image_name", self.config_file)
         self.image_format = ft_utils.get_parameter_from_yaml(
             "defaults.image_format", self.config_file)
         self.image_url = ft_utils.get_parameter_from_yaml(
             "defaults.image_url", self.config_file)
+        self.vnf_image_url = ft_utils.get_parameter_from_yaml(
+            "defaults.vnf_image_url", self.config_file)
         self.dir_functest_data = getattr(config.CONF, 'dir_functest_data')
 
 
