@@ -25,6 +25,10 @@ defaults:
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
+  # [OPTIONAL] Only when deploying VNFs without the default image (vxlan_tool)
+  # vnf_image_name: xxx
+  # vnf_image_format: yyy
+  # vnf_image_url: zzz
 
 testcases:
   sfc_one_chain_two_service_functions:

@@ -103,6 +103,19 @@ class CommonConfig(object):
             "defaults.image_format", self.config_file)
         self.image_url = ft_utils.get_parameter_from_yaml(
             "defaults.image_url", self.config_file)
+        try:
+            self.vnf_image_name = ft_utils.get_parameter_from_yaml(
+                "defaults.vnf_image_name", self.config_file)
+            self.vnf_image_url = ft_utils.get_parameter_from_yaml(
+                "defaults.vnf_image_url", self.config_file)
+            self.vnf_image_format = ft_utils.get_parameter_from_yaml(
+                "defaults.vnf_image_format", self.config_file)
+        except ValueError:
+            # If the parameter does not exist we use the default
+            self.vnf_image_name = self.image_name
+            self.vnf_image_url = self.image_url
+            self.vnf_image_format = self.image_format
+
         self.dir_functest_data = getattr(config.CONF, 'dir_functest_data')
 
 

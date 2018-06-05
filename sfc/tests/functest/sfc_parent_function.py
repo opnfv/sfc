@@ -33,6 +33,7 @@ class SfcCommonTestCase(object):
         self.router = None
         self.sg = None
         self.image_creator = None
+        self.vnf_image_creator = None
         self.creators = None
         self.odl_ip = None
         self.odl_port = None
@@ -133,6 +134,14 @@ class SfcCommonTestCase(object):
         self.sg = openstack_sfc.create_security_group(
             testcase_config.secgroup_name)
 
+        # Image for the vnf is registered
+        self.vnf_image_creator = openstack_sfc.register_glance_image(
+            COMMON_CONFIG.vnf_image_name,
+            COMMON_CONFIG.vnf_image_url,
+            COMMON_CONFIG.vnf_image_format,
+            'public')
+
+        # Image for the client/server is registered
         self.image_creator = openstack_sfc.register_glance_image(
             COMMON_CONFIG.image_name,
             COMMON_CONFIG.image_url,
