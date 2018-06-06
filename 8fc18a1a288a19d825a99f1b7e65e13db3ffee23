@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_2d3105a3",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-06T14:20:43Z",
+      "side": 1,
+      "message": "Can you please log a meesage here ?",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 26
+      },
+      "revId": "8fc18a1a288a19d825a99f1b7e65e13db3ffee23",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
