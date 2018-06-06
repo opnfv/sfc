@@ -4,3 +4,5 @@
 *pyc
 /sfc.egg-info/
 *ovs-logs/
+.tox/
+docs/_build/
