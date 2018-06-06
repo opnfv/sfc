@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_4d9559e3",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-06T15:49:16Z",
+      "side": 1,
+      "message": "I like the idea! However, I suggest you raise a default Exception. ValueError is a specific exception for:\n\nexception ValueError\nRaised when a built-in operation or function receives an argument that has the right type but an inappropriate value, and the situation is not described by a more precise exception such as IndexError.\n\nhttps://docs.python.org/2/library/exceptions.html",
+      "range": {
+        "startLine": 257,
+        "startChar": 22,
+        "endLine": 257,
+        "endChar": 32
+      },
+      "revId": "bcb7949307f15ee50903f60e9959df74b7bbe340",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
