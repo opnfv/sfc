@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8d7c9174",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-06T13:40:56Z",
+      "side": 1,
+      "message": "Yes I think you can remove this I think it will inherit automatically the super (my bad !!)",
+      "parentUuid": "da5c1566_e2a9dc7c",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a1d91a1f95819da4065f130bbb18e815a6bf3c00",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cd95e989",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-06T13:40:56Z",
+      "side": 1,
+      "message": "Keep this outside of __init__",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "a1d91a1f95819da4065f130bbb18e815a6bf3c00",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_42b6c8dd",
         "filename": "sfc/tests/functest/run_sfc_tests.py",
         "patchSetId": 3
@@ -41,6 +88,29 @@
         "startChar": 0,
         "endLine": 36,
         "endChar": 37
+      },
+      "revId": "a1d91a1f95819da4065f130bbb18e815a6bf3c00",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6df81de6",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-06T13:40:56Z",
+      "side": 1,
+      "message": "Why do you need this ?",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 40
       },
       "revId": "a1d91a1f95819da4065f130bbb18e815a6bf3c00",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
