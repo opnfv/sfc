@@ -22,10 +22,10 @@ topology_template:
           type: ACL
           criteria:
             - network_src_port_id: {get_input: net_src_port_id}
-            - network_dst_port_id: {get_input: net_dst_port_id}
-            - ip_dst_prefix: {get_input: ip_dst_prefix}
-            - destination_port_range: 80-80
-            - ip_proto: 6
+              network_dst_port_id: {get_input: net_dst_port_id}
+              ip_dst_prefix: {get_input: ip_dst_prefix}
+              destination_port_range: 80-80
+              ip_proto: 6
         path:
           - forwarder: test-vnfd1
             capability: CP1
