@@ -29,8 +29,8 @@ COMMON_CONFIG = sfc_config.CommonConfig()
 
 class SfcFunctest(testcase.TestCase):
 
-    def __init__(self):
-        super(SfcFunctest, self).__init__()
+    def __init__(self, **kwargs):
+        super(SfcFunctest, self).__init__(**kwargs)
 
         self.cleanup_flag = True
         if '--nocleanup' in sys.argv:
