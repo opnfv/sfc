@@ -39,6 +39,24 @@
       "revId": "1e1a671233ffba001f17742c580e320c1bb1a40f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_582cf44a",
+        "filename": "sfc/tests/functest/vnffgd-templates/test-symmetric-vnffgd.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-12T11:31:03Z",
+      "side": 1,
+      "message": "good idea. Let me include that change in this patch",
+      "parentUuid": "da5c1566_d8712479",
+      "revId": "1e1a671233ffba001f17742c580e320c1bb1a40f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
