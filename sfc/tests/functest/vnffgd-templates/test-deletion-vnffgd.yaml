@@ -10,16 +10,18 @@ topology_template:
 
   node_templates:
     Forwarding_path1:
-      type: tosca.nodes.nfv.FP.Tacker
+      type: tosca.nodes.nfv.FP.TackerV2
       description: creates path
       properties:
         id: 1
         policy:
           type: ACL
           criteria:
-            - network_src_port_id: {get_input: net_src_port_id}
-              destination_port_range: 80-80
-              ip_proto: 6
+            - name: http_classifier
+              classifier:
+                network_src_port_id: {get_input: net_src_port_id}
+                destination_port_range: 80-80
+                ip_proto: 6
         path:
           - forwarder: test-vnfd1
             capability: CP1
