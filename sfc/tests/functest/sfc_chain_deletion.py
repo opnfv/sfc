@@ -10,6 +10,7 @@
 
 import threading
 import logging
+import urllib3
 import sfc.lib.odl_utils as odl_utils
 import sfc.lib.config as sfc_config
 import sfc.lib.test_utils as test_utils
@@ -104,6 +105,7 @@ class SfcChainDeletion(sfc_parent_function.SfcCommonTestCase):
 
 if __name__ == '__main__':
 
+    urllib3.disable_warnings()
     TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_chain_deletion')
     supported_installers = ['fuel', 'apex', 'osa', 'compass']
     vnf_names = ['testVNF1', 'testVNF2']

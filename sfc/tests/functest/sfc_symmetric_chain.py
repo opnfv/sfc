@@ -12,6 +12,7 @@ import os
 import sys
 import threading
 import logging
+import urllib3
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 import sfc.lib.config as sfc_config
@@ -178,6 +179,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes,
 
 if __name__ == '__main__':
 
+    urllib3.disable_warnings()
     TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_symmetric_chain')
     supported_installers = ['fuel', 'apex', 'osa', 'compass']
     vnf_names = ['testVNF1']
