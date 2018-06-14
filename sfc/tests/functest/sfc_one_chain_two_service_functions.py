@@ -10,7 +10,9 @@
 import threading
 import logging
 import sfc.lib.odl_utils as odl_utils
+import urllib3
 import sfc.lib.config as sfc_config
+urllib3.disable_warnings()
 from sfc.tests.functest import sfc_parent_function
 
 """ logging configuration """
@@ -87,6 +89,7 @@ class SfcOneChainTwoServiceTC(sfc_parent_function.SfcCommonTestCase):
 
 if __name__ == '__main__':
 
+    urllib3.disable_warnings()
     TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_one_chain_two_service'
                                                 '_functions')
     supported_installers = ['fuel', 'apex', 'osa', 'compass']
