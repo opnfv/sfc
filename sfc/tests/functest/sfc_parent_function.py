@@ -1,5 +1,6 @@
 import os
 import logging
+import urllib3
 import sfc.lib.test_utils as test_utils
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.topology_shuffler as topo_shuffler
@@ -10,6 +11,7 @@ from sfc.lib import config as sfc_config
 from sfc.lib import odl_utils as odl_utils
 from sfc.lib.results import Results
 
+urllib3.disable_warnings()
 
 logger = logging.getLogger(__name__)
 CLIENT = "client"
