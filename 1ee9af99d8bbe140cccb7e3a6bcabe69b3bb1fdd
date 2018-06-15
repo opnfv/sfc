@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_07e7b413",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2018-06-15T10:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_8749058e",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_e75d614a",
         "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2018-06-15T07:48:44Z",
       "side": 1,
       "message": "comment missing",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e7e3a003",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2018-06-15T10:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_e75d614a",
       "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
