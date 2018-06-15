@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_8749058e",
+        "filename": "sfc/tests/functest/sfc_chain_deletion.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "Add the comment here too",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e75d614a",
+        "filename": "sfc/tests/functest/sfc_one_chain_two_service_functions.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "comment missing",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_27811990",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "I have just noticed that import os should be after import logging. I know this is not part of your patch but could you move it please? Then we fix it :)",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 9
+      },
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e77601d8",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "please add a empty line between these imports and the ones importing sfc.lib.xxx",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a7440975",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "Could you include a brief comment on top of it? For example: \"To disable the InsecureRequestWarning\"",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c75add4f",
+        "filename": "sfc/tests/functest/sfc_symmetric_chain.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "comment missing",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2758f955",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-15T07:48:44Z",
+      "side": 1,
+      "message": "comment missing",
+      "revId": "1ee9af99d8bbe140cccb7e3a6bcabe69b3bb1fdd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
