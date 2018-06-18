@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_4d2f0ba2",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2018-06-18T11:27:55Z",
+      "side": 1,
+      "message": "In the instance that the sfc testcases are executed manually, the main() method is called from /usr/bin/run_sfc_tests file [0].\nSo, a main() method should be existed in this file. At least, according to the current design of this file!\n\n[0]\nif __name__ \u003d\u003d \"__main__\":\n    sys.exit(main())",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 25
+      },
+      "revId": "f8dd309a66abf495c6256ec84c355fcda425aa17",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
