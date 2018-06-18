@@ -210,7 +210,7 @@ class SfcFunctest(testcase.TestCase):
         return testcase.TestCase.EX_RUN_ERROR
 
 
-def main():
+if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     SFC = SfcFunctest()
     sys.exit(SFC.run())
