@@ -211,6 +211,11 @@ class SfcFunctest(testcase.TestCase):
 
 
 def main():
+
     logging.basicConfig(level=logging.INFO)
     SFC = SfcFunctest()
     sys.exit(SFC.run())
+
+
+if __name__ == '__main__':
+    sys.exit(main())
