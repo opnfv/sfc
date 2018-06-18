@@ -99,4 +99,4 @@ https://wiki.opendaylight.org/view/Service_Function_Chaining:Main
 
 For more information on the OPNFV Fraser release, please visit:
 
-http://www.opnfv.org/fraser
+https://docs.opnfv.org/en/stable-fraser/index.html

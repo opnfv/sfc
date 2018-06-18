@@ -23,7 +23,7 @@ xci tools or Compass4NFV.
 
 More information about OpenDaylight and SFC can be found here.
 
-- `OpenDaylight <http://www.opendaylight.org/software>`_ version "Oxygen SR1"
+- `OpenDaylight <http://www.opendaylight.org>`_ version "Oxygen SR1"
 
 - `Service function chaining <https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home>`_
 
@@ -160,7 +160,7 @@ OPNFV
 
 2) `OPNFV documentation- and software downloads <https://www.opnfv.org/software/download>`_
 
-3) `OPNFV Fraser release <http://wiki.opnfv.org/releases/fraser>`_
+3) `OPNFV Fraser release <https://docs.opnfv.org/en/stable-fraser/index.html>`_
 
 OpenStack
 ---------
