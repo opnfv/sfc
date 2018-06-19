@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_5665dc43",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-19T13:47:11Z",
+      "side": 1,
+      "message": "Wrong English or?",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_76c74013",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-19T13:47:11Z",
+      "side": 1,
+      "message": "In the previous method you are defining the return value as part of the decorator definition. Here you define it inside the method. I\u0027d suggest following the same practices throughout the patch",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 59
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_96d654c4",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-19T13:47:11Z",
+      "side": 1,
+      "message": "You are not checking that it never accessed this piece of code right? https://github.com/opnfv/sfc/blob/master/sfc/lib/cleanup.py#L31-L33. Or does it assertIsNone works when it returns nothing?",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_36e5c8a8",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-19T13:47:11Z",
+      "side": 1,
+      "message": "untracked",
+      "range": {
+        "startLine": 292,
+        "startChar": 20,
+        "endLine": 292,
+        "endChar": 30
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
