@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_d6856cae",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-19T13:52:20Z",
+      "side": 1,
+      "message": "As far as I know, we could remove this function because we are not using it anymore since this patch: https://github.com/opnfv/sfc/commit/23c9ae8fa5db3ea02077d97452ea503097cf985e#diff-a0c1ef21d9be4dfead6888c57442297eL157\n\nSo I think the patch will be finished if you just replace def main(): with  __name__ \u003d\u003d \u0027__main__\u0027:",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "a79da3c464c2d5163bae99514cc7c08a06cde5cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
