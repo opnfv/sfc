@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_414eb4c2",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-20T08:30:15Z",
+      "side": 1,
+      "message": "No why ?",
+      "parentUuid": "da5c1566_5665dc43",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_76c74013",
         "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-19T13:47:11Z",
       "side": 1,
       "message": "In the previous method you are defining the return value as part of the decorator definition. Here you define it inside the method. I\u0027d suggest following the same practices throughout the patch",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 59
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_214bc0b1",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-20T08:30:15Z",
+      "side": 1,
+      "message": "ok yes you are right good point I will fix that.Thanks man!",
+      "parentUuid": "da5c1566_76c74013",
       "range": {
         "startLine": 81,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_61cc9836",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-20T08:30:15Z",
+      "side": 1,
+      "message": "Here I check if the list_vnfds function is called once with the tacker_client_object.\n\nAnd also in the line 99 I check that the delete_vnfds function returns None when the list_vnfds functions returns an empty VNFDs list.",
+      "parentUuid": "da5c1566_96d654c4",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_36e5c8a8",
         "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
         "patchSetId": 14
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-19T13:47:11Z",
       "side": 1,
       "message": "untracked",
+      "range": {
+        "startLine": 292,
+        "startChar": 20,
+        "endLine": 292,
+        "endChar": 30
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e150a860",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-20T08:30:15Z",
+      "side": 1,
+      "message": "where is the problem here ? I cannot see it.",
+      "parentUuid": "da5c1566_36e5c8a8",
       "range": {
         "startLine": 292,
         "startChar": 20,
