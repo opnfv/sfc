@@ -46,3 +46,21 @@ destination port initially used as source port by the client (e.g. 33333).
 If the client is able to receive the response, it would be a symptom of the
 symmetric chain not working, as traffic would be flowing from server to client
 directly without traversing the SF.
+
+3rd check: The client is unable to reach the server using a source port different
+from the one that the firewall blocks (e.g 22222) as requests from the client
+are blocked.
+
+4th check: The client is able to reach the server using any port except the one
+that the firewall blocks, and the response gets back to the client.
+
+
+## TEST DELETION - sfc_chain_deletion ##
+
+One client and one server are created using nova. Then a SF is created using tacker.
+A service chain routing the traffic through this SF will be created as well.
+After that the chain is deleted and re-created.
+
+vxlan_tool is started in the SF and HTTP traffic is sent from the client to the server.
+If it works, the vxlan_tool is modified to block HTTP traffic.
+It is tried again and it should fail because packets are dropped.
