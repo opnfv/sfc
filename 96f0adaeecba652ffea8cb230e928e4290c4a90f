@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_f03b53e9",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-21T05:55:01Z",
+      "side": 1,
+      "message": "Ah yes you are right I should remove the \u0027are\u0027. Thanks!",
+      "parentUuid": "da5c1566_5cccdb35",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_76c74013",
         "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
         "patchSetId": 14
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "you wrote untracted but you meant untracked",
       "parentUuid": "da5c1566_e150a860",
+      "range": {
+        "startLine": 292,
+        "startChar": 20,
+        "endLine": 292,
+        "endChar": 30
+      },
+      "revId": "96f0adaeecba652ffea8cb230e928e4290c4a90f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d040cf58",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-21T05:55:01Z",
+      "side": 1,
+      "message": "I cannot even believe that my brain didn\u0027t notice the difference between r and k. I was looking this for over a minute to find the difference and I just could\u0027t see it. Thanks Manuel! :)",
+      "parentUuid": "da5c1566_9cd673c4",
       "range": {
         "startLine": 292,
         "startChar": 20,
