@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_73062d22",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5925
+      },
+      "writtenOn": "2018-06-21T15:35:58Z",
+      "side": 1,
+      "message": "So I never modified this README after reworking the symmetric test case :( but I did the wiki so that has updated details. Basically, for 1st check, vxlan_tool is run without blocking ports. 2nd check, vxlan_tool is run blocking 80 destination port so that client-\u003eserver traffic is blocked. 3rd check, vxlan_tool is run blocking 22222 destination port so that server-\u003eclient traffic is blocked. 4rd check is just just the same as the 1st check to verify test ends with same config as at the beginning.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 67
+      },
+      "revId": "86175c3714c98eaf90b7fad56cab8bb7029d9d7b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
