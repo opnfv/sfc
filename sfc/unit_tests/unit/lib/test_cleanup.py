@@ -269,8 +269,6 @@ class SfcCleanupTesting(unittest.TestCase):
         Check the proper functionality of the delete_openstack_objects
         function when exception occurs.
         """
-        def side_effect():
-            raise Exception('First Boom!')
 
         mock_creator_obj_one = Mock()
         mock_creator_obj_two = Mock()
