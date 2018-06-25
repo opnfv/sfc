@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_3fee34ed",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:42:10Z",
+      "side": 1,
+      "message": "White space",
+      "range": {
+        "startLine": 41,
+        "startChar": 74,
+        "endLine": 41,
+        "endChar": 75
+      },
+      "revId": "9b09cfeee9b415de98d7ca9f4514b3c7f977be79",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9fbae0df",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:42:10Z",
+      "side": 1,
+      "message": "White space",
+      "range": {
+        "startLine": 48,
+        "startChar": 66,
+        "endLine": 48,
+        "endChar": 67
+      },
+      "revId": "9b09cfeee9b415de98d7ca9f4514b3c7f977be79",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7fbf0cd1",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:42:10Z",
+      "side": 1,
+      "message": "White space",
+      "range": {
+        "startLine": 49,
+        "startChar": 78,
+        "endLine": 49,
+        "endChar": 79
+      },
+      "revId": "9b09cfeee9b415de98d7ca9f4514b3c7f977be79",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_dfb458f4",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:42:10Z",
+      "side": 1,
+      "message": "White space",
+      "range": {
+        "startLine": 56,
+        "startChar": 77,
+        "endLine": 56,
+        "endChar": 78
+      },
+      "revId": "9b09cfeee9b415de98d7ca9f4514b3c7f977be79",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bfb9a4eb",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:42:10Z",
+      "side": 1,
+      "message": "White space",
+      "range": {
+        "startLine": 57,
+        "startChar": 69,
+        "endLine": 57,
+        "endChar": 70
+      },
+      "revId": "9b09cfeee9b415de98d7ca9f4514b3c7f977be79",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
