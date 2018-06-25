@@ -46,6 +46,133 @@
       "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1f209048",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "It is called in lines 275 and 276 right?",
+      "parentUuid": "da5c1566_8430d557",
+      "range": {
+        "startLine": 271,
+        "startChar": 11,
+        "endLine": 271,
+        "endChar": 11
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5f1a0818",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 250,
+        "startChar": 30,
+        "endLine": 250,
+        "endChar": 38
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3f1754ef",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "Why you use \"side_effect\" instead of \"returned_value\"? In the rest of the patch I see returned_value",
+      "range": {
+        "startLine": 259,
+        "startChar": 28,
+        "endLine": 259,
+        "endChar": 39
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1fe7f013",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "you could also assert that time.sleep was called with argument\u003d3 \u003d\u003d\u003e mock_time.sleep.assert_called_once_with(3)",
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ffe31c03",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "you could also assert that time.sleep was called with argument\u003d3 \u003d\u003d\u003e mock_time.sleep.assert_called_once_with(3)",
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ff1cbc15",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T07:39:24Z",
+      "side": 1,
+      "message": "Why you use \"side_effect\" instead of \"returned_value\"? In the rest of the patch I see returned_value",
+      "range": {
+        "startLine": 480,
+        "startChar": 28,
+        "endLine": 480,
+        "endChar": 39
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
