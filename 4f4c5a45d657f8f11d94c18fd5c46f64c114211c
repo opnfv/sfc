@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_7f170ca4",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T09:35:26Z",
+      "side": 1,
+      "message": "yes. Each patch should do only one thing. Create a different patch to remove these lines (another git review)",
+      "parentUuid": "da5c1566_1ff8907b",
+      "range": {
+        "startLine": 271,
+        "startChar": 11,
+        "endLine": 271,
+        "endChar": 11
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_5f1a0818",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 2
@@ -251,6 +275,30 @@
       "side": 1,
       "message": "By using \"return_value\", the return value of the mocked item is always the same no matter how many times it was called. But using \"side_effect\", the return value can be changed dynamically. Here \u0027run_cmd_remote\u0027 is called two times in start_vxlan_tool with different parameters. When it was called the first time [line 147] the return value would be       \n(\u0027\u0027, \u0027output\u0027, \u0027\u0027) and the second time [line 151], the return value would be (\u0027\u0027, \u0027\u0027, \u0027\u0027).",
       "parentUuid": "da5c1566_3f1754ef",
+      "range": {
+        "startLine": 259,
+        "startChar": 28,
+        "endLine": 259,
+        "endChar": 39
+      },
+      "revId": "4f4c5a45d657f8f11d94c18fd5c46f64c114211c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bf11a4ae",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-25T09:35:26Z",
+      "side": 1,
+      "message": "aaahh ok, thanks! Now I understand",
+      "parentUuid": "da5c1566_ffc67c48",
       "range": {
         "startLine": 259,
         "startChar": 28,
