@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_b56384b0",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-06-26T07:56:01Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 38,
+        "startChar": 36,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "280edc379c1f14566253fe7e81c6ba3f98075467",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
