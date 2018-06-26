@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_35cbf473",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T09:35:48Z",
+      "side": 1,
+      "message": "I think you do not need to create extra mocks.\n\nCheck how I am doing this here :\n\nhttps://github.com/opnfv/sfc/blob/master/sfc/unit_tests/unit/lib/test_cleanup.py#L317",
+      "parentUuid": "da5c1566_d5ba78e0",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_758d6c7b",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
