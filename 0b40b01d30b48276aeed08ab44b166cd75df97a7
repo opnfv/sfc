@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_5595c83e",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T09:40:28Z",
+      "side": 1,
+      "message": "From my perspective I think is better to mock only the minimum that you need and leave the rest of the code run unmocked because that way we are as close as it gets to the real environment.",
+      "parentUuid": "da5c1566_75172cee",
+      "range": {
+        "startLine": 111,
+        "startChar": 3,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_35dad478",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
