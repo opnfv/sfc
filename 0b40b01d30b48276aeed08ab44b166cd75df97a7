@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_75b60c3f",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "I think that the mocking here should be the Popen function and not the whole subprocess module.",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_758d6c7b",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "I think you do not need to mock the whole python modules(urllib,sshutil) you need to mock only the functions which are called form those modules",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 54
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d5e9d81b",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 54
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_15f4f0f0",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 111,
+        "startChar": 3,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_35dad478",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 50
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_95e76040",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d5d0b855",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 223,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b5d54445",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 254,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_15cb50a6",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f5cfbcae",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T07:46:28Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 469,
+        "startChar": 5,
+        "endLine": 469,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
