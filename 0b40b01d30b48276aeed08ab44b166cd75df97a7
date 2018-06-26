@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_d5ba78e0",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "I thought this way, it would look simple and clean. If I mock only Popen here, I couldn\u0027t assert that it was called with subprocess.PIPE without creating another mock for it. Or should I create a mock for subprocess.PIPE and do it?",
+      "parentUuid": "da5c1566_75b60c3f",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_758d6c7b",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-26T07:46:28Z",
       "side": 1,
       "message": "I think you do not need to mock the whole python modules(urllib,sshutil) you need to mock only the functions which are called form those modules",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 54
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_15deb03f",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_758d6c7b",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_95f120d0",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d5e9d81b",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 54
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_15f4f0f0",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-26T07:46:28Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 111,
+        "startChar": 3,
+        "endLine": 111,
+        "endChar": 50
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_75172cee",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Here I have to mock the methods - is_file, dirname, basename from os. Instead of passing three different mocks as decorators, I thought why not just mock os and assign the return values from a single mock. It\u0027s ok to do that, right?",
+      "parentUuid": "da5c1566_15f4f0f0",
       "range": {
         "startLine": 111,
         "startChar": 3,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_d5d39836",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_35dad478",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 50
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_95e76040",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-26T07:46:28Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_951ac015",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_95e76040",
       "range": {
         "startLine": 179,
         "startChar": 4,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_351db410",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b5d54445",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 254,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_15cb50a6",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_55202849",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_15cb50a6",
+      "range": {
+        "startLine": 443,
+        "startChar": 4,
+        "endLine": 443,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_f5cfbcae",
         "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
         "patchSetId": 8
@@ -220,6 +412,30 @@
       "writtenOn": "2018-06-26T07:46:28Z",
       "side": 1,
       "message": "same here",
+      "range": {
+        "startLine": 469,
+        "startChar": 5,
+        "endLine": 469,
+        "endChar": 52
+      },
+      "revId": "0b40b01d30b48276aeed08ab44b166cd75df97a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_55e78812",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-06-26T08:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_f5cfbcae",
       "range": {
         "startLine": 469,
         "startChar": 5,
