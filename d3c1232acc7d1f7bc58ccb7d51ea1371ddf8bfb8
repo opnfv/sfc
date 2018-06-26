@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_18ac25a0",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-26T13:56:53Z",
+      "side": 1,
+      "message": "I am just curious. Why did you remove the autospecing\u003dTrue?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "d3c1232acc7d1f7bc58ccb7d51ea1371ddf8bfb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
