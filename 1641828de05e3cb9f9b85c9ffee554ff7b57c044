@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_cfa01df7",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-28T07:39:08Z",
+      "side": 1,
+      "message": "is running",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "1641828de05e3cb9f9b85c9ffee554ff7b57c044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ef824151",
+        "filename": "sfc/tests/functest/README.tests",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-06-28T07:39:08Z",
+      "side": 1,
+      "message": "which routes",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "1641828de05e3cb9f9b85c9ffee554ff7b57c044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
