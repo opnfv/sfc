@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Dimitrios Markou <mardim@intracom-telecom.com>
+Submitted-by: Manuel Buil <mbuil@suse.com>
+Submitted-at: Fri, 29 Jun 2018 06:53:21 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/59175
+Project: sfc
+Branch: refs/heads/stable/fraser
