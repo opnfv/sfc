@@ -13,6 +13,7 @@ used_ips:
 global_overrides:
   internal_lb_vip_address: 172.29.236.222
   external_lb_vip_address: 192.168.122.220
+  barbican_keys_backend: true
   tunnel_bridge: "br-vxlan"
   management_bridge: "br-mgmt"
   provider_networks:
@@ -111,6 +112,15 @@ haproxy_hosts:
 
 # keystone
 identity_hosts:
+  controller00:
+    ip: 172.29.236.11
+  controller01:
+    ip: 172.29.236.12
+  controller02:
+    ip: 172.29.236.13
+
+# barbican
+key-manager_hosts:
   controller00:
     ip: 172.29.236.11
   controller01:
