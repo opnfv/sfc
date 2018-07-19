@@ -473,7 +473,7 @@ def wait_for_vnf(tacker_client, vnf_id=None, vnf_name=None, timeout=100):
         vnf = get_vnf(tacker_client, vnf_id, vnf_name)
         if vnf is None:
             raise Exception("Could not retrieve VNF - id='%s', name='%s'"
-                            % vnf_id, vnf_name)
+                            % (vnf_id, vnf_name))
         logger.info('Waiting for vnf {0}'.format(str(vnf)))
         while vnf['status'] != 'ACTIVE' and timeout >= 0:
             if vnf['status'] == 'ERROR':
