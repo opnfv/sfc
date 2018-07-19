@@ -102,6 +102,11 @@ identity_hosts:
   controller00:
     ip: 172.29.236.11
 
+# barbican
+key-manager_hosts:
+  controller00:
+    ip: 172.29.236.11
+
 # cinder api services
 storage-infra_hosts:
   controller00:
