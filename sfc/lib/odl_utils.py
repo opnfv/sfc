@@ -410,7 +410,7 @@ def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, neutron_ports,
     try:
         compute = find_compute(compute_client_name, compute_nodes)
     except Exception as e:
-        logger.debug("There was an error getting the compute: e" % e)
+        logger.debug("There was an error getting the compute: %s" % e)
 
     retries_counter = retries
 
