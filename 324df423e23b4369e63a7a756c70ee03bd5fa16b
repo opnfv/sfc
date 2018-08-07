@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ab2cca4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-07T07:40:44Z",
+      "side": 1,
+      "message": "I think this needs to be in caps so it can create a hyperlink",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8b3106a5",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-07T07:40:44Z",
+      "side": 1,
+      "message": "why are you calling this three times in this unit_test function?",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
