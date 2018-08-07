@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ab632a19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-07T09:30:13Z",
+      "side": 1,
+      "message": "No. It already created a hyperlink.",
+      "parentUuid": "9a561d44_ab2cca4b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8b3106a5",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 6
@@ -41,6 +65,53 @@
         "startChar": 7,
         "endLine": 78,
         "endChar": 60
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cbedbe8d",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-07T09:30:13Z",
+      "side": 1,
+      "message": "In register_glance_image method, based on the \u0027url\u0027 parameter whether the image is local or not, image settings are generated and image_creator is returned. To complete the coverage for both the cases, I called it two times and verified it with the given arguments.",
+      "parentUuid": "9a561d44_8b3106a5",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0b74d6cd",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-07T09:30:13Z",
+      "side": 1,
+      "message": "I need to move this function to class SfcTackerSectionTesting. I\u0027ll do it with coming changes.",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 78
       },
       "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
