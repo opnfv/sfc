@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_7ca0b6f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-08T14:44:06Z",
+      "side": 1,
+      "message": "Yes but it doesn\u0027t look like this for instance https://gerrit.opnfv.org/gerrit/#/c/59577/",
+      "parentUuid": "9a561d44_ab632a19",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8b3106a5",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 6
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "In register_glance_image method, based on the \u0027url\u0027 parameter whether the image is local or not, image settings are generated and image_creator is returned. To complete the coverage for both the cases, I called it two times and verified it with the given arguments.",
       "parentUuid": "9a561d44_8b3106a5",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "324df423e23b4369e63a7a756c70ee03bd5fa16b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dca58205",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-08T14:44:06Z",
+      "side": 1,
+      "message": "I think you should split it to more than one unit test.You should write one unit test for each case here. I think this is the correct way. But if you want to leave it as it is it\u0027s ok.",
+      "parentUuid": "9a561d44_cbedbe8d",
       "range": {
         "startLine": 75,
         "startChar": 7,
