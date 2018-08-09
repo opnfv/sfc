@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_77657144",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "We should patch where it is looked up not where it is defined. Since we have already imported ImageConfig and OpenStackImage into the openstack_utils, when the call was made to either of functions it looks into the openstack_utils namespace and that\u0027s where we patch them. Here is the reference \u003d\u003d\u003d\u003e https://docs.python.org/3/library/unittest.mock.html#where-to-patch",
+      "parentUuid": "9a561d44_571aed17",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_77d8d153",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 7
@@ -48,6 +72,76 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b75f0972",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "Moving it up.",
+      "parentUuid": "9a561d44_77d8d153",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b77269e3",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "I\u0027m removing this part. It\u0027s confusing.",
+      "range": {
+        "startLine": 371,
+        "startChar": 42,
+        "endLine": 371,
+        "endChar": 46
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1777d5d5",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "So here too.",
+      "range": {
+        "startLine": 388,
+        "startChar": 36,
+        "endLine": 388,
+        "endChar": 40
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_f7ca216d",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 7
@@ -59,6 +153,30 @@
       "writtenOn": "2018-08-09T12:55:58Z",
       "side": 1,
       "message": "this is mock_os_vm_ins. Shouldn\u0027t we get an error because this variable does not exist?",
+      "range": {
+        "startLine": 392,
+        "startChar": 48,
+        "endLine": 392,
+        "endChar": 63
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d76d5d06",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "It is defined in the line #388.",
+      "parentUuid": "9a561d44_f7ca216d",
       "range": {
         "startLine": 392,
         "startChar": 48,
@@ -94,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_974ac581",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "Working on it.",
+      "parentUuid": "9a561d44_37c5b95b",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 57
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b7b9c9eb",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 7
@@ -105,6 +247,30 @@
       "writtenOn": "2018-08-09T12:55:58Z",
       "side": 1,
       "message": "VIM_id and VIM_name is not provided",
+      "range": {
+        "startLine": 1530,
+        "startChar": 21,
+        "endLine": 1530,
+        "endChar": 28
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_77cc5136",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "Working on it.",
+      "parentUuid": "9a561d44_b7b9c9eb",
       "range": {
         "startLine": 1530,
         "startChar": 21,
@@ -140,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f7d7c1bd",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "Since there are equal number of parameters and arguments here, the call \"os_sfc_utils.delete_vim(self.mock_tacker_client, None, \u0027vim_name\u0027)\" is the same as \"os_sfc_utils.delete_vim(self.mock_tacker_client, vim_id\u003dNone, vim_name\u003d\u0027vim_name\u0027)\".",
+      "parentUuid": "9a561d44_d7b43df4",
+      "range": {
+        "startLine": 1551,
+        "startChar": 41,
+        "endLine": 1551,
+        "endChar": 51
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_97bac5df",
         "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
         "patchSetId": 7
@@ -151,6 +341,30 @@
       "writtenOn": "2018-08-09T12:55:58Z",
       "side": 1,
       "message": "Nice, I did not know about this",
+      "range": {
+        "startLine": 1644,
+        "startChar": 0,
+        "endLine": 1644,
+        "endChar": 68
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f7506160",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-09T16:33:42Z",
+      "side": 1,
+      "message": "It\u0027s one of the ways to mock the file handler.",
+      "parentUuid": "9a561d44_97bac5df",
       "range": {
         "startLine": 1644,
         "startChar": 0,
