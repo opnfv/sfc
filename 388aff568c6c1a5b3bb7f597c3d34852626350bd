@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_571aed17",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "These two are not part of sfc library but of the snaps library, is that ok? or should it point to the snaps library? Or would that complicate things too much?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_77d8d153",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "As the call to logger is in the first line of the method, perhaps it is easier for the reader if you put this assert after doing the call. What do you think?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f7ca216d",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "this is mock_os_vm_ins. Shouldn\u0027t we get an error because this variable does not exist?",
+      "range": {
+        "startLine": 392,
+        "startChar": 48,
+        "endLine": 392,
+        "endChar": 63
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_37c5b95b",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "To get the exception, ips should be provided. When it cannot find any heat_stack with that ips, then the error appears",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 57
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b7b9c9eb",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "VIM_id and VIM_name is not provided",
+      "range": {
+        "startLine": 1530,
+        "startChar": 21,
+        "endLine": 1530,
+        "endChar": 28
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d7b43df4",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "In Python, the call would be os_sfc_utils.delete_vim(tacker_client, vim_name\u003d\u0027vim_name\u0027) because of the nature of the parameter. If you call it with \"os_sfc_utils.delete_vim(tacker_client, \u0027vim_name\u0027)\" there will be an error. I am surprised that unit_tests allow this :/",
+      "range": {
+        "startLine": 1551,
+        "startChar": 41,
+        "endLine": 1551,
+        "endChar": 51
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_97bac5df",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-08-09T12:55:58Z",
+      "side": 1,
+      "message": "Nice, I did not know about this",
+      "range": {
+        "startLine": 1644,
+        "startChar": 0,
+        "endLine": 1644,
+        "endChar": 68
+      },
+      "revId": "388aff568c6c1a5b3bb7f597c3d34852626350bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
