@@ -24,19 +24,18 @@ ODL_PLURAL_EXCEPTIONS = {
 def actual_rsps_in_compute(ovs_logger, compute_ssh):
     '''
     Example flows that match the regex (line wrapped because of flake8)
-    table=101, n_packets=7, n_bytes=595, priority=500,tcp,in_port=2,tp_dst=80
-    actions=push_nsh,load:0x1->NXM_NX_NSH_MDTYPE[],load:0x3->NXM_NX_NSH_NP[],
-    load:0x27->NXM_NX_NSP[0..23],load:0xff->NXM_NX_NSI[],
-    load:0xffffff->NXM_NX_NSH_C1[],load:0->NXM_NX_NSH_C2[],resubmit(,17)
+    table=100, n_packets=0, n_bytes=0, priority=520,packet_type=(1,0x894f),
+    nsh_spi=0x2f,nsh_si=253 actions=move:NXOXM_NSH_C4[]->NXM_NX_REG6[],
+    decap(),resubmit(,220)
     '''
     match_rsp = re.compile(r'.+'
-                           r'(tp_(?:src|dst)=[0-9]+)'
+                           r'(1,0x894f)'
                            r'.+'
-                           r'load:(0x[0-9a-f]+)->NXM_NX_NSP\[0\.\.23\]'
+                           r'nsh_spi=(0x[0-9a-f]+)'
                            r'.+')
     # First line is OFPST_FLOW reply (OF1.3) (xid=0x2):
     # This is not a flow so ignore
-    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '101')
+    flows = (ovs_logger.ofctl_dump_flows(compute_ssh, 'br-int', '100')
              .strip().split('\n')[1:])
     matching_flows = [match_rsp.match(f) for f in flows]
     # group(1) = tsp_dst=22 | group(2) = 0xff (rsp value)
@@ -200,7 +199,7 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             time.sleep(3)
 
         while timeout > 0:
-            logger.info("RSPs in ODL Operational DataStore"
+            logger.info("RSPs in ODL Operational DataStore "
                         "for compute '{}':".format(compute_name))
             logger.info("{0}".format(promised_rsps))
 
