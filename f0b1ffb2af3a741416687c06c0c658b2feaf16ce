@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_cb69278d",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/templates/ha/user_sfc_scenarios_variables_ubuntu.yml.j2",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-24T10:54:02Z",
+      "side": 1,
+      "message": "should we add here the odl repo variable or ?",
+      "revId": "f0b1ffb2af3a741416687c06c0c658b2feaf16ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
