@@ -104,7 +104,11 @@ provider_networks:
         - nova_compute
 
 user_external_repos_list:
-  - repo: 'ppa:mardim/mardim-ppa'
+  - repo: 'deb http://ppa.launchpad.net/mardim/mardim-ppa/ubuntu xenial main'
+
+user_external_repo_keys_list:
+  - id: 6E2EEDF1A3925D9D727EB1176FAD8BA42AAAEB9F
+    keyserver: keyserver.ubuntu.com
 
 openstack_host_specific_kernel_modules:
   - name: openvswitch
@@ -114,6 +118,7 @@ ovs_nsh_required_metal_packages:
   - openvswitch-datapath-dkms
 
 openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"
+
 {% endraw %}
 
 {% if odl_repo_version is defined %}
