@@ -51,10 +51,14 @@ class SfcCommonTestCase(object):
         self.vnf_id = None
         self.client_floating_ip = None
         self.server_floating_ip = None
-        self.fips_sfs = None
+        self.fips_sfs = []
         self.neutron_port = None
+        self.vnf_objects = dict()
         self.testcase_config = testcase_config
         self.vnfs = vnfs
+
+        # n-sfc variables
+        self.port_groups = []
 
         self.prepare_env(testcase_config, supported_installers, vnfs)
 
@@ -117,9 +121,10 @@ class SfcCommonTestCase(object):
         self.controller_clients = test_utils.get_ssh_clients(controller_nodes)
         self.compute_clients = test_utils.get_ssh_clients(self.compute_nodes)
 
-        self.tacker_client = os_sfc_utils.get_tacker_client()
-        os_sfc_utils.register_vim(self.tacker_client,
-                                  vim_file=COMMON_CONFIG.vim_file)
+        if COMMON_CONFIG.mano_component == 'tacker':
+            self.tacker_client = os_sfc_utils.get_tacker_client()
+            os_sfc_utils.register_vim(self.tacker_client,
+                                      vim_file=COMMON_CONFIG.vim_file)
 
         self.ovs_logger = ovs_log.OVSLogger(
             os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
@@ -186,6 +191,20 @@ class SfcCommonTestCase(object):
         logger.info("Server instance received private ip [{}]".format(
             self.server_ip))
 
+    def register_vnf_template(self, test_case_name, template_name):
+        """ Register the template which defines the VNF
+
+        :param test_case_name: the name of the test case
+        :param template_name: name of the template
+        """
+
+        if COMMON_CONFIG.mano_component == 'tacker':
+            self.create_custom_vnfd(test_case_name, template_name)
+
+        elif COMMON_CONFIG.mano_component == 'nsfc':
+            # networking-sfc does not have the template concept
+            pass
+
     def create_custom_vnfd(self, test_case_name, vnfd_name):
         """Create VNF Descriptor (VNFD)
 
@@ -201,12 +220,12 @@ class SfcCommonTestCase(object):
                                  tosca_file=tosca_file,
                                  vnfd_name=vnfd_name)
 
-    def create_custom_av(self, vnf_names, av_member1, av_member2):
-        """Create custom 'av'
+    def create_vnf(self, vnf_name, vnfd_name=None, vim_name=None):
+        """Create custom vnf
 
-        :param vnf_names: names of available vnf(s)
-        :param av_member1: the first member of av zone
-        :param av_member2: the second member of av zone
+        :param vnf_name: name of the vnf
+        :param vnfd_name: name of the vnfd template (tacker)
+        :param vim_name: name of the vim (tacker)
         :return: av zone
         """
 
@@ -215,14 +234,30 @@ class SfcCommonTestCase(object):
         logger.info('Topology description: {0}'
                     .format(self.test_topology['description']))
 
-        os_sfc_utils.create_vnf_in_av_zone(
-            self.tacker_client, vnf_names, av_member1, av_member2,
-            self.default_param_file, self.test_topology[vnf_names])
+        if COMMON_CONFIG.mano_component == 'tacker':
+            os_sfc_utils.create_vnf_in_av_zone(
+                self.tacker_client, vnf_name, vnfd_name, vim_name,
+                self.default_param_file, self.test_topology[vnf_name])
 
-        self.vnf_id = os_sfc_utils.wait_for_vnf(self.tacker_client,
-                                                vnf_name=vnf_names)
-        if self.vnf_id is None:
-            raise Exception('ERROR while booting vnfs')
+            self.vnf_id = os_sfc_utils.wait_for_vnf(self.tacker_client,
+                                                    vnf_name=vnf_name)
+            if self.vnf_id is None:
+                raise Exception('ERROR while booting vnfs')
+
+        elif COMMON_CONFIG.mano_component == 'nsfc':
+            av_zone = self.test_topology[vnf_name]
+            vnf_instance, vnf_creator = \
+                openstack_sfc.create_instance(vnf_name, COMMON_CONFIG.flavor,
+                                              self.vnf_image_creator,
+                                              self.network,
+                                              self.sg,
+                                              av_zone=av_zone)
+
+            if not openstack_sfc.wait_for_vnf(vnf_creator):
+                raise Exception('ERROR while booting vnf %s' % vnf_name)
+
+            self.creators.append(vnf_creator)
+            self.vnf_objects[vnf_name] = [vnf_creator, vnf_instance]
 
     def assign_floating_ip_client_server(self):
         """Assign floating IPs on the router about server and the client
@@ -248,8 +283,17 @@ class SfcCommonTestCase(object):
 
         logger.info("Assigning floating IPs to service functions")
 
-        self.fips_sfs = openstack_sfc.assign_floating_ip_vnfs(self.router,
-                                                              vnf_ip)
+        if COMMON_CONFIG.mano_component == 'tacker':
+            self.fips_sfs = openstack_sfc.assign_floating_ip_vnfs(self.router,
+                                                                  vnf_ip)
+        elif COMMON_CONFIG.mano_component == 'nsfc':
+            for vnf in self.vnfs:
+                # creator object is in [0] and instance in [1]
+                vnf_instance = self.vnf_objects[vnf][1]
+                vnf_creator = self.vnf_objects[vnf][0]
+                sf_floating_ip = openstack_sfc.assign_floating_ip(
+                    self.router, vnf_instance, vnf_creator)
+                self.fips_sfs.append(sf_floating_ip)
 
     def check_floating_ips(self):
         """Check the responsivness of the floating IPs
@@ -345,30 +389,59 @@ class SfcCommonTestCase(object):
         os_sfc_utils.delete_vnffgd(self.tacker_client,
                                    vnffgd_name=par_vnffgd_name)
 
-    def create_vnffg(self, testcase_config_name, vnf_name, conn_name):
+    def create_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
+                     port=80, protocol='tcp', symmetric=False):
         """Create the vnffg components following the instructions from
         relevant templates.
 
         :param testcase_config_name: The config input of the test case
-        :param vnf_name: The name of the vnf
-        :param conn_name: Protocol type / name of the component
+        :param vnffgd_name: The name of the vnffgd template
+        :param vnffg_name: The name for the vnffg
         :return: Create the vnffg component
         """
 
-        tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                                  COMMON_CONFIG.vnffgd_dir,
-                                  testcase_config_name)
+        logger.info("Creating the vnffg...")
 
-        os_sfc_utils.create_vnffgd(self.tacker_client,
-                                   tosca_file=tosca_file,
-                                   vnffgd_name=vnf_name)
+        if COMMON_CONFIG.mano_component == 'tacker':
+            tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
+                                      COMMON_CONFIG.vnffgd_dir,
+                                      testcase_config_name)
 
-        self.neutron_port = openstack_sfc.get_client_port(self.client_instance,
-                                                          self.client_creator)
-        os_sfc_utils.create_vnffg_with_param_file(self.tacker_client, vnf_name,
-                                                  conn_name,
-                                                  self.default_param_file,
-                                                  self.neutron_port.id)
+            os_sfc_utils.create_vnffgd(self.tacker_client,
+                                       tosca_file=tosca_file,
+                                       vnffgd_name=vnffgd_name)
+
+            self.neutron_port = \
+                openstack_sfc.get_instance_port(self.client_instance,
+                                                self.client_creator)
+            os_sfc_utils.create_vnffg_with_param_file(self.tacker_client,
+                                                      vnffgd_name,
+                                                      vnffg_name,
+                                                      self.default_param_file,
+                                                      self.neutron_port.id)
+
+        elif COMMON_CONFIG.mano_component == 'nsfc':
+
+            logger.info("Creating the port pair groups...")
+            for vnf in self.vnfs:
+                # creator object is in [0] and instance in [1]
+                vnf_instance = self.vnf_objects[vnf][1]
+                vnf_creator = self.vnf_objects[vnf][0]
+                neutron_port = openstack_sfc.get_instance_port(vnf_instance,
+                                                               vnf_creator)
+                # TODO For the symmetric testcase ingres != egress
+                port_group = openstack_sfc.create_port_groups(neutron_port.id,
+                                                              vnf_instance)
+
+                self.port_groups.append(port_group)
+
+            self.neutron_port = \
+                openstack_sfc.get_instance_port(self.client_instance,
+                                                self.client_creator)
+
+            logger.info("Creating the classifier and chain...")
+            openstack_sfc.create_chain(self.port_groups, self.neutron_port.id,
+                                       port, protocol, vnffg_name, symmetric)
 
     def present_results_http(self):
         """Check whether the connection between server and client using
@@ -445,8 +518,9 @@ class SfcCommonTestCase(object):
         :return: Create the proper chain for the specific test scenario
         """
 
-        self.neutron_port = openstack_sfc.get_client_port(self.client_instance,
-                                                          self.client_creator)
+        self.neutron_port = \
+            openstack_sfc.get_instance_port(self.client_instance,
+                                            self.client_creator)
         odl_utils.create_chain(self.tacker_client, self.default_param_file,
                                self.neutron_port, COMMON_CONFIG,
                                testcase_config)
