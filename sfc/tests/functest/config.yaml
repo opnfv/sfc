@@ -25,6 +25,9 @@ defaults:
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
+  #mano_component can be [tacker, nsfc]
+  mano_component: nsfc
+
   # [OPTIONAL] Only when deploying VNFs without the default image (vxlan_tool)
   # vnf_image_name: xxx
   # vnf_image_format: yyy
@@ -113,7 +116,6 @@ testcases:
     secgroup_descr: "Example Security group"
     vnf_names:
       - 'testVNF1'
-      - 'testVNF2'
     supported_installers:
       - 'fuel'
       - 'apex'
