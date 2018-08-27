@@ -283,7 +283,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                              img_cre,
                                              network,
                                              secgrp,
-                                             'av_zone')
+                                             'av_zone',
+                                             ['port1','port2'])
         self.assertEqual(expected, result)
         mock_vm_instance_config.assert_called_once_with(name='vm_name',
                                                         flavor='flavor_name',
@@ -297,6 +298,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                                     'image_settings')
         self.assertEqual([os_vm_ins], self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
+        mock_port_config,assert_has_calls()
 
     @patch('sfc.lib.openstack_utils.nova_utils.get_hypervisor_hosts',
            autospec=True)
@@ -510,9 +512,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
-    def test_get_client_port_raised_exceptioin(self,
-                                               mock_os_vm,
-                                               mock_log):
+    def test_get_instance_port_raised_exceptioin(self,
+                                                 mock_os_vm,
+                                                 mock_log):
         """
         Checks the proper functionality of get_client_port
         function when no port is returned
@@ -535,9 +537,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
-    def test_get_client_port(self,
-                             mock_os_vm,
-                             mock_log):
+    def test_get_instance_port(self,
+                               mock_os_vm,
+                               mock_log):
         """
         Checks the proper functionality of get_client_port
         function when no port is returned
@@ -568,6 +570,62 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.os_sfc.delete_all_security_groups()
         mock_list_security_groups.assert_called_once_with(self.neutron)
         mock_delete_security_group.assert_has_calls(del_calls)
+
+    @patch('snaps.openstack.create_instance.OpenStackVmInstance', autospec=True)
+    def test_wait_for_vnf(self, mock_osvminstance):
+        """
+        Checks the method wait_for_vnf
+        """
+
+        mock_osvm_ins = mock_osvminstance.return_value
+        mock_osvm_ins.vm_active.return_value = True
+        result = self.os_sfc.wait_for_vnf(mock_osvm_ins)
+        assertTrue(result)
+
+    @patch('snaps.openstack.create_instance.OpenStackVmInstance', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    def test_create_port_groups_returns_none(self, mock_log, mock_osvm):
+        """
+        Checks the create_port_groups when the length of ports is greater than 2
+        """
+        mock_osvm_ins = mock_osvm.return_value
+        log_calls_info = [call('Creating the port pairs...')]
+        log_calls_error = [call('Only SFs with one or two ports are supported')]
+        vnf_ports = ['p1', 'p2', 'p3']
+        result = self.create_port_groups(vnf_ports, mock_osvm_ins)
+        self.assertIsNone(result)
+        mock_log.info.assert_has_calls(log_calls_info)
+        mock_log.error.assert_has_calls(log_calls_error)
+
+    @patch('snaps.domain.network.Port', autospec=True)
+    @patch('snaps.openstack.create_instance.OpenStackVmInstance', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    def test_create_port_groups_returns_id(self, mock_log, mock_osvm,
+                                           mock_port):
+        """
+        Checks the create_port_groups when the length of ports is greater than 2
+        """
+ 
+        log_calls_info = [call('Creating the port pairs...'), call('Creating the port pair groups...']
+        mock_port_ins = mock_port.return_value
+        mock_port_ins.id.return_value = '123abc'
+        mock_osvm_ins = mock_osvm.return_value
+        mock_osvm_ins.name.return_value = 'vm'
+        expected_port_pair = {'name': 'vm-connection-points',
+                              'description': 'port pair for vm',
+                              'ingress': '123abc',
+                              'egress': '123abc'}
+        self.neutron.create_sfc_port_pair.return_value = {'port_pair': {'id': 'pp_id'}}
+        self.neutron.create_sfc_port_pair_group.return_value = {'port_pair_group': {'id': 'pp_id'}}
+        expected_port_pair_gr = {'name': 'vm-port-pair-group',
+                                 'description': 'port pair group for vm',
+                                 'port_pairs': ['pp_id']}
+
+        result = self.create_port_groups([mock_port_ins], mock_osvm_ins)
+        self.neutron.create_sfc_port_pair.assert_has_call({'port_pair': expected_port_pair})
+        self.neutron.create_sfc_port_pair_group.assert_has_call({'port_pair_group': expected_port_pair_gr})
+        mock_log.info.assert_has_calls(log_calls_info)
+
 
 
 class SfcTackerSectionTesting(unittest.TestCase):
