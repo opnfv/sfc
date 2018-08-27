@@ -428,20 +428,3 @@ def check_vnffg_deletion(odl_ip, odl_port, ovs_logger, neutron_ports,
         return False
 
     return True
-
-
-def create_chain(tacker_client, default_param_file, neutron_port,
-                 COMMON_CONFIG, TESTCASE_CONFIG):
-
-    tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                              COMMON_CONFIG.vnffgd_dir,
-                              TESTCASE_CONFIG.test_vnffgd_red)
-
-    os_sfc_utils.create_vnffgd(tacker_client,
-                               tosca_file=tosca_file,
-                               vnffgd_name='red')
-
-    os_sfc_utils.create_vnffg_with_param_file(tacker_client, 'red',
-                                              'red_http',
-                                              default_param_file,
-                                              neutron_port.id)

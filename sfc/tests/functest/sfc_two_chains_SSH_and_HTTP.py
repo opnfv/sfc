@@ -32,16 +32,16 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
 
         logger.info("The test scenario %s is starting", __name__)
 
-        self.create_custom_vnfd(self.testcase_config.test_vnfd_red,
-                                'test-vnfd1')
-        self.create_custom_vnfd(self.testcase_config.test_vnfd_blue,
-                                'test-vnfd2')
+        self.register_vnf_template(self.testcase_config.test_vnfd_red,
+                                   'test-vnfd1')
+        self.register_vnf_template(self.testcase_config.test_vnfd_blue,
+                                   'test-vnfd2')
 
         self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim')
         self.create_vnf(self.vnfs[1], 'test-vnfd2', 'test-vim')
 
         self.create_vnffg(self.testcase_config.test_vnffgd_red, 'red',
-                          'red_http')
+                          'red_http', port=80, protocol='tcp', symmetric=False)
 
         t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
