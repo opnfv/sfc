@@ -283,7 +283,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                              img_cre,
                                              network,
                                              secgrp,
-                                             'av_zone')
+                                             'av_zone',
+                                             ['port1','port2'])
         self.assertEqual(expected, result)
         mock_vm_instance_config.assert_called_once_with(name='vm_name',
                                                         flavor='flavor_name',
@@ -297,6 +298,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                                     'image_settings')
         self.assertEqual([os_vm_ins], self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
+        mock_port_config,assert_has_calls()
 
     @patch('sfc.lib.openstack_utils.nova_utils.get_hypervisor_hosts',
            autospec=True)
@@ -510,9 +512,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
-    def test_get_client_port_raised_exceptioin(self,
-                                               mock_os_vm,
-                                               mock_log):
+    def test_get_instance_port_raised_exceptioin(self,
+                                                 mock_os_vm,
+                                                 mock_log):
         """
         Checks the proper functionality of get_client_port
         function when no port is returned
@@ -535,9 +537,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
-    def test_get_client_port(self,
-                             mock_os_vm,
-                             mock_log):
+    def test_get_instance_port(self,
+                               mock_os_vm,
+                               mock_log):
         """
         Checks the proper functionality of get_client_port
         function when no port is returned
@@ -569,6 +571,16 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         mock_list_security_groups.assert_called_once_with(self.neutron)
         mock_delete_security_group.assert_has_calls(del_calls)
 
+    @patch('snaps.openstack.create_instance.OpenStackVmInstance', autospec=True)
+    def test_wait_for_vnf(self, mock_osvminstance):
+        """
+        Checks the method wait_for_vnf
+        """
+
+        mock_osvm_ins = mock_osvminstance.return_value
+        mock_osvm_ins.vm_active.return_value = True
+        result = self.os_sfc.wait_for_vnf(mock_osvm_ins)
+        assertTrue(result)
 
 class SfcTackerSectionTesting(unittest.TestCase):
 
