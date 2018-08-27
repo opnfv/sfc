@@ -88,6 +88,8 @@ class CommonConfig(object):
             "defaults.image_format", self.config_file)
         self.image_url = ft_utils.get_parameter_from_yaml(
             "defaults.image_url", self.config_file)
+        self.mano_component = ft_utils.get_parameter_from_yaml(          
+            "defaults.mano_component", self.config_file)
         try:
             self.vnf_image_name = ft_utils.get_parameter_from_yaml(
                 "defaults.vnf_image_name", self.config_file)
