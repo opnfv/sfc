@@ -262,8 +262,10 @@ class SfcCleanupTesting(unittest.TestCase):
         mock_log.assert_has_calls(log_calls)
         mock_del_vim.assert_has_calls(del_calls)
 
+    @patch('sfc.lib.cleanup.logger.info')
     @patch('sfc.lib.cleanup.logger.error')
-    def test_delete_openstack_objects_exception(self, mock_log):
+    def test_delete_openstack_objects_exception(self, mock_log_err,
+                                                mock_log_info):
 
         """
         Check the proper functionality of the delete_openstack_objects
@@ -283,11 +285,13 @@ class SfcCleanupTesting(unittest.TestCase):
         mock_creator_objs_list = [mock_creator_obj_one, mock_creator_obj_two]
 
         log_calls = [call('Unexpected error cleaning - %s', exception_two),
-                     call('Unexpected error cleaning - %s', exception_one)]
+                     call('Unexpected error cleaning - %s', exception_one),
+                     call('Deleting the openstack objects...')]
 
         cleanup.delete_openstack_objects(mock_creator_objs_list)
 
-        mock_log.assert_has_calls(log_calls)
+        mock_log_err.assert_has_calls(log_calls[:1])
+        mock_log_info.assert_has_calls(log_calls[1:])
 
     @patch('sfc.lib.openstack_utils.OpenStackSFC', autospec=True)
     def test_delete_untracked_security_groups(self,
@@ -314,39 +318,15 @@ class SfcCleanupTesting(unittest.TestCase):
         mock_del_odl_res.assert_has_calls(odl_res_calls)
         mock_del_odl_ietf.assert_called_once_with(self.odl_ip, self.odl_port)
 
-    @patch('time.sleep')
-    @patch('sfc.lib.cleanup.delete_openstack_objects')
-    @patch('sfc.lib.cleanup.cleanup_odl')
-    def test_cleanup(self,
-                     mock_cleanup_odl,
-                     mock_del_os_obj,
-                     mock_time):
-
-        mock_dict = {'delete_vnffgs': DEFAULT,
-                     'delete_vnffgds': DEFAULT,
-                     'delete_vnfs': DEFAULT,
-                     'delete_vnfds': DEFAULT,
-                     'delete_vims': DEFAULT,
-                     'delete_untracked_security_groups': DEFAULT}
-        with patch.multiple('sfc.lib.cleanup',
-                            **mock_dict) as mock_values:
-
-            cleanup.cleanup(['creator_one', 'creator_two'],
-                            self.odl_ip,
-                            self.odl_port)
-
-        for key in mock_values:
-            mock_values[key].assert_called_once()
-        mock_cleanup_odl.assert_called_once_with(self.odl_ip,
-                                                 self.odl_port)
-        mock_del_os_obj.assert_called_once_with(['creator_one', 'creator_two'])
-        mock_time.assert_called_once_with(20)
+    @patch('sfc.lib.openstack_utils.OpenStackSFC', autospec=True)
+    def test_cleanup_nsfc_objects(self, mock_os_sfc):
+        mock_os_sfc_ins = mock_os_sfc.return_value
+        cleanup.cleanup_nsfc_objects()
+        mock_os_sfc_ins.delete_chain.assert_called_once()
+        mock_os_sfc_ins.delete_port_groups.assert_called_once()
 
     @patch('time.sleep')
-    @patch('sfc.lib.cleanup.cleanup_odl')
-    def test_cleanup_from_bash(self,
-                               mock_cleanup_odl,
-                               mock_time):
+    def test_cleanup_tacker_objects(self, mock_time):
 
         mock_dict = {'delete_vnffgs': DEFAULT,
                      'delete_vnffgds': DEFAULT,
@@ -355,12 +335,54 @@ class SfcCleanupTesting(unittest.TestCase):
                      'delete_vims': DEFAULT}
         with patch.multiple('sfc.lib.cleanup',
                             **mock_dict) as mock_values:
-
-            cleanup.cleanup_from_bash(self.odl_ip,
-                                      self.odl_port)
+            cleanup.cleanup_tacker_objects()
 
         for key in mock_values:
             mock_values[key].assert_called_once()
+
+        mock_time.assert_called_once_with(20)
+
+    @patch('sfc.lib.cleanup.cleanup_tacker_objects')
+    def test_cleanup_mano_objects_tacker(self, mock_cleanup_tacker):
+        cleanup.cleanup_mano_objects('tacker')
+        mock_cleanup_tacker.assert_called_once()
+
+    @patch('sfc.lib.cleanup.cleanup_nsfc_objects')
+    def test_cleanup_mano_objects_nsfc(self, mock_cleanup_nsfc):
+        cleanup.cleanup_mano_objects('nsfc')
+        mock_cleanup_nsfc.assert_called_once()
+
+    @patch('sfc.lib.cleanup.delete_untracked_security_groups')
+    @patch('sfc.lib.cleanup.cleanup_mano_objects')
+    @patch('sfc.lib.cleanup.delete_openstack_objects')
+    @patch('sfc.lib.cleanup.cleanup_odl')
+    def test_cleanup(self,
+                     mock_cleanup_odl,
+                     mock_del_os_obj,
+                     mock_cleanup_mano,
+                     mock_untr_sec_grps):
+
+        cleanup.cleanup(['creator_one', 'creator_two'],
+                        'mano',
+                        self.odl_ip,
+                        self.odl_port)
+
         mock_cleanup_odl.assert_called_once_with(self.odl_ip,
                                                  self.odl_port)
-        mock_time.assert_called_once_with(20)
+        mock_del_os_obj.assert_called_once_with(['creator_one', 'creator_two'])
+        mock_cleanup_mano.assert_called_once_with('mano')
+        mock_untr_sec_grps.assert_called_once()
+
+    @patch('sfc.lib.cleanup.cleanup_mano_objects')
+    @patch('sfc.lib.cleanup.cleanup_odl')
+    def test_cleanup_from_bash(self,
+                               mock_cleanup_odl,
+                               mock_cleanup_mano):
+
+        cleanup.cleanup_from_bash(self.odl_ip,
+                                  self.odl_port,
+                                  'mano')
+
+        mock_cleanup_odl.assert_called_once_with(self.odl_ip,
+                                                 self.odl_port)
+        mock_cleanup_mano.assert_called_once_with(mano='mano')
