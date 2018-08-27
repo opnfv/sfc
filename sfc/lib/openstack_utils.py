@@ -134,15 +134,17 @@ class OpenStackSFC:
         return sec_group
 
     def create_instance(self, vm_name, flavor_name, image_creator, network,
-                        secgrp, av_zone):
+                        secgrp, av_zone, ports):
         logger.info("Creating the instance {}...".format(vm_name))
-        port_settings = PortConfig(name=vm_name + '-port',
-                                   network_name=network.name)
+        port_settings = []
+        for port in ports:
+            port_settings.append(PortConfig(name=port,
+                                            network_name=network.name))
 
         instance_settings = VmInstanceConfig(
             name=vm_name, flavor=flavor_name,
             security_group_names=str(secgrp.name),
-            port_settings=[port_settings],
+            port_settings=port_settings,
             availability_zone=av_zone)
 
         instance_creator = cr_inst.OpenStackVmInstance(
@@ -249,11 +251,12 @@ class OpenStackSFC:
 
         return fips
 
-    def get_client_port(self, vm, vm_creator):
+    def get_instance_port(self, vm, vm_creator, port_name=None):
         '''
         Get the neutron port id of the client
         '''
-        port_name = vm.name + "-port"
+        if not port_name:
+            port_name = vm.name + "-port"
         port = vm_creator.get_port_by_name(port_name)
         if port is not None:
             return port
@@ -272,6 +275,124 @@ class OpenStackSFC:
         sec_groups = neutron_utils.list_security_groups(self.neutron)
         for sg in sec_groups:
             neutron_utils.delete_security_group(self.neutron, sg)
+
+    def wait_for_vnf(self, vnf_creator):
+        '''
+        Waits for VNF to become active
+        '''
+        return vnf_creator.vm_active(block=True, poll_interval=5)
+
+    def create_port_groups(self, vnf_ports, vm_instance):
+        '''
+        Creates a networking-sfc port pair and group
+        '''
+        logger.info("Creating the port pairs...")
+        port_pair = dict()
+        port_pair['name'] = vm_instance.name + '-connection-points'
+        port_pair['description'] = 'port pair for ' + vm_instance.name
+
+        # In the symmetric testcase ingres != egress (VNF has 2 interfaces)
+        if len(vnf_ports) == 1:
+            port_pair['ingress'] = vnf_ports[0].id
+            port_pair['egress'] = vnf_ports[0].id
+        elif len(vnf_ports) == 2:
+            port_pair['ingress'] = vnf_ports[0].id
+            port_pair['egress'] = vnf_ports[1].id
+        else:
+            logger.error("Only SFs with one or two ports are supported")
+            raise Exception("Failed to create port pairs")
+        port_pair_info = \
+            self.neutron.create_sfc_port_pair({'port_pair': port_pair})
+        if not port_pair_info:
+            logger.warning("Chain creation failed due to port pair"
+                           "creation failed for vnf %(vnf)s",
+                           {'vnf': vm_instance.name})
+            return None
+
+        logger.info("Creating the port pair groups...")
+        port_pair_group = {}
+        port_pair_group['name'] = vm_instance.name + '-port-pair-group'
+        port_pair_group['description'] = \
+            'port pair group for ' + vm_instance.name
+        port_pair_group['port_pairs'] = []
+        port_pair_group['port_pairs'].append(port_pair_info['port_pair']['id'])
+        ppg_config = {'port_pair_group': port_pair_group}
+        port_pair_group_info = \
+            self.neutron.create_sfc_port_pair_group(ppg_config)
+        if not port_pair_group_info:
+            logger.warning("Chain creation failed due to port pair group "
+                           "creation failed for vnf "
+                           "%(vnf)", vm_instance.name)
+
+        return port_pair_group_info['port_pair_group']['id']
+
+    def create_chain(self, port_groups, neutron_port, port, protocol,
+                     vnffg_name, symmetrical, server_port=None,
+                     server_ip=None):
+        '''
+        Create the classifier
+        '''
+        logger.info("Creating the classifier...")
+
+        if symmetrical:
+            sfc_classifier_params = {'name': vnffg_name + '-classifier',
+                                     'destination_ip_prefix': server_ip,
+                                     'logical_source_port': neutron_port,
+                                     'logical_destination_port': server_port,
+                                     'destination_port_range_min': port,
+                                     'destination_port_range_max': port,
+                                     'protocol': protocol}
+        else:
+            sfc_classifier_params = {'name': vnffg_name + '-classifier',
+                                     'logical_source_port': neutron_port,
+                                     'destination_port_range_min': port,
+                                     'destination_port_range_max': port,
+                                     'protocol': protocol}
+
+        fc_config = {'flow_classifier': sfc_classifier_params}
+        fc_info = \
+            self.neutron.create_sfc_flow_classifier(fc_config)
+
+        logger.info("Creating the chain...")
+        port_chain = {}
+        port_chain['name'] = vnffg_name + '-port-chain'
+        port_chain['description'] = 'port-chain for SFC'
+        port_chain['port_pair_groups'] = port_groups
+        port_chain['flow_classifiers'] = []
+        port_chain['flow_classifiers'].append(fc_info['flow_classifier']['id'])
+        if symmetrical:
+            port_chain['chain_parameters'] = {}
+            port_chain['chain_parameters']['symmetric'] = True
+        chain_config = {'port_chain': port_chain}
+        return self.neutron.create_sfc_port_chain(chain_config)
+
+    def delete_port_groups(self):
+        '''
+        Delete all port groups and port pairs
+        '''
+        logger.info("Deleting the port groups...")
+        ppg_list = self.neutron.list_sfc_port_pair_groups()['port_pair_groups']
+        for ppg in ppg_list:
+            self.neutron.delete_sfc_port_pair_group(ppg['id'])
+
+        logger.info("Deleting the port pairs...")
+        pp_list = self.neutron.list_sfc_port_pairs()['port_pairs']
+        for pp in pp_list:
+            self.neutron.delete_sfc_port_pair(pp['id'])
+
+    def delete_chain(self):
+        '''
+        Delete the classifiers and the chains
+        '''
+        logger.info("Deleting the chain...")
+        pc_list = self.neutron.list_sfc_port_chains()['port_chains']
+        for pc in pc_list:
+            self.neutron.delete_sfc_port_chain(pc['id'])
+
+        logger.info("Deleting the classifiers...")
+        fc_list = self.neutron.list_sfc_flow_classifiers()['flow_classifiers']
+        for fc in fc_list:
+            self.neutron.delete_sfc_flow_classifier(fc['id'])
 
 
 # TACKER SECTION #
