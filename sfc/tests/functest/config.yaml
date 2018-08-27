@@ -25,6 +25,10 @@ defaults:
   vnfd-dir: "vnfd-templates"
   vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
+  # mano_component can be [tacker, no-mano]. When no-mano,
+  # then networking-sfc is used
+  mano_component: "no-mano"
+
   # [OPTIONAL] Only when deploying VNFs without the default image (vxlan_tool)
   # vnf_image_name: xxx
   # vnf_image_format: yyy

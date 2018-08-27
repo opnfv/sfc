@@ -75,6 +75,7 @@ def delete_vims():
 
 # Creators is a list full of SNAPs objects
 def delete_openstack_objects(creators):
+    logger.info("Deleting the openstack objects...")
     for creator in reversed(creators):
         try:
             creator.clean()
@@ -97,26 +98,49 @@ def cleanup_odl(odl_ip, odl_port):
     delete_odl_ietf_access_lists(odl_ip, odl_port)
 
 
-def cleanup(creators, odl_ip=None, odl_port=None):
+def cleanup_nsfc_objects():
+    '''
+    cleanup the networking-sfc objects created for the test
+    '''
+    # TODO Add n-sfc to snaps so that it can be removed through
+    # delete_openstack_objects
+    openstack_sfc = os_sfc_utils.OpenStackSFC()
+    openstack_sfc.delete_chain()
+    openstack_sfc.delete_port_groups()
+
+
+def cleanup_tacker_objects():
+    '''
+    cleanup the tacker objects created for the test
+    '''
     delete_vnffgs()
     delete_vnffgds()
     delete_vnfs()
     time.sleep(20)
     delete_vnfds()
     delete_vims()
+
+
+def cleanup_mano_objects(mano):
+    '''
+    Cleanup the mano objects (chains, classifiers, etc)
+    '''
+    if mano == 'tacker':
+        cleanup_tacker_objects()
+    elif mano == 'no-mano':
+        cleanup_nsfc_objects()
+
+
+def cleanup(creators, mano, odl_ip=None, odl_port=None):
+    cleanup_mano_objects(mano)
     delete_openstack_objects(creators)
     delete_untracked_security_groups()
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)
 
 
-def cleanup_from_bash(odl_ip=None, odl_port=None):
-    delete_vnffgs()
-    delete_vnffgds()
-    delete_vnfs()
-    time.sleep(20)
-    delete_vnfds()
-    delete_vims()
+def cleanup_from_bash(odl_ip=None, odl_port=None, mano='no-mano'):
+    cleanup_mano_objects(mano=mano)
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)
 
