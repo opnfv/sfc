@@ -176,7 +176,9 @@ class SfcFunctest(testcase.TestCase):
                     result = {'status': 'FAILED'}
                     creators = tc_instance.get_creators()
                     if self.cleanup_flag is True:
-                        sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                        sfc_cleanup.cleanup(creators,
+                                            COMMON_CONFIG.mano_component,
+                                            odl_ip=odl_ip,
                                             odl_port=odl_port)
                         cleanup_run_flag = True
                 end_time = time.time()
@@ -198,7 +200,9 @@ class SfcFunctest(testcase.TestCase):
                 self.details.update({test_name: dic})
 
                 if cleanup_run_flag is not True and self.cleanup_flag is True:
-                    sfc_cleanup.cleanup(creators, odl_ip=odl_ip,
+                    sfc_cleanup.cleanup(creators,
+                                        COMMON_CONFIG.mano_component,
+                                        odl_ip=odl_ip,
                                         odl_port=odl_port)
 
         self.stop_time = time.time()
