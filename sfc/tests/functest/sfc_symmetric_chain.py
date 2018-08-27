@@ -8,13 +8,10 @@
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
-import os
-import sys
 import threading
 import logging
 import urllib3
 
-import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 import sfc.lib.config as sfc_config
 from sfc.tests.functest import sfc_parent_function
@@ -24,7 +21,6 @@ logger = logging.getLogger(__name__)
 COMMON_CONFIG = sfc_config.CommonConfig()
 CLIENT = "client"
 SERVER = "server"
-openstack_sfc = os_sfc_utils.OpenStackSFC()
 
 
 class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
@@ -42,54 +38,20 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
     def run(self):
 
         logger.info("The test scenario %s is starting", __name__)
-        self.create_custom_vnfd(self.testcase_config.test_vnfd, 'test-vnfd1')
-        self.create_custom_av(self.vnfs[0], 'test-vnfd1', 'test-vim')
+        self.register_vnf_template(self.testcase_config.test_vnfd,
+                                   'test-vnfd1')
+        self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim', symmetric=True)
 
-        if self.vnf_id is None:
-            logger.error('ERROR while booting VNF')
-            sys.exit(1)
+        self.create_vnffg(self.testcase_config.test_vnffgd, 'red-symmetric',
+                          'red_http', port=80, protocol='tcp', symmetric=True)
 
-        tosca_file = os.path.join(
-            COMMON_CONFIG.sfc_test_dir,
-            COMMON_CONFIG.vnffgd_dir,
-            self.testcase_config.test_vnffgd)
-        os_sfc_utils.create_vnffgd(
-            self.tacker_client,
-            tosca_file=tosca_file,
-            vnffgd_name='test-vnffgd')
-
-        client_port = openstack_sfc.get_client_port(
-            self.client_instance,
-            self.client_creator)
-        server_port = openstack_sfc.get_client_port(
-            self.server_instance,
-            self.server_creator)
-
-        server_ip_prefix = self.server_ip + '/32'
-
-        default_param_file = os.path.join(
-            COMMON_CONFIG.sfc_test_dir,
-            COMMON_CONFIG.vnfd_dir,
-            COMMON_CONFIG.vnfd_default_params_file)
-
-        os_sfc_utils.create_vnffg_with_param_file(
-            self.tacker_client,
-            'test-vnffgd',
-            'test-vnffg',
-            default_param_file,
-            client_port.id,
-            server_port.id,
-            server_ip_prefix)
         # Start measuring the time it takes to implement the classification
         #  rules
         t1 = threading.Thread(target=wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
-                                    self.server_instance.compute_host,
-                                    server_port,
+                                    self.odl_ip, self.odl_port,
                                     self.client_instance.compute_host,
-                                    client_port, self.odl_ip,
-                                    self.odl_port,))
-
+                                    [self.neutron_port],))
         try:
             t1.start()
         except Exception as e:
@@ -98,9 +60,7 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
         logger.info("Assigning floating IPs to instances")
         self.assign_floating_ip_client_server()
 
-        vnf_ip = os_sfc_utils.get_vnf_ip(self.tacker_client,
-                                         vnf_id=self.vnf_id)
-        self.assign_floating_ip_sfs(vnf_ip)
+        self.assign_floating_ip_sfs()
 
         self.check_floating_ips()
 
