@@ -64,7 +64,7 @@ def get_active_rsps_on_ports(odl_ip, odl_port, neutron_ports):
             # We get the first ace. ODL creates a new ACL
             # with one ace for each classifier
             ace = acl['access-list-entries']['ace'][0]
-        except:
+        except Exception:
             logger.warn('ACL {0} does not have an ACE'.format(
                 acl['acl-name']))
             continue
