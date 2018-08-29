@@ -170,13 +170,13 @@ class SfcCommonTestCase(object):
             openstack_sfc.create_instance(SERVER, COMMON_CONFIG.flavor,
                                           self.image_creator, self.network,
                                           self.sg,
-                                          av_zone=self.test_topology['server'])
+                                          self.test_topology['server'])
 
         self.client_instance, self.client_creator = \
             openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
                                           self.image_creator, self.network,
                                           self.sg,
-                                          av_zone=self.test_topology['client'])
+                                          self.test_topology['client'])
         logger.info('This test is run with the topology {0}'.format(
             self.test_topology['id']))
         logger.info('Topology description: {0}'.format(
