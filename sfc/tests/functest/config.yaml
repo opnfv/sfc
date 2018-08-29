@@ -113,7 +113,6 @@ testcases:
     secgroup_descr: "Example Security group"
     vnf_names:
       - 'testVNF1'
-      - 'testVNF2'
     supported_installers:
       - 'fuel'
       - 'apex'
