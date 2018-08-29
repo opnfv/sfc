@@ -24,7 +24,7 @@ SFC_REPO_DIR = "/home/opnfv/repos/sfc"
 
 try:
     INSTALLER_IP = os.environ['INSTALLER_IP']
-except:
+except Exception:
     logger.debug("INSTALLER_IP does not exist. We create 10.20.0.2")
     INSTALLER_IP = "10.20.0.2"
 
@@ -64,7 +64,7 @@ try:
     command = "fuel node | grep compute | awk '{print $10}'"
     logger.info("Executing ssh to collect the compute IPs")
     (stdin, stdout, stderr) = ssh.exec_command(command)
-except:
+except Exception:
     logger.debug("Something went wrong in the ssh to collect the computes IP")
 
 output = stdout.readlines()
