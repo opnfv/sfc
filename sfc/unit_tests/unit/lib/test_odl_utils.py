@@ -100,7 +100,7 @@ class SfcOdlUtilsTesting(unittest.TestCase):
                                                     'odl_port',
                                                     neutron_ports)
 
-        self.assertEqual(expected, result)
+        self.assertEqual(sorted(expected), sorted(result))
         mock_log.warn.assert_has_calls(log_calls)
         mock_rsps_from_netvirt_acl_actions.assert_called_once_with('odl_ip',
                                                                    'odl_port',
