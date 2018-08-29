@@ -34,8 +34,8 @@ class SfcOneChainTwoServiceTC(sfc_parent_function.SfcCommonTestCase):
         self.create_custom_vnfd(self.testcase_config.test_vnfd_blue,
                                 'test-vnfd2')
 
-        self.create_custom_av(self.vnfs[0], 'test-vnfd1', 'test-vim')
-        self.create_custom_av(self.vnfs[1], 'test-vnfd2', 'test-vim')
+        self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim')
+        self.create_vnf(self.vnfs[1], 'test-vnfd2', 'test-vim')
 
         self.create_vnffg(self.testcase_config.test_vnffgd_red, 'red',
                           'red_http')
