@@ -34,7 +34,7 @@ class SfcChainDeletion(sfc_parent_function.SfcCommonTestCase):
         logger.info("The test scenario %s is starting", __name__)
         self.create_custom_vnfd(self.testcase_config.test_vnfd_red,
                                 'test-vnfd1')
-        self.create_custom_av(self.vnfs[0], 'test-vnfd1', 'test-vim')
+        self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim')
 
         self.create_chain(self.testcase_config)
 
