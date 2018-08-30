@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_07de6b11",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-30T14:45:00Z",
+      "side": 1,
+      "message": "Replace this line with\n\npc_inss \u003d [\u0027pc_config1\u0027, \u0027pc_config2\u0027]\nmock_port_config.side_effect \u003d pc_inss",
+      "revId": "f2f4251a0494755f4a524e419e2c15b06695529d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_87ca7b4d",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-30T14:45:00Z",
+      "side": 1,
+      "message": "pc_calls \u003d [call(name\u003d\u0027port1\u0027, network_name\u003d\u0027nw_name\u0027),\n            call(name\u003d\u0027port2\u0027, network_name\u003d\u0027nw_name\u0027)]",
+      "revId": "f2f4251a0494755f4a524e419e2c15b06695529d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_67ce475c",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-30T14:45:00Z",
+      "side": 1,
+      "message": "pc_inss",
+      "range": {
+        "startLine": 293,
+        "startChar": 70,
+        "endLine": 293,
+        "endChar": 78
+      },
+      "revId": "f2f4251a0494755f4a524e419e2c15b06695529d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e709b796",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-30T14:45:00Z",
+      "side": 1,
+      "message": "(pc_calls)",
+      "range": {
+        "startLine": 301,
+        "startChar": 41,
+        "endLine": 301,
+        "endChar": 43
+      },
+      "revId": "f2f4251a0494755f4a524e419e2c15b06695529d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c7dbd319",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-08-30T14:45:00Z",
+      "side": 1,
+      "message": "Shoudn\u0027t this be period instead of comma?",
+      "range": {
+        "startLine": 301,
+        "startChar": 24,
+        "endLine": 301,
+        "endChar": 25
+      },
+      "revId": "f2f4251a0494755f4a524e419e2c15b06695529d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
