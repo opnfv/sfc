@@ -201,12 +201,12 @@ class SfcCommonTestCase(object):
                                  tosca_file=tosca_file,
                                  vnfd_name=vnfd_name)
 
-    def create_custom_av(self, vnf_names, av_member1, av_member2):
-        """Create custom 'av'
+    def create_vnf(self, vnf_names, vnfd_name, vim_name):
+        """Create vnf
 
         :param vnf_names: names of available vnf(s)
-        :param av_member1: the first member of av zone
-        :param av_member2: the second member of av zone
+        :param vnfd_name: name of the vnfd template (tacker)
+        :param vim_name: name of the vim (tacker)
         :return: av zone
         """
 
@@ -216,7 +216,7 @@ class SfcCommonTestCase(object):
                     .format(self.test_topology['description']))
 
         os_sfc_utils.create_vnf_in_av_zone(
-            self.tacker_client, vnf_names, av_member1, av_member2,
+            self.tacker_client, vnf_names, vnfd_name, vim_name,
             self.default_param_file, self.test_topology[vnf_names])
 
         self.vnf_id = os_sfc_utils.wait_for_vnf(self.tacker_client,
