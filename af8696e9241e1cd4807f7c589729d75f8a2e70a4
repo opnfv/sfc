@@ -117,6 +117,121 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_22d71dc3",
+        "filename": "sfc/tests/functest/config.yaml",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:27:43Z",
+      "side": 1,
+      "message": "nsfc is not a mano component. This statement is a bit confusing",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_42e9717f",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:27:43Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 51
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8202693c",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:27:43Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 251,
+        "startChar": 13,
+        "endLine": 251,
+        "endChar": 50
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_62ff5535",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:27:43Z",
+      "side": 1,
+      "message": "Ssame here",
+      "range": {
+        "startLine": 299,
+        "startChar": 13,
+        "endLine": 299,
+        "endChar": 50
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c2fc6141",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:27:43Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 457,
+        "startChar": 13,
+        "endLine": 457,
+        "endChar": 50
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_82a3899d",
         "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
         "patchSetId": 20
