@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_e27ec5e3",
+        "filename": "requirements.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:12:04Z",
+      "side": 1,
+      "message": "why do we need networking-sfc? I think the only thing that we need is neutronclient or ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4284d1d3",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:12:04Z",
+      "side": 1,
+      "message": "networking-sfc is not a mano. Should we keep this ?",
+      "range": {
+        "startLine": 130,
+        "startChar": 3,
+        "endLine": 131,
+        "endChar": 30
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c2774101",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:12:04Z",
+      "side": 1,
+      "message": "port pair and group?",
+      "range": {
+        "startLine": 287,
+        "startChar": 33,
+        "endLine": 287,
+        "endChar": 53
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_425b3187",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:12:04Z",
+      "side": 1,
+      "message": "port",
+      "range": {
+        "startLine": 303,
+        "startChar": 46,
+        "endLine": 303,
+        "endChar": 49
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_02c81921",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-08-31T08:12:04Z",
+      "side": 1,
+      "message": "Why are you duplicating the dict and not just extend it ?",
+      "range": {
+        "startLine": 337,
+        "startChar": 9,
+        "endLine": 350,
+        "endChar": 58
+      },
+      "revId": "af8696e9241e1cd4807f7c589729d75f8a2e70a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_82a3899d",
         "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
         "patchSetId": 20
