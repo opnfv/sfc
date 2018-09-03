@@ -260,7 +260,8 @@ class SfcCommonTestCase(object):
                                               self.network,
                                               self.sg,
                                               av_zone,
-                                              ports)
+                                              ports,
+                                              port_security=False)
 
             if not openstack_sfc.wait_for_vnf(vnf_creator):
                 raise Exception('ERROR while booting vnf %s' % vnf_name)

@@ -254,6 +254,62 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.VmInstanceConfig', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
+    def test_create_instance_port_security_false(self,
+                                                 mock_os_vm_instance,
+                                                 mock_vm_instance_config,
+                                                 mock_port_config,
+                                                 mock_log):
+        """
+        Checks the proper functionality of create_instance
+        function
+        """
+
+        vm_con_ins = mock_vm_instance_config.return_value
+        pc_inss = ['pc_config1', 'pc_config2']
+        mock_port_config.side_effect = pc_inss
+        os_vm_ins = mock_os_vm_instance.return_value
+        os_vm_ins_cre = os_vm_ins.create.return_value
+        expected = (os_vm_ins_cre, os_vm_ins)
+        secgrp = Mock()
+        secgrp.name = 'sec_grp'
+        network = Mock()
+        network.name = 'nw_name'
+        img_cre = Mock()
+        img_cre.image_settings = 'image_settings'
+
+        log_calls = [call('Creating the instance vm_name...')]
+        pc_calls = [call(name='port1',
+                         network_name='nw_name',
+                         port_security_enabled=False),
+                    call(name='port2',
+                         network_name='nw_name',
+                         port_security_enabled=False)]
+        result = self.os_sfc.create_instance('vm_name',
+                                             'flavor_name',
+                                             img_cre,
+                                             network,
+                                             secgrp,
+                                             'av_zone',
+                                             ['port1', 'port2'],
+                                             port_security=False)
+        self.assertEqual(expected, result)
+        mock_vm_instance_config.assert_called_once_with(name='vm_name',
+                                                        flavor='flavor_name',
+                                                        port_settings=pc_inss,
+                                                        availability_zone='av'
+                                                        '_zone')
+        mock_os_vm_instance.assert_called_once_with(self.os_creds,
+                                                    vm_con_ins,
+                                                    'image_settings')
+        self.assertEqual([os_vm_ins], self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
+        mock_port_config.assert_has_calls(pc_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.PortConfig', autospec=True)
+    @patch('sfc.lib.openstack_utils.VmInstanceConfig', autospec=True)
+    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
+           autospec=True)
     def test_create_instance(self,
                              mock_os_vm_instance,
                              mock_vm_instance_config,
@@ -278,8 +334,12 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         img_cre.image_settings = 'image_settings'
 
         log_calls = [call('Creating the instance vm_name...')]
-        pc_calls = [call(name='port1', network_name='nw_name'),
-                    call(name='port2', network_name='nw_name')]
+        pc_calls = [call(name='port1',
+                         network_name='nw_name',
+                         port_security_enabled=True),
+                    call(name='port2',
+                         network_name='nw_name',
+                         port_security_enabled=True)]
         result = self.os_sfc.create_instance('vm_name',
                                              'flavor_name',
                                              img_cre,
