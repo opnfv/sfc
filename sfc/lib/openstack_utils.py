@@ -134,18 +134,26 @@ class OpenStackSFC:
         return sec_group
 
     def create_instance(self, vm_name, flavor_name, image_creator, network,
-                        secgrp, av_zone, ports):
+                        secgrp, av_zone, ports, port_security=True):
         logger.info("Creating the instance {}...".format(vm_name))
         port_settings = []
         for port in ports:
             port_settings.append(PortConfig(name=port,
+                                            port_security_enabled=port_security,
                                             network_name=network.name))
 
-        instance_settings = VmInstanceConfig(
-            name=vm_name, flavor=flavor_name,
-            security_group_names=str(secgrp.name),
-            port_settings=port_settings,
-            availability_zone=av_zone)
+        if port_security:                               
+            instance_settings = VmInstanceConfig(
+                name=vm_name, flavor=flavor_name,
+                security_group_names=str(secgrp.name),   
+                port_settings=port_settings,                      
+                availability_zone=av_zone)               
+                                                                     
+        else:
+            instance_settings = VmInstanceConfig(                  
+                name=vm_name, flavor=flavor_name,
+                port_settings=port_settings,     
+                availability_zone=av_zone)
 
         instance_creator = cr_inst.OpenStackVmInstance(
             self.os_creds,
