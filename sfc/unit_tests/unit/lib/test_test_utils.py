@@ -191,10 +191,36 @@ class SfcTestUtilsTesting(unittest.TestCase):
     @patch('time.sleep', autospec=True)
     @patch('sfc.lib.test_utils.logger', autospec=True)
     @patch('sfc.lib.test_utils.run_cmd_remote', autospec=True)
-    def test_start_http_server_returned_false(self,
-                                              mock_run_cmd_remote,
-                                              mock_log,
-                                              mock_sleep):
+    def test_start_http_server_returned_false_failed_to_start(
+            self, mock_run_cmd_remote, mock_log, mock_sleep):
+        """
+        Checks the proper functionality of start_http_server
+        function when http_server is failed to start
+        """
+
+        cmd = "\'python -m SimpleHTTPServer 80 " + \
+              "> /dev/null 2>&1 &\'"
+
+        rcr_calls = [call(self.ip, cmd),
+                     call(self.ip, 'ps aux | grep SimpleHTTPServer')]
+        log_calls = [call('Failed to start http server')]
+
+        mock_run_cmd_remote.side_effect = [('', '', ''),
+                                           ('', '', '')]
+
+        result = test_utils.start_http_server(self.ip, 1)
+        self.assertFalse(result)
+        mock_run_cmd_remote.assert_has_calls(rcr_calls)
+        mock_sleep.assert_called_once_with(3)
+        mock_log.error.assert_has_calls(log_calls)
+        mock_log.info.assert_not_called()
+        mock_log.debug.assert_not_called()
+
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.test_utils.logger', autospec=True)
+    @patch('sfc.lib.test_utils.run_cmd_remote', autospec=True)
+    def test_start_http_server_returned_false_port_is_down(
+            self, mock_run_cmd_remote, mock_log, mock_sleep):
         """
         Checks the proper functionality of start_http_server
         function when port 80 is down
@@ -203,34 +229,23 @@ class SfcTestUtilsTesting(unittest.TestCase):
         cmd = "\'python -m SimpleHTTPServer 80 " + \
               "> /dev/null 2>&1 &\'"
 
-        sleep_calls = [[call(3)],
-                       [call(5)]]
+        rcr_calls = [call(self.ip, cmd),
+                     call(self.ip, 'ps aux | grep SimpleHTTPServer'),
+                     call(self.ip, 'netstat -pntl | grep :80')]
 
-        rcr_calls = [[call(self.ip, cmd),
-                      call(self.ip, 'ps aux | grep SimpleHTTPServer')],
-                     [call(self.ip, 'netstat -pntl | grep :80')]]
-
-        log_calls = [[call('Failed to start http server')],
-                     [call('output')],
-                     [call('Port 80 is not up yet')]]
+        log_calls = [call('output'),
+                     call('Port 80 is not up yet')]
 
         mock_run_cmd_remote.side_effect = [('', '', ''),
-                                           ('', '', ''),
-                                           ('', '', ''),
                                            ('', 'output', ''),
                                            ('', '', '')]
 
-        self.assertFalse(test_utils.start_http_server(self.ip, 1))
-        mock_run_cmd_remote.assert_has_calls(rcr_calls[0])
-        mock_sleep.assert_has_calls(sleep_calls[0])
-        mock_log.error.assert_has_calls(log_calls[0])
-        mock_log.info.assert_not_called()
-        mock_log.debug.assert_not_called()
-        self.assertFalse(test_utils.start_http_server(self.ip, 1))
-        mock_run_cmd_remote.assert_has_calls(rcr_calls[0] + rcr_calls[1])
-        mock_sleep.assert_has_calls(sleep_calls[0] + sleep_calls[1])
-        mock_log.info.assert_has_calls(log_calls[1])
-        mock_log.debug.assert_has_calls(log_calls[2])
+        result = test_utils.start_http_server(self.ip, 1)
+        self.assertFalse(result)
+        mock_run_cmd_remote.assert_has_calls(rcr_calls)
+        mock_sleep.assert_called_with(5)
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.debug.assert_has_calls(log_calls[1:])
 
     @patch('time.sleep', autospec=True)
     @patch('sfc.lib.test_utils.logger', autospec=True)
