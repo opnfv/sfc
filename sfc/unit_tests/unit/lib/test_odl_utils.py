@@ -190,35 +190,22 @@ class SfcOdlUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.odl_utils.logger', autospec=True)
     @patch('sfc.lib.odl_utils.find_compute', autospec=True)
     @patch('sfc.lib.odl_utils.get_odl_items', autospec=True)
-    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
     @patch('sfc.lib.odl_utils.promised_rsps_in_compute', autospec=True)
     @patch('sfc.lib.odl_utils.os_sfc_utils.get_tacker_items', autospec=True)
-    def test_wait_for_classification_rules(self,
-                                           mock_get_tacker_items,
-                                           mock_promised_rsps_in_compute,
-                                           mock_actual_rsps_in_compute,
-                                           mock_get_odl_items,
-                                           mock_find_compute,
-                                           mock_log,
-                                           mock_sleep):
+    def test_wait_for_classification_rules_rsps_not_configured(
+            self, mock_get_tacker_items, mock_promised_rsps_in_compute,
+            mock_get_odl_items, mock_find_compute, mock_log, mock_sleep):
         """
         Checks the proper functionality of wait_for_classification_rules
-        function
+        function when rsps are not configured in ODL
         """
 
         log_calls = [call("Error when waiting for classification rules: "
-                          "RSPs not configured in ODL"),
-                     call("Timeout but classification rules are not updated"),
-                     call("RSPs in ODL Operational DataStore"
-                          "for compute 'compute_name':"),
-                     call("['compute|rsps']"),
-                     call("RSPs in compute nodes:"),
-                     call("['compute|rsps']"),
-                     call("Classification rules were updated")]
+                          "RSPs not configured in ODL")]
 
+        mock_find_compute.return_value = 'mock_compute'
         mock_promised_rsps_in_compute.return_value = None
 
-        # rsps not configured in odl
         odl_utils.wait_for_classification_rules('ovs_logger',
                                                 'compute_nodes',
                                                 'odl_ip',
@@ -228,28 +215,41 @@ class SfcOdlUtilsTesting(unittest.TestCase):
         mock_promised_rsps_in_compute.assert_called_with('odl_ip',
                                                          'odl_port',
                                                          'neutron_ports')
-        self.assertEqual(mock_promised_rsps_in_compute.call_count, 10)
+        assert mock_promised_rsps_in_compute.call_count == 10
+        mock_find_compute.assert_called_once_with('compute_name',
+                                                  'compute_nodes')
+        mock_sleep.assert_called_with(3)
+        assert mock_sleep.call_count == 9
         mock_get_tacker_items.assert_called_once_with()
         mock_get_odl_items.assert_called_once_with('odl_ip', 'odl_port')
-        mock_log.error.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls)
+
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    @patch('sfc.lib.odl_utils.find_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.promised_rsps_in_compute', autospec=True)
+    def test_wait_for_classification_rules_timeout_not_updated(
+            self, mock_promised_rsps_in_compute, mock_actual_rsps_in_compute,
+            mock_find_compute, mock_log, mock_sleep):
+        """
+        Checks the proper functionality of wait_for_classification_rules
+        function when classification rules are not updated in a given timeout
+        """
+
+        log_calls = [call("Timeout but classification rules are not updated"),
+                     call("RSPs in ODL Operational DataStore"
+                          "for compute 'compute_name':"),
+                     call("['compute|rsps']"),
+                     call("RSPs in compute nodes:"),
+                     call("[]")]
 
         mock_compute = Mock()
         mock_compute.ssh_client = 'mock_ssh_client'
         mock_find_compute.return_value = mock_compute
         mock_actual_rsps_in_compute.return_value = []
         mock_promised_rsps_in_compute.return_value = ['compute|rsps']
-        # timeout but classification rules are not updated
-        odl_utils.wait_for_classification_rules('ovs_logger',
-                                                'compute_nodes',
-                                                'odl_ip',
-                                                'odl_port',
-                                                'compute_name',
-                                                'neutron_ports',
-                                                timeout=2)
-        mock_log.error.assert_has_calls(log_calls[1:2])
 
-        # classification rules were updated
-        mock_actual_rsps_in_compute.return_value = ['compute|rsps']
         odl_utils.wait_for_classification_rules('ovs_logger',
                                                 'compute_nodes',
                                                 'odl_ip',
@@ -257,7 +257,44 @@ class SfcOdlUtilsTesting(unittest.TestCase):
                                                 'compute_name',
                                                 'neutron_ports',
                                                 timeout=2)
-        mock_log.info.assert_has_calls(log_calls[2:])
+        mock_find_compute.assert_called_once_with('compute_name',
+                                                  'compute_nodes')
+        mock_log.error.assert_has_calls(log_calls[:1])
+        mock_log.info.assert_has_calls(log_calls[1:])
+
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    @patch('sfc.lib.odl_utils.find_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.promised_rsps_in_compute', autospec=True)
+    def test_wait_for_classification_rules_updated(
+            self, mock_promised_rsps_in_compute, mock_actual_rsps_in_compute,
+            mock_find_compute, mock_log, mock_sleep):
+        """
+        Checks the proper functionality of wait_for_classification_rules
+        function when classification rules are not updated in a given timeout
+        """
+
+        log_calls = [call("RSPs in ODL Operational DataStore"
+                          "for compute 'compute_name':"),
+                     call("['compute|rsps']"),
+                     call("RSPs in compute nodes:"),
+                     call("['compute|rsps']"),
+                     call("Classification rules were updated")]
+        mock_compute = Mock()
+        mock_compute.ssh_client = 'mock_ssh_client'
+        mock_find_compute.return_value = mock_compute
+        mock_actual_rsps_in_compute.return_value = ['compute|rsps']
+        mock_promised_rsps_in_compute.return_value = ['compute|rsps']
+
+        odl_utils.wait_for_classification_rules('ovs_logger',
+                                                'compute_nodes',
+                                                'odl_ip',
+                                                'odl_port',
+                                                'compute_name',
+                                                'neutron_ports',
+                                                timeout=2)
+        mock_log.info.assert_has_calls(log_calls)
 
     @patch('re.search', autospec=True)
     @patch('ConfigParser.RawConfigParser', autospec=True)
@@ -642,64 +679,85 @@ class SfcOdlUtilsTesting(unittest.TestCase):
 
     @patch('time.sleep', autospec=True)
     @patch('sfc.lib.odl_utils.logger', autospec=True)
-    @patch('sfc.lib.odl_utils.find_compute', autospec=True)
-    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
     @patch('sfc.lib.odl_utils.get_active_rsps_on_ports', autospec=True)
-    def test_check_vnffg_deletion_returns_false(self,
-                                                mock_active_rsps_on_ports,
-                                                mock_actual_rsps,
-                                                mock_find_compute,
-                                                mock_log, mock_sleep):
+    def test_check_vnffg_deletion_returns_false_rsps_still_active(
+            self, mock_active_rsps_on_ports,
+            mock_log, mock_sleep):
         """
         Checks the proper functionality of check_vnffg_deletion
-        function to verify that it returns false on the given conditions
+        function to verify that it returns false on the given condition
         """
 
-        log_calls = [call('RSPs are still active in the MD-SAL'),
-                     call('There was an error getting the compute: ErrorMSG'),
-                     call('Classification flows still in the compute')]
-
-        mock_compute = Mock()
-        mock_compute.ssh_client = 'mock_ssh_client'
-
-        mock_actual_rsps.side_effect = [True, True]
-
-        mock_active_rsps_on_ports.side_effect = [True,
-                                                 True, False,
-                                                 True, False]
-
-        mock_find_compute.side_effect = [Exception('ErrorMSG'),
-                                         mock_compute]
-
-        # RSPs are still active in the MD-SAL
+        log_calls = [call('RSPs are still active in the MD-SAL')]
+        mock_active_rsps_on_ports.return_value = True
         result = odl_utils.check_vnffg_deletion('odl_ip', 'odl_port',
                                                 'ovs_logger', 'neutron_ports',
                                                 'compute_client_name',
                                                 'compute_nodes', retries=1)
         self.assertFalse(result)
-        mock_log.debug.assert_has_calls(log_calls[0:1])
+        mock_active_rsps_on_ports.assert_called_once_with('odl_ip', 'odl_port',
+                                                          'neutron_ports')
         mock_sleep.assert_called_once_with(3)
+        mock_log.debug.assert_has_calls(log_calls)
 
-        # error getting the compute
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    @patch('sfc.lib.odl_utils.find_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.get_active_rsps_on_ports', autospec=True)
+    def test_check_vnffg_deletion_returns_false_error_getting_compute(
+            self, mock_active_rsps_on_ports, mock_actual_rsps,
+            mock_find_compute, mock_log, mock_sleep):
+        """
+        Checks the proper functionality of check_vnffg_deletion
+        function to verify that it returns false on the given condition
+        """
+
+        log_calls = [call('There was an error getting the compute: ErrorMSG')]
+        mock_compute = Mock()
+        mock_compute.ssh_client = 'mock_ssh_client'
+        mock_find_compute.side_effect = [Exception('ErrorMSG'), mock_compute]
+        mock_active_rsps_on_ports.side_effect = [True, False]
         result = odl_utils.check_vnffg_deletion('odl_ip', 'odl_port',
                                                 'ovs_logger', 'neutron_ports',
                                                 'compute_client_name',
                                                 'compute_nodes', retries=2)
         self.assertFalse(result)
-        mock_log.debug.assert_has_calls(log_calls[1:2])
+        mock_sleep.assert_called_once_with(3)
         mock_find_compute.assert_called_once_with('compute_client_name',
                                                   'compute_nodes')
-        assert mock_sleep.call_count == 2
+        mock_log.debug.assert_has_calls(log_calls)
 
-        # classification flows still in the compute
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.odl_utils.logger', autospec=True)
+    @patch('sfc.lib.odl_utils.find_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.actual_rsps_in_compute', autospec=True)
+    @patch('sfc.lib.odl_utils.get_active_rsps_on_ports', autospec=True)
+    def test_check_vnffg_deletion_returns_false_classification_flow_in_compute(
+            self, mock_active_rsps_on_ports, mock_actual_rsps,
+            mock_find_compute, mock_log, mock_sleep):
+        """
+        Checks the proper functionality of check_vnffg_deletion
+        function to verify that it returns false on the given condition
+        """
+
+        log_calls = [call('Classification flows still in the compute')]
+        mock_compute = Mock()
+        mock_compute.ssh_client = 'mock_ssh_client'
+        mock_find_compute.return_value = mock_compute
+        mock_actual_rsps.side_effect = [True, True]
+        mock_active_rsps_on_ports.side_effect = [True, False]
         result = odl_utils.check_vnffg_deletion('odl_ip', 'odl_port',
                                                 'ovs_logger', 'neutron_ports',
                                                 'compute_client_name',
                                                 'compute_nodes', retries=2)
         self.assertFalse(result)
-        mock_log.debug.assert_has_calls(log_calls[2:3])
         mock_actual_rsps.assert_called_with('ovs_logger', 'mock_ssh_client')
-        assert mock_sleep.call_count == 5
+        mock_sleep.assert_called_with(3)
+        mock_find_compute.assert_called_once_with('compute_client_name',
+                                                  'compute_nodes')
+        assert mock_sleep.call_count == 3
+        mock_log.debug.assert_has_calls(log_calls)
 
     @patch('time.sleep', autospec=True)
     @patch('sfc.lib.odl_utils.logger', autospec=True)
