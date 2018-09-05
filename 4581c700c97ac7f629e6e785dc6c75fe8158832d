@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_b35ed874",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-09-05T13:27:25Z",
+      "side": 1,
+      "message": "Can you please write a more detailed commit message so we can understand why this refactoring is necessary ?",
+      "revId": "4581c700c97ac7f629e6e785dc6c75fe8158832d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
