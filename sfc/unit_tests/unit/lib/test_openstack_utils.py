@@ -465,26 +465,18 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.heat_utils.get_stack_servers',
            autospec=True)
-    @patch('sfc.lib.openstack_utils.FloatingIpConfig', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.generate_creator', autospec=True)
-    def test_assign_floating_ip_vnfs_raised_exception(self,
-                                                      mock_generate_creator,
-                                                      mock_floating_ip_config,
-                                                      mock_get_stack_servers,
-                                                      mock_log):
+    def test_assign_floating_ip_vnfs_raised_exception_ips_provided(
+            self, mock_generate_creator, mock_get_stack_servers, mock_log):
         """
         Checks the proper functionality of assign_floating_ip_vnfs
         function when server name does not have any floating IP assignment
         """
 
-        ErrorMSG = ["The VNF server_name-float does not have any suitable"
-                    " port with ip any of ['floating_ip', 'other_ip'] for"
-                    " floating IP assignment",
-                    "The VNF server_name-float does not have any suitable"
-                    " port  for floating IP assignment"]
-        log_calls = [call(ErrorMSG[0]),
-                     call(ErrorMSG[1])]
-
+        ErrorMSG = "The VNF server_name-float does not have any suitable" + \
+                   " port with ip any of ['floating_ip', 'other_ip'] for" + \
+                   " floating IP assignment"
+        log_calls = [call(ErrorMSG)]
         self.os_sfc.image_settings = 'image_settings'
         self.heat.stacks.list.return_value = ['stack_obj']
         mock_ips = ['floating_ip', 'other_ip']
@@ -494,14 +486,12 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         mock_server_obj.ports = [mock_port_obj]
         mock_port_obj.name = None
         mock_port_obj.ips = [{'ip_address': 'floating_ip'}]
-
         mock_get_stack_servers.return_value = [mock_server_obj]
 
         with self.assertRaises(Exception) as cm:
-            # ips = mock_ips
             self.os_sfc.assign_floating_ip_vnfs('router', mock_ips)
 
-        self.assertEqual(cm.exception.message, ErrorMSG[0])
+        self.assertEqual(cm.exception.message, ErrorMSG)
         mock_get_stack_servers.assert_called_once_with(self.heat,
                                                        self.nova,
                                                        self.neutron,
@@ -512,14 +502,47 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                                       mock_server_obj,
                                                       'image_settings',
                                                       'admin')
+        mock_log.error.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.heat_utils.get_stack_servers',
+           autospec=True)
+    @patch('sfc.lib.openstack_utils.cr_inst.generate_creator', autospec=True)
+    def test_assign_floating_ip_vnfs_raised_exception_ips_not_provided(
+            self, mock_generate_creator, mock_get_stack_servers, mock_log):
+        """
+        Checks the proper functionality of assign_floating_ip_vnfs
+        function when server name does not have any floating IP assignment
+        """
+
+        ErrorMSG = "The VNF server_name-float does not have any suitable" + \
+                   " port  for floating IP assignment"
+        log_calls = [call(ErrorMSG)]
+        self.os_sfc.image_settings = 'image_settings'
+        self.heat.stacks.list.return_value = ['stack_obj']
+        mock_server_obj = Mock()
+        mock_port_obj = Mock()
+        mock_server_obj.name = 'server_name'
+        mock_server_obj.ports = [mock_port_obj]
+        mock_port_obj.name = None
+        mock_port_obj.ips = [{'ip_address': 'floating_ip'}]
+        mock_get_stack_servers.return_value = [mock_server_obj]
 
         with self.assertRaises(Exception) as cm:
-            # ips = None
             self.os_sfc.assign_floating_ip_vnfs('router')
 
-        self.assertEqual(cm.exception.message, ErrorMSG[1])
+        mock_get_stack_servers.assert_called_once_with(self.heat,
+                                                       self.nova,
+                                                       self.neutron,
+                                                       self.keystone,
+                                                       'stack_obj',
+                                                       'admin')
+        mock_generate_creator.assert_called_once_with(self.os_creds,
+                                                      mock_server_obj,
+                                                      'image_settings',
+                                                      'admin')
+        self.assertEqual(cm.exception.message, ErrorMSG)
         mock_log.error.assert_has_calls(log_calls)
-        mock_floating_ip_config.assert_not_called()
 
     @patch('sfc.lib.openstack_utils.FloatingIpConfig', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.generate_creator',
@@ -1113,13 +1136,35 @@ class SfcTackerSectionTesting(unittest.TestCase):
         mock_log.assert_not_called()
         self.assertEqual([1, 2], result)
 
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_vnfd_returned_none_tosca_file_not_provided(self, mock_log):
+        """
+        Checks the proper functionality of create_vnfd
+        function when an exception is raised
+        """
+
+        log_calls = [call("Creating the vnfd..."),
+                     call("Error [create_vnfd(tacker_client, 'None')]: "
+                          "ErrorMSG")]
+
+        self.mock_tacker_client.create_vnfd.side_effect = Exception('ErrorMSG')
+        result = os_sfc_utils.create_vnfd(self.mock_tacker_client,
+                                          None,
+                                          'vnfd_name')
+        self.assertIsNone(result)
+        self.mock_tacker_client.create_vnfd.assert_called_once_with(
+            body={'vnfd': {'attributes': {'vnfd': {}},
+                           'name': 'vnfd_name'}})
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls[1:])
+
     @patch('yaml.safe_load', autospec=True)
     @patch('__builtin__.open', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_create_vnfd_returned_none(self,
-                                       mock_log,
-                                       mock_open,
-                                       mock_safe_load):
+    def test_create_vnfd_returned_none_tosca_file_provided(self,
+                                                           mock_log,
+                                                           mock_open,
+                                                           mock_safe_load):
         """
         Checks the proper functionality of create_vnfd
         function when an exception is raised
@@ -1134,18 +1179,6 @@ class SfcTackerSectionTesting(unittest.TestCase):
         open_handler.read.return_value = 'mock_vnfd'
         mock_safe_load.return_value = 'mock_vnfd_body'
         self.mock_tacker_client.create_vnfd.side_effect = Exception('ErrorMSG')
-
-        # tosca_file = None
-        result = os_sfc_utils.create_vnfd(self.mock_tacker_client,
-                                          None,
-                                          'vnfd_name')
-        self.assertIsNone(result)
-        mock_open.assert_not_called()
-        self.mock_tacker_client.create_vnfd.assert_called_once_with(
-            body={'vnfd': {'attributes': {'vnfd': {}},
-                           'name': 'vnfd_name'}})
-
-        # tosca_file = 'tosca_file'
         result = os_sfc_utils.create_vnfd(self.mock_tacker_client,
                                           'tosca_file',
                                           'vnfd_name')
@@ -1153,7 +1186,6 @@ class SfcTackerSectionTesting(unittest.TestCase):
         mock_open.assert_called_once_with('tosca_file')
         open_handler.read.assert_called_once_with()
         mock_safe_load.assert_called_once_with('mock_vnfd')
-
         mock_log.info.assert_has_calls(log_calls[:2])
         mock_log.error.assert_has_calls(log_calls[2:])
 
@@ -1248,25 +1280,32 @@ class SfcTackerSectionTesting(unittest.TestCase):
             retrieve_all=True)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_create_vnf_returned_none(self, mock_log):
+    def test_create_vnf_returned_none_vnfd_not_provided(self, mock_log):
         """
         Checks the proper functionality of create_vnf
         function when an exception is raised
         """
 
-        log_calls = [[call("Creating the vnf...")],
-                     [call("error [create_vnf(tacker_client,"
-                           " 'vnf_name', 'None', 'None')]: "
-                           "vnfd id or vnfd name is required"),
-                      call("error [create_vnf(tacker_client,"
-                           " 'vnf_name', 'None', 'vnfd_name')]: "
-                           "vim id or vim name is required")]]
-
-        # vnfd_name = None
+        log_calls = [call("Creating the vnf..."),
+                     call("error [create_vnf(tacker_client,"
+                          " 'vnf_name', 'None', 'None')]: "
+                          "vnfd id or vnfd name is required")]
         result = os_sfc_utils.create_vnf(self.mock_tacker_client, 'vnf_name')
         self.assertIsNone(result)
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls[1:])
 
-        # vnfd_name = 'vnfd_name'
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_vnf_returned_none_vnfd_provided(self, mock_log):
+        """
+        Checks the proper functionality of create_vnf
+        function when an exception is raised
+        """
+
+        log_calls = [call("Creating the vnf..."),
+                     call("error [create_vnf(tacker_client,"
+                          " 'vnf_name', 'None', 'vnfd_name')]: "
+                          "vim id or vim name is required")]
         result = os_sfc_utils.create_vnf(self.mock_tacker_client,
                                          'vnf_name',
                                          None,
@@ -1274,8 +1313,8 @@ class SfcTackerSectionTesting(unittest.TestCase):
                                          None,
                                          None)
         self.assertIsNone(result)
-        mock_log.info.assert_has_calls(log_calls[0] * 2)
-        mock_log.error.assert_has_calls(log_calls[2:])
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls[1:])
 
     @patch('__builtin__.open', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
@@ -1283,11 +1322,11 @@ class SfcTackerSectionTesting(unittest.TestCase):
            autospec=True, return_value='vim_id')
     @patch('sfc.lib.openstack_utils.get_vnfd_id',
            autospec=True, return_value='vnfd_id')
-    def test_create_vnf(self,
-                        mock_get_vnfd_id,
-                        mock_get_vim_id,
-                        mock_log,
-                        mock_open):
+    def test_create_vnf_vim_id_not_provided(self,
+                                            mock_get_vnfd_id,
+                                            mock_get_vim_id,
+                                            mock_log,
+                                            mock_open):
         """
         Checks the proper functionality of create_vnf
         function
@@ -1296,13 +1335,9 @@ class SfcTackerSectionTesting(unittest.TestCase):
                              'vim_id': 'vim_id',
                              'name': 'vnf_name',
                              'vnfd_id': 'vnfd_id'}}
-
         log_calls = [call('Creating the vnf...')]
-
         open_handler = mock_open.return_value.__enter__.return_value
         open_handler.read.return_value = 'mock_data'
-        # vnfd_name = 'vnfd_name', vim_name = 'vim_name'
-        # param_file = 'param_file'
         result = os_sfc_utils.create_vnf(self.mock_tacker_client,
                                          'vnf_name',
                                          None,
@@ -1310,6 +1345,7 @@ class SfcTackerSectionTesting(unittest.TestCase):
                                          None,
                                          'vim_name',
                                          'param_file')
+
         assert result is self.mock_tacker_client.create_vnf.return_value
         mock_get_vnfd_id.assert_called_once_with(self.mock_tacker_client,
                                                  'vnfd_name')
@@ -1319,8 +1355,21 @@ class SfcTackerSectionTesting(unittest.TestCase):
         self.mock_tacker_client.create_vnf.assert_called_once_with(
             body=mock_body)
 
-        # vnfd_id = 'vnfd_id', vnfd_name = 'vnfd_name'
-        # vim_id = 'vim_id', vim_name = 'vim_name'
+    @patch('__builtin__.open', autospec=True)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_vnf_vim_id_provided(self, mock_log, mock_open):
+        """
+        Checks the proper functionality of create_vnf
+        function
+        """
+        mock_body = {'vnf': {'attributes': {},
+                             'vim_id': 'vim_id',
+                             'name': 'vnf_name',
+                             'vnfd_id': 'vnfd_id'}}
+        log_calls = [call('Creating the vnf...')]
+        open_handler = mock_open.return_value.__enter__.return_value
+        open_handler.read.return_value = 'mock_data'
+
         result = os_sfc_utils.create_vnf(self.mock_tacker_client,
                                          'vnf_name',
                                          'vnfd_id',
@@ -1328,29 +1377,38 @@ class SfcTackerSectionTesting(unittest.TestCase):
                                          'vim_id',
                                          'vim_name')
         assert result is self.mock_tacker_client.create_vnf.return_value
+        mock_log.info.assert_has_calls(log_calls)
+        self.mock_tacker_client.create_vnf.assert_called_once_with(
+            body=mock_body)
 
-    @patch('sfc.lib.openstack_utils.get_vnf_id',
-           autospec=True, return_value=None)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_get_vnf_returned_none(self,
-                                   mock_log,
-                                   mock_get_vnf_id):
+    def test_get_vnf_returned_none_vnf_not_provided(self, mock_log):
         """
         Checks the proper functionality of get_vnf
         functionality when an exception is raised
         """
 
         log_calls = [call("Could not retrieve VNF [vnf_id=None, vnf_name=None]"
-                          " - You must specify vnf_id or vnf_name"),
-                     call("Could not retrieve VNF [vnf_id=None, "
-                          "vnf_name=vnf_name] - Could not retrieve ID from "
-                          "name [vnf_name]")]
+                          " - You must specify vnf_id or vnf_name")]
 
-        # 'vnf_name' = None
         result = os_sfc_utils.get_vnf(self.mock_tacker_client)
         self.assertIsNone(result)
+        mock_log.error.assert_has_calls(log_calls)
 
-        # 'vnf_name' = 'vnf_name'
+    @patch('sfc.lib.openstack_utils.get_vnf_id',
+           autospec=True, return_value=None)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_get_vnf_returned_none_vnf_provided(self,
+                                                mock_log,
+                                                mock_get_vnf_id):
+        """
+        Checks the proper functionality of get_vnf
+        functionality when an exception is raised
+        """
+
+        log_calls = [call("Could not retrieve VNF [vnf_id=None, "
+                          "vnf_name=vnf_name] - Could not retrieve ID from "
+                          "name [vnf_name]")]
         result = os_sfc_utils.get_vnf(self.mock_tacker_client,
                                       None,
                                       'vnf_name')
@@ -1397,61 +1455,94 @@ class SfcTackerSectionTesting(unittest.TestCase):
                                              None)
         mock_json_loads.assert_called_once_with(vnf['mgmt_url'])
 
-    @patch('time.sleep', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.get_vnf', autospec=True)
-    def test_wait_for_vnf_returned_none(self,
-                                        mock_get_vnf,
-                                        mock_log,
-                                        mock_sleep):
+    def test_wait_for_vnf_returned_none_unable_to_retrieve_vnf(self,
+                                                               mock_get_vnf,
+                                                               mock_log):
         """
         Checks the proper functionality of wait_for_vnf
         function when an Exception is raised
         """
 
-        mock_vnf_values = [None,
-                           {'id': 'vnf_id',
+        mock_get_vnf.return_value = None
+        log_calls = [call("error [wait_for_vnf(tacker_client, 'vnf_id', "
+                          "'vnf_name')]: Could not retrieve VNF - id='vnf_id',"
+                          " name='vnf_name'")]
+
+        result = os_sfc_utils.wait_for_vnf(self.mock_tacker_client,
+                                           'vnf_id',
+                                           'vnf_name',
+                                           0)
+        self.assertIsNone(result)
+        mock_get_vnf.assert_called_once_with(self.mock_tacker_client,
+                                             'vnf_id',
+                                             'vnf_name')
+        mock_log.error.assert_has_calls(log_calls)
+
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.get_vnf', autospec=True)
+    def test_wait_for_vnf_returned_none_unable_to_boot_vnf(self,
+                                                           mock_get_vnf,
+                                                           mock_log,
+                                                           mock_sleep):
+        """
+        Checks the proper functionality of wait_for_vnf
+        function when an Exception is raised
+        """
+
+        mock_vnf_values = [{'id': 'vnf_id',
                             'status': 'ERROR'},
                            {'id': 'vnf_id',
-                            'status': 'PEDNING_CREATE'},
-                           {'id': 'vnf_id',
+                            'status': 'PEDNING_CREATE'}]
+        mock_get_vnf.side_effect = mock_vnf_values
+        log_calls = [call("Waiting for vnf %s" % str(mock_vnf_values[0])),
+                     call("error [wait_for_vnf(tacker_client, 'vnf_id', "
+                          "'vnf_name')]: Error when booting vnf vnf_id")]
+
+        result = os_sfc_utils.wait_for_vnf(self.mock_tacker_client,
+                                           'vnf_id',
+                                           'vnf_name',
+                                           0)
+        self.assertIsNone(result)
+        mock_get_vnf.assert_called_once_with(self.mock_tacker_client,
+                                             'vnf_id',
+                                             'vnf_name')
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls[1:])
+
+    @patch('time.sleep', autospec=True)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.get_vnf', autospec=True)
+    def test_wait_for_vnf_returned_none_timeout_booting_vnf(self,
+                                                            mock_get_vnf,
+                                                            mock_log,
+                                                            mock_sleep):
+        """
+        Checks the proper functionality of wait_for_vnf
+        function when an Exception is raised
+        """
+
+        mock_vnf_values = [{'id': 'vnf_id',
                             'status': 'PENDING_CREATE'},
                            {'id': 'vnf_id',
                             'status': 'PENDING_CREATE'}]
-
         mock_get_vnf.side_effect = mock_vnf_values
         log_calls = [call("Waiting for vnf %s" % str(mock_vnf_values[1])),
-                     call("Waiting for vnf %s" % str(mock_vnf_values[2])),
-                     call("error [wait_for_vnf(tacker_client, 'vnf_id', "
-                          "'vnf_name')]: Could not retrieve VNF - id='vnf_id',"
-                          " name='vnf_name'"),
-                     call("error [wait_for_vnf(tacker_client, 'vnf_id', "
-                          "'vnf_name')]: Error when booting vnf vnf_id"),
                      call("error [wait_for_vnf(tacker_client, 'vnf_id', "
                           "'vnf_name')]: Timeout when booting vnf vnf_id")]
 
-        # not able to retrieve VNF
         result = os_sfc_utils.wait_for_vnf(self.mock_tacker_client,
                                            'vnf_id',
                                            'vnf_name',
                                            0)
         self.assertIsNone(result)
-
-        # not able to boot VNF
-        result = os_sfc_utils.wait_for_vnf(self.mock_tacker_client,
-                                           'vnf_id',
-                                           'vnf_name',
-                                           0)
-        self.assertIsNone(result)
-
-        # timeout booting VNF
-        result = os_sfc_utils.wait_for_vnf(self.mock_tacker_client,
-                                           'vnf_id',
-                                           'vnf_name',
-                                           0)
-        self.assertIsNone(result)
-        mock_log.info.assert_has_calls(log_calls[:2])
-        mock_log.error.assert_has_calls(log_calls[2:])
+        mock_get_vnf.assert_called_with(self.mock_tacker_client,
+                                        'vnf_id',
+                                        'vnf_name')
+        mock_log.info.assert_has_calls(log_calls[:1])
+        mock_log.error.assert_has_calls(log_calls[1:])
 
     @patch('time.sleep', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
@@ -1629,39 +1720,29 @@ class SfcTackerSectionTesting(unittest.TestCase):
     @patch('__builtin__.open', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.get_vnffgd_id', autospec=True)
-    def test_create_vnffg(self,
-                          mock_get_vnffgd_id,
-                          mock_log,
-                          mock_open,
-                          mock_safe_load):
+    def test_create_vnffg_vnffgd_id_not_provided(self,
+                                                 mock_get_vnffgd_id,
+                                                 mock_log,
+                                                 mock_open,
+                                                 mock_safe_load):
         """
         Checks the proper functionality of create_vnffg
         function when the vnffgd id or vnffg name is not provided
         """
 
-        mock_get_vnffgd_id.return_value = 'mocked_vnffg_id'
-        log_calls = [call('Creating the vnffg...')] * 2
-
+        log_calls = [call('Creating the vnffg...')]
         vnffg_calls = [call(body={
                             'vnffg': {
                                 'attributes': {'param_values': {'type': 'dict',
                                                                 'id': 0}},
                                 'vnffgd_id': 'mocked_vnffg_id',
                                 'name': 'vnffg_name',
-                                'symmetrical': False}}),
-                       call(body={
-                            'vnffg': {
-                                'attributes': {'param_values': {'type': 'dict',
-                                                                'id': 0}},
-                                'vnffgd_id': 'vnffgd_id',
-                                'name': 'vnffg_name',
                                 'symmetrical': False}})]
-
+        mock_get_vnffgd_id.return_value = 'mocked_vnffg_id'
         open_handler = mock_open.return_value.__enter__.return_value
         open_handler.read.return_value = 'data'
         mock_safe_load.return_value = {'id': 0, 'type': 'dict'}
 
-        # vnffgd_id = None
         result = os_sfc_utils.create_vnffg(self.mock_tacker_client,
                                            'vnffg_name',
                                            None,
@@ -1673,16 +1754,43 @@ class SfcTackerSectionTesting(unittest.TestCase):
         mock_get_vnffgd_id.assert_called_once_with(self.mock_tacker_client,
                                                    'vnffgd_name')
         mock_safe_load.assert_called_once_with('data')
+        mock_log.info.assert_has_calls(log_calls)
+        self.mock_tacker_client.create_vnffg.assert_has_calls(vnffg_calls)
 
-        # vnffgd_id = 'vnffgd_id'
+    @patch('yaml.safe_load', autospec=True)
+    @patch('__builtin__.open', autospec=True)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_vnffg_vnffgd_id_provided(self,
+                                             mock_log,
+                                             mock_open,
+                                             mock_safe_load):
+        """
+        Checks the proper functionality of create_vnffg
+        function when the vnffgd id or vnffg name is not provided
+        """
+
+        log_calls = [call('Creating the vnffg...')]
+        vnffg_calls = [call(body={
+                            'vnffg': {
+                                'attributes': {'param_values': {'type': 'dict',
+                                                                'id': 0}},
+                                'vnffgd_id': 'vnffgd_id',
+                                'name': 'vnffg_name',
+                                'symmetrical': False}})]
+        open_handler = mock_open.return_value.__enter__.return_value
+        open_handler.read.return_value = 'data'
+        mock_safe_load.return_value = {'id': 0, 'type': 'dict'}
+
         result = os_sfc_utils.create_vnffg(self.mock_tacker_client,
                                            'vnffg_name',
                                            'vnffgd_id',
                                            'vnffgd_name',
                                            'param_file')
         assert result is self.mock_tacker_client.create_vnffg.return_value
+        mock_open.assert_called_once_with('param_file')
+        open_handler.read.assert_called_once_with()
+        mock_safe_load.assert_called_once_with('data')
         mock_log.info.assert_has_calls(log_calls)
-        mock_log.error.assert_not_called()
         self.mock_tacker_client.create_vnffg.assert_has_calls(vnffg_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
