@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_7b357745",
+        "filename": "sfc/unit_tests/unit/lib/test_test_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-09-07T08:20:34Z",
+      "side": 1,
+      "message": "What does this \"self\" here ?",
+      "range": {
+        "startLine": 195,
+        "startChar": 12,
+        "endLine": 195,
+        "endChar": 16
+      },
+      "revId": "f6fbecab7641f82d7c0a9bcf2ac9af2d3bc8e88c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
