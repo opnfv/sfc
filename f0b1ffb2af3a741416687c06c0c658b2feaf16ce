@@ -34,6 +34,24 @@
       "revId": "f0b1ffb2af3a741416687c06c0c658b2feaf16ce",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_af08652e",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/templates/ha/user_sfc_scenarios_variables_ubuntu.yml.j2",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-09-11T14:01:00Z",
+      "side": 1,
+      "message": "Nevermind we do not need to add additional variable because of this patch: https://git.opendaylight.org/gerrit/#/c/75986/\n\nAfter that patch is merged we will consume the new ODL fluorine SR0 automatically",
+      "parentUuid": "5a682502_0f76b93e",
+      "revId": "f0b1ffb2af3a741416687c06c0c658b2feaf16ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
