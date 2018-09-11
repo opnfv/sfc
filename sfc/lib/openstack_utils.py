@@ -159,7 +159,7 @@ class OpenStackSFC:
             instance_settings,
             image_creator.image_settings)
 
-        instance = instance_creator.create()
+        instance = instance_creator.create(block=True)
 
         self.creators.append(instance_creator)
         return instance, instance_creator
