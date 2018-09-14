@@ -32,11 +32,9 @@ More information about OpenDaylight and SFC can be found here.
 
   - Overall OPNFV documentation
 
-  - `Design document <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/development/design/index.html>`_
-
-  - `User Guide <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/userguide/index.html>`_
-
-  - `Installation Instructions <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/configguide/index.html>`_
+  - :ref:`Design document <sfc-design>`
+  - :ref:`User Guide <sfc-userguide>`
+  - :ref:`Installation Instructions <sfc-configguide>`
 
   - Release Notes (this document)
 
@@ -80,11 +78,9 @@ Document changes
 This is the first tracked version of OPNFV SFC Fraser. It comes with
 the following documentation:
 
-- `Design document <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/development/design/index.html>`_
-
-- `User Guide <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/userguide/index.html>`_
-
-- `Installation Instructions <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/configguide/index.html>`_
+- :ref:`Design document <sfc-design>`
+- :ref:`User Guide <sfc-userguide:>`
+- :ref:`Installation Instructions <sfc-configguide:>`
 
 - Release notes (This document)
 
@@ -112,12 +108,9 @@ No specific deliverables are created, as SFC is included with Apex and Compass4N
 Documentation deliverables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- `Design document <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/development/design/index.html>`_
-
-- `User Guide <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/userguide/index.html>`_
-
-- `Installation Instructions <http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/configguide/index.html>`_
-
+- :ref:`Design document <sfc-design>`
+- :ref:`User Guide <sfc-userguide:>`
+- :ref:`Installation Instructions <sfc-configguide:>`
 - Release notes (This document)
 
 Known Limitations, Issues and Workarounds
