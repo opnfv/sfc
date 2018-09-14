@@ -12,10 +12,8 @@ SFC feature desciription
 For details of the scenarios and their provided capabilities refer to
 the scenario description documents:
 
-- http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/scenarios/os-odl-sfc-ha/index.html
-
-- http://docs.opnfv.org/en/stable-fraser/submodules/sfc/docs/release/scenarios/os-odl-sfc-noha/index.html
-
+- :ref:`<os-odl-sfc-ha>`
+- :ref:`<os-odl-sfc-noha>`
 
 The SFC feature enables creation of Service Fuction Chains - an ordered list
 of chained network funcions (e.g. firewalls, NAT, QoS)
