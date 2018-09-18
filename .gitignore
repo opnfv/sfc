@@ -1,8 +1,7 @@
-/docs_build/
 /docs_output/
 /releng/
 *pyc
 /sfc.egg-info/
 *ovs-logs/
 .tox/
-docs/_build/
+docs/_build/*
