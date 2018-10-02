@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ae1de768",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-10-02T14:02:48Z",
+      "side": 1,
+      "message": "Do you mean a XCI patch here? Because the link below is for the releng-xci repo",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 14,
+        "endChar": 33
+      },
+      "revId": "8c302b37f09b1b6a64fd5703c621e51898bcc112",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
