@@ -200,6 +200,17 @@ mano_hosts:
   controller02:
     ip: 172.29.236.13
 
+
+# ceilometer
+metering-infra_hosts:
+  controller00:
+    ip: 172.29.236.11
+  controller01:
+    ip: 172.29.236.12
+  controller02:
+    ip: 172.29.236.13
+
+
 # neutron server, agents (L3, etc)
 network_hosts:
   controller00:
