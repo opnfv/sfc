@@ -144,6 +144,11 @@ mano_hosts:
   controller00:
     ip: 172.29.236.11
 
+# ceilometer
+metering-infra_hosts:
+  controller00:
+    ip: 172.29.236.11
+
 # neutron server, agents (L3, etc)
 network_hosts:
   controller00:
