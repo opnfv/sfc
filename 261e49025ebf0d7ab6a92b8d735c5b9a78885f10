@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_05acb99f",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/ha/openstack_user_config.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2018-10-04T07:36:47Z",
+      "side": 1,
+      "message": "the \u0027tacker_use_barbican_flag\u0027 variable is used in the [1] file, but this variable is set in the [2] file instead. That\u0027s why I used this name. I have tested this, running the deployment and the tacker.conf takes the correct value.\n\n[1] openstack/openstack-ansible-os_tacker / templates/tacker.conf.j2\n[2] openstack/openstack-ansible-os_tacker / defaults/main.yml\n\nDo you agree? \nPlz let me know if I\u0027ve missed something!",
+      "parentUuid": "5a682502_65ee4dee",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "261e49025ebf0d7ab6a92b8d735c5b9a78885f10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a5bfc5cf",
         "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/mini/openstack_user_config.yml",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e5b09df6",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/mini/openstack_user_config.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2018-10-04T07:36:47Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "5a682502_a5bfc5cf",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "261e49025ebf0d7ab6a92b8d735c5b9a78885f10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_05b5d9ed",
         "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/noha/openstack_user_config.yml",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-04T07:13:14Z",
       "side": 1,
       "message": "tacker_use_barbican_flag",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "261e49025ebf0d7ab6a92b8d735c5b9a78885f10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4595113f",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/noha/openstack_user_config.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2018-10-04T07:36:47Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "5a682502_05b5d9ed",
       "range": {
         "startLine": 15,
         "startChar": 2,
