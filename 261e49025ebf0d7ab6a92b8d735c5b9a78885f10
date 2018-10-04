@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_65ee4dee",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/files/tacker_files/ha/openstack_user_config.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-04T07:12:42Z",
+      "side": 1,
+      "message": "OSA\u0027s patch has the variable: tacker_use_barbican_flag",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "261e49025ebf0d7ab6a92b8d735c5b9a78885f10",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
