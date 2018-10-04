@@ -115,6 +115,10 @@ openstack_host_specific_kernel_modules:
   - name: openvswitch
 
 openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"
+
+# To avoid functest complaining because cirros vm gets stuck trying to contact the metadata server
+neutron_dnsmasq_force_metadata: True
+
 {% endraw %}
 
 {% if odl_repo_version is defined %}
