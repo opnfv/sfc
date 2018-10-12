@@ -11,12 +11,6 @@
 - name: Configure opnfv host
   include: configure-opnfvhost.yml
 
-- name: Install OSM
-  include: install-osm.yml
-
-- name: Register OpenStack as VIM
-  include: register-vim.yml
-
 # fetch ODL variables for functest
 - name: Fetch the ip of the neutron server container
   shell: 'grep controller00_neutron_server_container -n1 /etc/openstack_deploy/openstack_inventory.json | grep ansible_host | cut -d":" -f2 | cut -d "\"" -f2'

@@ -5,7 +5,7 @@ This role currently works with:
 - OpenStack stable/rocky
 - ODL Fluorine
 - OVS 2.9.2
-- OSM master
+- OSM Release FOUR
 - Ubuntu 16.04
 
 Follow this link:
