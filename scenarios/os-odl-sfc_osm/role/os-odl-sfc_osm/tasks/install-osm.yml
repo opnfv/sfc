@@ -19,7 +19,7 @@
 - name: install OSM
   become_user: "{{ osm_install_user }}"
   become: yes
-  command: "/bin/bash ./full_install_osm.sh --test -b {{ osm_devops_version }} --nolxd -y"
+  command: "/bin/bash ./full_install_osm.sh --source -b {{ osm_devops_version }} --nolxd -y "
   args:
     chdir: "{{ osm_devops_clone_location }}/installers"
     creates: "/usr/bin/osm"
