@@ -51,7 +51,7 @@
     - lxd-bridge
 
 - name: get default interface
-  shell: route -n | awk '$1~/^0.0.0.0/ {print $8}'
+  shell: /sbin/route -n | awk '$1~/^0.0.0.0/ {print $8}'
   register: default_interface
   ignore_errors: False
   changed_when: False
