@@ -1,0 +1,12 @@
+---
+#
+
+- name: copy user_sfc_scenarios_variables.yml
+  copy:
+    src: "{{xci_flavor}}/user_sfc_scenarios_variables_pike.yml"
+    dest: "{{openstack_osa_etc_path}}/user_sfc_scenarios_variables.yml"
+
+- name: copy OPNFV role requirements
+  copy:
+    src: "ansible-role-requirements-pike.yml"
+    dest: "{{openstack_osa_path}}/ansible-role-requirements.yml"
