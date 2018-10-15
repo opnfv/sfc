@@ -1,0 +1,57 @@
+---
+#
+
+- name: copy user_sfc_scenarios_variables.yml
+  copy:
+    src: "{{xci_flavor}}/user_sfc_scenarios_variables_pike.yml"
+    dest: "{{openstack_osa_etc_path}}/user_sfc_scenarios_variables.yml"
+
+- name: copy OPNFV role requirements
+  copy:
+    src: "ansible-role-requirements-pike.yml"
+    dest: "{{openstack_osa_path}}/ansible-role-requirements.yml"
+
+- name: copy openstack_user_config.yml
+  copy:
+    src: "tacker_files/{{xci_flavor}}/openstack_user_config.yml"
+    dest: "{{openstack_osa_etc_path}}/openstack_user_config.yml"
+
+- name: copy tacker inventory file
+  copy:
+    src: "tacker_files/tacker.yml"
+    dest: "{{openstack_osa_etc_path}}/env.d/tacker.yml"
+
+- name: copy user_secrets.yml for tacker
+  copy:
+    src: "tacker_files/user_secrets.yml"
+    dest: "{{openstack_osa_etc_path}}/user_secrets.yml"
+
+- name: copy haproxy_config.yml for tacker
+  copy:
+    src: "tacker_files/haproxy_config.yml"
+    dest: "{{openstack_osa_path}}/group_vars/all/haproxy_config.yml"
+
+- name: copy openstack_services.yml with tacker
+  copy:
+    src: "tacker_files/openstack_services_pike.yml"
+    dest: "{{openstack_osa_path}}/playbooks/defaults/repo_packages/openstack_services.yml"
+
+- name: copy all/tacker.yml
+  copy:
+    src: "tacker_files/all_tacker.yml"
+    dest: "{{openstack_osa_path}}/group_vars/all/tacker.yml"
+
+- name: copy tacker_all.yml
+  copy:
+    src: "tacker_files/tacker_all.yml"
+    dest: "{{openstack_osa_path}}/group_vars/tacker_all.yml"
+
+- name: copy setup-openstack.yml
+  copy:
+    src: "tacker_files/setup-openstack.yml"
+    dest: "{{openstack_osa_path}}/playbooks/setup-openstack.yml"
+
+- name: copy os-tacker-install.yml
+  copy:
+    src: "tacker_files/os-tacker-install.yml"
+    dest: "{{openstack_osa_path}}/playbooks/os-tacker-install.yml"
