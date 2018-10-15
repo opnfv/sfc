@@ -1,0 +1,75 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2018 Ericsson AB and others.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: install OSM required packages
+  package:
+    name: "{{ osm_required_packages[ansible_pkg_mgr] }}"
+    state: present
+
+- name: initialize LXD
+  command: "{{ item }}"
+  with_items:
+    - lxd init --auto
+    - lxd waitready
+  ignore_errors: False
+  changed_when: False
+- name: stop lxd-bridge service
+  systemd:
+    name: lxd-bridge
+    state: stopped
+    daemon_reload: yes
+- name: create lxd-bridge configuration
+  template:
+    src: lxd-bridge.j2
+    dest: /etc/default/lxd-bridge
+    mode: 0755
+
+- name: ensure dnsmasq service is stopped before attempting to start lxd-bridge
+  service:
+    name: dnsmasq
+    state: stopped
+
+- name: ensure dnsmasq uses interface br-vlan for lxd-bridge
+  lineinfile:
+    path: /etc/dnsmasq.conf
+    regexp: '^interface='
+    line: 'interface=br-vlan'
+
+- name: ensure docker and lxd-bridge services are started and enabled
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - docker
+    - lxd-bridge
+
+- name: get default interface
+  shell: route -n | awk '$1~/^0.0.0.0/ {print $8}'
+  register: default_interface
+  ignore_errors: False
+  changed_when: False
+
+- name: get mtu of the default interface {{ default_interface.stdout }}
+  shell: ip addr show {{ default_interface.stdout }} | perl -ne 'if (/mtu\s(\d+)/) {print $1;}'
+  register: default_interface_mtu
+  ignore_errors: False
+  changed_when: False
+
+- name: set lxdbr0 mtu to {{ default_interface_mtu.stdout }}
+  command: ifconfig lxdbr0 mtu {{ default_interface_mtu.stdout }}
+  ignore_errors: False
+  changed_when: False
+
+- name: add devuser to lxd and docker groups
+  user:
+    name: devuser
+    groups: lxd, docker
+    append: yes
