@@ -1,0 +1,12 @@
+This is the role which deploys the os-odl-sfc_osm scenario in xci.
+
+This role currently works with:
+
+- OpenStack stable/rocky
+- ODL Fluorine SR0
+- OVS 2.9.2 + NSH patch 
+- OSM master (ReleaseFIVE-daily)
+- Ubuntu 16.04
+
+Follow this link:
+https://wiki.opnfv.org/display/sfc/Deploy+OPNFV+SFC+scenarios
