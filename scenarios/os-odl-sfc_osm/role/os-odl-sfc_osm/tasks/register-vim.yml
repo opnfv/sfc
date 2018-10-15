@@ -1,0 +1,30 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2018 Venkata Harshavardhan Reddy Allu and others.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+# This is a simple fix to wait for the OSM services in
+# the docker containers to start functioning as expected.
+# TO DO: Once healthchecks are added to the OSM
+# container stack, we'll use them to identify that
+# they were started functioning and modify this task.
+- name: Wait till the OSM services are ready
+  pause:
+    minutes: 2
+
+- name: Register OpenStack as VIM
+  shell: "osm vim-create \
+    --name openstack-site \
+    --user admin \
+    --password {{ openrc_os_password }} \
+    --tenant admin \
+    --account_type openstack \
+    --auth_url {{ openrc_os_auth_url }} \
+    --config='{insecure: true}'"
+  environment:
+    OSM_HOSTNAME: 127.0.0.1
