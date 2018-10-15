@@ -1,0 +1,16 @@
+---
+
+- name: Add networking-odl and networking-sfc repos
+  copy:
+    src: openstack-ansible/playbooks/defaults/repo_packages/opendaylight-pike.yml
+    dest: "{{openstack_osa_path}}/playbooks/defaults/repo_packages/opendaylight.yml"
+
+- name: Provide nova inventory which adds OVS-NSH hosts
+  copy:
+    src: openstack-ansible/playbooks/inventory_odl/env.d/nova.yml
+    dest: "{{openstack_osa_path}}/playbooks/inventory/env.d/nova.yml"
+
+- name: Provide neutron inventory which adds ODL hosts
+  copy:
+    src: openstack-ansible/playbooks/inventory_odl/env.d/neutron.yml
+    dest: "{{openstack_osa_path}}/playbooks/inventory/env.d/neutron.yml"
