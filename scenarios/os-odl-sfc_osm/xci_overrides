@@ -1,0 +1,10 @@
+if [[ $XCI_FLAVOR == "ha" ]]; then
+    export VM_MEMORY_SIZE=20480
+else
+    export VM_MEMORY_SIZE=16384
+fi
+
+# Until this feature is developed, ODL_VERSION must be intialized:
+# https://github.com/ansible/ansible/issues/17329
+# otherwise the lookup in vars/main returns an empty string when not defined
+export ODL_VERSION=${ODL_VERSION:-latest_release}

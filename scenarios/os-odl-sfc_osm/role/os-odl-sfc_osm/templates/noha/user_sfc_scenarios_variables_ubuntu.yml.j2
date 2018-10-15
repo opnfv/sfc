@@ -1,0 +1,130 @@
+---
+# Copyright 2014, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ##
+# ## This file contains commonly used overrides for convenience. Please inspect
+# ## the defaults for each role to find additional override options.
+# ##
+
+{% raw %}
+# # Debug and Verbose options.
+debug: false
+
+haproxy_keepalived_external_vip_cidr: "192.168.122.3/32"
+haproxy_keepalived_internal_vip_cidr: "172.29.236.11/32"
+haproxy_keepalived_external_interface: br-vlan
+haproxy_keepalived_internal_interface: br-mgmt
+gnocchi_db_sync_options: ""
+
+ovs_nsh_support: true
+
+# Ensure the openvswitch kernel module is loaded
+# openstack_host_specific_kernel_modules:
+#  - name: "openvswitch"
+#    pattern: "CONFIG_OPENVSWITCH"
+#    group: "network_hosts"
+
+# Use OpenDaylight SDN Controller
+neutron_plugin_type: "ml2.opendaylight"
+neutron_opendaylight_conf_ini_overrides:
+  ml2_odl:
+    username: "admin"
+    password: "admin"
+    port_binding_controller: "pseudo-agentdb-binding"
+    url: "http://{{ hostvars[groups['neutron_server'][0]]['ansible_eth1']['ipv4']['address'] }}:8180/controller/nb/v2/neutron"
+neutron_plugin_base:
+  - odl-router_v2
+  - metering
+  - networking_sfc.services.flowclassifier.plugin.FlowClassifierPlugin
+  - networking_sfc.services.sfc.plugin.SfcPlugin
+provider_networks:
+  - network:
+      container_bridge: "br-mgmt"
+      container_type: "veth"
+      container_interface: "eth1"
+      ip_from_q: "container"
+      type: "raw"
+      group_binds:
+        - all_containers
+        - hosts
+      is_container_address: true
+      is_ssh_address: true
+  - network:
+      container_bridge: "br-vxlan"
+      container_type: "veth"
+      container_interface: "eth10"
+      ip_from_q: "tunnel"
+      type: "vxlan"
+      range: "1:1000"
+      net_name: "vxlan"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-vlan"
+      container_type: "veth"
+      container_interface: "eth12"
+      host_bind_override: "eth12"
+      type: "flat"
+      net_name: "flat"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-vlan"
+      container_type: "veth"
+      container_interface: "eth11"
+      host_bind_override: "eth12"
+      type: "vlan"
+      range: "1:1"
+      net_name: "vlan"
+      group_binds:
+        - neutron_openvswitch_agent
+  - network:
+      container_bridge: "br-storage"
+      container_type: "veth"
+      container_interface: "eth2"
+      ip_from_q: "storage"
+      type: "raw"
+      group_binds:
+        - glance_api
+        - cinder_api
+        - cinder_volume
+        - nova_compute
+
+# This repo is used for ovs 2.9.2
+user_external_repos_list:
+  - repo: 'deb http://ppa.launchpad.net/mardim/mardim-ppa/ubuntu xenial main'
+
+user_external_repo_keys_list:
+  - id: 6E2EEDF1A3925D9D727EB1176FAD8BA42AAAEB9F
+    keyserver: keyserver.ubuntu.com
+
+openstack_host_specific_kernel_modules:
+  - name: openvswitch
+
+ovs_nsh_required_metal_packages:
+  - python-six
+  - python3-six
+  - linux-headers-{{ ansible_kernel }}
+  - openvswitch-datapath-dkms
+
+openstack_host_metal_distro_packages: "{{ ovs_nsh_required_metal_packages + _openstack_host_metal_distro_packages }}"
+
+# To avoid functest complaining because cirros vm gets stuck trying to contact the metadata server
+neutron_dnsmasq_force_metadata: True
+{% endraw %}
+
+{% if odl_repo_version is defined %}
+odl_version: "{{ odl_repo_version }}"
+{% endif %}
