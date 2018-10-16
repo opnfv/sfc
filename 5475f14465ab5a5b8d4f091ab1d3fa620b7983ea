@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_30d767c3",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-16T16:40:50Z",
+      "side": 1,
+      "message": "you should update this file",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9002bb3c",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-16T16:40:50Z",
+      "side": 1,
+      "message": "Isn\u0027t it possible to do what this commands intent by an lxd ansible module?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 19
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f09a0f13",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-16T16:40:50Z",
+      "side": 1,
+      "message": "why do you add this line?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b0f9b74f",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-16T16:40:50Z",
+      "side": 1,
+      "message": "This should be removed or replaced as you don\u0027t work for suse",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d0fc3341",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-16T16:40:50Z",
+      "side": 1,
+      "message": "This should be removed or replaced as you don\u0027t work for Ericsson",
+      "range": {
+        "startLine": 3,
+        "startChar": 16,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
