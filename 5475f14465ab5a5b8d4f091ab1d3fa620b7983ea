@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_46834904",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1451
+      },
+      "writtenOn": "2018-10-17T18:47:23Z",
+      "side": 1,
+      "message": "The original file should be updated as it doesn\u0027t follow our licensing guidelines. It should say \"SUSE Linux GmbH and others\" (in the original) :)",
+      "parentUuid": "5a682502_b0f9b74f",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d0fc3341",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 6
