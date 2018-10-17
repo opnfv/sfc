@@ -1,0 +1,28 @@
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2018 SUSE Linux GmbH
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: Find the ip of the opendaylight container
+  json_output: "{{ lookup('file','/etc/openstack_deploy/openstack_inventory.json') | from_json }}"
+
+- debug: var=json_output
+
+- name: We continue the last task
+  neutron_container: json_output.opendaylight.hosts[0]
+
+- debug: var=neutron_container
+
+- name: One more timeeee
+  ip: "{{ json_output._meta.hostvars.neutron_container.container_address }}"
+
+- debug: var=ip
+
+- name: Fetch the ml2_conf.ini to process ODL variables
+  command: "{{ scp ip:/etc/neutron/plugins/ml2/ml2_conf.ini /tmp/ml2_conf.ini }}"
+  when: '"-odl" in deploy_scenario'
+
