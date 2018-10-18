@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_86dba1ec",
+        "filename": "scenarios/os-odl-sfc/role/os-odl-sfc/tasks/post-deployment.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-10-18T07:27:22Z",
+      "side": 1,
+      "message": "Change this to:\ngrep controller00_neutron_server_container -n1 /etc/openstack_deploy/openstack_inventory.json",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 109
+      },
+      "revId": "e282c3c32545f0a537b50c14ae458882ecf10d64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
