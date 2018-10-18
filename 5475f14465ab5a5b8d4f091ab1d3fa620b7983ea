@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e9bb46c2",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-18T14:37:38Z",
+      "side": 1,
+      "message": "The update is on its way.",
+      "parentUuid": "5a682502_30d767c3",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_9002bb3c",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c9f2ca99",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-18T14:37:38Z",
+      "side": 1,
+      "message": "No. Currently, lxd ansible module doesn\u0027t support the initialization process.",
+      "parentUuid": "5a682502_9002bb3c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 19
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_f09a0f13",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-16T16:40:50Z",
       "side": 1,
       "message": "why do you add this line?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_49e99a7f",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-18T14:37:38Z",
+      "side": 1,
+      "message": "This file is copied from the os-nosdn-osm role in the releng-xci-scenarios repo. This task will provide the same result no matter how many times it ran. \"changed_when: False\" \u003d\u003d\u003d\u003e will never report \u0027changed\u0027 status. That\u0027s all I know, fdegir might have a better understanding of this.",
+      "parentUuid": "5a682502_f09a0f13",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a9ef8eaf",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-18T14:37:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_46834904",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d0fc3341",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 6
@@ -129,6 +225,30 @@
       "writtenOn": "2018-10-16T16:40:50Z",
       "side": 1,
       "message": "This should be removed or replaced as you don\u0027t work for Ericsson",
+      "range": {
+        "startLine": 3,
+        "startChar": 16,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "5475f14465ab5a5b8d4f091ab1d3fa620b7983ea",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_092cc201",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-18T14:37:38Z",
+      "side": 1,
+      "message": "This file is copied from the os-nosdn-osm role in the releng-xci-scenarios repo. So, I\u0027m not allowed to modify the license header.",
+      "parentUuid": "5a682502_d0fc3341",
       "range": {
         "startLine": 3,
         "startChar": 16,
