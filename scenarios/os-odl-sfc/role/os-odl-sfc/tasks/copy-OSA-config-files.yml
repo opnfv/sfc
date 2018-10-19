@@ -13,8 +13,8 @@
     dest: "{{openstack_osa_etc_path}}/user_sfc_scenarios_variables.yml"
   when: ansible_pkg_mgr == 'apt'
 
-# To get the mano_host variable (can only be defined here for the inventory)
+# To get the mano_host & metering-infra_hosts variable for inventory
 - name: copy openstack_user_config.yml
   copy:
-    src: "tacker_files/{{xci_flavor}}/openstack_user_config.yml"
+    src: "{{xci_flavor}}/openstack_user_config.yml"
     dest: "{{openstack_osa_etc_path}}/openstack_user_config.yml"
