@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_40dcc812",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "noted",
+      "parentUuid": "5a682502_8090a044",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ddaba31c",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-22T07:29:40Z",
       "side": 1,
       "message": "you\u0027ll need to update this wiki",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_20e38c34",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 14
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ddaba31c",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6008e491",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/defaults/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5a682502_fdb01f8d",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7dbd2f68",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
         "patchSetId": 14
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-22T07:29:40Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c0ff3866",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5a682502_7dbd2f68",
       "range": {
         "startLine": 4,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a002fc6c",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5a682502_dd8443b3",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_3d9457e1",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
         "patchSetId": 14
@@ -128,6 +248,30 @@
       "writtenOn": "2018-10-22T07:29:40Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8005407c",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5a682502_3d9457e1",
       "range": {
         "startLine": 4,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_00f93080",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "5a682502_1d8fdbcd",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1df87b48",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 14
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_20eeecb4",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "Nothing much. The registration behaviour would slightly change if XCI supports SR-IOV. So I waited over the weekend to know the progress about bare metal deployment mentioned here \u003d\u003d\u003d\u003e https://github.com/opnfv/releng-xci/blob/master/docs/specs/infra_manager.rst#pdf-and-idf-support-in-xci. Now, I have added the task regarding VIM registration.",
+      "parentUuid": "5a682502_1df87b48",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_3dfd773b",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/vars/main.yml",
         "patchSetId": 14
@@ -197,6 +389,30 @@
       "writtenOn": "2018-10-22T07:29:40Z",
       "side": 1,
       "message": "Use your name for the license",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_20d70cef",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/vars/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-22T15:42:27Z",
+      "side": 1,
+      "message": "This file is copied from the os-nosdn-osm role in the releng-xci-scenarios repo. So I\u0027m not allowed to modify the license.",
+      "parentUuid": "5a682502_3dfd773b",
       "range": {
         "startLine": 4,
         "startChar": 0,
