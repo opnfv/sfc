@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_8090a044",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-10-22T14:09:17Z",
+      "side": 1,
+      "message": "We do not use any NSH patches we just repackage OVS 2.9.2 to make it compatible with older kernels. NSH supports is included by defualt to OVS 2.9.2",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ddaba31c",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
         "patchSetId": 14
