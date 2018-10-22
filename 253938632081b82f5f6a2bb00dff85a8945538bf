@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ddaba31c",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/README",
+        "patchSetId": 14
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "you\u0027ll need to update this wiki",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fdb01f8d",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/defaults/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7dbd2f68",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_dd8443b3",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3d9457e1",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1d8fdbcd",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 48
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1df87b48",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "in os-nosdn-osm you are registering the VIM already in the post-deployment playbook. Here you only install it. I wonder why the different behaviour",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3dfd773b",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/vars/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-22T07:29:40Z",
+      "side": 1,
+      "message": "Use your name for the license",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "253938632081b82f5f6a2bb00dff85a8945538bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
