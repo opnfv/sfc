@@ -22,5 +22,4 @@ osm_required_packages:
 osm_release_version: "osm-4.0-four"
 osm_install_user: "devuser"
 
-## Create osmrc file
-osmrc_file_dest: "{{ ansible_env.HOME }}/osmrc"
+osmrc_file_dest: "/root/osmrc"

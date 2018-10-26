@@ -10,15 +10,16 @@
 
 # This is a simple fix to wait for the OSM services in
 # the docker containers to start functioning as expected.
-# TO DO: Once healthchecks are added to the OSM
-# container stack, we'll use them to identify that
-# they were started functioning and modify this task.
-- name: Wait till the OSM services are ready
-  pause:
-    minutes: 2
+# TODO: Once healthchecks are added to the OSM
+# container stack, use them to identify the status
+# of the containers and modify this task.
+- name: wait till the OSM services are ready
+  wait_for: timeout=120
+  delegate_to: localhost
 
-- name: Register OpenStack as VIM
-  shell: "osm vim-create \
+- name: register OpenStack as VIM
+  shell: ". {{ osmrc_file_dest }} ;
+    osm vim-create \
     --name openstack-site \
     --user admin \
     --password {{ openrc_os_password }} \
@@ -26,5 +27,4 @@
     --account_type openstack \
     --auth_url {{ openrc_os_auth_url }} \
     --config='{insecure: true}'"
-  environment:
-    OSM_HOSTNAME: 127.0.0.1
+  changed_when: False

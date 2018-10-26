@@ -24,7 +24,9 @@
     chdir: "/home/{{ osm_install_user }}"
     creates: "/usr/bin/osm"
 
-- name: Create osmrc file
+- name: create osmrc file
   copy:
-    src: osmrc
     dest: "{{ osmrc_file_dest }}"
+    content: |
+      export OSM_HOSTNAME=127.0.0.1
+      export OSM_OL005=True
