@@ -676,7 +676,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         mock_vm_ins = mock_vm.return_value
         mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs...')]
+        log_calls_info = [call('Creating the port pairs for vm')]
         log_calls_err = [call('Only SFs with one or two ports are supported')]
         exception_message = "Failed to create port pairs"
         vnf_ports = ['p1', 'p2', 'p3']
@@ -698,7 +698,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         mock_vm_ins = mock_vm.return_value
         mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs...')]
+        log_calls_info = [call('Creating the port pairs for vm')]
         log_calls_warn = [call('Chain creation failed due to port pair '
                           'creation failed for vnf %(vnf)s', {'vnf': 'vm'})]
         mock_port_ins = mock_port.return_value
@@ -724,8 +724,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         mock_vm_ins = mock_vm.return_value
         mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs...'),
-                          call('Creating the port pair groups...')]
+        log_calls_info = [call('Creating the port pairs for vm'),
+                          call('Creating the port pair groups for vm')]
         log_calls_warn = [call('Chain creation failed due to port pair group '
                                'creation failed for vnf %(vnf)', 'vm')]
         mock_port_ins = mock_port.return_value
@@ -747,8 +747,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         Checks the create_port_groups when everything goes as expected
         """
 
-        log_calls_info = [call('Creating the port pairs...'),
-                          call('Creating the port pair groups...')]
+        log_calls_info = [call('Creating the port pairs for vm'),
+                          call('Creating the port pair groups for vm')]
         mock_port_ins = mock_port.return_value
         mock_port_ins.id = '123abc'
         mock_osvm_ins = mock_osvm.return_value
@@ -859,8 +859,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         Checks the delete_port_groups method
         """
-        log_calls = [call('Deleting the port groups...'),
-                     call('Deleting the port pairs...')]
+        log_calls = [call('Deleting the port groups for vm'),
+                     call('Deleting the port pairs for vm')]
         self.neutron.list_sfc_port_pair_groups.return_value = \
             {'port_pair_groups': [{'id': 'id_ppg1'}, {'id': 'id_ppg2'}]}
         self.neutron.list_sfc_port_pairs.return_value = \
