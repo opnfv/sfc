@@ -293,7 +293,7 @@ class OpenStackSFC:
         '''
         Creates a networking-sfc port pair and group
         '''
-        logger.info("Creating the port pairs...")
+        logger.info("Creating the port pairs for %s" % vm_instance.name)
         port_pair = dict()
         port_pair['name'] = vm_instance.name + '-connection-points'
         port_pair['description'] = 'port pair for ' + vm_instance.name
@@ -316,7 +316,7 @@ class OpenStackSFC:
                            {'vnf': vm_instance.name})
             return None
 
-        logger.info("Creating the port pair groups...")
+        logger.info("Creating the port pair groups for %s" % vm_instance.name)
         port_pair_group = {}
         port_pair_group['name'] = vm_instance.name + '-port-pair-group'
         port_pair_group['description'] = \
