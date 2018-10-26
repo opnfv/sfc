@@ -8,5 +8,5 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-- name: Copy the OSA config files
+- name: copy the OSA config files
   include: copy-OSA-config-files.yml
