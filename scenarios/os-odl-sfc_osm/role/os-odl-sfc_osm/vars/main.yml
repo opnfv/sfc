@@ -19,8 +19,9 @@ osm_required_packages:
     - snapd
     - lxd
 
-osm_release_version: "osm-4.0-four"
+osm_devops_version: "master"
+osm_devops_git_url: "https://osm.etsi.org/gerrit/osm/devops.git"
+osm_devops_clone_location: "/home/{{ osm_install_user }}/osm-devops"
 osm_install_user: "devuser"
 
-## Create osmrc file
-osmrc_file_dest: "{{ ansible_env.HOME }}/osmrc"
+osmrc_file_dest: "/root/osmrc"
