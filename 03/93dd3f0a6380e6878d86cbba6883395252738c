@@ -1,0 +1,7 @@
+Code-Review+2: Manuel Buil <mbuil@suse.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Manuel Buil <mbuil@suse.com>
+Submitted-at: Fri, 26 Oct 2018 15:46:29 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/64081
+Project: sfc
+Branch: refs/heads/stable/gambia
