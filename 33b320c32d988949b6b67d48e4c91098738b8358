@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3c30d0e7",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/files/osmrc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-29T16:39:02Z",
+      "side": 1,
+      "message": "Same as before \u003d\u003d\u003d\u003e /root/osmrc on opnfv node",
+      "parentUuid": "5a682502_fc0e5831",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1c14f442",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 5
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9c4e446e",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-29T16:39:02Z",
+      "side": 1,
+      "message": "No. Just trying to make all tasks look uniformly in the XCI logs.",
+      "parentUuid": "5a682502_1c14f442",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_bc0d003a",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 5
@@ -53,6 +95,47 @@
       "writtenOn": "2018-10-29T16:15:35Z",
       "side": 1,
       "message": "no need for this extra line",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7c51a80d",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-29T16:39:02Z",
+      "side": 1,
+      "message": "okay. I\u0027ll remove it.",
+      "parentUuid": "5a682502_bc0d003a",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_dc58bc34",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/vars/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-29T16:39:02Z",
+      "side": 1,
+      "message": "here is the variable",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
       "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
