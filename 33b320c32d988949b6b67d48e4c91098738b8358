@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_fc0e5831",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/files/osmrc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-29T16:15:35Z",
+      "side": 1,
+      "message": "Where is this file created now?",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1c14f442",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-29T16:15:35Z",
+      "side": 1,
+      "message": "why you make all the first characters non capital? Did you read that somewhere?",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_bc0d003a",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-29T16:15:35Z",
+      "side": 1,
+      "message": "no need for this extra line",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
