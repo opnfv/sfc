@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1fdea66d",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/files/osmrc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-10-30T07:28:14Z",
+      "side": 1,
+      "message": "But how is it generated?",
+      "parentUuid": "5a682502_3c30d0e7",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1c14f442",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 5
