@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5fe81e10",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/files/osmrc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-30T07:46:11Z",
+      "side": 1,
+      "message": "I have commented on the task.",
+      "parentUuid": "5a682502_1fdea66d",
+      "revId": "33b320c32d988949b6b67d48e4c91098738b8358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1c14f442",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
         "patchSetId": 5
