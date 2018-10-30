@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_3fe3a234",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2018-10-30T07:46:11Z",
+      "side": 1,
+      "message": "This task will take care of creating the osmrc file from the content provided using the copy module. Notice the last example here \u003d\u003d\u003d\u003e https://docs.ansible.com/ansible/2.5/modules/copy_module.html#examples",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "6c11ccaa5e9f036a1b56926d80aaccb3dc5e3d78",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
