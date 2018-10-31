@@ -3,6 +3,7 @@ import sys
 import time
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
+from openstack import connection
 
 
 logger = logging.getLogger(__name__)
@@ -73,16 +74,6 @@ def delete_vims():
         os_sfc_utils.delete_vim(t, vim_id=vim)
 
 
-# Creators is a list full of SNAPs objects
-def delete_openstack_objects(creators):
-    logger.info("Deleting the openstack objects...")
-    for creator in reversed(creators):
-        try:
-            creator.clean()
-        except Exception as e:
-            logger.error('Unexpected error cleaning - %s', e)
-
-
 # Networking-odl generates a new security group when creating a router
 # which is not tracked by SNAPs
 def delete_untracked_security_groups():
@@ -131,9 +122,33 @@ def cleanup_mano_objects(mano):
         cleanup_nsfc_objects()
 
 
-def cleanup(creators, mano, odl_ip=None, odl_port=None):
+def delete_openstack_objects(testcase_config, creators):
+    conn = connection.from_config(verify=False)
+    for creator in creators:
+        if creator.name == testcase_config.subnet_name:
+                subnet_obj = creator
+
+    for creator in reversed(creators):
+        try:
+            logger.info("Deleting " + creator.name)
+            if creator.name == testcase_config.router_name:
+                logger.info("Removing subnet from router")
+                conn.network.remove_interface_from_router(
+                    creator.id, subnet_obj.id)
+                time.sleep(2)
+                logger.info("Deleting router")
+                conn.network.delete_router(creator)
+            else:
+                creator.delete(conn.session)
+            time.sleep(2)
+            creators.remove(creator)
+        except Exception as e:
+                logger.error('Unexpected error cleaning - %s', e)
+
+
+def cleanup(testcase_config, creators, mano, odl_ip=None, odl_port=None):
     cleanup_mano_objects(mano)
-    delete_openstack_objects(creators)
+    delete_openstack_objects(testcase_config, creators)
     delete_untracked_security_groups()
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)
