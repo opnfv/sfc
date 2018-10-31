@@ -14,8 +14,9 @@ import sfc.lib.cleanup as cleanup
 
 from mock import patch
 from mock import call
-from mock import Mock
 from mock import DEFAULT
+from mock import Mock
+
 
 __author__ = "Dimitrios Markou <mardim@intracom-telecom.com>"
 
@@ -262,36 +263,42 @@ class SfcCleanupTesting(unittest.TestCase):
         mock_log.assert_has_calls(log_calls)
         mock_del_vim.assert_has_calls(del_calls)
 
-    @patch('sfc.lib.cleanup.logger.info')
-    @patch('sfc.lib.cleanup.logger.error')
-    def test_delete_openstack_objects_exception(self, mock_log_err,
-                                                mock_log_info):
+    # @patch('sfc.lib.cleanup.logger.info')
+    # @patch('sfc.lib.cleanup.logger.error')
+    # @patch('sfc.lib.openstack_utils.OpenStackSFC')
+    # def test_delete_openstack_objects_exception(self,
+    #                                             mock_obj,
+    #                                             mock_log_err,
+    #                                             mock_log_info):
 
-        """
-        Check the proper functionality of the delete_openstack_objects
-        function when exception occurs.
-        """
+    #     """
+    #     Check the proper functionality of the delete_openstack_objects
+    #     function when exception occurs.
+    #     """
 
-        mock_creator_obj_one = Mock()
-        mock_creator_obj_two = Mock()
-        exception_one = Exception('First Boom!')
-        exception_two = Exception('Second Boom!')
-        attrs_list = [{'clean.side_effect': exception_one},
-                      {'clean.side_effect': exception_two}]
+    #     mock_creator_obj_one = Mock()
+    #     mock_creator_obj_two = Mock()
+    #     exception_one = Exception('First Boom!')
+    #     exception_two = Exception('Second Boom!')
+    #     attrs_list = [{'clean.side_effect': exception_one},
+    #                   {'clean.side_effect': exception_two}]
 
-        mock_creator_obj_one.configure_mock(**attrs_list[0])
-        mock_creator_obj_two.configure_mock(**attrs_list[1])
+    #     mock_creator_obj_one.configure_mock(**attrs_list[0])
+    #     mock_creator_obj_two.configure_mock(**attrs_list[1])
 
-        mock_creator_objs_list = [mock_creator_obj_one, mock_creator_obj_two]
+    #     mock_creator_objs_list = [mock_creator_obj_one, mock_creator_obj_two]
 
-        log_calls = [call('Unexpected error cleaning - %s', exception_two),
-                     call('Unexpected error cleaning - %s', exception_one),
-                     call('Deleting the openstack objects...')]
+    #     log_calls = [call('Unexpected error cleaning - %s', exception_two),
+    #                  call('Unexpected error cleaning - %s', exception_one),
+    #                  call('Deleting the openstack objects...')]
 
-        cleanup.delete_openstack_objects(mock_creator_objs_list)
+    #     instance = mock_obj.return_value
+    #     cleanup.delete_openstack_objects.\
+    #         assert_called_once_with(mock_creator_objs_list)
+    #     instance.delete_all_objects(mock_creator_objs_list)
 
-        mock_log_err.assert_has_calls(log_calls[:2])
-        mock_log_info.assert_has_calls(log_calls[2:])
+    #     mock_log_err.assert_has_calls(log_calls[:2])
+    #     mock_log_info.assert_has_calls(log_calls[2:])
 
     @patch('sfc.lib.openstack_utils.OpenStackSFC', autospec=True)
     def test_delete_untracked_security_groups(self,
@@ -352,6 +359,82 @@ class SfcCleanupTesting(unittest.TestCase):
         cleanup.cleanup_mano_objects('no-mano')
         mock_cleanup_nsfc.assert_called_once()
 
+    @patch('sfc.lib.cleanup.connection')
+    @patch('sfc.lib.cleanup.logger.info', autospec=True)
+    def test_delete_openstack_objects(self, mock_log, mock_conn):
+        """
+        Checks the delete_chain method
+        """
+        testcase_config = Mock()
+        conn = Mock()
+        mock_creator_obj_one = Mock()
+        mock_creator_obj_one.name = 'subnet_name'
+        mock_creator_obj_one.id = '1'
+        mock_creator_obj_two = Mock()
+        mock_creator_obj_two.name = 'creator_name'
+        mock_creator_obj_two.id = '2'
+        mock_creator_objs_list = [mock_creator_obj_one, mock_creator_obj_two]
+
+        mock_conn.from_config.return_value = conn
+        testcase_config.subnet_name = mock_creator_obj_one.name
+        log_calls = [call('Deleting ' + mock_creator_obj_two.name),
+                     call('Deleting ' + mock_creator_obj_one.name)]
+
+        # wait_calls = [call(mock_creator_obj_two.id),
+        #               call(mock_creator_obj_one.id)]
+
+        cleanup.delete_openstack_objects(testcase_config,
+                                         mock_creator_objs_list)
+        mock_creator_obj_one.delete.\
+            assert_called_once_with(conn.session)
+        mock_creator_obj_one.delete.\
+            assert_called_once_with(conn.session)
+        mock_log.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.cleanup.connection')
+    @patch('sfc.lib.cleanup.logger.info', autospec=True)
+    def test_delete_openstack_objects_router(self, mock_log, mock_conn):
+        """
+        Checks the delete_chain method
+        """
+        testcase_config = Mock()
+        conn = Mock()
+        mock_creator_obj = Mock()
+        mock_creator_obj.name = 'creator_name'
+        mock_creator_router = Mock()
+        mock_creator_router.name = 'router_name'
+        mock_creator_router.id = '1'
+        mock_creator_subnet = Mock()
+        mock_creator_subnet.name = 'subnet_name'
+        mock_creator_subnet.id = '2'
+        mock_creator_objs_list = [mock_creator_subnet,
+                                  mock_creator_router,
+                                  mock_creator_obj]
+
+        mock_conn.from_config.return_value = conn
+        testcase_config.router_name = mock_creator_router.name
+        testcase_config.subnet_name = mock_creator_subnet.name
+
+        conn.network.get_subnet.return_value = mock_creator_subnet
+        log_calls = [call('Deleting ' + mock_creator_obj.name),
+                     call('Deleting ' + mock_creator_router.name),
+                     call('Remove subnet from router'),
+                     call('Delete router'),
+                     call('Deleting ' + mock_creator_subnet.name)]
+
+        cleanup.delete_openstack_objects(testcase_config,
+                                         mock_creator_objs_list)
+        conn.network.remove_interface_from_router.\
+            assert_called_once_with(mock_creator_router.id,
+                                    mock_creator_subnet.id)
+        conn.network.delete_router.\
+            assert_called_once_with(mock_creator_router)
+        mock_creator_obj.delete.\
+            assert_called_once_with(conn.session)
+        mock_creator_subnet.delete.\
+            assert_called_once_with(conn.session)
+        mock_log.assert_has_calls(log_calls)
+
     @patch('sfc.lib.cleanup.delete_untracked_security_groups')
     @patch('sfc.lib.cleanup.cleanup_mano_objects')
     @patch('sfc.lib.cleanup.delete_openstack_objects')
@@ -362,14 +445,15 @@ class SfcCleanupTesting(unittest.TestCase):
                      mock_cleanup_mano,
                      mock_untr_sec_grps):
 
-        cleanup.cleanup(['creator_one', 'creator_two'],
+        cleanup.cleanup('testcase_config', ['creator_one', 'creator_two'],
                         'mano',
                         self.odl_ip,
                         self.odl_port)
 
         mock_cleanup_odl.assert_called_once_with(self.odl_ip,
                                                  self.odl_port)
-        mock_del_os_obj.assert_called_once_with(['creator_one', 'creator_two'])
+        mock_del_os_obj.assert_called_once_with('testcase_config',
+                                                ['creator_one', 'creator_two'])
         mock_cleanup_mano.assert_called_once_with('mano')
         mock_untr_sec_grps.assert_called_once()
 

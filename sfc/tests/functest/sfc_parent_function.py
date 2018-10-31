@@ -47,7 +47,6 @@ class SfcCommonTestCase(object):
         self.server_creator = None
         self.client_instance = None
         self.client_creator = None
-        self.server_ip = None
         self.vnf_id = None
         self.client_floating_ip = None
         self.server_floating_ip = None
@@ -57,6 +56,9 @@ class SfcCommonTestCase(object):
         self.vnf_objects = dict()
         self.testcase_config = testcase_config
         self.vnfs = vnfs
+        self.port_server = None
+        self.server_ip = None
+        self.port_client = None
 
         # n-sfc variables
         self.port_groups = []
@@ -172,25 +174,29 @@ class SfcCommonTestCase(object):
         logger.info('Topology description: {0}'
                     .format(self.test_topology['description']))
 
-        self.server_instance, self.server_creator = \
+        self.server_instance, port_server = \
             openstack_sfc.create_instance(SERVER, COMMON_CONFIG.flavor,
                                           self.image_creator, self.network,
                                           self.sg,
-                                          self.test_topology['server'],
                                           [SERVER + '-port'])
+        self.port_server = port_server[0]
 
-        self.client_instance, self.client_creator = \
+        self.client_instance, port_client = \
             openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
                                           self.image_creator, self.network,
                                           self.sg,
-                                          self.test_topology['client'],
                                           [CLIENT + '-port'])
+        self.port_client = port_client[0]
+
         logger.info('This test is run with the topology {0}'.format(
             self.test_topology['id']))
         logger.info('Topology description: {0}'.format(
             self.test_topology['description']))
 
-        self.server_ip = self.server_instance.ports[0].ips[0]['ip_address']
+#        self.server_ip = self.server_instance.ports[0].ips[0]['ip_address']
+        port_fixed_ips = self.port_server.fixed_ips
+        for i in port_fixed_ips:
+            self.server_ip = i.get('ip_address')
         logger.info("Server instance received private ip [{}]".format(
             self.server_ip))
 
@@ -250,39 +256,32 @@ class SfcCommonTestCase(object):
                 raise Exception('ERROR while booting vnfs')
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
-            av_zone = self.test_topology[vnf_name]
+            # av_zone = self.test_topology[vnf_name]
             if symmetric:
                 ports = [vnf_name + '-port1', vnf_name + '-port2']
             else:
                 ports = [vnf_name + '-port']
-            vnf_instance, vnf_creator = \
+            vnf_instance, vnf_port = \
                 openstack_sfc.create_instance(vnf_name, COMMON_CONFIG.flavor,
                                               self.vnf_image_creator,
                                               self.network,
                                               self.sg,
-                                              av_zone,
                                               ports,
                                               port_security=False)
 
-            if not openstack_sfc.wait_for_vnf(vnf_creator):
-                raise Exception('ERROR while booting vnf %s' % vnf_name)
-
-            self.creators.append(vnf_creator)
-            self.vnf_objects[vnf_name] = [vnf_creator, vnf_instance]
+            self.vnf_objects[vnf_name] = [vnf_instance, vnf_port]
 
     def assign_floating_ip_client_server(self):
         """Assign floating IPs on the router about server and the client
         instances
-
         :return: Floating IPs for client and server
         """
-
         logger.info("Assigning floating IPs to client and server instances")
 
         self.client_floating_ip = openstack_sfc.assign_floating_ip(
-            self.router, self.client_instance, self.client_creator)
+            self.client_instance, self.port_client)
         self.server_floating_ip = openstack_sfc.assign_floating_ip(
-            self.router, self.server_instance, self.server_creator)
+            self.server_instance, self.port_server)
 
     def assign_floating_ip_sfs(self):
         """Assign floating IPs to service function
@@ -300,11 +299,11 @@ class SfcCommonTestCase(object):
                                                                   vnf_ip)
         elif COMMON_CONFIG.mano_component == 'no-mano':
             for vnf in self.vnfs:
-                # creator object is in [0] and instance in [1]
-                vnf_instance = self.vnf_objects[vnf][1]
-                vnf_creator = self.vnf_objects[vnf][0]
-                sf_floating_ip = openstack_sfc.assign_floating_ip(
-                    self.router, vnf_instance, vnf_creator)
+                # instance object is in [0] and port in [1]
+                vnf_instance = self.vnf_objects[vnf][0]
+                vnf_port = self.vnf_objects[vnf][1]
+                sf_floating_ip = openstack_sfc.\
+                    assign_floating_ip(vnf_instance, vnf_port[0])
                 self.fips_sfs.append(sf_floating_ip)
 
     def check_floating_ips(self):
@@ -429,14 +428,9 @@ class SfcCommonTestCase(object):
                                        tosca_file=tosca_file,
                                        vnffgd_name=vnffgd_name)
 
-            self.neutron_client_port = \
-                openstack_sfc.get_instance_port(self.client_instance,
-                                                self.client_creator)
+            self.neutron_port = self.port_client
 
             if symmetric:
-                self.neutron_server_port = openstack_sfc.get_instance_port(
-                    self.server_instance,
-                    self.server_creator)
                 server_ip_prefix = self.server_ip + '/32'
 
                 os_sfc_utils.create_vnffg_with_param_file(
@@ -444,8 +438,8 @@ class SfcCommonTestCase(object):
                     vnffgd_name,
                     vnffg_name,
                     self.default_param_file,
-                    self.neutron_client_port.id,
-                    server_port=self.neutron_server_port.id,
+                    self.neutron_port.id,
+                    server_port=self.port_server.id,
                     server_ip=server_ip_prefix)
 
             else:
@@ -454,61 +448,42 @@ class SfcCommonTestCase(object):
                     vnffgd_name,
                     vnffg_name,
                     self.default_param_file,
-                    self.neutron_client_port.id)
+                    self.neutron_port.id)
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
             if not only_chain:
                 for vnf in self.vnfs:
-                    # creator object is in [0] and instance in [1]
-                    vnf_instance = self.vnf_objects[vnf][1]
-                    vnf_creator = self.vnf_objects[vnf][0]
+                    vnf_instance = self.vnf_objects[vnf][0]
+                    vnf_port = self.vnf_objects[vnf][1]
                     if symmetric:
                         # VNFs have two ports
-                        p1 = vnf_instance.name + '-port1'
-                        neutron_port1 = \
-                            openstack_sfc.get_instance_port(vnf_instance,
-                                                            vnf_creator,
-                                                            port_name=p1)
-                        p2 = vnf_instance.name + '-port2'
-                        neutron_port2 = \
-                            openstack_sfc.get_instance_port(vnf_instance,
-                                                            vnf_creator,
-                                                            port_name=p2)
+                        neutron_port1 = vnf_port[0]
+                        neutron_port2 = vnf_port[1]
                         neutron_ports = [neutron_port1, neutron_port2]
-
                     else:
-                        neutron_port1 = \
-                            openstack_sfc.get_instance_port(vnf_instance,
-                                                            vnf_creator)
+                        neutron_port1 = vnf_port[0]
                         neutron_ports = [neutron_port1]
 
                     port_group = \
                         openstack_sfc.create_port_groups(neutron_ports,
                                                          vnf_instance)
-
                     self.port_groups.append(port_group)
-            self.neutron_client_port = \
-                openstack_sfc.get_instance_port(self.client_instance,
-                                                self.client_creator)
+            self.neutron_port = self.port_client
 
             if symmetric:
                 # We must pass the server_port and server_ip in the symmetric
                 # case. Otherwise ODL does not work well
-                self.neutron_server_port = openstack_sfc.get_instance_port(
-                    self.server_instance,
-                    self.server_creator)
                 server_ip_prefix = self.server_ip + '/32'
-                server_port_id = self.neutron_server_port.id
                 openstack_sfc.create_chain(self.port_groups,
-                                           self.neutron_client_port.id,
+                                           self.neutron_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric,
-                                           server_port=server_port_id,
+                                           server_port=self.port_server.id,
                                            server_ip=server_ip_prefix)
 
             else:
                 openstack_sfc.create_chain(self.port_groups,
-                                           self.neutron_client_port.id,
+                                           self.neutron_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric)
 
@@ -590,8 +565,8 @@ class SfcCommonTestCase(object):
         if not odl_utils.\
                 check_vnffg_deletion(self.odl_ip, self.odl_port,
                                      self.ovs_logger,
-                                     [self.neutron_client_port],
-                                     self.client_instance.compute_host,
+                                     [self.neutron_port],
+                                     self.client_instance.hypervisor_hostname,
                                      self.compute_nodes):
             logger.debug("The chains were not correctly removed")
             raise Exception("Chains not correctly removed, test failed")

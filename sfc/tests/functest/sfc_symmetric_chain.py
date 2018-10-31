@@ -50,10 +50,10 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
         #  rules
         t1 = threading.Thread(target=symmetric_wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
-                                    self.server_instance.compute_host,
-                                    self.neutron_server_port,
-                                    self.client_instance.compute_host,
-                                    self.neutron_client_port,
+                                    self.server_instance.hypervisor_hostname,
+                                    self.port_server,
+                                    self.client_instance.hypervisor_hostname,
+                                    self.port_client,
                                     self.odl_ip, self.odl_port,))
         try:
             t1.start()

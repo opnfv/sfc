@@ -3,35 +3,32 @@ import time
 import json
 import logging
 import yaml
+import urllib2
 
 
 from tackerclient.tacker import client as tackerclient
 from functest.utils import constants
 from functest.utils import env
 from snaps.openstack.tests import openstack_tests
-from snaps.openstack.create_image import OpenStackImage
-from snaps.config.image import ImageConfig
-from snaps.config.flavor import FlavorConfig
-from snaps.openstack.create_flavor import OpenStackFlavor
-from snaps.config.network import NetworkConfig, SubnetConfig, PortConfig
-from snaps.openstack.create_network import OpenStackNetwork
-from snaps.config.router import RouterConfig
-from snaps.openstack.create_router import OpenStackRouter
-from snaps.config.security_group import (
-    Protocol, SecurityGroupRuleConfig, Direction, SecurityGroupConfig)
-from snaps.openstack.create_security_group import OpenStackSecurityGroup
+from snaps.config.vm_inst import FloatingIpConfig
 import snaps.openstack.create_instance as cr_inst
-from snaps.config.vm_inst import VmInstanceConfig, FloatingIpConfig
 from snaps.openstack.utils import (
     nova_utils, neutron_utils, heat_utils, keystone_utils)
+from openstack import connection
+from neutronclient.neutron import client as neutronclient
+# from novaclient import client as novaclient
+# from heatclient import client as heatclient
+# from keystone import client as keystoneclient
 
 logger = logging.getLogger(__name__)
 DEFAULT_TACKER_API_VERSION = '1.0'
+DEFAULT_API_VERSION = '2'
 
 
 class OpenStackSFC:
 
     def __init__(self):
+        self.conn = self.get_os_connection()
         self.os_creds = openstack_tests.get_credentials(
             os_env_file=constants.ENV_FILE)
         self.creators = []
@@ -39,130 +36,173 @@ class OpenStackSFC:
         self.neutron = neutron_utils.neutron_client(self.os_creds)
         self.heat = heat_utils.heat_client(self.os_creds)
         self.keystone = keystone_utils.keystone_client(self.os_creds)
+        # self.nova = novaclient.\
+        #     Client('2', session=self.conn.session)
+        # self.heat = heatclient.\
+        #     Client('2', session=self.conn.session)
+        # self.keystone = keystoneclient.\
+        #     Client('2', session=self.conn.session)
+        self.neutron_client = neutronclient.\
+            Client(self.get_neutron_client_version(),
+                   session=self.conn.session)
+
+    def get_os_connection(self):
+        return connection.from_config(verify=False)
+
+    def get_neutron_client_version(self):
+        api_version = os.getenv('OS_NETWORK_API_VERSION')
+        if api_version is not None:
+            logger.info("OS_NETWORK_API_VERSION is set in env as '%s'",
+                        api_version)
+            return api_version
+        return DEFAULT_API_VERSION
 
     def register_glance_image(self, name, url, img_format, public):
         logger.info("Registering the image...")
-        # Check whether the image is local or not
-        if 'http' in url:
-            image_settings = ImageConfig(name=name,
-                                         img_format=img_format,
-                                         url=url,
-                                         public=public,
-                                         image_user='admin')
+        image = self.conn.image.find_image(name)
+        if image is not None:
+            logger.info("Image %s already exists." % image.name)
         else:
-            image_settings = ImageConfig(name=name,
-                                         img_format=img_format,
-                                         image_file=url,
-                                         public=public,
-                                         image_user='admin')
+            try:
+                if 'http' in url:
+                    logger.info("Download image")
+                    response = urllib2.urlopen(url)
+                    image_data = response.read()
+                    image_settings = {'name': name,
+                                      'disk_format': img_format,
+                                      'data': image_data,
+                                      'is_public': public,
+                                      'container_format': 'bare'}
+                else:
+                    with open(url) as image_data:
+                        image_settings = {'name': name,
+                                          'disk_format': img_format,
+                                          'data': image_data,
+                                          'is_public': public,
+                                          'container_format': 'bare'}
+                image = self.conn.image.upload_image(**image_settings)
+                self.creators.append(image)
+                logger.info("Image created")
+            except Exception as e:
+                logger.error('Image creation failed - %s', e)
 
-        # TODO Remove this when tacker is part of SNAPS
-        self.image_settings = image_settings
-
-        image_creator = OpenStackImage(self.os_creds, image_settings)
-        image_creator.create()
-
-        self.creators.append(image_creator)
-        return image_creator
+        return image
 
     def create_flavor(self, name, ram, disk, vcpus):
-        logger.info("Creating the flavor...")
-        flavor_settings = FlavorConfig(name=name, ram=ram, disk=disk,
-                                       vcpus=vcpus)
-        flavor_creator = OpenStackFlavor(self.os_creds, flavor_settings)
-        flavor = flavor_creator.create()
+        logger.info("Creating flavor...")
+        flavor_settings = {"name": name, "ram": ram, "disk": disk,
+                           "vcpus": vcpus}
 
-        self.creators.append(flavor_creator)
+        flavor = self.conn.compute.create_flavor(**flavor_settings)
+
+        self.creators.append(flavor)
         return flavor
 
     def create_network_infrastructure(self, net_name, subnet_name, subnet_cidr,
                                       router_name):
-        logger.info("Creating networks...")
+        logger.info("Creating Networks...")
         # Network and subnet
-        subnet_settings = SubnetConfig(name=subnet_name, cidr=subnet_cidr)
-        network_settings = NetworkConfig(name=net_name,
-                                         subnet_settings=[subnet_settings])
-        network_creator = OpenStackNetwork(self.os_creds, network_settings)
-        network = network_creator.create()
+        network = self.conn.network.create_network(name=net_name)
+        self.creators.append(network)
 
-        self.creators.append(network_creator)
+        subnet_settings = {"name": subnet_name, "cidr": subnet_cidr,
+                           "network_id": network.id, 'ip_version': '4'}
+        subnet = self.conn.network.create_subnet(**subnet_settings)
+        self.creators.append(subnet)
 
         # Router
-        logger.info("Creating the router...")
         ext_network_name = env.get('EXTERNAL_NETWORK')
+        ext_net = self.conn.network.find_network(ext_network_name)
+        router_dict = {'network_id': ext_net.id}
 
-        router_settings = RouterConfig(name=router_name,
-                                       external_gateway=ext_network_name,
-                                       internal_subnets=[subnet_name])
+        logger.info("Creating Router...")
+        router = self.conn.network.create_router(name=router_name)
 
-        router_creator = OpenStackRouter(self.os_creds, router_settings)
-        router = router_creator.create()
+        self.conn.network.add_interface_to_router(router.id,
+                                                  subnet_id=subnet.id)
 
-        self.creators.append(router_creator)
+        self.conn.network.update_router(router.id,
+                                        external_gateway_info=router_dict)
+        router_obj = self.conn.network.get_router(router.id)
+        self.creators.append(router_obj)
 
-        return network, router
+        return network, router_obj
 
     def create_security_group(self, sec_grp_name):
         logger.info("Creating the security groups...")
-        rule_ping = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
-                                            direction=Direction.ingress,
-                                            protocol=Protocol.icmp)
+        sec_group = self.conn.network.create_security_group(name=sec_grp_name)
 
-        rule_ssh = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
-                                           direction=Direction.ingress,
-                                           protocol=Protocol.tcp,
-                                           port_range_min=22,
-                                           port_range_max=22)
+        rule_ping = {"security_group_id": sec_group.id,
+                     "direction": "ingress",
+                     "protocol": "icmp"}
 
-        rule_http = SecurityGroupRuleConfig(sec_grp_name=sec_grp_name,
-                                            direction=Direction.ingress,
-                                            protocol=Protocol.tcp,
-                                            port_range_min=80,
-                                            port_range_max=80)
+        rule_ssh = {"security_group_id": sec_group.id,
+                    "direction": "ingress",
+                    "protocol": "tcp",
+                    "port_range_min": 22,
+                    "port_range_max": 22}
+
+        rule_http = {"security_group_id": sec_group.id,
+                     "direction": "ingress",
+                     "protocol": "tcp",
+                     "port_range_min": 80,
+                     "port_range_max": 80}
 
         rules = [rule_ping, rule_ssh, rule_http]
 
-        secgroup_settings = SecurityGroupConfig(name=sec_grp_name,
-                                                rule_settings=rules)
+        for rule in rules:
+            self.conn.network.create_security_group_rule(**rule)
 
-        sec_group_creator = OpenStackSecurityGroup(self.os_creds,
-                                                   secgroup_settings)
-        sec_group = sec_group_creator.create()
-
-        self.creators.append(sec_group_creator)
+        self.creators.append(sec_group)
 
         return sec_group
 
-    def create_instance(self, vm_name, flavor_name, image_creator, network,
-                        secgrp, av_zone, ports, port_security=True):
-        logger.info("Creating the instance {}...".format(vm_name))
-        port_settings = []
+    def create_instance(self, vm_name, flavor, image, network,
+                        sec_group, ports, port_security=True):
+        logger.info("Creating Key Pair {}...".format(vm_name))
+
+        keypair = self.conn.compute.create_keypair(name=vm_name + "_keypair")
+        self.creators.append(keypair)
+        flavor_obj = self.conn.compute.find_flavor(flavor)
+
+        logger.info("Creating Port {}...".format(ports))
+        port_list = []
         for port in ports:
-            port_settings.append(
-                    PortConfig(name=port,
-                               port_security_enabled=port_security,
-                               network_name=network.name))
-        if port_security:
-            instance_settings = VmInstanceConfig(
-                name=vm_name, flavor=flavor_name,
-                security_group_names=str(secgrp.name),
-                port_settings=port_settings,
-                availability_zone=av_zone)
+            if port_security:
+                port_obj = self.conn.network.create_port(
+                    name=port, is_port_security_enabled=port_security,
+                    network_id=network.id, security_group_ids=[sec_group.id])
+            else:
+                port_obj = self.conn.network.create_port(
+                    name=port, is_port_security_enabled=port_security,
+                    network_id=network.id)
+            port_list.append(port_obj)
+            self.creators.append(port_obj)
+        logger.info("Creating the instance {}...".format(vm_name))
+
+        if len(port_list) > 1:
+            instance = self.conn.compute.\
+                create_server(name=vm_name,
+                              image_id=image.id,
+                              flavor_id=flavor_obj.id,
+                              networks=[{"port": port_list[0].id},
+                                        {"port": port_list[1].id}],
+                              key_name=keypair.name)
         else:
-            instance_settings = VmInstanceConfig(
-                name=vm_name, flavor=flavor_name,
-                port_settings=port_settings,
-                availability_zone=av_zone)
+            instance = self.conn.compute.\
+                create_server(name=vm_name,
+                              image_id=image.id,
+                              flavor_id=flavor_obj.id,
+                              networks=[{"port": port_obj.id}],
+                              key_name=keypair.name)
 
-        instance_creator = cr_inst.OpenStackVmInstance(
-            self.os_creds,
-            instance_settings,
-            image_creator.image_settings)
+        logger.info("Wait for {} to become Active".format(instance.name))
+        self.conn.compute.wait_for_server(instance)
+        logger.info("{} is active".format(instance.name))
 
-        instance = instance_creator.create(block=True)
+        self.creators.append(instance)
 
-        self.creators.append(instance_creator)
-        return instance, instance_creator
+        return instance, port_list
 
     def get_av_zones(self):
         '''
@@ -171,43 +211,51 @@ class OpenStackSFC:
         hosts = nova_utils.get_hypervisor_hosts(self.nova)
         return ['nova::{0}'.format(host) for host in hosts]
 
-    def get_compute_client(self):
-        '''
-        Return the compute where the client sits
-        '''
-        return self.get_vm_compute('client')
+    # def get_compute_client(self):
+    #     '''
+    #     Return the compute where the client sits
+    #     '''
+    #     return self.get_vm_compute('client')
 
-    def get_compute_server(self):
-        '''
-        Return the compute where the server sits
-        '''
-        return self.get_vm_compute('server')
+    # def get_compute_server(self):
+    #     '''
+    #     Return the compute where the server sits
+    #     '''
+    #     return self.get_vm_compute('server')
 
-    def get_vm_compute(self, vm_name):
-        '''
-        Return the compute where the vm sits
-        '''
-        for creator in self.creators:
-            # We want to filter the vm creators
-            if hasattr(creator, 'get_vm_inst'):
-                # We want to fetch by vm_name
-                if creator.get_vm_inst().name == vm_name:
-                    return creator.get_vm_inst().compute_host
+    # def get_vm_compute(self, vm_name):
+    #     '''
+    #     Return the compute where the vm sits
+    #     '''
+    #     for creator in self.creators:
+    #         # We want to filter the vm creators
+    #         if hasattr(creator, 'get_vm_inst'):
+    #             # We want to fetch by vm_name
+    #             if creator.get_vm_inst().name == vm_name:
+    #                 return creator.get_vm_inst().compute_host
 
-        raise Exception("There is no VM with name '{}'!!".format(vm_name))
+    #     raise Exception("There is no VM with name '{}'!!".format(vm_name))
 
-    def assign_floating_ip(self, router, vm, vm_creator):
+    def assign_floating_ip(self, vm, vm_port):
         '''
         Assign floating ips to all the VMs
         '''
-        name = vm.name + "-float"
-        port_name = vm.ports[0].name
-        float_ip = FloatingIpConfig(name=name,
-                                    port_name=port_name,
-                                    router_name=router.name)
-        ip = vm_creator.add_floating_ip(float_ip)
+        logger.info(" Creating floating ips ")
 
-        return ip.ip
+        ext_network_name = env.get('EXTERNAL_NETWORK')
+        ext_net = self.conn.network.find_network(ext_network_name)
+
+        fip = self.conn.network.create_ip(floating_network_id=ext_net.id,
+                                          port_id=vm_port.id)
+        logger.info(
+            " FLoating IP address {} created".format(fip.floating_ip_address))
+
+        logger.info(" Add fLoating IPs to instances ")
+        self.conn.compute.add_floating_ip_to_server(
+            vm.id, fip.floating_ip_address)
+
+        self.creators.append(fip)
+        return fip.floating_ip_address
 
     # We need this function because tacker VMs cannot be created through SNAPs
     def assign_floating_ip_vnfs(self, router, ips=None):
@@ -222,7 +270,7 @@ class OpenStackSFC:
         for stack in stacks:
             servers = heat_utils.get_stack_servers(self.heat,
                                                    self.nova,
-                                                   self.neutron,
+                                                   self.neutron_client,
                                                    self.keystone,
                                                    stack,
                                                    project_name)
@@ -242,10 +290,11 @@ class OpenStackSFC:
                         break
 
             if port_name is None:
-                err_msg = "The VNF {} does not have any suitable port {} " \
-                          "for floating IP assignment".format(
-                            name,
-                            'with ip any of ' + str(ips) if ips else '')
+                err_msg = ("The VNF {} does not have any suitable port {} "
+                           "for floating IP assignment"
+                           .format(name,
+                                   'with ip any of ' +
+                                   str(ips) if ips else ''))
                 logger.error(err_msg)
                 raise Exception(err_msg)
 
@@ -258,30 +307,30 @@ class OpenStackSFC:
 
         return fips
 
-    def get_instance_port(self, vm, vm_creator, port_name=None):
-        '''
-        Get the neutron port id of the client
-        '''
-        if not port_name:
-            port_name = vm.name + "-port"
-        port = vm_creator.get_port_by_name(port_name)
-        if port is not None:
-            return port
-        else:
-            logger.error("The VM {0} does not have any port"
-                         " with name {1}".format(vm.name, port_name))
-            raise Exception("Client VM does not have the desired port")
+    # def get_instance_port(self, vm, vm_creator, port_name=None):
+    #     '''
+    #     Get the neutron port id of the client
+    #     '''
+    #     if not port_name:
+    #         port_name = vm.name + "-port"
+    #     port = vm_creator.get_port_by_name(port_name)
+    #     if port is not None:
+    #         return port
+    #     else:
+    #         logger.error("The VM {0} does not have any port"
+    #                      " with name {1}".format(vm.name, port_name))
+    #         raise Exception("Client VM does not have the desired port")
 
     def delete_all_security_groups(self):
         '''
         Deletes all the available security groups
-
         Needed until this bug is fixed:
         https://bugs.launchpad.net/networking-odl/+bug/1763705
         '''
-        sec_groups = neutron_utils.list_security_groups(self.neutron)
+        logger.info("Deleting remaining security groups...")
+        sec_groups = self.conn.network.security_groups()
         for sg in sec_groups:
-            neutron_utils.delete_security_group(self.neutron, sg)
+            self.conn.network.delete_security_group(sg)
 
     def wait_for_vnf(self, vnf_creator):
         '''
@@ -293,7 +342,7 @@ class OpenStackSFC:
         '''
         Creates a networking-sfc port pair and group
         '''
-        logger.info("Creating the port pairs for %s" % vm_instance.name)
+        logger.info("Creating the port pairs...")
         port_pair = dict()
         port_pair['name'] = vm_instance.name + '-connection-points'
         port_pair['description'] = 'port pair for ' + vm_instance.name
@@ -309,7 +358,7 @@ class OpenStackSFC:
             logger.error("Only SFs with one or two ports are supported")
             raise Exception("Failed to create port pairs")
         port_pair_info = \
-            self.neutron.create_sfc_port_pair({'port_pair': port_pair})
+            self.neutron_client.create_sfc_port_pair({'port_pair': port_pair})
         if not port_pair_info:
             logger.warning("Chain creation failed due to port pair "
                            "creation failed for vnf %(vnf)s",
@@ -320,7 +369,7 @@ class OpenStackSFC:
         iterations = 5
         found_it = False
         for i in range(iterations):
-            pp_list = self.neutron.list_sfc_port_pairs()['port_pairs']
+            pp_list = self.neutron_client.list_sfc_port_pairs()['port_pairs']
             for pp in pp_list:
                 if pp['id'] == port_pair_info['port_pair']['id']:
                     found_it = True
@@ -334,6 +383,7 @@ class OpenStackSFC:
             raise Exception("Port pair was not committed in openstack")
 
         logger.info("Creating the port pair groups for %s" % vm_instance.name)
+
         port_pair_group = {}
         port_pair_group['name'] = vm_instance.name + '-port-pair-group'
         port_pair_group['description'] = \
@@ -342,7 +392,7 @@ class OpenStackSFC:
         port_pair_group['port_pairs'].append(port_pair_info['port_pair']['id'])
         ppg_config = {'port_pair_group': port_pair_group}
         port_pair_group_info = \
-            self.neutron.create_sfc_port_pair_group(ppg_config)
+            self.neutron_client.create_sfc_port_pair_group(ppg_config)
         if not port_pair_group_info:
             logger.warning("Chain creation failed due to port pair group "
                            "creation failed for vnf "
@@ -376,7 +426,7 @@ class OpenStackSFC:
 
         fc_config = {'flow_classifier': sfc_classifier_params}
         fc_info = \
-            self.neutron.create_sfc_flow_classifier(fc_config)
+            self.neutron_client.create_sfc_flow_classifier(fc_config)
 
         logger.info("Creating the chain...")
         port_chain = {}
@@ -389,35 +439,37 @@ class OpenStackSFC:
             port_chain['chain_parameters'] = {}
             port_chain['chain_parameters']['symmetric'] = True
         chain_config = {'port_chain': port_chain}
-        return self.neutron.create_sfc_port_chain(chain_config)
+        return self.neutron_client.create_sfc_port_chain(chain_config)
 
     def delete_port_groups(self):
         '''
         Delete all port groups and port pairs
         '''
         logger.info("Deleting the port groups...")
-        ppg_list = self.neutron.list_sfc_port_pair_groups()['port_pair_groups']
+        ppg_list = self.neutron_client.\
+            list_sfc_port_pair_groups()['port_pair_groups']
         for ppg in ppg_list:
-            self.neutron.delete_sfc_port_pair_group(ppg['id'])
+            self.neutron_client.delete_sfc_port_pair_group(ppg['id'])
 
         logger.info("Deleting the port pairs...")
-        pp_list = self.neutron.list_sfc_port_pairs()['port_pairs']
+        pp_list = self.neutron_client.list_sfc_port_pairs()['port_pairs']
         for pp in pp_list:
-            self.neutron.delete_sfc_port_pair(pp['id'])
+            self.neutron_client.delete_sfc_port_pair(pp['id'])
 
     def delete_chain(self):
         '''
         Delete the classifiers and the chains
         '''
         logger.info("Deleting the chain...")
-        pc_list = self.neutron.list_sfc_port_chains()['port_chains']
+        pc_list = self.neutron_client.list_sfc_port_chains()['port_chains']
         for pc in pc_list:
-            self.neutron.delete_sfc_port_chain(pc['id'])
+            self.neutron_client.delete_sfc_port_chain(pc['id'])
 
         logger.info("Deleting the classifiers...")
-        fc_list = self.neutron.list_sfc_flow_classifiers()['flow_classifiers']
+        fc_list = self.neutron_client.\
+            list_sfc_flow_classifiers()['flow_classifiers']
         for fc in fc_list:
-            self.neutron.delete_sfc_flow_classifier(fc['id'])
+            self.neutron_client.delete_sfc_flow_classifier(fc['id'])
 
 
 # TACKER SECTION #
@@ -428,6 +480,11 @@ def get_tacker_client_version():
         return api_version
     return DEFAULT_TACKER_API_VERSION
 
+
+# def get_tacker_client(other_creds={}):
+#     conn = connection.from_config(verify=False)
+#     return tackerclient.\
+#         Client(get_tacker_client_version(), session=conn.session)
 
 def get_tacker_client(other_creds={}):
     creds_override = None
@@ -602,7 +659,6 @@ def get_vnf_ip(tacker_client, vnf_id=None, vnf_name=None):
     """
     Get the management ip of the first VNF component as obtained from the
     tacker REST API:
-
         {
         "vnf": {
             ...
@@ -819,8 +875,7 @@ def register_vim(tacker_client, vim_file=None):
     create_vim(tacker_client, vim_file=tmp_file)
 
 
-def create_vnf_in_av_zone(
-                          tacker_client,
+def create_vnf_in_av_zone(tacker_client,
                           vnf_name,
                           vnfd_name,
                           vim_name,
@@ -832,9 +887,7 @@ def create_vnf_in_av_zone(
         param_file = os.path.join(
             '/tmp',
             'param_{0}.json'.format(av_zone.replace('::', '_')))
-        data = {
-               'zone': av_zone
-               }
+        data = {'zone': av_zone}
         with open(param_file, 'w+') as f:
             json.dump(data, f)
     create_vnf(tacker_client,
