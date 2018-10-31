@@ -73,16 +73,6 @@ def delete_vims():
         os_sfc_utils.delete_vim(t, vim_id=vim)
 
 
-# Creators is a list full of SNAPs objects
-def delete_openstack_objects(creators):
-    logger.info("Deleting the openstack objects...")
-    for creator in reversed(creators):
-        try:
-            creator.clean()
-        except Exception as e:
-            logger.error('Unexpected error cleaning - %s', e)
-
-
 # Networking-odl generates a new security group when creating a router
 # which is not tracked by SNAPs
 def delete_untracked_security_groups():
@@ -131,9 +121,10 @@ def cleanup_mano_objects(mano):
         cleanup_nsfc_objects()
 
 
-def cleanup(creators, mano, odl_ip=None, odl_port=None):
+def cleanup(testcase_config, creators, mano, odl_ip=None, odl_port=None):
     cleanup_mano_objects(mano)
-    delete_openstack_objects(creators)
+    obj_delete = os_sfc_utils.OpenStackSFC()
+    obj_delete.delete_openstack_objects(creators, testcase_config)
     delete_untracked_security_groups()
     if odl_ip is not None and odl_port is not None:
         cleanup_odl(odl_ip, odl_port)

@@ -45,7 +45,7 @@ class SfcOneChainTwoServiceTC(sfc_parent_function.SfcCommonTestCase):
         t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
-                                    self.client_instance.compute_host,
+                                    self.client_instance.hypervisor_hostname,
                                     [self.neutron_port],))
         try:
             t1.start()
