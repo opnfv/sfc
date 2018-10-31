@@ -46,9 +46,8 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
         t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
-                                    self.client_instance.compute_host,
-                                    [self.neutron_client_port],))
-
+                                    self.client_instance.hypervisor_hostname,
+                                    [self.neutron_port],))
         try:
             t1.start()
         except Exception as e:
@@ -82,8 +81,8 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
         t2 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
-                                    self.client_instance.compute_host,
-                                    self.neutron_client_port,))
+                                    self.client_instance.hypervisor_hostname,
+                                    self.neutron_port,))
         try:
             t2.start()
         except Exception as e:
