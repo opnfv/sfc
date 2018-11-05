@@ -715,6 +715,36 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
     @patch('snaps.domain.network.Port', autospec=True)
     @patch('snaps.domain.vm_inst.VmInst', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_port_groups_exception_nopp(self, mock_log, mock_osvm,
+                                               mock_port):
+        """
+        Checks the create_port_groups when openstack does not commit the pp
+        """
+
+        log_calls_info = [call('Creating the port pairs for vm')]
+        mock_port_ins = mock_port.return_value
+        mock_port_ins.id = '123abc'
+        mock_vm_ins = mock_osvm.return_value
+        mock_vm_ins.name = 'vm'
+        exception_message = "Port pair was not committed in openstack"
+        expected_port_pair = {'name': 'vm-connection-points',
+                              'description': 'port pair for vm',
+                              'ingress': '123abc',
+                              'egress': '123abc'}
+        self.neutron.create_sfc_port_pair.return_value = \
+            {'port_pair': {'id': 'pp_id'}}
+        self.neutron.list_sfc_port_pairs.return_value = \
+            {'port_pairs': [{'id': 'xxxx'}]}
+        with self.assertRaises(Exception) as cm:
+            self.os_sfc.create_port_groups([mock_port_ins], mock_vm_ins)
+        self.assertEqual(exception_message, cm.exception.message)
+        self.neutron.create_sfc_port_pair.assert_has_calls(
+            [call({'port_pair': expected_port_pair})])
+        mock_log.info.assert_has_calls(log_calls_info)
+
+    @patch('snaps.domain.network.Port', autospec=True)
+    @patch('snaps.domain.vm_inst.VmInst', autospec=True)
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_create_port_groups_returns_none_from_ppg(self, mock_log,
                                                       mock_vm,
                                                       mock_port):
@@ -732,6 +762,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         mock_port_ins.id = '123abc'
         self.neutron.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
+        self.neutron.list_sfc_port_pairs.return_value = \
+            {'port_pairs': [{'id': 'pp_id'}]}
         self.neutron.create_sfc_port_pair_group.return_value = None
         result = self.os_sfc.create_port_groups([mock_port_ins], mock_vm_ins)
         self.assertIsNone(result)
@@ -759,6 +791,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                               'egress': '123abc'}
         self.neutron.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
+        self.neutron.list_sfc_port_pairs.return_value = \
+            {'port_pairs': [{'id': 'pp_id'}]}
         self.neutron.create_sfc_port_pair_group.return_value = \
             {'port_pair_group': {'id': 'pp_id'}}
         expected_port_pair_gr = {'name': 'vm-port-pair-group',
