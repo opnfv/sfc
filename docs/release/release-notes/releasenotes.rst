@@ -5,25 +5,25 @@
 Abstract
 ========
 
-This document compiles the release notes for the Fraser release of
+This document compiles the release notes for the Gambia release of
 OPNFV SFC
 
 Important notes
 ===============
 
 These notes provide release information for the use of SFC with the
-Apex installer, xci tool and Compass4NFV for the Fraser release of OPNFV.
+Apex installer, xci tool and Compass4NFV for the Gambia release of OPNFV.
 
 Summary
 =======
 
-The goal of the SFC Fraser release is to integrate the OpenDaylight
-SFC project into an OPNFV environment, with either the Apex installer,
-xci tools or Compass4NFV.
+The goal of the SFC release is to integrate the OpenDaylight SFC project
+nto an OPNFV environment, with either the Apex installer, xci tool or
+Compass4NFV.
 
 More information about OpenDaylight and SFC can be found here.
 
-- `OpenDaylight <http://www.opendaylight.org>`_ version "Oxygen SR1"
+- `OpenDaylight <http://www.opendaylight.org>`_ version "Fluorine SR1"
 
 - `Service function chaining <https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home>`_
 
@@ -46,18 +46,18 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | opnfv-6.2.0                          |
+| **Repo/tag**                         | opnfv-7.0.0                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Fraser 6.2                           |
+| **Release designation**              | Gambia 7.0                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 29th June 2018                       |
+| **Release date**                     | 12th November 2018                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | Move to OpenStack Pike and ODL Oxygen|
-|                                      | Support symmetric testcases          |
-|                                      | Support master branch of OpenStack   |
+| **Purpose of the delivery**          | Move to OpenStack Rocky, ODL FLuorine|
+|                                      | and OVS 2.9.2 (NSH native support)   |
+|                                      | Move to odl_v2 driver in n-sfc       |
 +--------------------------------------+--------------------------------------+
 
 Version change
@@ -67,15 +67,15 @@ Module version changes
 ~~~~~~~~~~~~~~~~~~~~~~
 This release of OPNFV sfc is based on following upstream versions:
 
-- OpenStack Pike release
+- OpenStack Rocky release
 
-- OpenDaylight Oxygen SR1 release
+- OpenDaylight Fluorine SR1 release
 
-- Open vSwitch 2.6.1 with Yi Yang NSH patch
+- Open vSwitch 2.9.2
 
 Document changes
 ~~~~~~~~~~~~~~~~
-This is the first tracked version of OPNFV SFC Fraser. It comes with
+This is the first tracked version of OPNFV SFC Gambia. It comes with
 the following documentation:
 
 - :ref:`Design document <sfc-design>`
@@ -90,9 +90,10 @@ Reason for version
 Feature additions
 ~~~~~~~~~~~~~~~~~
 
-- `Using SNAPS as base for our tests`
-- `Increase test coverage with two extra test cases: symmetric and deletion`
-- `Reduced the footprint of the image we use for testing to reduce testing time`
+- `Use odl_v2 driver for n-sfc`
+- `Unit test creation` 
+- `Code refactored` 
+- `Tests can be done without tacker and with n-sfc directly` 
 
 Bug corrections
 ~~~~~~~~~~~~~~~
@@ -119,7 +120,7 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Fraser 1.0 release has a few limitations:
+The Gambia 1.0 release has a few limitations:
 
 1 - The testcase sfc_two_chains_SSH_and_HTTP is disabled in this release due to
 a missing feature in ODL. We are unable to currently update a chain config
@@ -139,12 +140,12 @@ Workarounds
 
 Test results
 ============
-The Fraser release of SFC has undergone QA test runs with Functest tests on the
+The Gambia release of SFC has undergone QA test runs with Functest tests on the
 Apex and Compass installers and xci utility
 
 References
 ==========
-For more information on the OPNFV Fraser release, please see:
+For more information on the OPNFV Gambia release, please see:
 
 OPNFV
 -----
@@ -153,12 +154,12 @@ OPNFV
 
 2) `OPNFV documentation- and software downloads <https://www.opnfv.org/software/download>`_
 
-3) `OPNFV Fraser release <https://docs.opnfv.org/en/stable-fraser/index.html>`_
+3) `OPNFV Gambia release <https://docs.opnfv.org/en/stable-gambia/index.html>`_
 
 OpenStack
 ---------
 
-4) `OpenStack Pike Release artifacts <http://www.openstack.org/software/pike>`_
+4) `OpenStack Rocky Release artifacts <http://www.openstack.org/software/rocky>`_
 
 5) `OpenStack documentation <http://docs.openstack.org>`_
 
@@ -166,9 +167,3 @@ OpenDaylight
 ------------
 
 6) `OpenDaylight artifacts <http://www.opendaylight.org/software/downloads>`_
-
-Open vSwitch with NSH
----------------------
-
-7) https://github.com/yyang13/ovs_nsh_patches
-

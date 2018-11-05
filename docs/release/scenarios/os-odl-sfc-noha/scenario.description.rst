@@ -6,9 +6,9 @@ Introduction
 ============
 .. In this section explain the purpose of the scenario and the types of capabilities provided
 
-The os-odl-sfc-ha is intended to be used to install the OPNFV SFC project in a standard
+The os-odl-sfc-noha is intended to be used to install the OPNFV SFC project in a standard
 OPNFV High Availability mode. The OPNFV SFC project integrates the OpenDaylight SFC project
-into the OPNFV environment. The OPNFV SFC Fraser release uses the OpenDaylight Oxygen SR1 release.
+into the OPNFV environment. The OPNFV SFC Gambia release uses the OpenDaylight Fluorine SR1 release.
 
 Scenario components and composition
 ===================================
@@ -53,10 +53,13 @@ will automatically be installed.
 The VNF Manager
 ---------------
 
-In order to create a VM for each Service Function, a VNF Manager is needed. The OPNFV
+In order to create a VM for each Service Function, a VNF Manager is recommended. The OPNFV
 SFC project currently uses the Tacker OpenStack project as a VNF Manager. Tacker is
 installed on the controller node and manages VNF life cycle, and coordinates VM creation
 and SFC configuration with OpenStack and OpenDaylight SFC project.
+
+It is also possible to run tests without a VNF Manager, steering SFC through networking-sfc
+project
 
 Scenario usage overview
 =======================
@@ -66,7 +69,7 @@ Scenario usage overview
 
 Once this scenario is installed, it will be possible to create Service Chains and
 classification entries to map tenant traffic to individual, pre-defined Service Chains.
-All configuration can be performed using the Tacker CLI.
+All configuration can be performed using the Tacker CLI or the networking-sfc CLI.
 
 Limitations, Issues and Workarounds
 ===================================
@@ -77,16 +80,8 @@ Limitations, Issues and Workarounds
 Specific version of OVS
 -----------------------
 
-SFC needs changes in OVS to include the Network Service Headers (NSH) Service Chaining
-encapsulation. This OVS patch has been ongoing for quite a while (2 years+), and still
-has not been officially merged. Previously, SFC used NSH from a branched version of OVS
-based on 2.3.90, called the "Pritesh Patch". In the OpenDaylight Oxygen SR1 release, SFC was
-changed to use a newer, branched version of OVS based on 2.6.1, called the "Yi Yang
-Patch".
-
-The older version of OVS only supported VXLAN-GPE + NSH encapsulation, but the newer
-version supports both ETH + NSH and VXLAN-GPE + ETH + NSH. Currently SFC is only
-implemented with VXLAN-GPE + ETH + NSH.
+SFC needs OVS 2.9.2 or higher because it includes the Network Service Headers (NSH)
+Service Chaining encapsulation.
 
 References
 ==========
@@ -97,6 +92,6 @@ https://wiki.opnfv.org/display/sfc/Service+Function+Chaining+Home
 
 https://wiki.opendaylight.org/view/Service_Function_Chaining:Main
 
-For more information on the OPNFV Fraser release, please visit:
+For more information on the OPNFV Gambia release, please visit:
 
-https://docs.opnfv.org/en/stable-fraser/index.html
+https://docs.opnfv.org/en/stable-gambia/index.html
