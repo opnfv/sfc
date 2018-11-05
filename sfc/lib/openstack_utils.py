@@ -316,6 +316,23 @@ class OpenStackSFC:
                            {'vnf': vm_instance.name})
             return None
 
+        # Avoid race conditions by checking the port pair is already committed
+        iterations = 5
+        found_it = False
+        for i in range(iterations):
+            pp_list = self.neutron.list_sfc_port_pairs()['port_pairs']
+            for pp in pp_list:
+                if pp['id'] == port_pair_info['port_pair']['id']:
+                    found_it = True
+                    break
+            if found_it:
+                break
+            else:
+                time.sleep(3)
+
+        if not found_it:
+            raise Exception("Port pair was not committed in openstack")
+
         logger.info("Creating the port pair groups for %s" % vm_instance.name)
         port_pair_group = {}
         port_pair_group['name'] = vm_instance.name + '-port-pair-group'
