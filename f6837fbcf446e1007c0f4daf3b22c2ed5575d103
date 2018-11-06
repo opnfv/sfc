@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_94ce0fb3",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-11-06T08:33:30Z",
+      "side": 1,
+      "message": "into",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "f6837fbcf446e1007c0f4daf3b22c2ed5575d103",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f4c4a393",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-11-06T08:33:30Z",
+      "side": 1,
+      "message": "remove this trailing space, and the same on the next 2 lines.",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 23
+      },
+      "revId": "f6837fbcf446e1007c0f4daf3b22c2ed5575d103",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d4bfe7fa",
+        "filename": "docs/release/release-notes/releasenotes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-11-06T08:33:30Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 20
+      },
+      "revId": "f6837fbcf446e1007c0f4daf3b22c2ed5575d103",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
