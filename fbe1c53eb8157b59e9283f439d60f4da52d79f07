@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f420234b",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1499
+      },
+      "writtenOn": "2018-11-06T09:10:23Z",
+      "side": 1,
+      "message": "Even though this works according to the 2nd answer here: https://stackoverflow.com/questions/189645/how-to-break-out-of-multiple-loops-in-python \n\nThis code could be much simpler.",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 17
+      },
+      "revId": "fbe1c53eb8157b59e9283f439d60f4da52d79f07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
