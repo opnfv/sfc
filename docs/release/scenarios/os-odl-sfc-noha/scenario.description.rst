@@ -83,6 +83,19 @@ Specific version of OVS
 SFC needs OVS 2.9.2 or higher because it includes the Network Service Headers (NSH)
 Service Chaining encapsulation.
 
+How to deploy the scenario
+==========================
+
+There are three tools which can be used to deploy the scenario:
+
+- Apex - https://opnfv-apex.readthedocs.io/en/latest/release/installation/index.html#apex-installation
+- XCI tool - https://docs.opnfv.org/en/stable-gambia/submodules/releng-xci/docs/xci-user-guide.html#xci-user-guide
+- Compass - https://docs.opnfv.org/en/stable-gambia/submodules/compass4nfv/docs/release/installation/index.html#compass4nfv-installation
+
+For more information about how to deploy the sfc scenario, check:
+
+https://wiki.opnfv.org/display/sfc/Deploy+OPNFV+SFC+scenarios
+
 References
 ==========
 
