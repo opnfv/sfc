@@ -52,7 +52,8 @@ class SfcCommonTestCase(object):
         self.client_floating_ip = None
         self.server_floating_ip = None
         self.fips_sfs = []
-        self.neutron_port = None
+        self.neutron_client_port = None
+        self.neutron_server_port = None
         self.vnf_objects = dict()
         self.testcase_config = testcase_config
         self.vnfs = vnfs
@@ -428,12 +429,12 @@ class SfcCommonTestCase(object):
                                        tosca_file=tosca_file,
                                        vnffgd_name=vnffgd_name)
 
-            self.neutron_port = \
+            self.neutron_client_port = \
                 openstack_sfc.get_instance_port(self.client_instance,
                                                 self.client_creator)
 
             if symmetric:
-                server_port = openstack_sfc.get_instance_port(
+                self.neutron_server_port = openstack_sfc.get_instance_port(
                     self.server_instance,
                     self.server_creator)
                 server_ip_prefix = self.server_ip + '/32'
@@ -443,8 +444,8 @@ class SfcCommonTestCase(object):
                     vnffgd_name,
                     vnffg_name,
                     self.default_param_file,
-                    self.neutron_port.id,
-                    server_port=server_port.id,
+                    self.neutron_client_port.id,
+                    server_port=self.neutron_server_port.id,
                     server_ip=server_ip_prefix)
 
             else:
@@ -453,7 +454,7 @@ class SfcCommonTestCase(object):
                     vnffgd_name,
                     vnffg_name,
                     self.default_param_file,
-                    self.neutron_port.id)
+                    self.neutron_client_port.id)
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
             if not only_chain:
@@ -486,27 +487,28 @@ class SfcCommonTestCase(object):
                                                          vnf_instance)
 
                     self.port_groups.append(port_group)
-            self.neutron_port = \
+            self.neutron_client_port = \
                 openstack_sfc.get_instance_port(self.client_instance,
                                                 self.client_creator)
 
             if symmetric:
                 # We must pass the server_port and server_ip in the symmetric
                 # case. Otherwise ODL does not work well
-                server_port = openstack_sfc.get_instance_port(
+                self.neutron_server_port = openstack_sfc.get_instance_port(
                     self.server_instance,
                     self.server_creator)
                 server_ip_prefix = self.server_ip + '/32'
+                s_port = self.neutron_server_port
                 openstack_sfc.create_chain(self.port_groups,
-                                           self.neutron_port.id,
+                                           self.neutron_client_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric,
-                                           server_port=server_port.id,
+                                           server_port=s_port,
                                            server_ip=server_ip_prefix)
 
             else:
                 openstack_sfc.create_chain(self.port_groups,
-                                           self.neutron_port.id,
+                                           self.neutron_client_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric)
 
@@ -588,7 +590,7 @@ class SfcCommonTestCase(object):
         if not odl_utils.\
                 check_vnffg_deletion(self.odl_ip, self.odl_port,
                                      self.ovs_logger,
-                                     [self.neutron_port],
+                                     [self.neutron_client_port],
                                      self.client_instance.compute_host,
                                      self.compute_nodes):
             logger.debug("The chains were not correctly removed")
