@@ -48,11 +48,13 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
 
         # Start measuring the time it takes to implement the classification
         #  rules
-        t1 = threading.Thread(target=wait_for_classification_rules,
+        t1 = threading.Thread(target=symmetric_wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
-                                    self.odl_ip, self.odl_port,
+                                    self.server_instance.compute_host,
+                                    self.neutron_server_port,
                                     self.client_instance.compute_host,
-                                    [self.neutron_port],))
+                                    self.neutron_client_port,
+                                    self.odl_ip, self.odl_port,))
         try:
             t1.start()
         except Exception as e:
@@ -110,10 +112,10 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
         return self.creators
 
 
-def wait_for_classification_rules(ovs_logger, compute_nodes,
-                                  server_compute, server_port,
-                                  client_compute, client_port,
-                                  odl_ip, odl_port):
+def symmetric_wait_for_classification_rules(ovs_logger, compute_nodes,
+                                            server_compute, server_port,
+                                            client_compute, client_port,
+                                            odl_ip, odl_port):
     if client_compute == server_compute:
         odl_utils.wait_for_classification_rules(
             ovs_logger,

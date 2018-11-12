@@ -47,7 +47,7 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
                                     self.client_instance.compute_host,
-                                    [self.neutron_port],))
+                                    [self.neutron_client_port],))
 
         try:
             t1.start()
@@ -83,7 +83,7 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
                                     self.client_instance.compute_host,
-                                    self.neutron_port,))
+                                    self.neutron_client_port,))
         try:
             t2.start()
         except Exception as e:
