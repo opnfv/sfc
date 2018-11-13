@@ -89,8 +89,8 @@ How to deploy the scenario
 There are three tools which can be used to deploy the scenario:
 
 - Apex - https://opnfv-apex.readthedocs.io/en/latest/release/installation/index.html#apex-installation
-- XCI tool - https://docs.opnfv.org/en/stable-gambia/submodules/releng-xci/docs/xci-user-guide.html#xci-user-guide
-- Compass - https://docs.opnfv.org/en/stable-gambia/submodules/compass4nfv/docs/release/installation/index.html#compass4nfv-installation
+- XCI tool - https://opnfv-releng-xci.readthedocs.io/en/stable/xci-user-guide.html#user-guide
+- Compass - https://opnfv-compass4nfv.readthedocs.io/en/stable-gambia/release/installation/index.html#compass4nfv-installation-instructions
 
 For more information about how to deploy the sfc scenario, check:
 
