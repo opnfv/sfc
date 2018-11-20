@@ -1,0 +1,786 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7c49e88a",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "add break after this line",
+      "range": {
+        "startLine": 129,
+        "startChar": 16,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dc5d9c4a",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "Removing",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 35
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bc5a604e",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "Deleting",
+      "range": {
+        "startLine": 138,
+        "startChar": 29,
+        "endLine": 138,
+        "endChar": 35
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c58b455",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "this sleep together with one at line 143 should be moved to line 144. It is common for every creator.",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bc21c0b6",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "These lines need either removal or uncommenting.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c2f14a3",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 52
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc2b3892",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "can be omitted.",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 63,
+        "endChar": 28
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5c186c84",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "-ing",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 41
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7c172852",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "This is common and should be but outside if. The only thing which should be inside if is the image_data. This variable can be either filled with content from url or local file.",
+      "range": {
+        "startLine": 71,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dc0bdc29",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "This function may fail",
+      "range": {
+        "startLine": 105,
+        "startChar": 36,
+        "endLine": 105,
+        "endChar": 50
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bc08a02e",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "This function may fail",
+      "range": {
+        "startLine": 110,
+        "startChar": 35,
+        "endLine": 110,
+        "endChar": 48
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c06f420",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 119,
+        "startChar": 35,
+        "endLine": 119,
+        "endChar": 48
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc02180a",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 121,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 49
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5fffbe01",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 124,
+        "startChar": 25,
+        "endLine": 124,
+        "endChar": 39
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f048214",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 133,
+        "startChar": 38,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9f09562f",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 154,
+        "startChar": 30,
+        "endLine": 154,
+        "endChar": 56
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f0efa35",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "better format would be -\u003e  \"{}_keypair\".format(vm_name)",
+      "range": {
+        "startLine": 164,
+        "startChar": 56,
+        "endLine": 164,
+        "endChar": 76
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_df12ae57",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "just create a networks list based on len(prot_list). Then use it here and have only one create_server function call",
+      "range": {
+        "startLine": 188,
+        "startChar": 30,
+        "endLine": 189,
+        "endChar": 66
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf0ff22d",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "-ing",
+      "range": {
+        "startLine": 199,
+        "startChar": 25,
+        "endLine": 199,
+        "endChar": 26
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1f1d4667",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "Either uncomment or remove these lines",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 237,
+        "endChar": 76
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ff196a7a",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "-ing",
+      "range": {
+        "startLine": 253,
+        "startChar": 25,
+        "endLine": 253,
+        "endChar": 27
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5f269ebb",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "either uncomment or remove",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 73
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f2be283",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "either uncomment or remove",
+      "range": {
+        "startLine": 483,
+        "startChar": 0,
+        "endLine": 487,
+        "endChar": 67
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9f20369d",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "either uncomment or remove",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 76
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f255aaa",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "ip*",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 13
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_df390eda",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "ip*",
+      "range": {
+        "startLine": 199,
+        "startChar": 29,
+        "endLine": 199,
+        "endChar": 30
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf36d2e5",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 259,
+        "startChar": 12,
+        "endLine": 259,
+        "endChar": 52
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9f579602",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "Either uncomment or remove",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 55
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_df40ee37",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "this can be omitted",
+      "range": {
+        "startLine": 363,
+        "startChar": 40,
+        "endLine": 363,
+        "endChar": 56
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f5c3a26",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 54
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf3d32be",
+        "filename": "sfc/unit_tests/unit/lib/test_cleanup.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 395,
+        "startChar": 40,
+        "endLine": 395,
+        "endChar": 55
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5f74de9b",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "commented code",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 47
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ff47aa49",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "commented code",
+      "range": {
+        "startLine": 757,
+        "startChar": 3,
+        "endLine": 798,
+        "endChar": 47
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1f4b865a",
+        "filename": "sfc/unit_tests/unit/lib/test_openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 1,
+      "message": "commented code",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 33
+      },
+      "revId": "c3abe507b70b1ca260c8850f7ebe2f4b7f5b4a93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1f3426dd",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 7381
+      },
+      "writtenOn": "2018-11-20T18:55:53Z",
+      "side": 0,
+      "message": "Include that comment with port instead of creator",
+      "range": {
+        "startLine": 462,
+        "startChar": 20,
+        "endLine": 462,
+        "endChar": 66
+      },
+      "revId": "61599026dc4f0a940d0e3aa7d724494222ee1415",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
