@@ -71,6 +71,52 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c6082730",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-11-26T08:30:52Z",
+      "side": 1,
+      "message": "why do we need a key pair?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 61
+      },
+      "revId": "6a3596a1a817428d4d631e83ea57656518b6fa1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_06033f10",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2018-11-26T08:30:52Z",
+      "side": 1,
+      "message": "floating, no fLoating",
+      "range": {
+        "startLine": 253,
+        "startChar": 29,
+        "endLine": 253,
+        "endChar": 37
+      },
+      "revId": "6a3596a1a817428d4d631e83ea57656518b6fa1f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c62147b6",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 5
