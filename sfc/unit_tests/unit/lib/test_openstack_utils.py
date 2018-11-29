@@ -14,7 +14,9 @@ import unittest
 from mock import call
 from mock import Mock
 from mock import patch
+from mock import mock_open
 from mock import DEFAULT
+from mock import MagicMock
 
 import sfc.lib.openstack_utils as os_sfc_utils
 from tackerclient.v1_0 import client as tacker_client
@@ -37,6 +39,10 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                      'heat_client', autospec=True)
         self.patcher6 = patch.object(os_sfc_utils.keystone_utils,
                                      'keystone_client', autospec=True)
+        self.patcher7 = patch.object(os_sfc_utils.connection,
+                                     'from_config', autospec=True,)
+        self.patcher8 = patch.object(os_sfc_utils.neutronclient,
+                                     'Client', autospec=True,)
 
         self.env_file = self.patcher1.start().return_value
         self.os_creds = self.patcher2.start().return_value
@@ -44,6 +50,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.neutron = self.patcher4.start().return_value
         self.heat = self.patcher5.start().return_value
         self.keystone = self.patcher6.start().return_value
+        self.conn = self.patcher7.start().return_value
+        self.neutron_client = self.patcher8.start().return_value
 
         self.os_sfc = os_sfc_utils.OpenStackSFC()
 
@@ -54,326 +62,497 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.patcher4.stop()
         self.patcher5.stop()
         self.patcher6.stop()
+        self.patcher7.stop()
+        self.patcher8.stop()
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.ImageConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackImage', autospec=True)
+    def test_register_glance_image_already_exists(self,
+                                                  mock_log):
+        """
+        Checks the proper functionality of register_glance_image
+        function when the image is local
+        """
+        image_obj = Mock()
+        image_obj.name = 'name'
+        log_calls = [call('Registering the image...'),
+                     call('Image ' + image_obj.name + ' already exists.')]
+
+        self.conn.image.find_image.return_value = image_obj
+        result = self.os_sfc.register_glance_image('name',
+                                                   'url',
+                                                   'img_format',
+                                                   'public')
+
+        self.conn.image.find_image.assert_called_once_with(image_obj.name)
+
+        assert result is image_obj
+
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch("__builtin__.open", autospec=True)
     def test_register_glance_image_is_local(self,
-                                            mock_openstack_image,
-                                            mock_image_config,
+                                            mock_open_fn,
                                             mock_log):
         """
         Checks the proper functionality of register_glance_image
         function when the image is local
         """
+        log_calls = [call('Registering the image...'),
+                     call('Image created')]
 
-        mock_os_image_ins = mock_openstack_image.return_value
-        mock_image_config_ins = mock_image_config.return_value
-        log_calls = [call('Registering the image...')]
+        image_obj_None = None
+        image_obj_name = 'name'
+        image_obj = Mock()
+        mocked_file = mock_open(read_data='url').return_value
+        mock_open_fn.return_value = mocked_file
 
+        self.conn.image.find_image.return_value = image_obj_None
+        self.conn.image.upload_image.return_value = image_obj
         result = self.os_sfc.register_glance_image('name',
                                                    'url',
                                                    'img_format',
                                                    'public')
-        assert result is mock_os_image_ins
-        mock_log.info.assert_has_calls(log_calls)
-        mock_image_config.assert_called_once_with(name='name',
-                                                  img_format='img_format',
-                                                  image_file='url',
-                                                  public='public',
-                                                  image_user='admin')
+        assert result is image_obj
 
-        mock_openstack_image.assert_called_with(self.os_creds,
-                                                mock_image_config_ins)
-        mock_os_image_ins.create.assert_called_once_with()
-        self.assertEqual([mock_os_image_ins], self.os_sfc.creators)
+        self.conn.image.find_image.assert_called_once_with(image_obj_name)
+
+        self.conn.image.upload_image.\
+            assert_called_once_with(name='name',
+                                    disk_format='img_format',
+                                    data='url',
+                                    is_public='public',
+                                    container_format='bare')
+
+        self.assertEqual([image_obj], self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.ImageConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackImage', autospec=True)
+    @patch('sfc.lib.openstack_utils.urllib2.urlopen', autospec=True)
     def test_register_glance_image_is_not_local(self,
-                                                mock_openstack_image,
-                                                mock_image_config,
+                                                mock_urlopen,
                                                 mock_log):
         """
         Checks the proper functionality of register_glance_image
         function when the image is not local
         """
+        log_calls = [call('Registering the image...'),
+                     call('Downloading image'),
+                     call('Image created')]
 
-        mock_os_image_ins = mock_openstack_image.return_value
-        mock_image_config_ins = mock_image_config.return_value
-        log_calls = [call('Registering the image...')]
+        image_obj_None = None
+        image_obj_name = 'name'
+        image_obj = Mock()
+        mock_file = Mock()
+        mock_file.read.side_effect = ['http://url']
+        mock_urlopen.return_value = mock_file
+
+        self.conn.image.find_image.return_value = image_obj_None
+        self.conn.image.upload_image.return_value = image_obj
 
         result = self.os_sfc.register_glance_image('name',
                                                    'http://url',
                                                    'img_format',
                                                    'public')
-        assert result is mock_os_image_ins
-        mock_log.info.assert_has_calls(log_calls)
-        mock_image_config.assert_called_with(name='name',
-                                             img_format='img_format',
-                                             url='http://url',
-                                             public='public',
-                                             image_user='admin')
 
-        mock_openstack_image.assert_called_with(self.os_creds,
-                                                mock_image_config_ins)
-        mock_os_image_ins.create.assert_called_once_with()
-        self.assertEqual([mock_os_image_ins], self.os_sfc.creators)
+        assert result is image_obj
+
+        self.conn.image.find_image.assert_called_once_with(image_obj_name)
+
+        self.conn.image.upload_image.\
+            assert_called_once_with(name='name',
+                                    disk_format='img_format',
+                                    data='http://url',
+                                    is_public='public',
+                                    container_format='bare')
+
+        self.assertEqual([image_obj], self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.FlavorConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackFlavor', autospec=True)
     def test_create_flavour(self,
-                            mock_openstack_flavor,
-                            mock_flavor_config,
                             mock_log):
         """
         Checks the proper functionality of create_flavor
         function
         """
 
-        mock_openstack_flavor_ins = mock_openstack_flavor.return_value
-        log_calls = [call('Creating the flavor...')]
+        mock_openstack_flavor_ins = self.conn.compute.\
+            create_flavor.return_value
+        log_calls = [call('Creating flavor...')]
 
         result = self.os_sfc.create_flavor('name',
                                            'ram',
                                            'disk',
                                            'vcpus')
-        assert result is mock_openstack_flavor_ins.create.return_value
+        assert result is mock_openstack_flavor_ins
         self.assertEqual([mock_openstack_flavor_ins],
                          self.os_sfc.creators)
-        mock_flavor_config.assert_called_once_with(name='name',
-                                                   ram='ram',
-                                                   disk='disk',
-                                                   vcpus='vcpus')
+        self.conn.compute.create_flavor.\
+            assert_called_once_with(name='name',
+                                    ram='ram',
+                                    disk='disk',
+                                    vcpus='vcpus')
         mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.env.get', autospec=True)
-    @patch('sfc.lib.openstack_utils.RouterConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.SubnetConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.NetworkConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackRouter', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackNetwork', autospec=True)
-    def test_create_network_infrastructure(self,
-                                           mock_openstack_network,
-                                           mock_openstack_router,
-                                           mock_network_config,
-                                           mock_subnet_config,
-                                           mock_router_config,
-                                           mock_env_get,
-                                           mock_log):
-        """
-        Checks the proper functionality of create_network_infrastructure
-        function
-        """
+    def test_create_network_infrastructure(self, mock_env_get, mock_log):
+        log_calls = [call('Creating Networks...'),
+                     call('Creating Router...')]
+        network_obj = Mock()
+        network_obj.id = '1'
+        subnet_obj = Mock()
+        subnet_obj.id = '2'
+        ext_network_obj = Mock()
+        ext_network_obj.id = '3'
+        router_obj = Mock()
+        router_obj.id = '4'
 
-        net_ins = mock_openstack_network.return_value
-        rou_ins = mock_openstack_router.return_value
-        nec_ins = mock_network_config.return_value
-        sub_ins = mock_subnet_config.return_value
-        roc_ins = mock_router_config.return_value
-        mock_env_get.return_value = 'nw_name'
-        expected = (net_ins.create.return_value, rou_ins.create.return_value)
-        log_calls = [call('Creating networks...'),
-                     call('Creating the router...')]
+        self.conn.network.create_network.return_value = network_obj
+        self.conn.network.create_subnet.return_value = subnet_obj
+        self.conn.network.find_network.return_value = ext_network_obj
+        self.conn.network.create_router.return_value = router_obj
+        self.conn.network.get_router.return_value = router_obj
+        mock_env_get.return_value = 'ext_net_name'
 
+        expected = (network_obj, router_obj)
         result = self.os_sfc.create_network_infrastructure('net_name',
                                                            'sn_name',
-                                                           'subnet_cdir',
+                                                           'subnet_cidr',
                                                            'router_name')
+        self.conn.network.create_network.\
+            assert_called_once_with(name='net_name')
+        self.conn.network.create_subnet.\
+            assert_called_once_with(name='sn_name', cidr='subnet_cidr',
+                                    network_id=network_obj.id, ip_version='4')
+        self.conn.network.find_network.\
+            assert_called_once_with('ext_net_name')
+        self.conn.network.create_router.\
+            assert_called_once_with(name='router_name')
+        self.conn.network.add_interface_to_router.\
+            assert_called_once_with(router_obj.id, subnet_id=subnet_obj.id)
+        self.conn.network.update_router.\
+            assert_called_once_with(
+                router_obj.id,
+                external_gateway_info={'network_id': ext_network_obj.id})
+        self.conn.network.get_router.assert_called_once_with(router_obj.id)
+
         self.assertEqual(expected, result)
-        mock_subnet_config.assert_called_once_with(name='sn_name',
-                                                   cidr='subnet_cdir')
-        mock_network_config.assert_called_once_with(name='net_name',
-                                                    subnet_settings=[sub_ins])
-        mock_openstack_network.assert_called_once_with(self.os_creds,
-                                                       nec_ins)
-        mock_env_get.assert_called_once_with('EXTERNAL_NETWORK')
-        mock_router_config.assert_called_once_with(name='router_name',
-                                                   external_gateway='nw_name',
-                                                   internal_subnets=['sn_name']
-                                                   )
-        mock_openstack_router.assert_called_once_with(self.os_creds, roc_ins)
-        self.assertEqual([net_ins, rou_ins], self.os_sfc.creators)
+        self.assertEqual([network_obj, subnet_obj, router_obj],
+                         self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.Protocol', autospec=True)
-    @patch('sfc.lib.openstack_utils.Direction', autospec=True)
-    @patch('sfc.lib.openstack_utils.SecurityGroupConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.OpenStackSecurityGroup', autospec=True)
-    @patch('sfc.lib.openstack_utils.SecurityGroupRuleConfig', autospec=True)
     def test_create_security_group(self,
-                                   mock_security_group_rule_config,
-                                   mock_openstack_security_group,
-                                   mock_security_group_config,
-                                   mock_direction,
-                                   mock_protocol,
                                    mock_log):
         """
         Checks the proper functionality of create_security_group
         function
         """
-
-        oss_gro_ins = mock_openstack_security_group.return_value
-        sec_gro_con_ins = mock_security_group_config.return_value
-        mock_security_group_rule_config.side_effect = ['ping', 'ssh', 'http']
-        ins = ['ping', 'ssh', 'http']
-
-        sgrc_calls = [call(sec_grp_name='sec_grp_name',
-                           direction=mock_direction.ingress,
-                           protocol=mock_protocol.icmp),
-                      call(sec_grp_name='sec_grp_name',
-                           direction=mock_direction.ingress,
-                           protocol=mock_protocol.tcp,
-                           port_range_min=22,
-                           port_range_max=22),
-                      call(sec_grp_name='sec_grp_name',
-                           direction=mock_direction.ingress,
-                           protocol=mock_protocol.tcp,
-                           port_range_min=80,
-                           port_range_max=80)]
-
         log_calls = [call('Creating the security groups...')]
+        sec_group_obj = Mock()
+        sec_group_obj.id = '1'
+
+        self.conn.network.create_security_group.return_value = sec_group_obj
 
         result = self.os_sfc.create_security_group('sec_grp_name')
-        assert result is oss_gro_ins.create.return_value
-        self.assertEqual([oss_gro_ins], self.os_sfc.creators)
-        mock_security_group_config.assert_called_once_with(name='sec_grp_name',
-                                                           rule_settings=ins)
-        mock_security_group_rule_config.assert_has_calls(sgrc_calls)
-        mock_openstack_security_group.assert_called_once_with(self.os_creds,
-                                                              sec_gro_con_ins)
-        oss_gro_ins.create.assert_called_with()
+        assert result is sec_group_obj
+
+        self.conn.network.create_security_group.\
+            assert_called_once_with(name='sec_grp_name')
+
+        pc_calls = [call(security_group_id=sec_group_obj.id,
+                         direction='ingress',
+                         protocol='icmp'),
+                    call(security_group_id=sec_group_obj.id,
+                         direction='ingress',
+                         protocol='tcp',
+                         port_range_min=22,
+                         port_range_max=22),
+                    call(security_group_id=sec_group_obj.id,
+                         direction='ingress',
+                         protocol='tcp',
+                         port_range_min=80,
+                         port_range_max=80)]
+
+        self.conn.network.create_security_group_rule.\
+            assert_has_calls(pc_calls)
+
+        self.assertEqual([sec_group_obj], self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.PortConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.VmInstanceConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
-           autospec=True)
     def test_create_instance_port_security_false(self,
-                                                 mock_os_vm_instance,
-                                                 mock_vm_instance_config,
-                                                 mock_port_config,
                                                  mock_log):
         """
         Checks the proper functionality of create_instance
         function
         """
 
-        vm_con_ins = mock_vm_instance_config.return_value
-        pc_inss = ['pc_config1', 'pc_config2']
-        mock_port_config.side_effect = pc_inss
-        os_vm_ins = mock_os_vm_instance.return_value
-        os_vm_ins_cre = os_vm_ins.create.return_value
-        expected = (os_vm_ins_cre, os_vm_ins)
+        keypair_obj = Mock()
+        keypair_obj.name = 'keypair_name'
+        flavor_obj = Mock()
+        flavor_obj.id = '1'
+        port_obj1 = Mock()
+        port_obj1.id = '2'
+        port_obj2 = Mock()
+        port_obj2.id = '3'
+        instance_obj = Mock()
+        instance_obj.name = 'instance_name'
         secgrp = Mock()
         secgrp.name = 'sec_grp'
-        network = Mock()
-        network.name = 'nw_name'
+        secgrp.id = '4'
         img_cre = Mock()
-        img_cre.image_settings = 'image_settings'
+        img_cre.id = '5'
+        network = Mock()
+        network.id = '6'
+        ports = ['port1', 'port2']
+        port_security = False
 
-        log_calls = [call('Creating the instance vm_name...')]
-        pc_calls = [call(name='port1',
-                         network_name='nw_name',
-                         port_security_enabled=False),
-                    call(name='port2',
-                         network_name='nw_name',
-                         port_security_enabled=False)]
+        log_calls = [call('Creating Key Pair vm_name...'),
+                     call('Creating Port ' + str(ports) + '...'),
+                     call('Creating the instance vm_name...'),
+                     call('Waiting for instance_name to become Active'),
+                     call('instance_name is active')]
+
+        self.conn.compute.create_keypair.return_value = keypair_obj
+        self.conn.compute.find_flavor.return_value = flavor_obj
+        self.conn.network.create_port.side_effect = [port_obj1, port_obj2]
+        self.conn.compute.create_server.return_value = instance_obj
+
+        port_obj_list = [port_obj1, port_obj2]
+
+        expected = (instance_obj, port_obj_list)
         result = self.os_sfc.create_instance('vm_name',
                                              'flavor_name',
                                              img_cre,
                                              network,
                                              secgrp,
                                              'av_zone',
-                                             ['port1', 'port2'],
-                                             port_security=False)
+                                             ports,
+                                             port_security=port_security)
         self.assertEqual(expected, result)
-        mock_vm_instance_config.assert_called_once_with(name='vm_name',
-                                                        flavor='flavor_name',
-                                                        port_settings=pc_inss,
-                                                        availability_zone='av'
-                                                        '_zone')
-        mock_os_vm_instance.assert_called_once_with(self.os_creds,
-                                                    vm_con_ins,
-                                                    'image_settings')
-        self.assertEqual([os_vm_ins], self.os_sfc.creators)
+
+        pc_calls = [call(name=ports[0],
+                         is_port_security_enabled=port_security,
+                         network_id=network.id),
+                    call(name=ports[1],
+                         is_port_security_enabled=port_security,
+                         network_id=network.id)]
+
+        self.conn.compute.create_keypair.\
+            assert_called_once_with(name='vm_name' + "_keypair")
+
+        self.conn.compute.find_flavor.assert_called_once_with('flavor_name')
+
+        self.conn.network.create_port.\
+            assert_has_calls(pc_calls)
+
+        self.conn.compute.create_server.\
+            assert_called_once_with(name='vm_name',
+                                    image_id=img_cre.id,
+                                    flavor_id=flavor_obj.id,
+                                    networks=[{"port": port_obj1.id},
+                                              {"port": port_obj2.id}],
+                                    key_name=keypair_obj.name,
+                                    availability_zone='av_zone')
+
+        self.conn.compute.wait_for_server.\
+            assert_called_once_with(instance_obj)
+
+        self.assertEqual([keypair_obj, port_obj1, port_obj2, instance_obj],
+                         self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
-        mock_port_config.assert_has_calls(pc_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.PortConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.VmInstanceConfig', autospec=True)
-    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
-           autospec=True)
     def test_create_instance(self,
-                             mock_os_vm_instance,
-                             mock_vm_instance_config,
-                             mock_port_config,
                              mock_log):
         """
         Checks the proper functionality of create_instance
         function
         """
 
-        vm_con_ins = mock_vm_instance_config.return_value
-        pc_inss = ['pc_config1', 'pc_config2']
-        mock_port_config.side_effect = pc_inss
-        os_vm_ins = mock_os_vm_instance.return_value
-        os_vm_ins_cre = os_vm_ins.create.return_value
-        expected = (os_vm_ins_cre, os_vm_ins)
+        keypair_obj = Mock()
+        keypair_obj.name = 'keypair_name'
+        flavor_obj = Mock()
+        flavor_obj.id = '1'
+        port_obj = Mock()
+        port_obj.id = '2'
+        instance_obj = Mock()
+        instance_obj.name = 'instance_name'
         secgrp = Mock()
         secgrp.name = 'sec_grp'
-        network = Mock()
-        network.name = 'nw_name'
+        secgrp.id = '4'
         img_cre = Mock()
-        img_cre.image_settings = 'image_settings'
+        img_cre.id = '5'
+        network = Mock()
+        network.id = '6'
+        ports = ['port1']
+        port_obj_list = [port_obj]
+        port_security = True
 
-        log_calls = [call('Creating the instance vm_name...')]
-        pc_calls = [call(name='port1',
-                         network_name='nw_name',
-                         port_security_enabled=True),
-                    call(name='port2',
-                         network_name='nw_name',
-                         port_security_enabled=True)]
+        log_calls = [call('Creating Key Pair vm_name...'),
+                     call('Creating Port ' + str(ports) + '...'),
+                     call('Creating the instance vm_name...'),
+                     call('Waiting for instance_name to become Active'),
+                     call('instance_name is active')]
+
+        self.conn.compute.create_keypair.return_value = keypair_obj
+        self.conn.compute.find_flavor.return_value = flavor_obj
+        self.conn.network.create_port.return_value = port_obj
+        self.conn.compute.create_server.return_value = instance_obj
+        # self.conn.compute.wait_for_server.return_value = wait_ins_obj
+
+        expected = (instance_obj, port_obj_list)
         result = self.os_sfc.create_instance('vm_name',
                                              'flavor_name',
                                              img_cre,
                                              network,
                                              secgrp,
                                              'av_zone',
-                                             ['port1', 'port2'])
+                                             ports,
+                                             port_security=port_security)
         self.assertEqual(expected, result)
-        mock_vm_instance_config.assert_called_once_with(name='vm_name',
-                                                        flavor='flavor_name',
-                                                        security_group_names=''
-                                                        'sec_grp',
-                                                        port_settings=pc_inss,
-                                                        availability_zone='av'
-                                                        '_zone')
-        mock_os_vm_instance.assert_called_once_with(self.os_creds,
-                                                    vm_con_ins,
-                                                    'image_settings')
-        self.assertEqual([os_vm_ins], self.os_sfc.creators)
-        mock_log.info.assert_has_calls(log_calls)
-        mock_port_config.assert_has_calls(pc_calls)
 
-    @patch('sfc.lib.openstack_utils.nova_utils.get_hypervisor_hosts',
-           autospec=True)
-    def test_get_av_zones(self, mock_get_hypervisor_hosts):
+        pc_calls = [call(name=ports[0],
+                         is_port_security_enabled=port_security,
+                         network_id=network.id,
+                         security_group_ids=[secgrp.id])]
+
+        self.conn.compute.create_keypair.\
+            assert_called_once_with(name='vm_name' + "_keypair")
+
+        self.conn.compute.find_flavor.assert_called_once_with('flavor_name')
+
+        self.conn.network.create_port.\
+            assert_has_calls(pc_calls)
+
+        self.conn.compute.create_server.\
+            assert_called_once_with(name='vm_name',
+                                    image_id=img_cre.id,
+                                    flavor_id=flavor_obj.id,
+                                    networks=[{"port": port_obj.id}],
+                                    key_name=keypair_obj.name,
+                                    availability_zone='av_zone')
+
+        self.conn.compute.wait_for_server.\
+            assert_called_once_with(instance_obj)
+
+        self.assertEqual([keypair_obj, port_obj, instance_obj],
+                         self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_instance_port_security_false_one_port(self,
+                                                          mock_log):
+        """
+        Checks the proper functionality of create_instance
+        function
+        """
+
+        keypair_obj = Mock()
+        keypair_obj.name = 'keypair_name'
+        flavor_obj = Mock()
+        flavor_obj.id = '1'
+        port_obj = Mock()
+        port_obj.id = '2'
+        instance_obj = Mock()
+        instance_obj.name = 'instance_name'
+        secgrp = Mock()
+        secgrp.name = 'sec_grp'
+        secgrp.id = '4'
+        img_cre = Mock()
+        img_cre.id = '5'
+        network = Mock()
+        network.id = '6'
+        ports = ['port1']
+        port_obj_list = [port_obj]
+        port_security = False
+
+        log_calls = [call('Creating Key Pair vm_name...'),
+                     call('Creating Port ' + str(ports) + '...'),
+                     call('Creating the instance vm_name...'),
+                     call('Waiting for instance_name to become Active'),
+                     call('instance_name is active')]
+
+        self.conn.compute.create_keypair.return_value = keypair_obj
+        self.conn.compute.find_flavor.return_value = flavor_obj
+        self.conn.network.create_port.return_value = port_obj
+        self.conn.compute.create_server.return_value = instance_obj
+
+        expected = (instance_obj, port_obj_list)
+        result = self.os_sfc.create_instance('vm_name',
+                                             'flavor_name',
+                                             img_cre,
+                                             network,
+                                             secgrp,
+                                             'av_zone',
+                                             ports,
+                                             port_security=port_security)
+        self.assertEqual(expected, result)
+
+        pc_calls = [call(name=ports[0],
+                         is_port_security_enabled=port_security,
+                         network_id=network.id)]
+
+        self.conn.compute.create_keypair.\
+            assert_called_once_with(name='vm_name' + "_keypair")
+
+        self.conn.compute.find_flavor.assert_called_once_with('flavor_name')
+
+        self.conn.network.create_port.\
+            assert_has_calls(pc_calls)
+
+        self.conn.compute.create_server.\
+            assert_called_once_with(name='vm_name',
+                                    image_id=img_cre.id,
+                                    flavor_id=flavor_obj.id,
+                                    networks=[{"port": port_obj.id}],
+                                    key_name=keypair_obj.name,
+                                    availability_zone='av_zone')
+
+        self.conn.compute.wait_for_server.\
+            assert_called_once_with(instance_obj)
+
+        self.assertEqual([keypair_obj, port_obj, instance_obj],
+                         self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch.object(os_sfc_utils.OpenStackSFC, 'get_hypervisor_hosts')
+    def test_get_av_zones(self, mock_hosts):
         """
         Checks the proper functionality of get_av_zone
         function
         """
-
-        mock_get_hypervisor_hosts.return_value = ['host1', 'host2']
+        mock_hosts.return_value = ['host1', 'host2']
         result = self.os_sfc.get_av_zones()
-        mock_get_hypervisor_hosts.assert_called_once_with(self.nova)
+        mock_hosts.assert_called_once()
         self.assertEqual(['nova::host1', 'nova::host2'], result)
+
+    def test_get_hypervisor_hosts(self):
+        """
+        Checks the proper functionality of get_av_zone
+        function
+        """
+        from openstack.compute.v2 import hypervisor
+
+        hypervisor1 = Mock()
+        hypervisor1.state = 'up'
+        hypervisor1.name = 'compute00'
+        hypervisor2 = Mock()
+        hypervisor2.state = 'up'
+        hypervisor2.name = 'compute01'
+        nodes = [hypervisor1.name, hypervisor2.name]
+        hypervisors_list = MagicMock()
+        mock_obj = patch.object(hypervisor, 'Hypervisor')
+        mock_obj.side_effect = [hypervisor1, hypervisor2]
+        self.conn.compute.hypervisors.return_value = hypervisors_list
+        hypervisors_list.__iter__.return_value = [hypervisor1, hypervisor2]
+
+        result = self.os_sfc.get_hypervisor_hosts()
+        self.conn.compute.hypervisors.assert_called_once()
+        self.assertEqual(nodes, result)
 
     @patch('sfc.lib.openstack_utils.OpenStackSFC.get_vm_compute',
            autospec=True, return_value='mock_client')
@@ -427,40 +606,93 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         result = self.os_sfc.get_vm_compute('dev_vm')
         self.assertEqual('mock_host', result)
 
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
            autospec=True)
-    @patch('sfc.lib.openstack_utils.FloatingIpConfig', autospec=True)
+    def test_get_instance_port_raised_exceptioin(self,
+                                                 mock_os_vm,
+                                                 mock_log):
+        """
+        Checks the proper functionality of get_client_port
+        function when no port is returned
+        """
+
+        mock_os_vm_ins = mock_os_vm.return_value
+        mock_vm = Mock()
+        mock_vm.name = 'mock_vm_name'
+        mock_os_vm_ins.get_port_by_name.return_value = None
+        ErrorMSG = 'Client VM does not have the desired port'
+        log_calls = [call("The VM mock_vm_name does not have any port"
+                          " with name mock_vm_name-port")]
+
+        with self.assertRaises(Exception) as cm:
+            self.os_sfc.get_instance_port(mock_vm, mock_os_vm_ins)
+
+        self.assertEqual(cm.exception.message, ErrorMSG)
+        mock_log.error.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
+           autospec=True)
+    def test_get_instance_port(self,
+                               mock_os_vm,
+                               mock_log):
+        """
+        Checks the proper functionality of get_client_port
+        function when no port is returned
+        """
+
+        mock_os_vm_ins = mock_os_vm.return_value
+        mock_vm = Mock()
+        mock_vm.name = 'mock_vm_name'
+        mock_os_vm_ins.get_port_by_name.return_value = 'mock_port'
+        result = self.os_sfc.get_instance_port(mock_vm, mock_os_vm_ins)
+        self.assertEqual('mock_port', result)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('sfc.lib.openstack_utils.env.get', autospec=True)
     def test_assign_floating_ip(self,
-                                mock_floating_ip_config,
-                                mock_os_vm):
+                                mock_env_get,
+                                mock_log):
         """
         Checks the proper functionality of assigning_floating_ip
         function
         """
+        ext_network_obj = Mock()
+        ext_network_obj.id = '1'
+        fip_obj = Mock()
+        fip_obj.floating_ip_address = 'floating_ip_address'
+        port_obj = Mock()
+        port_obj.id = '2'
+        instance_obj = Mock()
+        instance_obj.id = '3'
 
-        mock_router = Mock()
-        mock_vm = Mock()
-        mock_ip = Mock()
-        mock_ip.ip = 'mock_ip'
-        mock_router.name = 'mock_router_name'
-        mock_vm.name = 'mock_vm_name'
-        port_1 = port_2 = Mock()
-        port_1.name = 'port_1'
-        mock_vm.ports = [port_1, port_2]
+        log_calls = [call(' Creating floating ips '),
+                     call(' FLoating IP address '
+                          + fip_obj.floating_ip_address
+                          + ' created'),
+                     call(' Adding Floating IPs to instances ')]
 
-        flo_ip_ins = mock_floating_ip_config.return_value
-        mock_os_vm_ins = mock_os_vm.return_value
-        mock_os_vm_ins.add_floating_ip.return_value = mock_ip
-        result = self.os_sfc.assign_floating_ip(mock_router,
-                                                mock_vm,
-                                                mock_os_vm_ins)
-        self.assertEqual('mock_ip', result)
-        mock_floating_ip_config.assert_called_once_with(name='mock_vm_name'
-                                                        '-float',
-                                                        port_name='port_1',
-                                                        router_name='mock_'
-                                                        'router_name')
-        mock_os_vm_ins.add_floating_ip.assert_called_once_with(flo_ip_ins)
+        mock_env_get.return_value = 'ext_net_name'
+        self.conn.network.find_network.return_value = ext_network_obj
+        self.conn.network.create_ip.return_value = fip_obj
+        self.conn.netwotk.get_port.return_value = port_obj
+        self.conn.compute.get_server.return_value = instance_obj
+
+        result = self.os_sfc.assign_floating_ip(instance_obj, port_obj)
+        assert result is fip_obj.floating_ip_address
+
+        self.conn.network.find_network.assert_called_once_with('ext_net_name')
+        self.conn.network.create_ip.\
+            assert_called_once_with(floating_network_id=ext_network_obj.id,
+                                    port_id=port_obj.id)
+        self.conn.compute.add_floating_ip_to_server.\
+            assert_called_once_with(instance_obj.id,
+                                    fip_obj.floating_ip_address)
+
+        self.assertEqual([fip_obj],
+                         self.os_sfc.creators)
+        mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.heat_utils.get_stack_servers',
@@ -494,7 +726,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.assertEqual(cm.exception.message, ErrorMSG)
         mock_get_stack_servers.assert_called_once_with(self.heat,
                                                        self.nova,
-                                                       self.neutron,
+                                                       self.neutron_client,
                                                        self.keystone,
                                                        'stack_obj',
                                                        'admin')
@@ -533,7 +765,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
 
         mock_get_stack_servers.assert_called_once_with(self.heat,
                                                        self.nova,
-                                                       self.neutron,
+                                                       self.neutron_client,
                                                        self.keystone,
                                                        'stack_obj',
                                                        'admin')
@@ -582,7 +814,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.assertEqual([mock_os_vm_ins], self.os_sfc.creators)
         mock_get_stack_servers.assert_called_once_with(self.heat,
                                                        self.nova,
-                                                       self.neutron,
+                                                       self.neutron_client,
                                                        self.keystone,
                                                        'stack_obj', 'admin')
         mock_generate_creator.assert_called_once_with(self.os_creds,
@@ -595,119 +827,73 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         mock_os_vm_ins.add_floating_ip.assert_called_once_with(float_ip_ins)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
-           autospec=True)
-    def test_get_instance_port_raised_exceptioin(self,
-                                                 mock_os_vm,
-                                                 mock_log):
-        """
-        Checks the proper functionality of get_client_port
-        function when no port is returned
-        """
-
-        mock_os_vm_ins = mock_os_vm.return_value
-        mock_vm = Mock()
-        mock_vm.name = 'mock_vm_name'
-        mock_os_vm_ins.get_port_by_name.return_value = None
-        ErrorMSG = 'Client VM does not have the desired port'
-        log_calls = [call("The VM mock_vm_name does not have any port"
-                          " with name mock_vm_name-port")]
-
-        with self.assertRaises(Exception) as cm:
-            self.os_sfc.get_instance_port(mock_vm, mock_os_vm_ins)
-
-        self.assertEqual(cm.exception.message, ErrorMSG)
-        mock_log.error.assert_has_calls(log_calls)
-
-    @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
-           autospec=True)
-    def test_get_instance_port(self,
-                               mock_os_vm,
-                               mock_log):
-        """
-        Checks the proper functionality of get_client_port
-        function when no port is returned
-        """
-
-        mock_os_vm_ins = mock_os_vm.return_value
-        mock_vm = Mock()
-        mock_vm.name = 'mock_vm_name'
-        mock_os_vm_ins.get_port_by_name.return_value = 'mock_port'
-        result = self.os_sfc.get_instance_port(mock_vm, mock_os_vm_ins)
-        self.assertEqual('mock_port', result)
-
-    @patch('sfc.lib.openstack_utils.neutron_utils.list_security_groups',
-           autospec=True)
-    @patch('sfc.lib.openstack_utils.neutron_utils.delete_security_group',
-           autospec=True)
-    def test_delete_all_security_groups(self,
-                                        mock_delete_security_group,
-                                        mock_list_security_groups):
+    def test_delete_all_security_groups(self, mock_log):
         """
         Checks the proper functionality of delete_all_security_groups
         function
         """
 
-        del_calls = [call(self.neutron, 'sec_group_1'),
-                     call(self.neutron, 'sec_group_2')]
-        mock_list_security_groups.return_value = ['sec_group_1', 'sec_group_2']
+        log_calls_info = [call('Deleting remaining security groups...')]
+        secgrp1_obj = Mock()
+        secgrp2_obj = Mock()
+        secgrp_list = MagicMock()
+
+        self.conn.network.create_security_groups.side_effect = [secgrp1_obj,
+                                                                secgrp2_obj]
+        self.conn.network.security_groups.return_value = secgrp_list
+
+        secgrp_list.__iter__.return_value = [secgrp1_obj, secgrp2_obj]
+        del_calls = [call(secgrp1_obj),
+                     call(secgrp2_obj)]
+
         self.os_sfc.delete_all_security_groups()
-        mock_list_security_groups.assert_called_once_with(self.neutron)
-        mock_delete_security_group.assert_has_calls(del_calls)
+        self.conn.network.security_groups.assert_called_once()
+        self.conn.network.delete_security_group.assert_has_calls(del_calls)
+        mock_log.info.assert_has_calls(log_calls_info)
 
-    @patch('snaps.openstack.create_instance.OpenStackVmInstance',
-           autospec=True)
-    def test_wait_for_vnf(self, mock_osvminstance):
-        """
-        Checks the method wait_for_vnf
-        """
-
-        mock_osvm_ins = mock_osvminstance.return_value
-        mock_osvm_ins.vm_active.return_value = True
-        result = self.os_sfc.wait_for_vnf(mock_osvm_ins)
-        self.assertTrue(result)
-
-    @patch('snaps.domain.vm_inst.VmInst', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_create_port_groups_raises_exception(self, mock_log, mock_vm):
+    def test_create_port_groups_raises_exception(self, mock_log):
         """
         Checks the create_port_groups when length of ports is greater than 2
         """
-        mock_vm_ins = mock_vm.return_value
-        mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs for vm')]
+        instance_obj = Mock()
+        instance_obj.name = 'name'
+        self.conn.compute.get_server.return_value = instance_obj
+
+        log_calls_info = [call('Creating the port pairs...')]
         log_calls_err = [call('Only SFs with one or two ports are supported')]
         exception_message = "Failed to create port pairs"
         vnf_ports = ['p1', 'p2', 'p3']
         with self.assertRaises(Exception) as cm:
-            self.os_sfc.create_port_groups(vnf_ports, mock_vm_ins)
+            self.os_sfc.create_port_groups(vnf_ports, instance_obj)
         self.assertEqual(exception_message, cm.exception.message)
         mock_log.info.assert_has_calls(log_calls_info)
         mock_log.error.assert_has_calls(log_calls_err)
 
-    @patch('snaps.domain.network.Port', autospec=True)
-    @patch('snaps.domain.vm_inst.VmInst', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_create_port_groups_returns_none_from_pp(self, mock_log,
-                                                     mock_vm,
-                                                     mock_port):
+    def test_create_port_groups_returns_none_from_pp(self, mock_log):
         """
         Checks the create_port_groups when something goes wrong in port pair
         creation
         """
-        mock_vm_ins = mock_vm.return_value
-        mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs for vm')]
+        instance_obj = Mock()
+        instance_obj.name = 'name'
+        port_obj1 = Mock()
+        port_obj2 = Mock()
+        port_obj1.id = '123abc'
+        port_obj2.id = '456def'
+
+        self.conn.compute.get_server.return_value = instance_obj
+        self.conn.network.get_port.return_value = port_obj1
+        self.conn.network.get_port.return_value = port_obj2
+
+        log_calls_info = [call('Creating the port pairs...')]
         log_calls_warn = [call('Chain creation failed due to port pair '
-                          'creation failed for vnf %(vnf)s', {'vnf': 'vm'})]
-        mock_port_ins = mock_port.return_value
-        mock_port_ins2 = mock_port.return_value
-        mock_port_ins.id = '123abc'
-        mock_port_ins2.id = '456def'
-        self.neutron.create_sfc_port_pair.return_value = None
+                               'creation failed for vnf %(vnf)s',
+                               {'vnf': instance_obj.name})]
+        self.neutron_client.create_sfc_port_pair.return_value = None
         result = self.os_sfc.create_port_groups(
-            [mock_port_ins, mock_port_ins2], mock_vm_ins)
+            [port_obj1, port_obj2], instance_obj)
         self.assertIsNone(result)
         mock_log.info.assert_has_calls(log_calls_info)
         mock_log.warning.assert_has_calls(log_calls_warn)
@@ -721,7 +907,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         Checks the create_port_groups when openstack does not commit the pp
         """
 
-        log_calls_info = [call('Creating the port pairs for vm')]
+        log_calls_info = [call('Creating the port pairs...')]
         mock_port_ins = mock_port.return_value
         mock_port_ins.id = '123abc'
         mock_vm_ins = mock_osvm.return_value
@@ -731,14 +917,14 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                               'description': 'port pair for vm',
                               'ingress': '123abc',
                               'egress': '123abc'}
-        self.neutron.create_sfc_port_pair.return_value = \
+        self.neutron_client.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
-        self.neutron.list_sfc_port_pairs.return_value = \
+        self.neutron_client.list_sfc_port_pairs.return_value = \
             {'port_pairs': [{'id': 'xxxx'}]}
         with self.assertRaises(Exception) as cm:
             self.os_sfc.create_port_groups([mock_port_ins], mock_vm_ins)
         self.assertEqual(exception_message, cm.exception.message)
-        self.neutron.create_sfc_port_pair.assert_has_calls(
+        self.neutron_client.create_sfc_port_pair.assert_has_calls(
             [call({'port_pair': expected_port_pair})])
         mock_log.info.assert_has_calls(log_calls_info)
 
@@ -752,57 +938,63 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         Checks the create_port_groups when something goes wrong in port pair
         group creation
         """
-        mock_vm_ins = mock_vm.return_value
-        mock_vm_ins.name = 'vm'
-        log_calls_info = [call('Creating the port pairs for vm'),
-                          call('Creating the port pair groups for vm')]
+
+        instance_obj = Mock()
+        instance_obj.name = 'name'
+        port_obj = Mock()
+        port_obj.id = '123abc'
+
+        self.conn.compute.get_server.return_value = instance_obj
+        self.conn.network.get_port.return_value = port_obj
+
+        log_calls_info = [call('Creating the port pairs...'),
+                          call('Creating the port pair groups for name')]
         log_calls_warn = [call('Chain creation failed due to port pair group '
-                               'creation failed for vnf %(vnf)', 'vm')]
-        mock_port_ins = mock_port.return_value
-        mock_port_ins.id = '123abc'
-        self.neutron.create_sfc_port_pair.return_value = \
+                               'creation failed for vnf %(vnf)',
+                               instance_obj.name)]
+        self.neutron_client.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
-        self.neutron.list_sfc_port_pairs.return_value = \
+        self.neutron_client.list_sfc_port_pairs.return_value = \
             {'port_pairs': [{'id': 'pp_id'}]}
-        self.neutron.create_sfc_port_pair_group.return_value = None
-        result = self.os_sfc.create_port_groups([mock_port_ins], mock_vm_ins)
+        self.neutron_client.create_sfc_port_pair_group.return_value = None
+        result = self.os_sfc.create_port_groups([port_obj], instance_obj)
         self.assertIsNone(result)
         mock_log.info.assert_has_calls(log_calls_info)
         mock_log.warning.assert_has_calls(log_calls_warn)
 
-    @patch('snaps.domain.network.Port', autospec=True)
-    @patch('snaps.domain.vm_inst.VmInst', autospec=True)
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
-    def test_create_port_groups_returns_id(self, mock_log, mock_osvm,
-                                           mock_port):
+    def test_create_port_groups_returns_id(self, mock_log):
         """
         Checks the create_port_groups when everything goes as expected
         """
 
-        log_calls_info = [call('Creating the port pairs for vm'),
-                          call('Creating the port pair groups for vm')]
-        mock_port_ins = mock_port.return_value
-        mock_port_ins.id = '123abc'
-        mock_osvm_ins = mock_osvm.return_value
-        mock_osvm_ins.name = 'vm'
+        log_calls_info = [call('Creating the port pairs...')]
+
+        instance_obj = Mock()
+        instance_obj.name = 'vm'
+        port_obj = Mock()
+        port_obj.id = '123abc'
+        self.conn.compute.get_server.return_value = instance_obj
+        self.conn.network.get_port.return_value = port_obj
+
         expected_port_pair = {'name': 'vm-connection-points',
                               'description': 'port pair for vm',
                               'ingress': '123abc',
                               'egress': '123abc'}
-        self.neutron.create_sfc_port_pair.return_value = \
+        self.neutron_client.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
-        self.neutron.list_sfc_port_pairs.return_value = \
+        self.neutron_client.list_sfc_port_pairs.return_value = \
             {'port_pairs': [{'id': 'pp_id'}]}
-        self.neutron.create_sfc_port_pair_group.return_value = \
+        self.neutron_client.create_sfc_port_pair_group.return_value = \
             {'port_pair_group': {'id': 'pp_id'}}
         expected_port_pair_gr = {'name': 'vm-port-pair-group',
                                  'description': 'port pair group for vm',
                                  'port_pairs': ['pp_id']}
 
-        self.os_sfc.create_port_groups([mock_port_ins], mock_osvm_ins)
-        self.neutron.create_sfc_port_pair.assert_has_calls(
+        self.os_sfc.create_port_groups([port_obj], instance_obj)
+        self.neutron_client.create_sfc_port_pair.assert_has_calls(
             [call({'port_pair': expected_port_pair})])
-        self.neutron.create_sfc_port_pair_group.assert_has_calls(
+        self.neutron_client.create_sfc_port_pair_group.assert_has_calls(
             [call({'port_pair_group': expected_port_pair_gr})])
         mock_log.info.assert_has_calls(log_calls_info)
 
@@ -820,9 +1012,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         protocol = 'tcp'
         vnffg_name = 'red_http'
         symmetrical = False
-        self.neutron.create_sfc_flow_classifier.return_value = \
+        self.neutron_client.create_sfc_flow_classifier.return_value = \
             {'flow_classifier': {'id': 'fc_id'}}
-        self.neutron.create_sfc_port_chain.return_value = \
+        self.neutron_client.create_sfc_port_chain.return_value = \
             {'port_chain': {'id': 'pc_id'}}
 
         expected_sfc_classifier_params = {'name': vnffg_name + '-classifier',
@@ -838,9 +1030,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.os_sfc.create_chain(port_groups, neutron_port, port,
                                  protocol, vnffg_name, symmetrical)
 
-        self.neutron.create_sfc_flow_classifier.assert_has_calls(
+        self.neutron_client.create_sfc_flow_classifier.assert_has_calls(
             [call({'flow_classifier': expected_sfc_classifier_params})])
-        self.neutron.create_sfc_port_chain.assert_has_calls(
+        self.neutron_client.create_sfc_port_chain.assert_has_calls(
             [call({'port_chain': expected_chain_config})])
         mock_log.info.assert_has_calls(log_calls)
 
@@ -860,9 +1052,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         symmetrical = True
         serv_p = '123abc'
         server_ip = '1.1.1.2'
-        self.neutron.create_sfc_flow_classifier.return_value = \
+        self.neutron_client.create_sfc_flow_classifier.return_value = \
             {'flow_classifier': {'id': 'fc_id'}}
-        self.neutron.create_sfc_port_chain.return_value = \
+        self.neutron_client.create_sfc_port_chain.return_value = \
             {'port_chain': {'id': 'pc_id'}}
 
         expected_sfc_classifier_params = {'name': vnffg_name + '-classifier',
@@ -882,9 +1074,9 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                                  protocol, vnffg_name, symmetrical,
                                  server_port=serv_p, server_ip=server_ip)
 
-        self.neutron.create_sfc_flow_classifier.assert_has_calls(
+        self.neutron_client.create_sfc_flow_classifier.assert_has_calls(
             [call({'flow_classifier': expected_sfc_classifier_params})])
-        self.neutron.create_sfc_port_chain.assert_has_calls(
+        self.neutron_client.create_sfc_port_chain.assert_has_calls(
             [call({'port_chain': expected_chain_config})])
         mock_log.info.assert_has_calls(log_calls)
 
@@ -895,15 +1087,15 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         log_calls = [call('Deleting the port groups...'),
                      call('Deleting the port pairs...')]
-        self.neutron.list_sfc_port_pair_groups.return_value = \
+        self.neutron_client.list_sfc_port_pair_groups.return_value = \
             {'port_pair_groups': [{'id': 'id_ppg1'}, {'id': 'id_ppg2'}]}
-        self.neutron.list_sfc_port_pairs.return_value = \
+        self.neutron_client.list_sfc_port_pairs.return_value = \
             {'port_pairs': [{'id': 'id_pp1'}, {'id': 'id_pp2'}]}
         self.os_sfc.delete_port_groups()
 
-        self.neutron.delete_sfc_port_pair_group.assert_has_calls(
+        self.neutron_client.delete_sfc_port_pair_group.assert_has_calls(
             [call('id_ppg1'), call('id_ppg2')])
-        self.neutron.delete_sfc_port_pair.assert_has_calls(
+        self.neutron_client.delete_sfc_port_pair.assert_has_calls(
             [call('id_pp1'), call('id_pp2')])
         mock_log.info.assert_has_calls(log_calls)
 
@@ -914,14 +1106,15 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         log_calls = [call('Deleting the chain...'),
                      call('Deleting the classifiers...')]
-        self.neutron.list_sfc_port_chains.return_value = \
+        self.neutron_client.list_sfc_port_chains.return_value = \
             {'port_chains': [{'id': 'id_pc1'}]}
-        self.neutron.list_sfc_flow_classifiers.return_value = \
+        self.neutron_client.list_sfc_flow_classifiers.return_value = \
             {'flow_classifiers': [{'id': 'id_fc1'}]}
         self.os_sfc.delete_chain()
 
-        self.neutron.delete_sfc_port_chain.assert_has_calls([call('id_pc1')])
-        self.neutron.delete_sfc_flow_classifier.assert_has_calls(
+        self.neutron_client.delete_sfc_port_chain.\
+            assert_has_calls([call('id_pc1')])
+        self.neutron_client.delete_sfc_flow_classifier.assert_has_calls(
             [call('id_fc1')])
         mock_log.info.assert_has_calls(log_calls)
 
