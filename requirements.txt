@@ -16,3 +16,4 @@ opnfv
 snaps
 xtesting # Apache-2.0
 functest
+-e git+https://osm.etsi.org/gerrit/osm/osmclient.git/#egg=osmclient # Apache-2.0
