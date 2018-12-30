@@ -41,14 +41,11 @@
     regexp: '^interface='
     line: 'interface=br-vlan'
 
-- name: ensure docker and lxd-bridge services are started and enabled
+- name: ensure lxd-bridge service is started and enabled
   service:
-    name: "{{ item }}"
+    name: lxd-bridge
     state: started
     enabled: yes
-  with_items:
-    - docker
-    - lxd-bridge
 
 - name: get default interface
   shell: route -n | awk '$1~/^0.0.0.0/ {print $8}'
@@ -67,8 +64,8 @@
   ignore_errors: False
   changed_when: False
 
-- name: add devuser to lxd and docker groups
+- name: add devuser to lxd group
   user:
     name: devuser
-    groups: lxd, docker
+    groups: lxd
     append: yes
