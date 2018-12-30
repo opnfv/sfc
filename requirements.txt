@@ -16,3 +16,6 @@ opnfv
 snaps
 xtesting # Apache-2.0
 functest
+
+# from repo
+git+https://osm.etsi.org/gerrit/osm/osmclient@v5.0.2 # Apache-2.0
