@@ -1,0 +1,40 @@
+---
+vnfd:vnfd-catalog:
+  vnfd:
+    - id: test-symmetric-chain-vnfd
+      name: test-symmetric-chain-vnfd
+      description: firewall3-example
+      vendor: OPNFV
+
+      mgmt-interface:
+        cp: vnf-cp0
+
+      vdu:
+        - id: test-symmetric-chain-vnf
+          name: test-symmetric-chain-vnf
+          count: 1
+
+          vm-flavor:
+            vcpu-count: 1
+            memory-mb: 500
+            storage-gb: 1
+
+          image: sfc_nsh_fraser
+
+          interface:
+            - name: testVNF1-port1
+              type: EXTERNAL
+              virtual-interface:
+                type: PARAVIRT
+              external-connection-point-ref: vnf-cp0
+            - name: testVNF1-port2
+              type: EXTERNAL
+              virtual-interface:
+                type: PARAVIRT
+              external-connection-point-ref: vnf-cp1
+
+      connection-point:
+        - name: vnf-cp0
+          port-security-enabled: False
+        - name: vnf-cp1
+          port-security-enabled: False

@@ -37,13 +37,9 @@ class CommonConfig(object):
         self.sfc_repo_path = os.path.dirname(sfc.__file__)
         self.sfc_test_dir = os.path.join(
             self.sfc_repo_path, "tests", "functest")
-        self.vnfd_dir = os.path.join(self.sfc_test_dir, "vnfd-templates")
-        self.vnfd_default_params_file = os.path.join(
-            self.sfc_test_dir, "vnfd-default-params-file")
-        self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
+        self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
         self.functest_results_dir = os.path.join(
             getattr(config.CONF, 'dir_results'), "odl-sfc")
-        self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
         self.installer_type = env.get('INSTALLER_TYPE')
@@ -88,8 +84,6 @@ class CommonConfig(object):
             "defaults.image_format", self.config_file)
         self.image_url = ft_utils.get_parameter_from_yaml(
             "defaults.image_url", self.config_file)
-        self.mano_component = ft_utils.get_parameter_from_yaml(
-            "defaults.mano_component", self.config_file)
         try:
             self.vnf_image_name = ft_utils.get_parameter_from_yaml(
                 "defaults.vnf_image_name", self.config_file)
@@ -102,6 +96,26 @@ class CommonConfig(object):
             self.vnf_image_name = self.image_name
             self.vnf_image_url = self.image_url
             self.vnf_image_format = self.image_format
+
+        self.mano_component = ft_utils.get_parameter_from_yaml(
+            "mano_component", self.config_file)
+
+        self.data_model = 'tosca'
+
+        if 'osm' in env.get("DEPLOY_SCENARIO"):
+            self.mano_component = 'osm'
+            self.data_model = 'yang'
+        elif env.get('MANO_COMPONENT'):
+            self.mano_component = env.get('MANO_COMPONENT')
+
+        self.vnfd_dir = os.path.join(self.sfc_test_dir, "templates",
+                                     self.data_model, "vnfd-templates")
+        self.nsd_dir = os.path.join(self.sfc_test_dir, "templates",
+                                    self.data_model, "nsd-templates")
+        self.vnfd_default_params_file = os.path.join(
+            self.vnfd_dir, "vnfd-default-params.json")
+        self.vnffgd_dir = os.path.join(self.sfc_test_dir, "templates",
+                                       self.data_model, "vnffgd-templates")
 
         self.dir_functest_data = getattr(config.CONF, 'dir_functest_data')
 
@@ -118,6 +132,7 @@ class TestcaseConfig(object):
         with open(common_config.config_file) as f:
             testcases_yaml = yaml.safe_load(f)
             test_config = testcases_yaml['testcases'].get(testcase, None)
+
         if test_config is None:
             logger.error(
                 'Test %s configuration is not present in %s',

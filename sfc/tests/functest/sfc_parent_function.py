@@ -2,6 +2,7 @@ import logging
 import os
 import urllib3
 
+import sfc.lib.osm_utils as osm_utils
 import sfc.lib.test_utils as test_utils
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.topology_shuffler as topo_shuffler
@@ -25,12 +26,13 @@ results = Results(COMMON_CONFIG.line_length)
 
 class SfcCommonTestCase(object):
 
-    def __init__(self, testcase_config, supported_installers, vnfs):
+    def __init__(self, testcase_config, supported_installers, vnfs=None):
 
         self.compute_nodes = None
         self.controller_clients = None
         self.compute_clients = None
         self.tacker_client = None
+        self.osm_client = None
         self.ovs_logger = None
         self.network = None
         self.router = None
@@ -119,11 +121,6 @@ class SfcCommonTestCase(object):
         self.controller_clients = test_utils.get_ssh_clients(controller_nodes)
         self.compute_clients = test_utils.get_ssh_clients(self.compute_nodes)
 
-        if COMMON_CONFIG.mano_component == 'tacker':
-            self.tacker_client = os_sfc_utils.get_tacker_client()
-            os_sfc_utils.register_vim(self.tacker_client,
-                                      vim_file=COMMON_CONFIG.vim_file)
-
         self.ovs_logger = ovs_log.OVSLogger(
             os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
             COMMON_CONFIG.functest_results_dir)
@@ -156,75 +153,94 @@ class SfcCommonTestCase(object):
         self.odl_ip, self.odl_port = odl_utils.get_odl_ip_port(openstack_nodes)
         odl_utils.get_odl_username_password()
 
-        self.default_param_file = os.path.join(
-            COMMON_CONFIG.sfc_test_dir,
-            COMMON_CONFIG.vnfd_dir,
-            COMMON_CONFIG.vnfd_default_params_file)
+        if COMMON_CONFIG.mano_component == 'tacker':
+            self.tacker_client = os_sfc_utils.get_tacker_client()
+            os_sfc_utils.register_vim(self.tacker_client,
+                                      vim_file=COMMON_CONFIG.vim_file)
+            self.default_param_file = os.path.join(
+                COMMON_CONFIG.sfc_test_dir,
+                COMMON_CONFIG.vnfd_dir,
+                COMMON_CONFIG.vnfd_default_params_file)
 
-        self.topo_seed = topo_shuffler.get_seed()
-        self.test_topology = topo_shuffler.topology(vnfs, openstack_sfc,
-                                                    seed=self.topo_seed)
+        if COMMON_CONFIG.mano_component == 'osm':
+            self.osm_client = osm_utils.get_osm_client()
+            osm_utils.vim_register(self.osm_client,
+                                   'test-vim',
+                                   config="{insecure: true, security_groups: "
+                                   "%s}" % testcase_config.secgroup_name)
 
-        logger.info('This test is run with the topology {0}'
-                    .format(self.test_topology['id']))
-        logger.info('Topology description: {0}'
-                    .format(self.test_topology['description']))
+            self.register_vnf_template(self.testcase_config,
+                                       'test_client',
+                                       'test-client')
+            self.register_vnf_template(self.testcase_config,
+                                       'test_server',
+                                       'test-server')
+        else:
+            self.topo_seed = topo_shuffler.get_seed()
+            self.test_topology = topo_shuffler.topology(vnfs, openstack_sfc,
+                                                        seed=self.topo_seed)
 
-        self.server_instance, port_server = \
-            openstack_sfc.create_instance(SERVER, COMMON_CONFIG.flavor,
-                                          self.image_creator, self.network,
-                                          self.sg,
-                                          self.test_topology['server'],
-                                          [SERVER + '-port'])
-        self.port_server = port_server[0]
+            logger.info('This test is run with the topology {0}'
+                        .format(self.test_topology['id']))
+            logger.info('Topology description: {0}'
+                        .format(self.test_topology['description']))
 
-        self.client_instance, port_client = \
-            openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
-                                          self.image_creator, self.network,
-                                          self.sg,
-                                          self.test_topology['client'],
-                                          [CLIENT + '-port'])
-        self.port_client = port_client[0]
+            self.server_instance, port_server = \
+                openstack_sfc.create_instance(SERVER, COMMON_CONFIG.flavor,
+                                              self.image_creator, self.network,
+                                              self.sg,
+                                              self.test_topology['server'],
+                                              [SERVER + '-port'])
+            self.port_server = port_server[0]
 
-        logger.info('This test is run with the topology {0}'.format(
-            self.test_topology['id']))
-        logger.info('Topology description: {0}'.format(
-            self.test_topology['description']))
+            self.client_instance, port_client = \
+                openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
+                                              self.image_creator, self.network,
+                                              self.sg,
+                                              self.test_topology['client'],
+                                              [CLIENT + '-port'])
+            self.port_client = port_client[0]
 
-        port_fixed_ips = self.port_server.fixed_ips
-        for ip in port_fixed_ips:
-            self.server_ip = ip.get('ip_address')
-        logger.info("Server instance received private ip [{}]".format(
-            self.server_ip))
+            port_fixed_ips = self.port_server.fixed_ips
+            for ip in port_fixed_ips:
+                self.server_ip = ip.get('ip_address')
+            logger.info("Server instance received private ip [{}]".format(
+                self.server_ip))
 
-    def register_vnf_template(self, test_case_name, template_name):
+    def register_vnf_template(self, testcase_config, vnfd_k, vnfd_name):
         """ Register the template which defines the VNF
 
-        :param test_case_name: the name of the test case
+        :param testcase_config: the testcase config object
         :param template_name: name of the template
         """
 
         if COMMON_CONFIG.mano_component == 'tacker':
-            self.create_custom_vnfd(test_case_name, template_name)
-
-        elif COMMON_CONFIG.mano_component == 'no-mano':
-            # networking-sfc does not have the template concept
+            descriptor_file = os.path.join(COMMON_CONFIG.vnfd_dir,
+                                           testcase_config.tacker[vnfd_k])
+            os_sfc_utils.create_vnfd(self.tacker_client,
+                                     tosca_file=descriptor_file,
+                                     vnfd_name=vnfd_name)
+        elif COMMON_CONFIG.mano_component == 'osm':
+            descriptor_file = os.path.join(COMMON_CONFIG.vnfd_dir,
+                                           testcase_config.osm.vnfd[vnfd_k])
+            osm_utils.vnfd_create(self.osm_client, vnfd_name, descriptor_file)
+        else:
             pass
+            # no_mano
+            # networking-sfc does not have the template concept
 
-    def create_custom_vnfd(self, test_case_name, vnfd_name):
-        """Create VNF Descriptor (VNFD)
+    def register_ns_template(self, testcase_config, nsd_k, nsd_name):
+        """ Register the template which defines the VNF
 
-        :param test_case_name: the name of test case
-        :param vnfd_name: the name of vnfd
-        :return: vnfd
+        :param testcase_config: the testcase config object
+        :param template_name: name of the template
         """
 
-        tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                                  COMMON_CONFIG.vnfd_dir, test_case_name)
+        descriptor_file = os.path.join(COMMON_CONFIG.nsd_dir,
+                                       testcase_config.nsd[nsd_k])
 
-        os_sfc_utils.create_vnfd(self.tacker_client,
-                                 tosca_file=tosca_file,
-                                 vnfd_name=vnfd_name)
+        if COMMON_CONFIG.mano_component == 'osm':
+            osm_utils.nsd_create(self.osm_client, nsd_name, descriptor_file)
 
     def create_vnf(self, vnf_name, vnfd_name=None, vim_name=None,
                    symmetric=False):
@@ -237,10 +253,11 @@ class SfcCommonTestCase(object):
         :return: av zone
         """
 
-        logger.info('This test is run with the topology {0}'.
-                    format(self.test_topology['id']))
-        logger.info('Topology description: {0}'
-                    .format(self.test_topology['description']))
+        if COMMON_CONFIG.mano_component != 'osm':
+            logger.info('This test is run with the topology {0}'.
+                        format(self.test_topology['id']))
+            logger.info('Topology description: {0}'
+                        .format(self.test_topology['description']))
 
         if COMMON_CONFIG.mano_component == 'tacker':
             os_sfc_utils.create_vnf_in_av_zone(
@@ -252,7 +269,7 @@ class SfcCommonTestCase(object):
             if self.vnf_id is None:
                 raise Exception('ERROR while booting vnfs')
 
-        elif COMMON_CONFIG.mano_component == 'no-mano':
+        elif COMMON_CONFIG.mano_component == 'no_mano':
             av_zone = self.test_topology[vnf_name]
             if symmetric:
                 ports = [vnf_name + '-port1', vnf_name + '-port2']
@@ -272,8 +289,52 @@ class SfcCommonTestCase(object):
             logger.info("Port associated with VNF...%s",
                         self.vnf_objects[vnf_name][1])
 
+    def create_ns(self, testcase_config, nsd_name, vim_name):
+        """Create a network service
+
+        :param testcase_config: the testcase config object
+        :param nsd_name: name of the nsd template
+        :param vim_name: name of the vim
+        :return: ns_id
+        """
+
+        if COMMON_CONFIG.mano_component == 'osm':
+            ns_id = osm_utils.ns_create(self.osm_client,
+                                        testcase_config.osm.ns,
+                                        nsd_name,
+                                        vim_name)
+
+            # gather instances of ports and VNFs
+            vnfs = osm_utils.vnf_list(self.osm_client, ns=ns_id, verbose=True)
+            instances, ips = [], []
+            for vnf in vnfs:
+                # extract the vim-id (vnf_id) of all instances
+                instances.append(vnf['vdur'][0]['vim-id'])
+                # extract the ip_address of all instances
+                ips.append(vnf['vdur'][0]['ip-address'])
+
+            # first and last instances are the client and the server VMs
+            # respectively and the rest belong to VNFs
+            self.client_instance = openstack_sfc.get_instance(instances[0])
+            self.server_instance = openstack_sfc.get_instance(instances[-1])
+            # first and last ip_addresses are the client and the server
+            # ip_addresses respectively and the rest belong to VNFs
+            self.port_client = openstack_sfc.get_port_by_ip(ips[0])
+            self.port_server = openstack_sfc.get_port_by_ip(ips[-1])
+
+            self.neutron_port = self.port_client
+
+            self.vnfs = instances[1:-1]
+            vnf_ips = ips[1:-1]
+            for vnf, vnf_ip in zip(self.vnfs, vnf_ips):
+                self.vnf_objects[vnf][0] = openstack_sfc.get_instance(vnf)
+                self.vnf_objects[vnf][1] = openstack_sfc.get_port_by_ip(vnf_ip)
+        else:
+            pass
+
     def assign_floating_ip_client_server(self):
-        """Assign floating IPs on the router about server and the client
+        """
+        Assign floating IPs on the router about server and the client
         instances
         :return: Floating IPs for client and server
         """
@@ -285,7 +346,8 @@ class SfcCommonTestCase(object):
             self.server_instance, self.port_server)
 
     def assign_floating_ip_sfs(self):
-        """Assign floating IPs to service function
+        """
+        Assign floating IPs to service function
 
         :return: The list fips_sfs consist of the available IPs for service
                  functions
@@ -293,12 +355,20 @@ class SfcCommonTestCase(object):
 
         logger.info("Assigning floating IPs to service functions")
 
-        if COMMON_CONFIG.mano_component == 'tacker':
+        if COMMON_CONFIG.mano_component in 'osm':
+            for vnf in self.vnfs:
+                # instance object is in [0] and port in [1]
+                vnf_instance = self.vnf_objects[vnf][0]
+                vnf_port = self.vnf_objects[vnf][1]
+                sf_floating_ip = openstack_sfc.\
+                    assign_floating_ip(vnf_instance, vnf_port)
+                self.fips_sfs.append(sf_floating_ip)
+        elif COMMON_CONFIG.mano_component == 'tacker':
             vnf_ip = os_sfc_utils.get_vnf_ip(self.tacker_client,
                                              vnf_id=self.vnf_id)
             self.fips_sfs = openstack_sfc.assign_floating_ip_vnfs(self.router,
                                                                   vnf_ip)
-        elif COMMON_CONFIG.mano_component == 'no-mano':
+        else:
             for vnf in self.vnfs:
                 # instance object is in [0] and port in [1]
                 vnf_instance = self.vnf_objects[vnf][0]
@@ -308,7 +378,8 @@ class SfcCommonTestCase(object):
                 self.fips_sfs.append(sf_floating_ip)
 
     def check_floating_ips(self):
-        """Check the responsivness of the floating IPs
+        """
+        Check the responsivness of the floating IPs
 
         :return: The responsivness of IPs in the fips_sfs list is checked
         """
@@ -401,7 +472,7 @@ class SfcCommonTestCase(object):
             os_sfc_utils.delete_vnffgd(self.tacker_client,
                                        vnffgd_name=par_vnffgd_name)
 
-        elif COMMON_CONFIG.mano_component == 'no-mano':
+        elif COMMON_CONFIG.mano_component == 'no_mano':
             # TODO: If we had a testcase where only one chains must be removed
             # we would need to add the logic. Now it removes all of them
             openstack_sfc.delete_chain()
@@ -419,10 +490,9 @@ class SfcCommonTestCase(object):
         :return: Create the classifier component
         """
 
-        logger.info("Creating the classifier...")
-
-        self.neutron_port = self.port_client
-        if COMMON_CONFIG.mano_component == 'no-mano':
+        if COMMON_CONFIG.mano_component == 'no_mano':
+            logger.info("Creating the classifier...")
+            self.neutron_port = self.port_client
             openstack_sfc.create_classifier(self.neutron_port.id,
                                             port,
                                             protocol,
@@ -432,12 +502,13 @@ class SfcCommonTestCase(object):
         elif COMMON_CONFIG.mano_component == 'tacker':
             logger.info("Creating classifier with tacker is not supported")
 
-    def create_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
-                     port=80, protocol='tcp', symmetric=False, vnf_index=-1):
+    def create_vnffg(self, testcase_config, vnffgd_k, vnffgd_name,
+                     vnffg_name, port=80, protocol='tcp', symmetric=False,
+                     vnf_index=-1):
         """Create the vnffg components following the instructions from
         relevant templates.
 
-        :param testcase_config_name: The config input of the test case
+        :param testcase_config: The config input of the test case object
         :param vnffgd_name: The name of the vnffgd template
         :param vnffg_name: The name for the vnffg
         :param port: Input port number
@@ -447,12 +518,10 @@ class SfcCommonTestCase(object):
         :return: Create the vnffg component
         """
 
-        logger.info("Creating the vnffg...")
-
         if COMMON_CONFIG.mano_component == 'tacker':
-            tosca_file = os.path.join(COMMON_CONFIG.sfc_test_dir,
-                                      COMMON_CONFIG.vnffgd_dir,
-                                      testcase_config_name)
+            logger.info("Creating the vnffg using tacker...")
+            tosca_file = os.path.join(COMMON_CONFIG.vnffgd_dir,
+                                      testcase_config.tacker[vnffgd_k])
 
             os_sfc_utils.create_vnffgd(self.tacker_client,
                                        tosca_file=tosca_file,
@@ -480,7 +549,7 @@ class SfcCommonTestCase(object):
                     self.default_param_file,
                     self.neutron_port.id)
 
-        elif COMMON_CONFIG.mano_component == 'no-mano':
+        elif COMMON_CONFIG.mano_component == 'no_mano':
             logger.info("Creating the vnffg without any mano component...")
             port_groups = []
             if vnf_index == -1:
@@ -538,13 +607,13 @@ class SfcCommonTestCase(object):
                                            port, protocol, vnffg_name,
                                            symmetric)
 
-    def update_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
+    def update_vnffg(self, testcase_config, vnffgd_name, vnffg_name,
                      port=80, protocol='tcp', symmetric=False,
                      vnf_index=0, fc_name='red'):
         """Update the vnffg components following the instructions from
         relevant templates.
 
-        :param testcase_config_name: The config input of the test case
+        :param testcase_config: The testcase config object
         :param vnffgd_name: The name of the vnffgd template
         :param vnffg_name: The name for the vnffg
         :param port: To input port number
@@ -555,9 +624,8 @@ class SfcCommonTestCase(object):
         :return: Update the vnffg component
         """
 
-        logger.info("Update the vnffg...")
-
-        if COMMON_CONFIG.mano_component == 'no-mano':
+        if COMMON_CONFIG.mano_component == 'no_mano':
+            logger.info("Update the vnffg without using mano...")
             port_groups = []
             for vnf in self.vnfs:
                 # vnf_instance is in [0] and vnf_port in [1]
@@ -591,7 +659,7 @@ class SfcCommonTestCase(object):
         :return: Interchange the classifiers
         """
 
-        if COMMON_CONFIG.mano_component == 'no-mano':
+        if COMMON_CONFIG.mano_component == 'no_mano':
             openstack_sfc.swap_classifiers(vnffg_1_name,
                                            vnffg_2_name,
                                            symmetric=False)

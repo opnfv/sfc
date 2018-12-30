@@ -1,0 +1,32 @@
+---
+vnfd:vnfd-catalog:
+  vnfd:
+    - id: test-server
+      name: test-server
+      description: DESTINATION VM [Alpine Linux] playing server role
+      vendor: OPNFV
+
+      mgmt-interface:
+        cp: vnf-cp0
+
+      vdu:
+        - id: test-server
+          name: test-server
+          count: 1
+
+          vm-flavor:
+            vcpu-count: 1
+            memory-mb: 500
+            storage-gb: 1
+
+          image: sfc_nsh_fraser
+
+          interface:
+            - name: server-port
+              type: EXTERNAL
+              virtual-interface:
+                type: PARAVIRT
+              external-connection-point-ref: vnf-cp0
+
+      connection-point:
+        - name: vnf-cp0
