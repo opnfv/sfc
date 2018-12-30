@@ -8,9 +8,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-- name: Configure opnfv host
-  include: configure-opnfvhost.yml
-
 - name: Install OSM
   include: install-osm.yml
 
