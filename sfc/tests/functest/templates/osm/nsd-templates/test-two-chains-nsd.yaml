@@ -1,0 +1,68 @@
+---
+nsd:nsd-catalog:
+  nsd:
+    - id: test-two-chains-nsd
+      name: test-two-chains-nsd
+      description: test-two-chains | HTTP & SSH Test
+      vendor: OPNFV
+
+      constituent-vnfd:
+        - member-vnf-index: 1
+          vnfd-id-ref: test-two-chains-vnfd1
+        - member-vnf-index: 2
+          vnfd-id-ref: test-two-chains-vnfd2
+
+      vld:
+        - id: test-two-chains-nsd-vld0
+          name: example-net
+          type: ELAN
+          mgmt-network: 'true'
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: 1
+              vnfd-id-ref: test-two-chains-vnfd1
+              vnfd-connection-point-ref: vnf-cp0
+            - member-vnf-index-ref: 2
+              vnfd-id-ref: test-two-chains-vnfd2
+              vnfd-connection-point-ref: vnf-cp0
+
+      vnffgd:
+        - id: test-two-chains-nsd-vnffg0
+          name: test-two-chains-nsd-vnffg0
+          rsp:
+            - id: test-two-chains-nsd-rsp0
+              name: test-two-chains-nsd-rsp0
+              vnfd-connection-point-ref:
+                - member-vnf-index-ref: 2
+                  order: 0
+                  vnfd-id-ref: test-wo-chains-vnfd1
+                  vnfd-ingress-connection-point-ref: vnf-cp0
+                  vnfd-egress-connection-point-ref: vnf-cp0
+            - id: test-two-chains-nsd-rsp1
+              name: test-two-chains-nsd-rsp1
+              vnfd-connection-point-ref:
+                - member-vnf-index-ref: 3
+                  order: 0
+                  vnfd-id-ref: test-two-chains-vnfd2
+                  vnfd-ingress-connection-point-ref: vnf-cp0
+                  vnfd-egress-connection-point-ref: vnf-cp0
+          classifier:
+            - id: test-two-chains-nsd-classifier0
+              name: test-two-chains-nsd-classifier0
+              rsp-id-ref: test-two-chains-nsd-rsp0
+              match-attributes:
+                - id: SSH
+                  ip-proto: 6
+                  # source-ip-address:
+                  # destination-ip-address:
+                  source-port: 22
+                  destination-port: 22
+            - id: test-two-chains-nsd-classifier1
+              name: test-two-chains-nsd-classifier1
+              rsp-id-ref: test-two-chains-nsd-rsp1
+              match-attributes:
+                - id: HTTP
+                  ip-proto: 6
+                  # source-ip-address:
+                  # destination-ip-address:
+                  source-port: 80
+                  destination-port: 80
