@@ -1,6 +1,7 @@
 import logging
 import sys
 import time
+import sfc.lib.osm_utils as osm_utils
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.odl_utils as odl_utils
 from openstack import connection
@@ -24,14 +25,34 @@ def delete_odl_ietf_access_lists(odl_ip, odl_port):
         odl_utils.delete_odl_acl(odl_ip, odl_port, acl_type, acl_name)
 
 
-def delete_vnfds():
-    t = os_sfc_utils.get_tacker_client()
-    vnfds = os_sfc_utils.list_vnfds(t)
-    if vnfds is None:
-        return
-    for vnfd in vnfds:
-        logger.info("Removing vnfd: {0}".format(vnfd))
-        os_sfc_utils.delete_vnfd(t, vnfd_id=vnfd)
+def delete_vnfds(mano):
+    if mano == 'tacker':
+        t = os_sfc_utils.get_tacker_client()
+        vnfds = os_sfc_utils.list_vnfds(t)
+        if vnfds is None:
+            return
+        for vnfd in vnfds:
+            logger.info("Removing vnfd: {0}".format(vnfd))
+            os_sfc_utils.delete_vnfd(t, vnfd_id=vnfd)
+    elif mano == 'osm':
+        o = osm_utils.get_osm_client()
+        vnfds = osm_utils.vnfd_list(o)
+        if vnfds is None:
+            return
+        for vnfd in vnfds:
+            logger.info("Removing vnfd: {0}".format(vnfd))
+            osm_utils.vnfd_delete(o, vnfd)
+
+
+def delete_nsds(mano):
+    if mano == 'osm':
+        o = osm_utils.get_osm_client()
+        nsds = osm_utils.nsd_list(o)
+        if nsds is None:
+            return
+        for nsd in nsds:
+            logger.info("Removing nsd: {0}".format(nsd))
+            osm_utils.nsd_delete(o, nsd)
 
 
 def delete_vnfs():
@@ -42,6 +63,16 @@ def delete_vnfs():
     for vnf in vnfs:
         logger.info("Removing vnf: {0}".format(vnf))
         os_sfc_utils.delete_vnf(t, vnf_id=vnf)
+
+
+def delete_nss(mano):
+    if mano == 'osm':
+        o = osm_utils.get_osm_client()
+        nss = osm_utils.ns_list(o)
+        if nss is None:
+            return
+        for ns in nss:
+            osm_utils.ns_delete(o, ns)
 
 
 def delete_vnffgs():
@@ -64,14 +95,23 @@ def delete_vnffgds():
         os_sfc_utils.delete_vnffgd(t, vnffgd_id=vnffgd)
 
 
-def delete_vims():
-    t = os_sfc_utils.get_tacker_client()
-    vims = os_sfc_utils.list_vims(t)
-    if vims is None:
-        return
-    for vim in vims:
-        logger.info("Removing vim: {0}".format(vim))
-        os_sfc_utils.delete_vim(t, vim_id=vim)
+def delete_vims(mano):
+    if mano == 'tacker':
+        t = os_sfc_utils.get_tacker_client()
+        vims = os_sfc_utils.list_vims(t)
+        if vims is None:
+            return
+        for vim in vims:
+            logger.info("Removing vim: {0}".format(vim))
+            os_sfc_utils.delete_vim(t, vim_id=vim)
+    elif mano == 'osm':
+        o = osm_utils.get_osm_client()
+        vims = osm_utils.vim_list(o)
+        if vims is None:
+            return
+        for vim in vims:
+            logger.info("Removing vim: {0}".format(vim))
+            osm_utils.vim_delete(o, vim)
 
 
 # Networking-odl generates a new security group when creating a router
@@ -108,8 +148,18 @@ def cleanup_tacker_objects():
     delete_vnffgds()
     delete_vnfs()
     time.sleep(20)
-    delete_vnfds()
-    delete_vims()
+    delete_vnfds('tacker')
+    delete_vims('tacker')
+
+
+def cleanup_osm_objects():
+    '''
+    cleanup the osm objects created for the test
+    '''
+    delete_nss('osm')
+    delete_nsds('osm')
+    delete_vnfds('osm')
+    delete_vims('osm')
 
 
 def cleanup_mano_objects(mano):
@@ -120,6 +170,8 @@ def cleanup_mano_objects(mano):
         cleanup_tacker_objects()
     elif mano == 'no-mano':
         cleanup_nsfc_objects()
+    elif mano == 'osm':
+        cleanup_osm_objects()
 
 
 def delete_openstack_objects(testcase_config, creators):

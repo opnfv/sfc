@@ -22,12 +22,8 @@ defaults:
       pkey_file: "/root/.ssh/id_rsa"
   image_format: qcow2
   image_url: "http://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
-  vnfd-dir: "vnfd-templates"
-  vnfd-default-params-file: "test-vnfd-default-params.yaml"
 
-  # mano_component can be [tacker, no-mano]. When no-mano,
-  # then networking-sfc is used
-  mano_component: "no-mano"
+  mano_component: 'no_mano'
 
   # [OPTIONAL] Only when deploying VNFs without the default image (vxlan_tool)
   # vnf_image_name: xxx
@@ -37,7 +33,6 @@ defaults:
 testcases:
   sfc_one_chain_two_service_functions:
     class_name: "SfcOneChainTwoServiceTC"
-    enabled: true
     order: 0
     description: "ODL-SFC Testing SFs when they are located on the same chain"
     net_name: example-net
@@ -46,21 +41,44 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    vnf_names:
-      - 'testVNF1'
-      - 'testVNF2'
-    supported_installers:
-      - 'fuel'
-      - 'apex'
-      - 'osa'
-      - 'compass'
-    test_vnfd_red: "test-one-chain-vnfd1.yaml"
-    test_vnfd_blue: "test-one-chain-vnfd2.yaml"
-    test_vnffgd_red: "test-one-chain-vnffgd.yaml"
+    no_mano:
+      enabled: true
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+        - 'testVNF2'
+    tacker:
+      enabled: false
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+        - 'testVNF2'
+      test_vnfd_red: "test-one-chain-vnfd1.yaml"
+      test_vnfd_blue: "test-one-chain-vnfd2.yaml"
+      test_vnffgd_red: "test-one-chain-vnffgd.yaml"
+    osm:
+      enabled: false
+      supported_installers:
+        - 'osa'
+      vnfd:
+        test_client: "test-client.yaml"
+        test_vnfd_red: "test-one-chain-vnfd1.yaml"
+        test_vnfd_blue: "test-one-chain-vnfd1.yaml"
+        test_server: "test-server.yaml"
+      nsd:
+        test_one_chain_nsd: "test-one-chain-nsd.yaml"
+      ns: "test-one-chain-ns"
 
   sfc_two_chains_SSH_and_HTTP:
     class_name: "SfcTwoChainsSSHandHTTP"
-    enabled: true
     order: 1
     description: "ODL-SFC tests with two chains and one SF per chain"
     net_name: example-net
@@ -69,22 +87,45 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    vnf_names:
-      - 'testVNF1'
-      - 'testVNF2'
-    supported_installers:
-      - 'fuel'
-      - 'apex'
-      - 'osa'
-      - 'compass'
-    test_vnfd_red: "test-two-chains-vnfd1.yaml"
-    test_vnfd_blue: "test-two-chains-vnfd2.yaml"
-    test_vnffgd_red: "test-two-chains-vnffgd1.yaml"
-    test_vnffgd_blue: "test-two-chains-vnffgd2.yaml"
+    no_mano:
+      enabled: true
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+        - 'testVNF2'
+    tacker:
+      enabled: false
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+        - 'testVNF2'
+      test_vnfd_red: "test-two-chains-vnfd1.yaml"
+      test_vnfd_blue: "test-two-chains-vnfd2.yaml"
+      test_vnffgd_red: "test-two-chains-vnffgd1.yaml"
+      test_vnffgd_blue: "test-two-chains-vnffgd2.yaml"
+    osm:
+      enabled: false
+      supported_installers:
+        - 'osa'
+      vnfd:
+        test_client: "test-client.yaml"
+        test_vnfd_red: "test-two-chains-vnfd1.yaml"
+        test_vnfd_blue: "test-two-chains-vnfd2.yaml"
+        test_server: "test-server.yaml"
+      nsd:
+        test_two_chains_nsd: "test-two-chains-nsd.yaml"
+      ns: "test-two-chains-ns"
 
   sfc_symmetric_chain:
     class_name: "SfcSymmetricChain"
-    enabled: true
     order: 2
     description: "Verify the behavior of a symmetric service chain"
     net_name: example-net
@@ -93,20 +134,41 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    vnf_names:
-      - 'testVNF1'
-    supported_installers:
-      - 'fuel'
-      - 'apex'
-      - 'osa'
-      - 'compass'
-    test_vnfd: "test-symmetric-vnfd.yaml"
-    test_vnffgd: "test-symmetric-vnffgd.yaml"
     source_port: 22222
+    no_mano:
+      enabled: true
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+    tacker:
+      enabled: false
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+      test_vnfd: "test-symmetric-vnfd.yaml"
+      test_vnffgd: "test-symmetric-vnffgd.yaml"
+    osm:
+      enabled: false
+      supported_installers:
+        - 'osa'
+      vnfd:
+        test_client: "test-client.yaml"
+        test_vnfd: "test-symmetric-chain-vnfd.yaml"
+        test_server: "test-server.yaml"
+      nsd:
+        test_symmetric_nsd: "test-symmetric-chain-nsd.yaml"
+      ns: test-symmetric-chain-ns
 
   sfc_chain_deletion:
     class_name: "SfcChainDeletion"
-    enabled: true
     order: 3
     description: "Verify if chains work correctly after deleting one"
     net_name: example-net
@@ -115,12 +177,25 @@ testcases:
     subnet_cidr: "11.0.0.0/24"
     secgroup_name: "example-sg"
     secgroup_descr: "Example Security group"
-    vnf_names:
-      - 'testVNF1'
-    supported_installers:
-      - 'fuel'
-      - 'apex'
-      - 'osa'
-      - 'compass'
-    test_vnfd_red: "test-one-chain-vnfd1.yaml"
-    test_vnffgd_red: "test-deletion-vnffgd.yaml"
+    no_mano:
+      enabled: true
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+    tacker:
+      enabled: false
+      supported_installers:
+        - 'fuel'
+        - 'apex'
+        - 'osa'
+        - 'compass'
+      vnf_names:
+        - 'testVNF1'
+      test_vnfd_red: "test-one-chain-vnfd1.yaml"
+      test_vnffgd_red: "test-deletion-vnffgd.yaml"
+    osm:
+      enabled: false

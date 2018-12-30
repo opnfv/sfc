@@ -76,18 +76,18 @@ class SfcTestUtilsTesting(unittest.TestCase):
                                          mock_open,
                                          mock_urlopen,
                                          mock_copyfileobj):
-            """
-            Checks the proper functionality of download_url
-            function when an exception is raised
-            """
+        """
+        Checks the proper functionality of download_url
+        function when an exception is raised
+        """
 
-            dest_path = 'mocked_/dest_/path'
-            url = 'mocked_/url'
-            mock_urlopen.side_effect = Exception('HttpError')
-            self.assertFalse(test_utils.download_url(url, dest_path))
-            mock_urlopen.assert_called_once_with(url)
-            mock_open.assert_not_called()
-            mock_copyfileobj.assert_not_called()
+        dest_path = 'mocked_/dest_/path'
+        url = 'mocked_/url'
+        mock_urlopen.side_effect = Exception('HttpError')
+        self.assertFalse(test_utils.download_url(url, dest_path))
+        mock_urlopen.assert_called_once_with(url)
+        mock_open.assert_not_called()
+        mock_copyfileobj.assert_not_called()
 
     @patch('urllib.urlopen', autospec=True)
     @patch('__builtin__.open', autospec=True)
