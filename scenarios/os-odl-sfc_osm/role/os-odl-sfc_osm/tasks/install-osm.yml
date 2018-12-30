@@ -19,14 +19,7 @@
 - name: install OSM
   become_user: "{{ osm_install_user }}"
   become: yes
-  command: "/bin/bash ./full_install_osm.sh --test -b {{ osm_devops_version }} --nolxd -y"
+  command: "/bin/bash ./full_install_osm.sh -b {{ osm_devops_version }} --nolxd -y 2>&1 | tee opnfv-setup-osm.log"
   args:
     chdir: "{{ osm_devops_clone_location }}/installers"
     creates: "/usr/bin/osm"
-
-- name: create osmrc file
-  copy:
-    dest: "{{ osmrc_file_dest }}"
-    content: |
-      export OSM_HOSTNAME=127.0.0.1
-      export OSM_OL005=True
