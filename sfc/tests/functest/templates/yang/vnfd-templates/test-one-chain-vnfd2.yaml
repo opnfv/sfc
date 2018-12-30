@@ -1,0 +1,33 @@
+---
+vnfd:vnfd-catalog:
+  vnfd:
+    - id: test-one-chain-vnfd2
+      name: test-one-chain-vnfd2
+      description: firewall2-example
+      vendor: OPNFV
+
+      mgmt-interface:
+        cp: vnf-cp0
+
+      vdu:
+        - id: test-one-chain-vnf2
+          name: test-one-chain-vnf2
+          count: 1
+
+          vm-flavor:
+            vcpu-count: 1
+            memory-mb: 500
+            storage-gb: 1
+
+          image: sfc_nsh_fraser
+
+          interface:
+            - name: testVNF2-port
+              type: EXTERNAL
+              virtual-interface:
+                type: PARAVIRT
+              external-connection-point-ref: vnf-cp0
+
+      connection-point:
+        - name: vnf-cp0
+          port-security-enabled: False
