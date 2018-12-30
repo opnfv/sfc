@@ -8,25 +8,25 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-- name: clone OSM devops repo and checkout version {{ osm_devops_version }}
+- name: get OSM installer {{ osm_release_version }}
   become_user: "{{ osm_install_user }}"
   become: yes
-  git:
-    repo: "{{ osm_devops_git_url }}"
-    dest: "{{ osm_devops_clone_location }}"
-    version: "{{ osm_devops_version }}"
+  get_url:
+    url: "https://osm-download.etsi.org/ftp/{{ osm_release_version }}/install_osm.sh"
+    dest: "/home/{{ osm_install_user }}/install_osm.sh"
+    mode: u+x
 
-- name: install OSM
+- name: install OSM from the script
   become_user: "{{ osm_install_user }}"
   become: yes
-  command: "/bin/bash ./full_install_osm.sh --test -b {{ osm_devops_version }} --nolxd -y"
+  shell: "/bin/bash ./install_osm.sh --nolxd -y 2>&1 | tee opnfv-setup-osm.log"
   args:
-    chdir: "{{ osm_devops_clone_location }}/installers"
+    chdir: "/home/{{ osm_install_user }}"
     creates: "/usr/bin/osm"
 
-- name: create osmrc file
-  copy:
-    dest: "{{ osmrc_file_dest }}"
-    content: |
-      export OSM_HOSTNAME=127.0.0.1
-      export OSM_OL005=True
+- name: wait unitl all containers in OSM stack are ready
+  shell: "docker stack services osm | grep -c '0/1'"
+  register: result
+  until: result.stdout == '0'
+  delay: 30
+  retries: 10
