@@ -2,6 +2,7 @@ import logging
 import os
 import urllib3
 
+import sfc.lib.osm_utils as osm_utils
 import sfc.lib.test_utils as test_utils
 import sfc.lib.openstack_utils as os_sfc_utils
 import sfc.lib.topology_shuffler as topo_shuffler
@@ -127,6 +128,10 @@ class SfcCommonTestCase(object):
             os_sfc_utils.register_vim(self.tacker_client,
                                       vim_file=COMMON_CONFIG.vim_file)
 
+        if COMMON_CONFIG.mano_component == 'osm':
+            self.osm_client = osm_utils.get_osm_client()
+            osm_utils.register_vim(self.osm_client, 'test-vim')
+
         self.ovs_logger = ovs_log.OVSLogger(
             os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
             COMMON_CONFIG.functest_results_dir)
@@ -208,6 +213,9 @@ class SfcCommonTestCase(object):
 
         if COMMON_CONFIG.mano_component == 'tacker':
             self.create_custom_vnfd(test_case_name, template_name)
+
+        if COMMON_CONFIG.mano_component == 'osm':
+            osm_utils.vnfd_create(self.osm_client, template_name)
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
             # networking-sfc does not have the template concept

@@ -37,10 +37,14 @@ class CommonConfig(object):
         self.sfc_repo_path = os.path.dirname(sfc.__file__)
         self.sfc_test_dir = os.path.join(
             self.sfc_repo_path, "tests", "functest")
-        self.vnfd_dir = os.path.join(self.sfc_test_dir, "vnfd-templates")
+        self.vnfd_dir = os.path.join(self.sfc_test_dir,
+                                     "templates/tosca/vnfd-templates")
         self.vnfd_default_params_file = os.path.join(
-            self.sfc_test_dir, "vnfd-default-params-file")
-        self.vnffgd_dir = os.path.join(self.sfc_test_dir, "vnffgd-templates")
+            self.sfc_test_dir,
+            "templates/tosca/vnfd-templates/vnfd-default-params-file")
+        self.vnffgd_dir = os.path.join(self.sfc_test_dir,
+                                       "templates/tosca/"
+                                       "vnffgd-templates/vnffgd-templates")
         self.functest_results_dir = os.path.join(
             getattr(config.CONF, 'dir_results'), "odl-sfc")
         self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
