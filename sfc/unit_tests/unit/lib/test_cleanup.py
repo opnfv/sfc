@@ -316,7 +316,7 @@ class SfcCleanupTesting(unittest.TestCase):
 
     @patch('sfc.lib.cleanup.cleanup_nsfc_objects')
     def test_cleanup_mano_objects_nsfc(self, mock_cleanup_nsfc):
-        cleanup.cleanup_mano_objects('no-mano')
+        cleanup.cleanup_mano_objects('no_mano')
         mock_cleanup_nsfc.assert_called_once()
 
     @patch('sfc.lib.cleanup.connection')

@@ -10,15 +10,12 @@
 #
 import threading
 import logging
-import urllib3
 
 import sfc.lib.odl_utils as odl_utils
-import sfc.lib.config as sfc_config
 from sfc.tests.functest import sfc_parent_function
 
 """ logging configuration """
 logger = logging.getLogger(__name__)
-COMMON_CONFIG = sfc_config.CommonConfig()
 CLIENT = "client"
 SERVER = "server"
 
@@ -39,11 +36,11 @@ class SfcSymmetricChain(sfc_parent_function.SfcCommonTestCase):
 
         logger.info("The test scenario %s is starting", __name__)
 
-        self.register_vnf_template(self.testcase_config.test_vnfd,
+        self.register_vnf_template(self.testcase_config, 'test_vnfd',
                                    'test-vnfd1')
         self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim', symmetric=True)
 
-        self.create_vnffg(self.testcase_config.test_vnffgd, 'red-symmetric',
+        self.create_vnffg(self.testcase_config, 'test_vnffgd', 'red-symmetric',
                           'red_http', port=80, protocol='tcp', symmetric=True)
 
         # Start measuring the time it takes to implement the classification
@@ -139,17 +136,3 @@ def symmetric_wait_for_classification_rules(ovs_logger, compute_nodes,
             odl_port,
             client_compute,
             client_port)
-
-
-if __name__ == '__main__':
-
-    # Disable InsecureRequestWarning errors when executing the SFC tests in XCI
-    urllib3.disable_warnings()
-
-    TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_symmetric_chain')
-    supported_installers = ['fuel', 'apex', 'osa', 'compass']
-    vnf_names = ['testVNF1']
-
-    test_run = SfcSymmetricChain(TESTCASE_CONFIG, supported_installers,
-                                 vnf_names)
-    test_run.run()
