@@ -1,0 +1,44 @@
+---
+vnfd:vnfd-catalog:
+  vnfd:
+  - id: test-symmetric-vnfd
+    name: test-symmetric-vnfd
+    short-name: test-symmetric-vnfd
+    description: firewall3-example
+    vendor: OPNFV
+
+    mgmt-interface:
+      cp: vnf-cp0
+
+    vdu:
+    - id: test-symmetric-vnfd-VM
+      name: test-symmetric-vnfd-VM
+      description: test-symmetric-vnfd-VM
+      count: 1
+
+      vm-flavor:
+        vcpu-count: 1
+        memory-mb: 500
+        storage-gb: 1
+
+      image: sfc_nsh_fraser
+
+      interface:
+      - name: eth0
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+        external-connection-point-ref: vnf-cp0
+      - name: eth1
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+        external-connection-point-ref: vnf-cp1
+
+    connection-point:
+    - name: vnf-cp0
+      type: VPORT
+    - name: vnf-cp1
+      type: VPORT
+
+    service-function-type: firewall

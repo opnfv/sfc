@@ -1,0 +1,23 @@
+---
+nsd:nsd-catalog:
+  nsd:
+  - id: test-symmetric-nsd
+    name: test-symmetric-nsd
+    short-name: test-symmetric-nsd
+    description: TEST SYMMETRIC - sfc_symmetric_chain
+    vendor: OPNFV
+
+    constituent-vnfd:
+    - member-vnf-index: 1
+      vnfd-id-ref: test-symmetric-vnfd
+
+    vld:
+    - id: test-symmetric-nsd-vld0
+      name: management
+      short-name: management
+      type: ELAN
+      mgmt-network: 'true'
+      vnfd-connection-point-ref:
+      - member-vnf-index-ref: 1
+        vnfd-id-ref: test-symmetric-vnfd
+        vnfd-connection-point-ref: vnf-cp0
