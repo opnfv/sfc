@@ -1,0 +1,28 @@
+---
+nsd:nsd-catalog:
+    nsd:
+    -   id: test-one-chain-nsd
+        name: test-one-chain-nsd
+        short-name: test-one-chain-nsd
+        description: TEST ONE CHAIN - sfc_one_chain_two_service_functions
+        vendor: OPNFV
+
+        constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: test-one-chain-vnfd1
+        -   member-vnf-index: 2
+            vnfd-id-ref: test-one-chain-vnfd2
+
+        vld:
+        -   id: test-one-chain-nsd-vld0
+            name: management
+            short-name: management
+            type: ELAN
+            mgmt-network: 'true'
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-id-ref: test-one-chain-vnfd1
+                vnfd-connection-point-ref: vnf-cp0
+            -   member-vnf-index-ref: 2
+                vnfd-id-ref: test-one-chain-vnfd2
+                vnfd-connection-point-ref: vnf-cp0
