@@ -8,17 +8,16 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# This is a simple fix to wait for the OSM services in
-# the docker containers to start functioning as expected.
-# TODO: Once healthchecks are added to the OSM
-# container stack, use them to identify the status
-# of the containers and modify this task.
-- name: Wait till the OSM services are ready
-  wait_for: timeout=120
-  delegate_to: localhost
+- name: wait until all containers in OSM stack are ready
+  shell: "docker stack services osm | awk 'NR>1 {print $4}' |  grep -c '0/1'"
+  register: result
+  until: result.stdout == '0'
+  failed_when: result.rc == '0'
+  delay: 30
+  retries: 10
 
 - name: Register OpenStack as VIM
-  shell: ". {{ osmrc_file_dest }} ;
+  shell: >
     osm vim-create \
     --name openstack-site \
     --user admin \

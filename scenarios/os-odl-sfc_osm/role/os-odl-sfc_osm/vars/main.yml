@@ -12,10 +12,6 @@ odl_repo_version: "{{ lookup('env','ODL_VERSION') }}"
 
 osm_required_packages:
   apt:
-    - apt-transport-https
-    - ca-certificates
-    - software-properties-common
-    - docker.io
     - snapd
     - lxd
 
@@ -23,5 +19,3 @@ osm_devops_version: "master"
 osm_devops_git_url: "https://osm.etsi.org/gerrit/osm/devops.git"
 osm_devops_clone_location: "/home/{{ osm_install_user }}/osm-devops"
 osm_install_user: "devuser"
-
-osmrc_file_dest: "/root/osmrc"
