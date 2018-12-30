@@ -10,10 +10,8 @@
 
 import threading
 import logging
-import urllib3
 
 import sfc.lib.odl_utils as odl_utils
-import sfc.lib.config as sfc_config
 from sfc.tests.functest import sfc_parent_function
 
 """ logging configuration """
@@ -32,23 +30,22 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
 
         logger.info("The test scenario %s is starting", __name__)
 
-        self.register_vnf_template(self.testcase_config.test_vnfd_red,
+        self.register_vnf_template(self.testcase_config, 'test_vnfd_red',
                                    'test-vnfd1')
-        self.register_vnf_template(self.testcase_config.test_vnfd_blue,
+        self.register_vnf_template(self.testcase_config, 'test_vnfd_blue',
                                    'test-vnfd2')
 
         self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim')
         self.create_vnf(self.vnfs[1], 'test-vnfd2', 'test-vim')
 
         logger.info("Call Parent create_vnffg with index")
-        self.create_vnffg(self.testcase_config.test_vnffgd_red, 'red',
+        self.create_vnffg(self.testcase_config, 'test_vnffgd_red', 'red',
                           'red_http', port=80, protocol='tcp',
                           symmetric=False, vnf_index=0)
 
-        self.create_vnffg(self.testcase_config.test_vnffgd_blue, 'blue',
+        self.create_vnffg(self.testcase_config, 'test_vnffgd_blue', 'blue',
                           'blue_ssh', port=22, protocol='tcp',
                           symmetric=False, vnf_index=1)
-        self.create_classifier('dummy')
 
         t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
@@ -111,17 +108,3 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
         :return: creators
         """
         return self.creators
-
-
-if __name__ == '__main__':
-
-    # Disable InsecureRequestWarning errors when executing the SFC tests in XCI
-    urllib3.disable_warnings()
-
-    TESTCASE_CONFIG = sfc_config.TestcaseConfig('sfc_two_chains_SSH_and_HTTP')
-    supported_installers = ['fuel', 'apex', 'osa', 'compass']
-    vnf_names = ['testVNF1', 'testVNF2']
-
-    test_run = SfcTwoChainsSSHandHTTP(TESTCASE_CONFIG, supported_installers,
-                                      vnf_names)
-    test_run.run()

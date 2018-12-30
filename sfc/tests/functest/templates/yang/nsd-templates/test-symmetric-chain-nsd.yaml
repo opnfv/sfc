@@ -1,0 +1,54 @@
+---
+nsd:nsd-catalog:
+  nsd:
+    - id: test-symmetric-chain-nsd
+      name: test-symmetric-chain-nsd
+      description: TEST SYMMETRIC - sfc_symmetric_chain
+      vendor: OPNFV
+
+      constituent-vnfd:
+        - member-vnf-index: 1
+          vnfd-id-ref: test-client
+        - member-vnf-index: 2
+          vnfd-id-ref: test-symmetric-chain-vnfd
+        - member-vnf-index: 3
+          vnfd-id-ref: test-server
+
+      vld:
+        - id: test-symmetric-chain-nsd-vld0
+          name: test-symmetric-chain-nsd-vld0
+          type: ELAN
+          vim-network-name: example-net
+          vnfd-connection-point-ref:
+            - member-vnf-index-ref: 1
+              vnfd-connection-point-ref: vnf-cp0
+            - member-vnf-index-ref: 2
+              vnfd-connection-point-ref: vnf-cp0
+            - member-vnf-index-ref: 2
+              vnfd-connection-point-ref: vnf-cp1
+            - member-vnf-index-ref: 3
+              vnfd-connection-point-ref: vnf-cp0
+              ip-address: 11.0.0.6
+
+      vnffgd:
+        - id: test-symmetric-chain-nsd-vnffg0
+          name: test-symmetric-chain-nsd-vnffg0
+          rsp:
+            - id: test-symmetric-chain-nsd-rsp0
+              name: test-symmetric-chain-nsd-rsp0
+              vnfd-connection-point-ref:
+                - member-vnf-index-ref: 2
+                  order: 0
+                  vnfd-ingress-connection-point-ref: vnf-cp0
+                  vnfd-egress-connection-point-ref: vnf-cp1
+          classifier:
+            - id: test-symmetric-chain-nsd-classifier0
+              name: test-symmetric-chain-nsd-classifier0
+              rsp-id-ref: test-symmetric-chain-nsd-rsp0
+              member-vnf-index-ref: 1
+              vnfd-connection-point-ref: vnf-cp0
+              match-attributes:
+                - id: HTTP
+                  ip-proto: 6
+                  destination-ip-address: 11.0.0.6
+                  destination-port: 80

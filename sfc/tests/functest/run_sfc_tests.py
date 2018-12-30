@@ -148,9 +148,12 @@ class SfcFunctest(testcase.TestCase):
         overall_status = "NOT TESTED"
         self.start_time = time.time()
         for tc, test_cfg in testcases_ordered.items():
-            if test_cfg['enabled']:
+            test_mano_cfg = test_cfg[COMMON_CONFIG.mano_component]
+            if test_mano_cfg['enabled']:
                 test_name = tc
                 test_descr = test_cfg['description']
+                testcase_config = sfc_config.TestcaseConfig(test_name)
+                supported_installers = test_mano_cfg['supported_installers']
                 title = ("Running '%s - %s'" %
                          (test_name, test_descr))
                 logger.info(title)
@@ -159,13 +162,16 @@ class SfcFunctest(testcase.TestCase):
                     "sfc.tests.functest.{0}".format(test_name),
                     package=None)
 
-                testcase_config = sfc_config.TestcaseConfig(test_name)
-                supported_installers = test_cfg['supported_installers']
-                vnf_names = test_cfg['vnf_names']
-
                 tc_class = getattr(module, test_cfg['class_name'])
-                tc_instance = tc_class(testcase_config, supported_installers,
-                                       vnf_names)
+                if COMMON_CONFIG.mano_component == 'osm':
+                    tc_instance = tc_class(testcase_config,
+                                           supported_installers)
+                else:
+                    vnf_names = test_mano_cfg['vnf_names']
+                    tc_instance = tc_class(testcase_config,
+                                           supported_installers,
+                                           vnf_names)
+
                 cleanup_run_flag = False
                 start_time = time.time()
                 try:
