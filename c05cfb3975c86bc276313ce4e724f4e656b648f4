@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_60311fec",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-03T20:18:49Z",
+      "side": 1,
+      "message": "Do you need to create a SDN controller to configure SFC? We are currently configuring SFC using the neutron API and what comes below neutron (e.g. ODL) is not important for us",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
