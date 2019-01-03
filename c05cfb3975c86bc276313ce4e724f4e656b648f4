@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_6048ff5b",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-03T21:29:11Z",
+      "side": 1,
+      "message": "I\u0027ll add two more methods here:\n\n1. get_vnf_id\n2. get_vnf_ip",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_60311fec",
         "filename": "sfc/lib/osm_utils.py",
         "patchSetId": 6
@@ -13,6 +36,30 @@
       "writtenOn": "2019-01-03T20:18:49Z",
       "side": 1,
       "message": "Do you need to create a SDN controller to configure SFC? We are currently configuring SFC using the neutron API and what comes below neutron (e.g. ODL) is not important for us",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_804b9b58",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-03T21:29:11Z",
+      "side": 1,
+      "message": "We don\u0027t need to create an SDN controller to configure SFC. I added it for future use cases. https://osm.etsi.org/wikipub/index.php/EPA_and_SDN_assist",
+      "parentUuid": "1a622d24_60311fec",
       "range": {
         "startLine": 283,
         "startChar": 0,
