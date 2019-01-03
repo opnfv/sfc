@@ -331,7 +331,7 @@ class SfcOdlUtilsTesting(unittest.TestCase):
                                             '/etc/ml2_conf.ini')
         mock_rawconfigparser.return_value.read.assert_called_once_with(
             '/etc/ml2_conf.ini')
-        mock_rawconfigparser.return_value.get.assert_called_once_with(
+        mock_rawconfigparser.return_value.get.assert_called_with(
             'ml2_odl', 'url')
         mock_search.assert_called_once_with(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+',
                                             'config')
