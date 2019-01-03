@@ -275,10 +275,7 @@ class SfcCleanupTesting(unittest.TestCase):
     def test_cleanup_odl(self,
                          mock_del_odl_ietf,
                          mock_del_odl_res):
-        resources = ['service-function-forwarder',
-                     'service-function-chain',
-                     'service-function-path',
-                     'service-function']
+        resources = ['service-function-forwarder']
 
         odl_res_calls = [call(self.odl_ip, self.odl_port, item)
                          for item in resources]
