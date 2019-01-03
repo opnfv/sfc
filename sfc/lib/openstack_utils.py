@@ -401,6 +401,32 @@ class OpenStackSFC:
 
         return port_pair_group_info['port_pair_group']['id']
 
+    def create_classifier(self,  neutron_port, port, protocol, fc_name, 
+                          symmetrical, server_port=None, server_ip=None):
+        '''
+        Create the classifier
+        '''
+        logger.info("Creating the classifier...")
+
+        if symmetrical:
+            sfc_classifier_params = {'name': fc_name,
+                                     'destination_ip_prefix': server_ip,
+                                     'logical_source_port': neutron_port,
+                                     'logical_destination_port': server_port,
+                                     'destination_port_range_min': port,
+                                     'destination_port_range_max': port,
+                                     'protocol': protocol}
+        else:
+            sfc_classifier_params = {'name': fc_name,
+                                     'logical_source_port': neutron_port,
+                                     'destination_port_range_min': port,
+                                     'destination_port_range_max': port,
+                                     'protocol': protocol}
+
+        fc_config = {'flow_classifier': sfc_classifier_params}
+        fc_info = \
+            self.neutron_client.create_sfc_flow_classifier(fc_config)
+
     def create_chain(self, port_groups, neutron_port, port, protocol,
                      vnffg_name, symmetrical, server_port=None,
                      server_ip=None):
@@ -440,6 +466,23 @@ class OpenStackSFC:
             port_chain['chain_parameters']['symmetric'] = True
         chain_config = {'port_chain': port_chain}
         return self.neutron_client.create_sfc_port_chain(chain_config)
+
+    def update_chain(self, vnffg_name, fc_name, symmetrical):
+        '''
+        Update the new Flow Classifier ID
+        '''
+        fc_id=self.neutron_client.find_resource('flow_classifier', fc_name)['id']
+        logger.info("Update the chain...")
+        port_chain = {}
+        port_chain['name'] = vnffg_name + '-port-chain'
+        port_chain['flow_classifiers'] = []
+        port_chain['flow_classifiers'].append(fc_id)
+        if symmetrical:
+            port_chain['chain_parameters'] = {}
+            port_chain['chain_parameters']['symmetric'] = True
+        chain_config = {'port_chain': port_chain}
+        pc_id=self.neutron_client.find_resource('port_chain', port_chain['name'])['id']
+        return self.neutron_client.update_sfc_port_chain(pc_id,chain_config)
 
     def delete_port_groups(self):
         '''

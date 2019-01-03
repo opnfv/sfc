@@ -60,7 +60,7 @@ testcases:
 
   sfc_two_chains_SSH_and_HTTP:
     class_name: "SfcTwoChainsSSHandHTTP"
-    enabled: false
+    enabled: true
     order: 1
     description: "ODL-SFC tests with two chains and one SF per chain"
     net_name: example-net
