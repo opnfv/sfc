@@ -8,6 +8,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+- name: copy user_sfc_scenarios_variables.yml (SUSE)
+  template:
+    src: "{{xci_flavor}}/user_sfc_scenarios_variables_suse.yml.j2"
+    dest: "{{openstack_osa_etc_path}}/user_sfc_scenarios_variables.yml"
+  when: ansible_pkg_mgr == 'zypper'
+
 - name: copy user_sfc_scenarios_variables.yml (Ubuntu)
   template:
     src: "{{xci_flavor}}/user_sfc_scenarios_variables_ubuntu.yml.j2"
