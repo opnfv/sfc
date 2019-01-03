@@ -10,7 +10,8 @@ import time
 import sfc.lib.openstack_utils as os_sfc_utils
 
 logger = logging.getLogger(__name__)
-
+odl_username='admin'
+odl_password='admin'
 
 ODL_MODULE_EXCEPTIONS = {
     "service-function-path-state": "service-function-path"
@@ -201,6 +202,8 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
             time.sleep(3)
 
         while timeout > 0:
+            promised_rsps = promised_rsps_in_compute(odl_ip, odl_port,
+                                                     neutron_ports)
             logger.info("RSPs in ODL Operational DataStore"
                         "for compute '{}':".format(compute_name))
             logger.info("{0}".format(promised_rsps))
@@ -241,6 +244,10 @@ def get_odl_ip_port(nodes):
     controller_node.get_file(remote_ml2_conf_home, local_ml2_conf_file)
     con_par = ConfigParser.RawConfigParser()
     con_par.read(local_ml2_conf_file)
+    global odl_username
+    odl_username = con_par.get('ml2_odl', 'username')
+    global odl_password
+    odl_password = con.par.get('ml2_odl', 'password')
     ip, port = re.search(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+',
                          con_par.get('ml2_odl', 'url')).group().split(':')
     return ip, port
@@ -261,8 +268,12 @@ def get_module(resource):
 
 
 def format_odl_resource_list_url(odl_ip, odl_port, resource,
-                                 datastore='config', odl_user='admin',
-                                 odl_pwd='admin'):
+                                 datastore='config', odl_user=None,
+                                 odl_pwd=None):
+    if odl_user == None:
+        odl_user = odl_username
+    if odl_pwd == None:
+        odl_pwd = odl_password
     return ('http://{usr}:{pwd}@{ip}:{port}/restconf/{ds}/{rsrc}:{rsrcs}'
             .format(usr=odl_user, pwd=odl_pwd, ip=odl_ip, port=odl_port,
                     ds=datastore, rsrc=get_module(resource),
@@ -315,7 +326,11 @@ def odl_acl_types_names(acl_json):
 
 
 def format_odl_acl_list_url(odl_ip, odl_port,
-                            odl_user='admin', odl_pwd='admin'):
+                            odl_user=None, odl_pwd=None):
+    if odl_user == None:
+        odl_user = odl_username
+    if odl_pwd == None:
+        odl_password = odl_password 
     acl_list_url = ('http://{usr}:{pwd}@{ip}:{port}/restconf/config/'
                     'ietf-access-control-list:access-lists'
                     .format(usr=odl_user, pwd=odl_pwd,

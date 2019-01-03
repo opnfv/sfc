@@ -83,9 +83,9 @@ def delete_untracked_security_groups():
 
 def cleanup_odl(odl_ip, odl_port):
     delete_odl_resources(odl_ip, odl_port, 'service-function-forwarder')
-    delete_odl_resources(odl_ip, odl_port, 'service-function-chain')
-    delete_odl_resources(odl_ip, odl_port, 'service-function-path')
-    delete_odl_resources(odl_ip, odl_port, 'service-function')
+    #delete_odl_resources(odl_ip, odl_port, 'service-function-chain')
+    #delete_odl_resources(odl_ip, odl_port, 'service-function-path')
+    #delete_odl_resources(odl_ip, odl_port, 'service-function')
     delete_odl_ietf_access_lists(odl_ip, odl_port)
 
 
