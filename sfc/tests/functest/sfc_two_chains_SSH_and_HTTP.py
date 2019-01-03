@@ -40,14 +40,21 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
         self.create_vnf(self.vnfs[0], 'test-vnfd1', 'test-vim')
         self.create_vnf(self.vnfs[1], 'test-vnfd2', 'test-vim')
 
+        logger.info("Call Parent create_vnffg with index")
         self.create_vnffg(self.testcase_config.test_vnffgd_red, 'red',
-                          'red_http', port=80, protocol='tcp', symmetric=False)
+                          'red_http', port=80, protocol='tcp',
+                          symmetric=False, only_chain=True, vnf_index=0)
+
+        self.create_vnffg(self.testcase_config.test_vnffgd_blue, 'blue',
+                          'blue_ssh', port=22, protocol='tcp',
+                          symmetric=False, only_chain=True, vnf_index=1)
+        self.create_classifier('dummy')
 
         t1 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,
                                     self.odl_ip, self.odl_port,
                                     self.client_instance.hypervisor_hostname,
-                                    [self.neutron_port],))
+                                    self.neutron_port,))
         try:
             t1.start()
         except Exception as e:
@@ -60,21 +67,18 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
 
         self.check_floating_ips()
         self.start_services_in_vm()
-        self.vxlan_blocking_start(self.fips_sfs[0], "22")
-        self.vxlan_blocking_start(self.fips_sfs[1], "80")
+        self.vxlan_blocking_start(self.fips_sfs[0], "80")
+        self.vxlan_blocking_start(self.fips_sfs[1], "22")
 
         logger.info("Wait for ODL to update the classification rules in OVS")
         t1.join()
 
         results = self.present_results_ssh()
-        results = self.present_results_allowed_http()
+        results = self.present_results_http()
 
         logger.info("Changing the classification")
 
-        self.remove_vnffg('red_http', 'red')
-
-        self.create_vnffg(self.testcase_config.test_vnffgd_blue, 'blue',
-                          'blue_ssh')
+        self.swap_classifiers('red_http', 'blue_ssh')
 
         # Start measuring the time it takes to implement the classification
         #  rules
@@ -91,7 +95,7 @@ class SfcTwoChainsSSHandHTTP(sfc_parent_function.SfcCommonTestCase):
         logger.info("Wait for ODL to update the classification rules in OVS")
         t2.join()
 
-        results = self.present_results_http()
+        results = self.present_results_allowed_http()
         results = self.present_results_allowed_ssh()
 
         if __name__ == '__main__':
