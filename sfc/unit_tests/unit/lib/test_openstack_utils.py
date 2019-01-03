@@ -999,6 +999,64 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         mock_log.info.assert_has_calls(log_calls_info)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_classifier(self, mock_log):
+        """
+        Checks the create_classifier method
+        """
+
+        log_calls = [call('Creating the classifier...')]
+        neutron_port = 'neutron_port_id'
+        port = 80
+        protocol = 'tcp'
+        fc_name = 'red_http'
+        symmetrical = False
+        self.neutron_client.create_sfc_flow_classifier.return_value = \
+            {'flow_classifier': {'id': 'fc_id'}}
+
+        expected_sfc_classifier_params = {'name': fc_name,
+                                          'logical_source_port': neutron_port,
+                                          'destination_port_range_min': port,
+                                          'destination_port_range_max': port,
+                                          'protocol': protocol}
+        self.os_sfc.create_classifier(neutron_port, port,
+                                 protocol, fc_name, symmetrical)
+        self.neutron_client.create_sfc_flow_classifier.assert_has_calls(
+            [call({'flow_classifier': expected_sfc_classifier_params})])
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_create_classifier_symmetric(self, mock_log):
+        """
+        Checks the create_chain method
+        """
+
+        log_calls = [call('Creating the classifier...')]
+        neutron_port = 'neutron_port_id'
+        port = 80
+        protocol = 'tcp'
+        fc_name = 'red_http'
+        symmetrical = True
+        serv_p = '123'
+        server_ip = '1.1.1.2'
+        self.neutron_client.create_sfc_flow_classifier.return_value = \
+            {'flow_classifier': {'id': 'fc_id'}}
+
+        expected_sfc_classifier_params = {'name': fc_name,
+                                          'logical_source_port': neutron_port,
+                                          'destination_port_range_min': port,
+                                          'destination_port_range_max': port,
+                                          'destination_ip_prefix': server_ip,
+                                          'logical_destination_port': serv_p,
+                                          'protocol': protocol}
+        self.os_sfc.create_classifier(neutron_port, port,
+                                 protocol, fc_name, symmetrical,
+                                 server_port = '123',
+                                 server_ip = '1.1.1.2')
+        self.neutron_client.create_sfc_flow_classifier.assert_has_calls(
+            [call({'flow_classifier': expected_sfc_classifier_params})])
+        mock_log.info.assert_has_calls(log_calls)
+    
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_create_chain(self, mock_log):
         """
         Checks the create_chain method
@@ -1080,6 +1138,40 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
             [call({'port_chain': expected_chain_config})])
         mock_log.info.assert_has_calls(log_calls)
 
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_update_chain_symmetric(self, mock_log):
+        """
+        Checks the update_chain method
+        """
+
+        log_calls = [call('Update the chain...')]
+        vnffg_name = 'red_http'
+        fc_name = 'blue_ssh'
+        symmetrical = True
+        port_groups = ['1a', '2b']
+        fc_id = self.neutron_client.find_resource.return_value = \
+            {'id': 'fc_id'}
+        expected_chain_config = {'name': vnffg_name + '-port-chain',
+                                 'flow_classifiers': ['fc_id'],
+                                 'chain_parameters': {'symmetric': True}}
+        self.os_sfc.update_chain(vnffg_name, fc_name, symmetrical)
+        self.neutron_client.update_sfc_port_chain.assert_has_calls(
+            [call('fc_id', {'port_chain': expected_chain_config})])
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_swap_classifiers(self, mock_log):
+        """
+        Checks the swap_classifiers method
+        """
+
+        log_calls = [call('Swap classifiers...')]
+        vnffg_1_name = 'red_http'
+        vnffg_2_name = 'blue_ssh'
+        symmetrical = False
+        self.os_sfc.swap_classifiers(vnffg_1_name, vnffg_2_name, symmetrical)
+        mock_log.info.assert_has_calls(log_calls)
+        
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_delete_port_groups(self, mock_log):
         """
