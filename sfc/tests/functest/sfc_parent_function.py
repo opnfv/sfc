@@ -270,6 +270,9 @@ class SfcCommonTestCase(object):
                                               port_security=False)
 
             self.vnf_objects[vnf_name] = [vnf_instance, vnf_port]
+            logger.info("Creating VNF with name...%s", vnf_name)
+            logger.info("Port associated with VNF...%s",
+                        self.vnf_objects[vnf_name][1])
 
     def assign_floating_ip_client_server(self):
         """Assign floating IPs on the router about server and the client
@@ -405,15 +408,29 @@ class SfcCommonTestCase(object):
             # we would need to add the logic. Now it removes all of them
             openstack_sfc.delete_chain()
 
+    def create_classifier(self, fc_name, port=85,
+                          protocol='tcp', symmetric=False):
+        self.neutron_port = self.port_client
+        if COMMON_CONFIG.mano_component == 'no-mano':
+            openstack_sfc.create_classifier(self.neutron_port.id,
+                                            port,
+                                            protocol,
+                                            fc_name,
+                                            symmetric)
+
     def create_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
                      port=80, protocol='tcp', symmetric=False,
-                     only_chain=False):
+                     only_chain=True, vnf_index=0):
         """Create the vnffg components following the instructions from
         relevant templates.
 
         :param testcase_config_name: The config input of the test case
         :param vnffgd_name: The name of the vnffgd template
         :param vnffg_name: The name for the vnffg
+        :param port: input port number
+        :param protocol:  input protocol
+        :param symmetric: check symmetric
+        :param vnf_index: index to specify vnf
         :return: Create the vnffg component
         """
 
@@ -451,6 +468,7 @@ class SfcCommonTestCase(object):
                     self.neutron_port.id)
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
+            logger.info("Creating the vnffg no-mano...")
             if not only_chain:
                 for vnf in self.vnfs:
                     # vnf_instance is in [0] and vnf_port in [1]
@@ -469,6 +487,24 @@ class SfcCommonTestCase(object):
                         openstack_sfc.create_port_groups(neutron_ports,
                                                          vnf_instance)
                     self.port_groups.append(port_group)
+
+            else:
+                vnf = self.vnfs[vnf_index]
+                vnf_instance = self.vnf_objects[vnf][0]
+                vnf_port = self.vnf_objects[vnf][1]
+                if symmetric:
+                    # VNFs have two ports
+                    neutron_port1 = vnf_port[0]
+                    neutron_port2 = vnf_port[1]
+                    neutron_ports = [neutron_port1, neutron_port2]
+                else:
+                    neutron_port1 = vnf_port[0]
+                    neutron_ports = [neutron_port1]
+
+                port_group = openstack_sfc.create_port_groups(neutron_ports,
+                                                              vnf_instance)
+                self.port_groups.append(port_group)
+
             self.neutron_port = self.port_client
 
             if symmetric:
@@ -487,6 +523,60 @@ class SfcCommonTestCase(object):
                                            self.neutron_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric)
+
+    def update_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
+                     port=80, protocol='tcp', symmetric=False,
+                     only_chain=True, vnf_index=0, fc_name='red'):
+        """Create the vnffg components following the instructions from
+        relevant templates.
+
+        :param testcase_config_name: The config input of the test case
+        :param vnffgd_name: The name of the vnffgd template
+        :param vnffg_name: The name for the vnffg
+        :param port: To input port number
+        :param protocol:  To input protocol
+        :param symmetric: To check symmetric
+        :param vnf_index: index to identify vnf
+        :param fc_name: the name of the flow classifier
+        :return: Create the vnffg component
+        """
+
+        logger.info("Update the vnffg...")
+
+        if COMMON_CONFIG.mano_component == 'no-mano':
+            if not only_chain:
+                for vnf in self.vnfs:
+                    # vnf_instance is in [0] and vnf_port in [1]
+                    vnf_instance = self.vnf_objects[vnf][0]
+                    vnf_port = self.vnf_objects[vnf][1]
+                    if symmetric:
+                        # VNFs have two ports
+                        neutron_port1 = vnf_port[0]
+                        neutron_port2 = vnf_port[1]
+                        neutron_ports = [neutron_port1, neutron_port2]
+                    else:
+                        neutron_port1 = vnf_port[0]
+                        neutron_ports = [neutron_port1]
+
+                    port_group = \
+                        openstack_sfc.create_port_groups(neutron_ports,
+                                                         vnf_instance)
+                    self.port_groups.append(port_group)
+
+            openstack_sfc.update_chain(vnffg_name, fc_name, symmetric)
+        else:
+            logger.info("update for mano is not supported")
+             
+
+    def swap_classifiers(self, vnffg_1_name, vnffg_2_name, symmetric=False):
+        if COMMON_CONFIG.mano_component == 'no-mano':
+            openstack_sfc.update_chain(vnffg_1_name, 'dummy', symmetric)
+            vnffg_1_classifier_name = vnffg_1_name + '-classifier'
+            openstack_sfc.update_chain(vnffg_2_name, vnffg_1_classifier_name,
+                                       symmetric)
+            vnffg_2_classifier_name = vnffg_2_name + '-classifier'
+            openstack_sfc.update_chain(vnffg_1_name, vnffg_2_classifier_name,
+                                       symmetric)
 
     def present_results_http(self):
         """Check whether the connection between server and client using
