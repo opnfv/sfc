@@ -331,10 +331,34 @@ class SfcOdlUtilsTesting(unittest.TestCase):
                                             '/etc/ml2_conf.ini')
         mock_rawconfigparser.return_value.read.assert_called_once_with(
             '/etc/ml2_conf.ini')
-        mock_rawconfigparser.return_value.get.assert_called_once_with(
+        mock_rawconfigparser.return_value.get.assert_called_with(
             'ml2_odl', 'url')
         mock_search.assert_called_once_with(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+',
                                             'config')
+
+    @patch('re.search', autospec=True)
+    @patch('ConfigParser.RawConfigParser', autospec=True)
+    @patch('os.getcwd', autospec=True, return_value='/etc')
+    @patch('os.path.join', autospec=True, return_value='/etc/ml2_conf.ini')
+    def test_get_odl_username_password(self, mock_join,
+                                       mock_getcwd,
+                                       mock_rawconfigparser,
+                                       mock_search):
+        """
+        Check the proper functionality of get odl_username_password
+        function
+        """
+
+        mock_rawconfigparser.return_value.get.return_value = 'odl_username'
+        result = odl_utils.get_odl_username_password()
+        self.assertEqual(('odl_username'), result[0])
+        mock_getcwd.assert_called_once_with()
+        mock_join.assert_called_once_with('/etc', 'ml2_conf.ini')
+        mock_rawconfigparser.return_value.read.assert_called_once_with(
+            '/etc/ml2_conf.ini')
+        mock_rawconfigparser.return_value.get.return_value = 'odl_password'
+        result = odl_utils.get_odl_username_password()
+        self.assertEqual(('odl_password'), result[1])
 
     def test_pluralize(self):
         """
