@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_a04fb791",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-04T09:52:37Z",
+      "side": 1,
+      "message": "I\u0027ll rename it to vim_register.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 14
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_6048ff5b",
         "filename": "sfc/lib/osm_utils.py",
         "patchSetId": 6
@@ -108,6 +131,30 @@
       "side": 1,
       "message": "Ok. However, perhaps a better name for the function would be sdnc_register because as far as I understood, the sdn controller must be already deployed",
       "parentUuid": "1a622d24_804b9b58",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_607e3fb0",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-04T09:52:37Z",
+      "side": 1,
+      "message": "That makes more sense.",
+      "parentUuid": "1a622d24_c0c75311",
       "range": {
         "startLine": 283,
         "startChar": 0,
