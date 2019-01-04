@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a0ccd736",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T08:11:40Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1a622d24_6048ff5b",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 20
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_60311fec",
         "filename": "sfc/lib/osm_utils.py",
         "patchSetId": 6
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "We don\u0027t need to create an SDN controller to configure SFC. I added it for future use cases. https://osm.etsi.org/wikipub/index.php/EPA_and_SDN_assist",
       "parentUuid": "1a622d24_60311fec",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "c05cfb3975c86bc276313ce4e724f4e656b648f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c0c75311",
+        "filename": "sfc/lib/osm_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T08:11:40Z",
+      "side": 1,
+      "message": "Ok. However, perhaps a better name for the function would be sdnc_register because as far as I understood, the sdn controller must be already deployed",
+      "parentUuid": "1a622d24_804b9b58",
       "range": {
         "startLine": 283,
         "startChar": 0,
