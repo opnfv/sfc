@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_005b0b88",
+        "filename": "sfc/lib/openstack_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 404,
+        "startChar": 71,
+        "endLine": 404,
+        "endChar": 72
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c07913fe",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "could you perhaps add more info to the logs? For example: \"creating VNF with name %s\"",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 70
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a07e97e2",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 411,
+        "startChar": 49,
+        "endLine": 411,
+        "endChar": 50
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a065f746",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "could you add a docstring for this method please?",
+      "range": {
+        "startLine": 411,
+        "startChar": 8,
+        "endLine": 411,
+        "endChar": 25
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_206a871a",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "could you add the meaning of these parameters to the docstring please? port, protocol and symmetric are not part of your patch, I know (I can do those in another patch if you want)",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 51
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_80771b02",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 66
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_60747ffd",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "when using tacker, it is not updating the vnffg right?",
+      "range": {
+        "startLine": 540,
+        "startChar": 0,
+        "endLine": 569,
+        "endChar": 41
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0084abd2",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 595,
+        "startChar": 71,
+        "endLine": 595,
+        "endChar": 72
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c060f337",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "add a space next to the operator",
+      "range": {
+        "startLine": 596,
+        "startChar": 34,
+        "endLine": 596,
+        "endChar": 35
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e0888fe9",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 597,
+        "startChar": 87,
+        "endLine": 597,
+        "endChar": 88
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_406d0332",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 599,
+        "startChar": 87,
+        "endLine": 599,
+        "endChar": 88
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2023a706",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 46,
+        "startChar": 62,
+        "endLine": 46,
+        "endChar": 63
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8020bbf8",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 50,
+        "startChar": 62,
+        "endLine": 50,
+        "endChar": 63
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_601d9fbd",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-04T07:39:14Z",
+      "side": 1,
+      "message": "why do you need to create a dummy classifier?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "4d25d0ae73746d1feec9efc078dd5ba4aaf29e02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
