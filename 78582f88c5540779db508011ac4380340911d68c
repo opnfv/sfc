@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e0d6cfc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-04T09:19:53Z",
+      "side": 1,
+      "message": "As the initial integration of OSM in SFC is completed, the ansible task \u0027register-vim\u0027 will be moved to functest: \nhttps://github.com/opnfv/sfc/blob/402517b52e126650c1403927fa0c2f34483e3ff0/sfc/tests/functest/sfc_parent_function.py#L125-#L129",
+      "parentUuid": "1a622d24_804efbbf",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "78582f88c5540779db508011ac4380340911d68c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_4054e353",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-04T08:08:17Z",
       "side": 1,
       "message": "what happens when you set this flag?",
+      "range": {
+        "startLine": 22,
+        "startChar": 39,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "78582f88c5540779db508011ac4380340911d68c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_20d8c7ee",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-04T09:19:53Z",
+      "side": 1,
+      "message": "The --nolxd flag allows unattended installation (assumes LXD is already installed and confifured).\n\nWe have a playbook to install and configure the LXD \u0027scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/configure-opnfvhost.yml\u0027.",
+      "parentUuid": "1a622d24_4054e353",
       "range": {
         "startLine": 22,
         "startChar": 39,

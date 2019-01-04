@@ -22,6 +22,30 @@
       "revId": "402517b52e126650c1403927fa0c2f34483e3ff0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_80e55baa",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-04T09:19:53Z",
+      "side": 0,
+      "message": "Since Release FIVE, the above variables are set by default. So osmrc is not necessary unless we\u0027re planning to install OSM on a different node(controller).",
+      "parentUuid": "1a622d24_2051e762",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "402517b52e126650c1403927fa0c2f34483e3ff0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
