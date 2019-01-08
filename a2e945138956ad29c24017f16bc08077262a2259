@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1986e2b9",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "Please add a small docstring describing the purpose of the method as done in the rest of methods",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 59
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_799396fa",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "Could you add a  if COMMON_CONFIG.mano_component \u003d\u003d \u0027tacker\u0027: and insert a log which explains that tacker is not supported please? Just in case somebody tries",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 53
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b9636e19",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "If this is changed to True, then the rest of testcases must be changed. Why do you change it to True?",
+      "range": {
+        "startLine": 423,
+        "startChar": 21,
+        "endLine": 423,
+        "endChar": 36
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_59a7ba4f",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "could you add that the parameter only_chain specifies whether we want to create only the chain and not the port_groups again please?",
+      "range": {
+        "startLine": 435,
+        "startChar": 8,
+        "endLine": 435,
+        "endChar": 11
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_59905aec",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "Could you please write: \"Creating the vnffg without any mano component\". The line \"the vnffg no-mano\" does not explain much :)",
+      "range": {
+        "startLine": 471,
+        "startChar": 0,
+        "endLine": 471,
+        "endChar": 56
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_996832f7",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "As far as I remember, when only_chain\u003dTrue, then the port_groups are not created because they were already created before ans stored in self.port_groups. However, you are creating them again",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 506,
+        "endChar": 51
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f96de605",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "tacker instead of mano",
+      "range": {
+        "startLine": 568,
+        "startChar": 36,
+        "endLine": 568,
+        "endChar": 40
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d972aae4",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "I think this method should be host in openstack_sfc lib or?",
+      "range": {
+        "startLine": 570,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 49
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_39891ecb",
+        "filename": "sfc/tests/functest/sfc_two_chains_SSH_and_HTTP.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-08T11:09:08Z",
+      "side": 1,
+      "message": "wait_for_classification_rules function expects a list of ports because it does an iteration: https://github.com/opnfv/sfc/blob/master/sfc/lib/odl_utils.py#L60. You should keep the brackets otherwise:\n\nERROR - Error when waiting for classification rules: \u0027Port\u0027 object is not iterable",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 53
+      },
+      "revId": "a2e945138956ad29c24017f16bc08077262a2259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
