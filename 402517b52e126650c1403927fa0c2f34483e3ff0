@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_af3160a4",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2019-01-09T16:15:23Z",
+      "side": 0,
+      "message": "is there any sfc specific task in register-vim?\n\nif not, can\u0027t it be common for different scenarios? if so, this can perhaps be marked as todo or something to make it common.",
+      "parentUuid": "1a622d24_0fcb34a6",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 27
+      },
+      "revId": "402517b52e126650c1403927fa0c2f34483e3ff0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_74aa7d71",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/register-vim.yml",
         "patchSetId": 15
