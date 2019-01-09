@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0fcb34a6",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/post-deployment.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-09T15:43:44Z",
+      "side": 0,
+      "message": "This will be moved only in SFC as of now. It stays in the same place in os-nosdn-osm as a reference. In fact, I have two different set of commits for os-nosdn-osm: \n1. Add OpenSUSE distro support\n2. Update the register-vim.yml to wait for OSM docker stack by checking the REPLICAS instead of timeout.",
+      "parentUuid": "1a622d24_94ad998b",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 27
+      },
+      "revId": "402517b52e126650c1403927fa0c2f34483e3ff0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_74aa7d71",
         "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/register-vim.yml",
         "patchSetId": 15
