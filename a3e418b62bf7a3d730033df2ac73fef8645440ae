@@ -70,6 +70,30 @@
       "revId": "a3e418b62bf7a3d730033df2ac73fef8645440ae",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a5a6a1bf",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7313
+      },
+      "writtenOn": "2019-01-14T07:15:59Z",
+      "side": 1,
+      "message": "I understand why we use git for installing OSM, but at the same time, we need SFC to be functional. It wasn\u0027t working for a while. It could happen again. It\u0027s better if we use the SHA method to install the recent version of OSM from its master branch that has functional SFC.",
+      "parentUuid": "1a622d24_cf2c9c4d",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 84
+      },
+      "revId": "a3e418b62bf7a3d730033df2ac73fef8645440ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
