@@ -94,6 +94,30 @@
       "revId": "a3e418b62bf7a3d730033df2ac73fef8645440ae",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4f26c7b8",
+        "filename": "scenarios/os-odl-sfc_osm/role/os-odl-sfc_osm/tasks/install-osm.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2019-01-16T05:31:20Z",
+      "side": 1,
+      "message": "well, you can get whatever version, including the released ones or the ones that are proven to be have functional SFC, from git. please see the tags below.\n\nhttps://osm.etsi.org/gitweb/?p\u003dosm/devops.git;a\u003dtags\n\nso we can have all kinds of possibilities if we stick to git which i think what we should do.",
+      "parentUuid": "1a622d24_a5a6a1bf",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 84
+      },
+      "revId": "a3e418b62bf7a3d730033df2ac73fef8645440ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
