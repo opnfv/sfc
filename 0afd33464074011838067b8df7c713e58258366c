@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_320650cf",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-17T15:39:55Z",
+      "side": 1,
+      "message": "I don\u0027t understand this, why are you commenting them? Do they get deleted automatically when SFF is deleted?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 64
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f255f8c6",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-17T15:39:55Z",
+      "side": 1,
+      "message": "What is a -1 value supposed to mean? If there are two vnfs, I would expect indexes 0 or 1 (or 1 and 2)",
+      "range": {
+        "startLine": 438,
+        "startChar": 49,
+        "endLine": 438,
+        "endChar": 51
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d2527cdc",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-17T15:39:55Z",
+      "side": 1,
+      "message": "Why do you delete the port_groups content? When only_chain\u003dTrue, the port_groups are not created again because they already exist. However, if you remove them, then the test will fail",
+      "range": {
+        "startLine": 489,
+        "startChar": 12,
+        "endLine": 489,
+        "endChar": 35
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1264f4b7",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-17T15:39:55Z",
+      "side": 1,
+      "message": "please use elif because there is a person working on another mano component called OSM https://gerrit.opnfv.org/gerrit/#/c/66117/",
+      "range": {
+        "startLine": 588,
+        "startChar": 8,
+        "endLine": 588,
+        "endChar": 12
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_325f70e7",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-17T15:39:55Z",
+      "side": 1,
+      "message": "I think this could be removed as openstack_sfc.swap_classifiers has the same logging line",
+      "range": {
+        "startLine": 600,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 42
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
