@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5df4bdf1",
+        "filename": "sfc/lib/cleanup.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-18T09:07:03Z",
+      "side": 1,
+      "message": "In ODL CSIT tests we have collected model dumps after deleting SFC configuration and it is empty. Tests are failing trying to delete them. So, they have been commented becase deleting rest api will fail.\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-sfc-fluorine/109/robot-plugin/log_full.html.gz#s1-s1-t11-k13-k2-k1-k1-k2-k1-k3\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-sfc-fluorine/109/robot-plugin/log_full.html.gz#s1-s1-t11-k13-k2-k1-k1-k2-k6-k3\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-sfc-fluorine/109/robot-plugin/log_full.html.gz#s1-s1-t11-k13-k2-k1-k1-k2-k6-k3",
+      "parentUuid": "1a622d24_320650cf",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 64
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f255f8c6",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-17T15:39:55Z",
       "side": 1,
       "message": "What is a -1 value supposed to mean? If there are two vnfs, I would expect indexes 0 or 1 (or 1 and 2)",
+      "range": {
+        "startLine": 438,
+        "startChar": 49,
+        "endLine": 438,
+        "endChar": 51
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3df901ea",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-18T09:07:03Z",
+      "side": 1,
+      "message": "Existing behavior: all vnfs will be part of chain. So, -1 indicates that.\n\nWhen it is positive number it indicates that vnfs will be added to a particular chain.",
+      "parentUuid": "1a622d24_f255f8c6",
       "range": {
         "startLine": 438,
         "startChar": 49,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5d595dfd",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-18T09:07:03Z",
+      "side": 1,
+      "message": "Thanks for pointing out. Now it will not delete when only_chain\u003dTrue.",
+      "parentUuid": "1a622d24_d2527cdc",
+      "range": {
+        "startLine": 489,
+        "startChar": 12,
+        "endLine": 489,
+        "endChar": 35
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1264f4b7",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_3d474121",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-18T09:07:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1264f4b7",
+      "range": {
+        "startLine": 588,
+        "startChar": 8,
+        "endLine": 588,
+        "endChar": 12
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_325f70e7",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-17T15:39:55Z",
       "side": 1,
       "message": "I think this could be removed as openstack_sfc.swap_classifiers has the same logging line",
+      "range": {
+        "startLine": 600,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 42
+      },
+      "revId": "0afd33464074011838067b8df7c713e58258366c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9d4bf52a",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-18T09:07:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_325f70e7",
       "range": {
         "startLine": 600,
         "startChar": 0,
