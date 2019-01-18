@@ -43,8 +43,7 @@ class OpenStackSFC:
     def get_neutron_client_version(self):
         api_version = os.getenv('OS_NETWORK_API_VERSION')
         if api_version is not None:
-            logger.info("OS_NETWORK_API_VERSION is set in env as '%s'",
-                        api_version)
+            logger.info("OS_NETWORK_API_VERSION is %s" % api_version)
             return api_version
         return DEFAULT_API_VERSION
 
