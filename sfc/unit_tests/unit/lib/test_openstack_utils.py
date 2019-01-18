@@ -66,6 +66,18 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.patcher8.stop()
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('os.environ', {'OS_NETWORK_API_VERSION': '1'})
+    def test_get_neutron_client_version(self,
+                                        mock_log):
+        """
+        Checks the proper functionality of get_neutron_client_version
+        """
+        log_calls = [call("OS_NETWORK_API_VERSION is 1")]
+        result = self.os_sfc.get_neutron_client_version()
+        assert result is '1'
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_register_glance_image_already_exists(self,
                                                   mock_log):
         """
@@ -554,6 +566,18 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.conn.compute.hypervisors.assert_called_once()
         self.assertEqual(nodes, result)
 
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    def test_get_hypervisor_hosts_exception(self, mock_log):
+        """
+        Checks the proper functionality of get_av_zone
+        function when an exception appears
+        """
+        log_calls = [call('Error [get_hypervisors(compute)]: Error MSG')]
+        self.conn.compute.hypervisors.side_effect = Exception('Error MSG')
+        result = self.os_sfc.get_hypervisor_hosts()
+        mock_log.error.assert_has_calls(log_calls)
+        self.assertIsNone(result)
+
     @patch('sfc.lib.openstack_utils.OpenStackSFC.get_vm_compute',
            autospec=True, return_value='mock_client')
     def test_compute_client(self, mock_get_vm_compute):
@@ -850,6 +874,17 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.conn.network.security_groups.assert_called_once()
         self.conn.network.delete_security_group.assert_has_calls(del_calls)
         mock_log.info.assert_has_calls(log_calls_info)
+
+    @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',
+           autospec=True)
+    def test_wait_for_vnf(self, mock_os_vm):
+        """
+        Checks the proper functionality of wait_for_vnf function
+        """
+
+        mock_os_vm.vm_active.return_value = "x"
+        result = self.os_sfc.wait_for_vnf(mock_os_vm)
+        self.assertEqual('x', result)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_create_port_groups_raises_exception(self, mock_log):
