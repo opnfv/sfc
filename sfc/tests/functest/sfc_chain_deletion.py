@@ -65,7 +65,7 @@ class SfcChainDeletion(sfc_parent_function.SfcCommonTestCase):
 
         self.create_vnffg(self.testcase_config.test_vnffgd_red, 'blue',
                           'blue_http', port=80, protocol='tcp',
-                          symmetric=False, only_chain=True)
+                          symmetric=False)
 
         t2 = threading.Thread(target=odl_utils.wait_for_classification_rules,
                               args=(self.ovs_logger, self.compute_nodes,

@@ -58,9 +58,6 @@ class SfcCommonTestCase(object):
         self.server_ip = None
         self.port_client = None
 
-        # n-sfc variables
-        self.port_groups = []
-
         self.prepare_env(testcase_config, supported_installers, vnfs)
 
     def prepare_env(self, testcase_config, supported_installers, vnfs):
@@ -404,10 +401,10 @@ class SfcCommonTestCase(object):
             # TODO: If we had a testcase where only one chains must be removed
             # we would need to add the logic. Now it removes all of them
             openstack_sfc.delete_chain()
+            openstack_sfc.delete_port_groups()
 
     def create_vnffg(self, testcase_config_name, vnffgd_name, vnffg_name,
-                     port=80, protocol='tcp', symmetric=False,
-                     only_chain=False):
+                     port=80, protocol='tcp', symmetric=False):
         """Create the vnffg components following the instructions from
         relevant templates.
 
@@ -451,31 +448,32 @@ class SfcCommonTestCase(object):
                     self.neutron_port.id)
 
         elif COMMON_CONFIG.mano_component == 'no-mano':
-            if not only_chain:
-                for vnf in self.vnfs:
-                    # vnf_instance is in [0] and vnf_port in [1]
-                    vnf_instance = self.vnf_objects[vnf][0]
-                    vnf_port = self.vnf_objects[vnf][1]
-                    if symmetric:
-                        # VNFs have two ports
-                        neutron_port1 = vnf_port[0]
-                        neutron_port2 = vnf_port[1]
-                        neutron_ports = [neutron_port1, neutron_port2]
-                    else:
-                        neutron_port1 = vnf_port[0]
-                        neutron_ports = [neutron_port1]
+            port_groups = []
+            for vnf in self.vnfs:
+                # vnf_instance is in [0] and vnf_port in [1]
+                vnf_instance = self.vnf_objects[vnf][0]
+                vnf_port = self.vnf_objects[vnf][1]
+                if symmetric:
+                    # VNFs have two ports
+                    neutron_port1 = vnf_port[0]
+                    neutron_port2 = vnf_port[1]
+                    neutron_ports = [neutron_port1, neutron_port2]
+                else:
+                    neutron_port1 = vnf_port[0]
+                    neutron_ports = [neutron_port1]
 
                     port_group = \
                         openstack_sfc.create_port_groups(neutron_ports,
                                                          vnf_instance)
-                    self.port_groups.append(port_group)
+                    port_groups.append(port_group)
+
             self.neutron_port = self.port_client
 
             if symmetric:
                 # We must pass the server_port and server_ip in the symmetric
                 # case. Otherwise ODL does not work well
                 server_ip_prefix = self.server_ip + '/32'
-                openstack_sfc.create_chain(self.port_groups,
+                openstack_sfc.create_chain(port_groups,
                                            self.neutron_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric,
@@ -483,7 +481,7 @@ class SfcCommonTestCase(object):
                                            server_ip=server_ip_prefix)
 
             else:
-                openstack_sfc.create_chain(self.port_groups,
+                openstack_sfc.create_chain(port_groups,
                                            self.neutron_port.id,
                                            port, protocol, vnffg_name,
                                            symmetric)

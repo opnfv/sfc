@@ -66,6 +66,16 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         self.patcher8.stop()
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
+    @patch('os.environ', {'OS_NETWORK_API_VERSION':'1'})
+    def test_get_neutron_client_version(self,
+                                        mock_log):
+
+        log_calls = [call("OS_NETWORK_API_VERSION is 1")]
+        result = self.os_sfc.get_neutron_client_version()
+        assert result is '1'
+        mock_log.info.assert_has_calls(log_calls)
+
+    @patch('sfc.lib.openstack_utils.logger', autospec=True)
     def test_register_glance_image_already_exists(self,
                                                   mock_log):
         """
