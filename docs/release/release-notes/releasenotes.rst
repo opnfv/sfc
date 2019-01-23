@@ -46,13 +46,13 @@ Release Data
 | **Project**                          | sfc                                  |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/tag**                         | opnfv-7.0.0                          |
+| **Repo/tag**                         | opnfv-7.2.0                          |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Gambia 7.0                           |
+| **Release designation**              | Gambia 7.2                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 12th November 2018                   |
+| **Release date**                     | January 25th, 2019                   |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | Move to OpenStack Rocky, ODL FLuorine|
@@ -120,7 +120,7 @@ Known Limitations, Issues and Workarounds
 System Limitations
 ------------------
 
-The Gambia 1.0 release has a few limitations:
+The Gambia 2.0 release has a few limitations:
 
 1 - The testcase sfc_two_chains_SSH_and_HTTP is disabled in this release due to
 a missing feature in ODL. We are unable to currently update a chain config
