@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d520a1f9",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-01-25T08:11:39Z",
+      "side": 1,
+      "message": "Ok, I see. I wonder if this is the most optimal solution but I can\u0027t think of something better. The previous loop should take this into account, but probably requires a complicated method. We could try to improve it later. Could you add a comment over the line explaining the reason for this please? Something like: \"when swapping classifiers promised_rsps update takes time to get updated\" and even write a TODO line so that we remember to change this in the future",
+      "parentUuid": "1a622d24_52f4a7f1",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 67
+      },
+      "revId": "2bf14473c477ed16712627e87941ad4722ae6610",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_de4e03c1",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 13
