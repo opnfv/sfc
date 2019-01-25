@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b52c05ad",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2019-01-25T14:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d520a1f9",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 67
+      },
+      "revId": "2bf14473c477ed16712627e87941ad4722ae6610",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_de4e03c1",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 13
