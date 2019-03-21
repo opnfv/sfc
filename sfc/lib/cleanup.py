@@ -126,7 +126,7 @@ def delete_openstack_objects(testcase_config, creators):
     conn = connection.from_config(verify=False)
     for creator in creators:
         if creator.name == testcase_config.subnet_name:
-                subnet_obj = creator
+            subnet_obj = creator
 
     for creator in reversed(creators):
         try:
@@ -143,7 +143,7 @@ def delete_openstack_objects(testcase_config, creators):
             time.sleep(2)
             creators.remove(creator)
         except Exception as e:
-                logger.error('Unexpected error cleaning - %s', e)
+            logger.error('Unexpected error cleaning - %s', e)
 
 
 def cleanup(testcase_config, creators, mano, odl_ip=None, odl_port=None):

@@ -230,11 +230,11 @@ def check_ssh(ips, retries=100):
 
 
 def fill_installer_dict(installer_type):
-        default_string = "defaults.installer.{}.".format(installer_type)
-        installer_yaml_fields = {
-                             "user": default_string+"user",
-                             "password": default_string+"password",
-                             "cluster": default_string+"cluster",
-                             "pkey_file": default_string+"pkey_file"
-                           }
-        return installer_yaml_fields
+    default_string = "defaults.installer.{}.".format(installer_type)
+    installer_yaml_fields = {
+                            "user": default_string+"user",
+                            "password": default_string+"password",
+                            "cluster": default_string+"cluster",
+                            "pkey_file": default_string+"pkey_file"
+                        }
+    return installer_yaml_fields
