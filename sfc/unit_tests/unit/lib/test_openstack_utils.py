@@ -531,6 +531,20 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                          self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
 
+    def test_get_instance(self):
+        """
+        Checks the proper functionality of get_instance function
+        """
+
+        mock_instance_id = 'instance-abyz'
+        mock_instance_data = {
+            'instance_name': 'test-instance',
+            'hypervisor_hostname': 'nova-abyz'
+        }
+        self.conn.compute.get_server_metadata.return_value = mock_instance_data
+        result = self.os_sfc.get_instance(mock_instance_id)
+        self.assertEqual(result, mock_instance_data)
+
     @patch.object(os_sfc_utils.OpenStackSFC, 'get_hypervisor_hosts')
     def test_get_av_zones(self, mock_hosts):
         """

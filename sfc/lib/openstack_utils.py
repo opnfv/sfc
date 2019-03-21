@@ -186,6 +186,12 @@ class OpenStackSFC:
 
         return instance, port_list
 
+    def get_instance(self, instance_id):
+        """
+        Return a dictionary of metadata for a server instance
+        """
+        return self.conn.compute.get_server_metadata(instance_id)
+
     def get_av_zones(self):
         '''
         Return the availability zone each host belongs to
