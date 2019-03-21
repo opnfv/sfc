@@ -70,6 +70,8 @@ class OpenStackSFC:
             self.creators.append(image)
             logger.info("Image created")
 
+        self.image_settings = image_settings
+
         return image
 
     def create_flavor(self, name, ram, disk, vcpus):
@@ -367,7 +369,7 @@ class OpenStackSFC:
         # Avoid race conditions by checking the port pair is already committed
         iterations = 5
         found_it = False
-        for i in range(iterations):
+        for _ in range(iterations):
             pp_list = self.neutron_client.list_sfc_port_pairs()['port_pairs']
             for pp in pp_list:
                 if pp['id'] == port_pair_info['port_pair']['id']:
