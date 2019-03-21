@@ -74,7 +74,7 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         """
         log_calls = [call("OS_NETWORK_API_VERSION is 1")]
         result = self.os_sfc.get_neutron_client_version()
-        assert result is '1'
+        assert result == '1'
         mock_log.info.assert_has_calls(log_calls)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
@@ -985,8 +985,8 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
         log_calls_info = [call('Creating the port pairs...'),
                           call('Creating the port pair groups for name')]
         log_calls_warn = [call('Chain creation failed due to port pair group '
-                               'creation failed for vnf %(vnf)',
-                               instance_obj.name)]
+                               'creation failed for vnf '
+                               '{}'.format(instance_obj.name))]
         self.neutron_client.create_sfc_port_pair.return_value = \
             {'port_pair': {'id': 'pp_id'}}
         self.neutron_client.list_sfc_port_pairs.return_value = \
