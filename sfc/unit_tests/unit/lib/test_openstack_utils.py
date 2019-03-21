@@ -531,6 +531,20 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
                          self.os_sfc.creators)
         mock_log.info.assert_has_calls(log_calls)
 
+    def test_get_instance(self):
+        """
+        Checks the proper functionality of get_instance function
+        """
+
+        mock_instance_id = 'instance-abyz'
+        mock_instance = Mock()
+        mock_instance.id = mock_instance_id
+        mock_instance.name = 'test-instance'
+        mock_instance.hypervisor_hostname = 'nova-abyz'
+        self.conn.compute.get_server_metadata.return_value = mock_instance
+        result = self.os_sfc.get_instance(mock_instance_id)
+        self.assertEqual(result, mock_instance)
+
     @patch.object(os_sfc_utils.OpenStackSFC, 'get_hypervisor_hosts')
     def test_get_av_zones(self, mock_hosts):
         """
@@ -629,6 +643,23 @@ class SfcOpenStackUtilsTesting(unittest.TestCase):
 
         result = self.os_sfc.get_vm_compute('dev_vm')
         self.assertEqual('mock_host', result)
+
+    def test_get_port_by_ip(self):
+        """
+        Checks the proper functonality of get_port_by_ip function
+        """
+
+        mock_port_ip_address = 'e.f.g.h'
+        mock_port_one, mock_port_two = Mock(), Mock()
+        mock_port_one.id = 'port-abcd'
+        mock_port_two.id = 'port-efgz'
+        mock_port_one.fixed_ips = [{'ip_address': 'a.b.c.d'}]
+        mock_port_two.fixed_ips = [{'ip_address': 'e.f.g.h'}]
+        self.conn.network.ports.return_value = [mock_port_one,
+                                                        mock_port_two]
+        self.conn.network.get_port.return_value = mock_port_two
+        result = self.os_sfc.get_port_by_ip(mock_port_ip_address)
+        self.assertEqual(result, mock_port_two)
 
     @patch('sfc.lib.openstack_utils.logger', autospec=True)
     @patch('sfc.lib.openstack_utils.cr_inst.OpenStackVmInstance',

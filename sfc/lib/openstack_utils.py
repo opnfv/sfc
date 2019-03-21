@@ -188,6 +188,12 @@ class OpenStackSFC:
 
         return instance, port_list
 
+    def get_instance(self, instance_id):
+        """
+        Return a dictionary of metadata for a server instance
+        """
+        return self.conn.compute.get_server_metadata(instance_id)
+
     def get_av_zones(self):
         '''
         Return the availability zone each host belongs to
@@ -236,6 +242,17 @@ class OpenStackSFC:
                     return creator.get_vm_inst().compute_host
 
         raise Exception("There is no VM with name '{}'!!".format(vm_name))
+
+    def get_port_by_ip(self, ip_address):
+        """
+        Return a dictionary of metadata for a port instance
+        by its ip_address
+        """
+
+        ports = self.conn.network.ports()
+        for port in ports:
+            if port.fixed_ips[0]['ip_address'] == ip_address:
+                return self.conn.network.get_port(port.id)
 
     def assign_floating_ip(self, vm, vm_port):
         '''
