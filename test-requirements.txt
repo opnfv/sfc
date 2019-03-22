@@ -5,3 +5,4 @@ coverage!=4.4 # Apache-2.0
 mock # BSD
 nose # LGPL
 yamllint
+pylint
