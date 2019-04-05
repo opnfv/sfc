@@ -1,0 +1,58 @@
+# Sample config file about the POD information is located under the dovetail project.
+# https://github.com/opnfv/dovetail/blob/master/etc/userconfig/pod.yaml.sample
+# On the top of the above template the node0 could be used, defining the role Host.
+# After that the proper number of controller nodes should be defined and
+# at the end the respective compute nodes.
+
+nodes:
+-
+    # This can not be changed and must be node0.
+    name: node0
+
+    # This must be Host.
+    role: Host
+
+    # This is the instance IP of a node which has installed.
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # keyfile of the user.
+    key_filename: /root/.ssh/id_rsa
+
+-
+    # This can not be changed and must be node1.
+    name: node1
+
+    # This must be controller.
+    role: Controller
+
+    # This is the instance IP of a controller node
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # keyfile of the user.
+    key_filename: /root/.ssh/id_rsa
+
+-
+    # This can not be changed and must be node1.
+    name: node2
+
+    # This must be compute.
+    role: Compute
+
+    # This is the instance IP of a compute node
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # keyfile of the user.
+    key_filename: /root/.ssh/id_rsa
+
+    # Private ssh key for accessing the controller nodes. If there is not
+    # a keyfile for that use, the password of the user could be used instead.
+    # password: root

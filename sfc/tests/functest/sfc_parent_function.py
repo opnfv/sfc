@@ -70,36 +70,65 @@ class SfcCommonTestCase(object):
         :return: Environment preparation
         """
 
-        deployment_handler = DeploymentFactory.get_handler(
-            COMMON_CONFIG.installer_type,
-            COMMON_CONFIG.installer_ip,
-            COMMON_CONFIG.installer_user,
-            COMMON_CONFIG.installer_password,
-            COMMON_CONFIG.installer_key_file)
+        if COMMON_CONFIG.installer_type != 'configByUser':
+            deployment_handler = DeploymentFactory.get_handler(
+                COMMON_CONFIG.installer_type,
+                COMMON_CONFIG.installer_ip,
+                COMMON_CONFIG.installer_user,
+                COMMON_CONFIG.installer_password,
+                COMMON_CONFIG.installer_key_file)
 
-        installer_type = os.environ.get("INSTALLER_TYPE")
+            installer_type = os.environ.get("INSTALLER_TYPE")
+            installer_ip = os.environ.get("INSTALLER_IP")
+            cluster = COMMON_CONFIG.installer_cluster
+            openstack_nodes = (deployment_handler.
+                               get_nodes({'cluster': cluster})
+                               if cluster is not None
+                               else deployment_handler.get_nodes())
+
+            self.compute_nodes = [node for node in openstack_nodes
+                                  if node.is_compute()]
+
+            for compute in self.compute_nodes:
+                logger.info("This is a compute: %s" % compute.ip)
+
+            controller_nodes = [node for node in openstack_nodes
+                                if node.is_controller()]
+            self.controller_clients = test_utils. \
+                get_ssh_clients(controller_nodes)
+            self.compute_clients = test_utils. \
+                get_ssh_clients(self.compute_nodes)
+
+            self.odl_ip, self.odl_port = odl_utils. \
+                get_odl_ip_port(openstack_nodes)
+
+        else:
+            installer_type = 'configByUser'
+            installer_ip = COMMON_CONFIG.installer_ip
+            openstack_nodes = COMMON_CONFIG.nodes_pod
+            self.compute_nodes = [node for node in
+                                  COMMON_CONFIG.nodes_pod
+                                  if node['role'] == 'Compute']
+
+            for compute in self.compute_nodes:
+                logger.info("This is a compute: %s" % compute['ip'])
+
+            controller_nodes = [node for node in openstack_nodes
+                                if node['role'] == 'Controller']
+
+            self.odl_ip, self.odl_port = odl_utils. \
+                get_odl_ip_port_no_installer(openstack_nodes)
 
         if installer_type not in supported_installers:
-            raise Exception(
-                '\033[91mYour installer is not supported yet\033[0m')
+            if installer_type != 'configByUser':
+                raise Exception(
+                    '\033[91mYour installer is not supported yet\033[0m')
 
-        installer_ip = os.environ.get("INSTALLER_IP")
         if not installer_ip:
             logger.error(
                 '\033[91minstaller ip is not set\033[0m')
             raise Exception(
                 '\033[91mexport INSTALLER_IP=<ip>\033[0m')
-
-        cluster = COMMON_CONFIG.installer_cluster
-        openstack_nodes = (deployment_handler.get_nodes({'cluster': cluster})
-                           if cluster is not None
-                           else deployment_handler.get_nodes())
-
-        self.compute_nodes = [node for node in openstack_nodes
-                              if node.is_compute()]
-
-        for compute in self.compute_nodes:
-            logger.info("This is a compute: %s" % compute.ip)
 
         results.add_to_summary(0, "=")
         results.add_to_summary(2, "STATUS", "SUBTEST")
@@ -112,12 +141,6 @@ class SfcCommonTestCase(object):
             COMMON_CONFIG.vcpu_count)
         if not custom_flv:
             raise Exception("Failed to create custom flavor")
-
-        controller_nodes = [node for node in openstack_nodes
-                            if node.is_controller()]
-
-        self.controller_clients = test_utils.get_ssh_clients(controller_nodes)
-        self.compute_clients = test_utils.get_ssh_clients(self.compute_nodes)
 
         if COMMON_CONFIG.mano_component == 'tacker':
             self.tacker_client = os_sfc_utils.get_tacker_client()
@@ -153,7 +176,6 @@ class SfcCommonTestCase(object):
 
         self.creators = openstack_sfc.creators
 
-        self.odl_ip, self.odl_port = odl_utils.get_odl_ip_port(openstack_nodes)
         odl_utils.get_odl_username_password()
 
         self.default_param_file = os.path.join(
@@ -176,7 +198,6 @@ class SfcCommonTestCase(object):
                                           self.sg,
                                           self.test_topology['server'],
                                           [SERVER + '-port'])
-        self.port_server = port_server[0]
 
         self.client_instance, port_client = \
             openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
@@ -184,18 +205,26 @@ class SfcCommonTestCase(object):
                                           self.sg,
                                           self.test_topology['client'],
                                           [CLIENT + '-port'])
-        self.port_client = port_client[0]
 
         logger.info('This test is run with the topology {0}'.format(
             self.test_topology['id']))
         logger.info('Topology description: {0}'.format(
             self.test_topology['description']))
 
-        port_fixed_ips = self.port_server.fixed_ips
-        for ip in port_fixed_ips:
-            self.server_ip = ip.get('ip_address')
-        logger.info("Server instance received private ip [{}]".format(
-            self.server_ip))
+        if COMMON_CONFIG.installer_type != 'configByUser':
+            self.port_server = port_server[0]
+            self.port_client = port_client[0]
+            port_fixed_ips = self.port_server
+            for ip in port_fixed_ips:
+                self.server_ip = ip.get('ip_address')
+            logger.info("Server instance received private ip [{}]".format(
+                self.server_ip))
+        else:
+            self.port_server = port_server
+            self.port_client = port_client
+            self.server_ip = self.server_instance.ports[0].ips[0]['ip_address']
+            logger.info("Server instance received private ip [{}]".format(
+                self.server_ip))
 
     def register_vnf_template(self, test_case_name, template_name):
         """ Register the template which defines the VNF
