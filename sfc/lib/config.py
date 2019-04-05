@@ -46,33 +46,55 @@ class CommonConfig(object):
         self.config_file = os.path.join(self.sfc_test_dir, "config.yaml")
         self.vim_file = os.path.join(self.sfc_test_dir, "register-vim.json")
 
-        self.installer_type = env.get('INSTALLER_TYPE')
+        pod_yaml_exists = os.path.isfile(self.sfc_test_dir + "/pod.yaml")
 
-        self.installer_fields = test_utils.fill_installer_dict(
-            self.installer_type)
+        if pod_yaml_exists:
+            self.pod_file = os.path.join(self.sfc_test_dir, "pod.yaml")
+            self.nodes_pod = ft_utils.get_parameter_from_yaml(
+                "nodes", self.pod_file)
+            self.host_ip = self.nodes_pod[0]['ip']
+            self.host_user = self.nodes_pod[0]['user']
 
-        self.installer_ip = env.get('INSTALLER_IP')
-
-        self.installer_user = ft_utils.get_parameter_from_yaml(
-            self.installer_fields['user'], self.config_file)
-
-        try:
-            self.installer_password = ft_utils.get_parameter_from_yaml(
-                self.installer_fields['password'], self.config_file)
-        except Exception:
-            self.installer_password = None
-
-        try:
-            self.installer_key_file = ft_utils.get_parameter_from_yaml(
-                self.installer_fields['pkey_file'], self.config_file)
-        except Exception:
-            self.installer_key_file = None
-
-        try:
-            self.installer_cluster = ft_utils.get_parameter_from_yaml(
-                self.installer_fields['cluster'], self.config_file)
-        except Exception:
+            self.installer_type = 'configByUser'
+            self.installer_ip = self.host_ip
+            self.installer_user = self.host_user
             self.installer_cluster = None
+            try:
+                self.installer_password = self.host_ip[0]['password']
+            except Exception:
+                self.installer_password = None
+
+            try:
+                self.installer_key_file = self.host_ip[0]['key_filename']
+            except Exception:
+                self.installer_key_file = None
+        else:
+            self.nodes_pod = None
+            self.host_ip = None
+            self.installer_type = env.get('INSTALLER_TYPE')
+            self.installer_fields = test_utils.fill_installer_dict(
+                self.installer_type)
+            self.installer_ip = env.get('INSTALLER_IP')
+            self.installer_user = ft_utils.get_parameter_from_yaml(
+                self.installer_fields['user'], self.config_file)
+
+            try:
+                self.installer_password = ft_utils.get_parameter_from_yaml(
+                    self.installer_fields['password'], self.config_file)
+            except Exception:
+                self.installer_password = None
+
+            try:
+                self.installer_key_file = ft_utils.get_parameter_from_yaml(
+                    self.installer_fields['pkey_file'], self.config_file)
+            except Exception:
+                self.installer_key_file = None
+
+            try:
+                self.installer_cluster = ft_utils.get_parameter_from_yaml(
+                    self.installer_fields['cluster'], self.config_file)
+            except Exception:
+                self.installer_cluster = None
 
         self.flavor = ft_utils.get_parameter_from_yaml(
             "defaults.flavor", self.config_file)

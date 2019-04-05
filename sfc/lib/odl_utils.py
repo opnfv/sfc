@@ -252,6 +252,25 @@ def get_odl_ip_port(nodes):
     return ip, port
 
 
+def get_odl_ip_port_no_installer(nodes_pod):
+    node_index = 0
+    for n in nodes_pod:
+        if n['role'] == 'Controller':
+            break
+        node_index += 1
+    remote_ml2_conf_etc = '/etc/neutron/plugins/ml2/ml2_conf.ini'
+    os.system('scp {0}@{1}:{2} .'.
+              format(nodes_pod[node_index]['user'],
+                     nodes_pod[node_index]['ip'],
+                     remote_ml2_conf_etc))
+    file = open('ml2_conf.ini', 'r')
+    string = re.findall(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+', file.read())
+    file.close()
+    ip = string[0].split(':')[0]
+    port = string[0].split(':')[1]
+    return ip, port
+
+
 def get_odl_username_password():
     local_ml2_conf_file = os.path.join(os.getcwd(), 'ml2_conf.ini')
     con_par = ConfigParser.RawConfigParser()
