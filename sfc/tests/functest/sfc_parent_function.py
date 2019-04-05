@@ -70,36 +70,54 @@ class SfcCommonTestCase(object):
         :return: Environment preparation
         """
 
-        deployment_handler = DeploymentFactory.get_handler(
-            COMMON_CONFIG.installer_type,
-            COMMON_CONFIG.installer_ip,
-            COMMON_CONFIG.installer_user,
-            COMMON_CONFIG.installer_password,
-            COMMON_CONFIG.installer_key_file)
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            deployment_handler = DeploymentFactory.get_handler(
+                COMMON_CONFIG.installer_type,
+                COMMON_CONFIG.installer_ip,
+                COMMON_CONFIG.installer_user,
+                COMMON_CONFIG.installer_password,
+                COMMON_CONFIG.installer_key_file)
 
-        installer_type = os.environ.get("INSTALLER_TYPE")
+            installer_type = os.environ.get("INSTALLER_TYPE")
+        else:
+            installer_type = 'noInstaller'
 
         if installer_type not in supported_installers:
-            raise Exception(
-                '\033[91mYour installer is not supported yet\033[0m')
+            if installer_type != 'noInstaller':
+                raise Exception(
+                    '\033[91mYour installer is not supported yet\033[0m')
 
-        installer_ip = os.environ.get("INSTALLER_IP")
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            installer_ip = os.environ.get("INSTALLER_IP")
+        else:
+            installer_ip = COMMON_CONFIG.installer_ip
+
         if not installer_ip:
             logger.error(
                 '\033[91minstaller ip is not set\033[0m')
             raise Exception(
                 '\033[91mexport INSTALLER_IP=<ip>\033[0m')
 
-        cluster = COMMON_CONFIG.installer_cluster
-        openstack_nodes = (deployment_handler.get_nodes({'cluster': cluster})
-                           if cluster is not None
-                           else deployment_handler.get_nodes())
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            cluster = COMMON_CONFIG.installer_cluster
+            openstack_nodes = (deployment_handler.
+                               get_nodes({'cluster': cluster})
+                               if cluster is not None
+                               else deployment_handler.get_nodes())
 
-        self.compute_nodes = [node for node in openstack_nodes
-                              if node.is_compute()]
+            self.compute_nodes = [node for node in openstack_nodes
+                                  if node.is_compute()]
 
-        for compute in self.compute_nodes:
-            logger.info("This is a compute: %s" % compute.ip)
+            for compute in self.compute_nodes:
+                logger.info("This is a compute: %s" % compute.ip)
+        else:
+            openstack_nodes = COMMON_CONFIG.nodes_pod
+            self.compute_nodes = [node for node in
+                                  COMMON_CONFIG.nodes_pod
+                                  if node['role'] == 'Compute']
+
+            for compute in self.compute_nodes:
+                logger.info("This is a compute: %s" % compute['ip'])
 
         results.add_to_summary(0, "=")
         results.add_to_summary(2, "STATUS", "SUBTEST")
@@ -113,11 +131,18 @@ class SfcCommonTestCase(object):
         if not custom_flv:
             raise Exception("Failed to create custom flavor")
 
-        controller_nodes = [node for node in openstack_nodes
-                            if node.is_controller()]
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            controller_nodes = [node for node in openstack_nodes
+                                if node.is_controller()]
+        else:
+            controller_nodes = [node for node in openstack_nodes
+                                if node['role'] == 'Controller']
 
-        self.controller_clients = test_utils.get_ssh_clients(controller_nodes)
-        self.compute_clients = test_utils.get_ssh_clients(self.compute_nodes)
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            self.controller_clients = test_utils.\
+                get_ssh_clients(controller_nodes)
+            self.compute_clients = test_utils.\
+                get_ssh_clients(self.compute_nodes)
 
         if COMMON_CONFIG.mano_component == 'tacker':
             self.tacker_client = os_sfc_utils.get_tacker_client()
@@ -153,7 +178,13 @@ class SfcCommonTestCase(object):
 
         self.creators = openstack_sfc.creators
 
-        self.odl_ip, self.odl_port = odl_utils.get_odl_ip_port(openstack_nodes)
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            self.odl_ip, self.odl_port = odl_utils.\
+                get_odl_ip_port(openstack_nodes)
+        else:
+            self.odl_ip, self.odl_port = odl_utils. \
+                get_odl_ip_port_no_installer(openstack_nodes)
+
         odl_utils.get_odl_username_password()
 
         self.default_param_file = os.path.join(
@@ -176,7 +207,10 @@ class SfcCommonTestCase(object):
                                           self.sg,
                                           self.test_topology['server'],
                                           [SERVER + '-port'])
-        self.port_server = port_server[0]
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            self.port_server = port_server[0]
+        else:
+            self.port_server = port_server
 
         self.client_instance, port_client = \
             openstack_sfc.create_instance(CLIENT, COMMON_CONFIG.flavor,
@@ -184,18 +218,26 @@ class SfcCommonTestCase(object):
                                           self.sg,
                                           self.test_topology['client'],
                                           [CLIENT + '-port'])
-        self.port_client = port_client[0]
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            self.port_client = port_client[0]
+        else:
+            self.port_client = port_client
 
         logger.info('This test is run with the topology {0}'.format(
             self.test_topology['id']))
         logger.info('Topology description: {0}'.format(
             self.test_topology['description']))
 
-        port_fixed_ips = self.port_server.fixed_ips
-        for ip in port_fixed_ips:
-            self.server_ip = ip.get('ip_address')
-        logger.info("Server instance received private ip [{}]".format(
-            self.server_ip))
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            port_fixed_ips = self.port_server
+            for ip in port_fixed_ips:
+                self.server_ip = ip.get('ip_address')
+            logger.info("Server instance received private ip [{}]".format(
+                self.server_ip))
+        else:
+            self.server_ip = self.server_instance.ports[0].ips[0]['ip_address']
+            logger.info("Server instance received private ip [{}]".format(
+                self.server_ip))
 
     def register_vnf_template(self, test_case_name, template_name):
         """ Register the template which defines the VNF
