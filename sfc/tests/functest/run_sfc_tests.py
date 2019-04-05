@@ -104,35 +104,52 @@ class SfcFunctest(testcase.TestCase):
         time.sleep(10)
 
     def __disable_heat_resource_finder_cache(self, nodes, installer_type):
-        controllers = [node for node in nodes if node.is_controller()]
+
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            controllers = [node for node in nodes if node.is_controller()]
+        else:
+            controllers = []
+            for n in COMMON_CONFIG.nodes_pod:
+                if n['role'] == 'Controller':
+                    controllers.append(n)
+            logger.info("CONTROLLER : %s", controllers)
 
         if installer_type == 'apex':
             self.__disable_heat_resource_finder_cache_apex(controllers)
         elif installer_type == "fuel":
             self.__disable_heat_resource_finder_cache_fuel(controllers)
-        elif installer_type == "osa" or "compass":
+        elif installer_type == "osa" or "compass" or "noInstaller":
             pass
         else:
             raise Exception('Unsupported installer')
 
     def run(self):
 
-        deploymentHandler = DeploymentFactory.get_handler(
-            COMMON_CONFIG.installer_type,
-            COMMON_CONFIG.installer_ip,
-            COMMON_CONFIG.installer_user,
-            COMMON_CONFIG.installer_password,
-            COMMON_CONFIG.installer_key_file)
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            deploymentHandler = DeploymentFactory.get_handler(
+                COMMON_CONFIG.installer_type,
+                COMMON_CONFIG.installer_ip,
+                COMMON_CONFIG.installer_user,
+                COMMON_CONFIG.installer_password,
+                COMMON_CONFIG.installer_key_file)
 
         cluster = COMMON_CONFIG.installer_cluster
-        nodes = (deploymentHandler.get_nodes({'cluster': cluster})
-                 if cluster is not None
-                 else deploymentHandler.get_nodes())
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            nodes = (deploymentHandler.get_nodes({'cluster': cluster})
+                     if cluster is not None
+                     else deploymentHandler.get_nodes())
+            self.__disable_heat_resource_finder_cache(nodes,
+                                                      COMMON_CONFIG.
+                                                      installer_type)
+        else:
+            nodes = COMMON_CONFIG.nodes_pod
+            self.__disable_heat_resource_finder_cache(nodes, "noInstaller")
 
-        self.__disable_heat_resource_finder_cache(nodes,
-                                                  COMMON_CONFIG.installer_type)
-
-        odl_ip, odl_port = odl_utils.get_odl_ip_port(nodes)
+        if COMMON_CONFIG.installer_type != 'noInstaller':
+            odl_ip, odl_port = odl_utils.get_odl_ip_port(nodes)
+        else:
+            odl_ip, odl_port = odl_utils.\
+                get_odl_ip_port_no_installer(COMMON_CONFIG.nodes_pod)
 
         ovs_logger = ovs_log.OVSLogger(
             os.path.join(COMMON_CONFIG.sfc_test_dir, 'ovs-logs'),
