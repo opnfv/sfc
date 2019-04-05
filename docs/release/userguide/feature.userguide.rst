@@ -36,6 +36,17 @@ SFC capabilities and usage
 The OPNFV SFC feature can be deployed with either the "os-odl-sfc-ha" or the
 "os-odl-sfc-noha" scenario. SFC usage for both of these scenarios is the same.
 
+Once the deployment has been completed, the SFC test cases use information
+(e.g. INSTALLER IP, Controller IP, etc) of the environment which have been
+retrieved first from the installer in order to execute the SFC test cases properly.
+This is the default behavior.
+In case there is not an installer in place and the server for the SFC test execution
+has been prepared manually, installing all necessary components (e.g. OpenStack OpenDayLight etc)
+by hand. The user should update the "pod.yaml" file, including the all necessary details
+for each node which participates in the scenario.
+In case the dovetail project triggers the SFC test scenarios, the "pod.yaml" file will be prepared
+by dovetail project automatically.
+
 As previously mentioned, Tacker is used as a VNF Manager and SFC Orchestrator. All
 the configuration necessary to create working service chains and classifiers can
 be performed using the Tacker command line. Refer to the `Tacker walkthrough <https://github.com/trozet/sfc-random/blob/master/tacker_sfc_apex_walkthrough.txt>`_
