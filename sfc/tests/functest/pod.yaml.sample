@@ -1,0 +1,53 @@
+nodes:
+-
+    # This can not be changed and must be node0.
+    name: node0
+
+    # This must be Host.
+    role: Host
+
+    # This is the instance IP of a node which has installed.
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # Password of the user.
+    password: root
+
+-
+    # This can not be changed and must be node1.
+    name: node1
+
+    # This must be controller.
+    role: Controller
+
+    # This is the instance IP of a controller node
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # Password of the user.
+    password: root
+
+-
+    # This can not be changed and must be node1.
+    name: node2
+
+    # This must be compute.
+    role: Compute
+
+    # This is the instance IP of a compute node
+    ip: xx.xx.xx.xx
+
+    # User name of the user of this node. This user **must** have sudo privileges.
+    user: root
+
+    # Password of the user.
+    password: root
+
+    # Private ssh key for accessing the controller nodes. If a keyfile is
+    # being used, the path specified **must** be as shown below as this
+    # is the location of the user-provided private ssh key inside the container
+    #key_filename: /root/.ssh/id_rsa

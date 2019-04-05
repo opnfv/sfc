@@ -8,7 +8,9 @@ import requests
 import time
 
 import sfc.lib.openstack_utils as os_sfc_utils
+from sfc.lib import config as sfc_config
 
+COMMON_CONFIG = sfc_config.CommonConfig()
 logger = logging.getLogger(__name__)
 odl_username = 'admin'
 odl_password = 'admin'
@@ -235,20 +237,37 @@ def wait_for_classification_rules(ovs_logger, compute_nodes, odl_ip, odl_port,
 
 
 def get_odl_ip_port(nodes):
-    controller_node = next(n for n in nodes if n.is_controller())
-    home_folder = controller_node.run_cmd('pwd')
-    remote_ml2_conf_etc = '/etc/neutron/plugins/ml2/ml2_conf.ini'
-    remote_ml2_conf_home = '{0}/ml2_conf.ini'.format(home_folder)
-    local_ml2_conf_file = os.path.join(os.getcwd(), 'ml2_conf.ini')
-    controller_node.run_cmd('sudo cp {0} {1}/'
-                            .format(remote_ml2_conf_etc, home_folder))
-    controller_node.run_cmd('sudo chmod 777 {0}'
-                            .format(remote_ml2_conf_home))
-    controller_node.get_file(remote_ml2_conf_home, local_ml2_conf_file)
-    con_par = ConfigParser.RawConfigParser()
-    con_par.read(local_ml2_conf_file)
-    ip, port = re.search(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+',
-                         con_par.get('ml2_odl', 'url')).group().split(':')
+    if COMMON_CONFIG.installer_type is not None:
+        controller_node = next(n for n in nodes if n.is_controller())
+        home_folder = controller_node.run_cmd('pwd')
+        remote_ml2_conf_etc = '/etc/neutron/plugins/ml2/ml2_conf.ini'
+        remote_ml2_conf_home = '{0}/ml2_conf.ini'.format(home_folder)
+        local_ml2_conf_file = os.path.join(os.getcwd(), 'ml2_conf.ini')
+        controller_node.run_cmd('sudo cp {0} {1}/'
+                                .format(remote_ml2_conf_etc, home_folder))
+        controller_node.run_cmd('sudo chmod 777 {0}'
+                                .format(remote_ml2_conf_home))
+        controller_node.get_file(remote_ml2_conf_home, local_ml2_conf_file)
+        con_par = ConfigParser.RawConfigParser()
+        con_par.read(local_ml2_conf_file)
+        ip, port = re.search(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+',
+                             con_par.get('ml2_odl', 'url')).group().split(':')
+    else:
+        node_index = 0
+        for n in COMMON_CONFIG.nodes_pod:
+            if n['role'] == 'Controller':
+                break
+            node_index += 1
+        remote_ml2_conf_etc = '/etc/neutron/plugins/ml2/ml2_conf.ini'
+        os.system('scp {0}@{1}:{2} .'.
+                  format(COMMON_CONFIG.nodes_pod[node_index]['user'],
+                         COMMON_CONFIG.nodes_pod[node_index]['ip'],
+                         remote_ml2_conf_etc))
+        file = open('ml2_conf.ini', 'r')
+        string = re.findall(r'[0-9]+(?:\.[0-9]+){3}\:[0-9]+', file.read())
+        file.close()
+        ip = string[0].split(':')[0]
+        port = string[0].split(':')[1]
     return ip, port
 
 
