@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "46af7d1f_aa9adc8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "Indeed, the initial idea started from the \u0027integration of SFC into dovetail\u0027, but  after that I was thinking if we could make the SFC scenarios to run without the bond with the installer. I\u0027m talking about the module [1]. The test cases fetch each info from the installer through this module.\nIf someone has a server and he/she decided to install the OS, ODL etc either directly on the server or in a VM on this server, he/she cannot run SFC testcases, since there is no any installer in place and the relevant info cannot be retrieved.\n\nTherefore, I tried to make it more generic. I have added this pod.yaml file, describing the relevant environment each time. So, the required info is stored there by user. If this file doesn\u0027t exist, this means that an installer is responsible for the entire environment and the required info will be fetched through module [1].\n\nIf you believe that my idea is not valid or I\u0027ve missed something, please let me know and I\u0027ll re-evaluate the aim of this patch, focusing only on the integration of SFC test cases into dovetail.\n\nYour advice is more than welcome.\n\n[1] https://github.com/opnfv/sfc/blob/312bba313681f408461832a8e4fe43b4de56ede0/sfc/tests/functest/sfc_parent_function.py#L10",
+      "parentUuid": "ed481293_aa0dae5b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd88718_c5b9fd88",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-22T09:15:52Z",
       "side": 1,
       "message": "Baremetal is a bit confusing to me because it seems as if you can run SFC testcases against a baremetal platform with an openstack that was deployed by magic ;). In the end, we require an installer and with this patch, we are not running SFC on baremetal. This patch allows to fetch important information for the testcases from a file instead of through an installer API, or?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "234d4878_cdb7ec1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "You are right, I\u0027ll rephrase this sentence. Saying \u0027baremetal\u0027, I had in my mind a server/environment along with all required components on it, but everything has been installed manually and without using any installer for that.",
+      "parentUuid": "8bd88718_c5b9fd88",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "64c4427b_c886d7bf",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "I agree",
+      "parentUuid": "2f8c2e42_589e35fb",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5c411dc_42edf40b",
         "filename": "sfc/lib/config.py",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-22T09:15:52Z",
       "side": 1,
       "message": "When using os.path.isfile, you can save this conditional because this code will be part already of \"if exists\" section",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 38
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67097717_f2e82126",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "a5c411dc_42edf40b",
       "range": {
         "startLine": 60,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "217e914d_c57dbf5b",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "09696724_3c4ba55d",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 32
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9048b99e_a5a7a458",
         "filename": "sfc/lib/odl_utils.py",
         "patchSetId": 10
@@ -128,6 +248,30 @@
       "writtenOn": "2019-04-22T09:15:52Z",
       "side": 1,
       "message": "This is fine  because you are closing the file handler but in python, it is recommended to use context managers to make sure that we don\u0027t have leaks and exhaust the resources. In general, python recommends to use \"with\", for example:\n\nwith open(file, \u0027mode\u0027) as fd",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 36
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "544e0448_32a8fa79",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9048b99e_a5a7a458",
       "range": {
         "startLine": 266,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9d2f28d7_0c39f957",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "This regex expression is according to the design base method [get_odl_ip_port] [2]. I have used this one in order to fetch the odl IP and odl portal from the ml2_conf.ini file.\n\n[2] https://github.com/opnfv/sfc/blob/50ad0d757b2015067c2b13adbbe59b746477b207/sfc/lib/odl_utils.py#L237",
+      "parentUuid": "a294d078_67f0fb49",
+      "range": {
+        "startLine": 267,
+        "startChar": 24,
+        "endLine": 267,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e948877e_a3f8e002",
         "filename": "sfc/tests/functest/pod.yaml.sample",
         "patchSetId": 10
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "bb57fceb_8aa7deeb",
+        "filename": "sfc/tests/functest/pod.yaml.sample",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "Yes, exactly.\nI agree.\nI\u0027ll add a comment with a link at the top of this file. do you agree?",
+      "parentUuid": "e948877e_a3f8e002",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "088a29ac_93e512ae",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 10
@@ -197,6 +389,30 @@
       "writtenOn": "2019-04-22T09:15:52Z",
       "side": 1,
       "message": "I wonder if we could use other word instead of noInstaller... what about \u0027dovetail\u0027?",
+      "range": {
+        "startLine": 73,
+        "startChar": 44,
+        "endLine": 73,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4cbf6f_dc6dd0b7",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7167
+      },
+      "writtenOn": "2019-04-23T13:37:27Z",
+      "side": 1,
+      "message": "Check my reply at your first comment in the commit message.\nIf you believe that I should minimize the scope of this patch to \"SFC integration into dovetail\" then I totally agree that the name \u0027noInstaller\u0027 should be renamed to \u0027dovetail\u0027",
+      "parentUuid": "088a29ac_93e512ae",
       "range": {
         "startLine": 73,
         "startChar": 44,
