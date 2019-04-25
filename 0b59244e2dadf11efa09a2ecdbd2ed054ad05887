@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "13abe7a6_596cebfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-04-25T16:02:20Z",
+      "side": 1,
+      "message": "Ok, I see what you mean. However, the title \"Make the SFC TCs independently from installer\" is in my opinion confusing. You want to allow the user to define some config values in a file and the TCs to consume those values from that file instead of fetching them through the installer. What about \"Allow TCs to consume config values from provided files\"",
+      "parentUuid": "46af7d1f_aa9adc8b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd88718_c5b9fd88",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "You are right, I\u0027ll rephrase this sentence. Saying \u0027baremetal\u0027, I had in my mind a server/environment along with all required components on it, but everything has been installed manually and without using any installer for that.",
       "parentUuid": "8bd88718_c5b9fd88",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00de0a10_5f070b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-04-25T16:02:20Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "234d4878_cdb7ec1a",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -331,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "39fe0d01_91e8a367",
+        "filename": "sfc/lib/odl_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-04-25T16:02:20Z",
+      "side": 1,
+      "message": "ok, although I don\u0027t remember anymore what it was :(",
+      "parentUuid": "9d2f28d7_0c39f957",
+      "range": {
+        "startLine": 267,
+        "startChar": 24,
+        "endLine": 267,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e948877e_a3f8e002",
         "filename": "sfc/tests/functest/pod.yaml.sample",
         "patchSetId": 10
@@ -378,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "d930baa2_7d583827",
+        "filename": "sfc/tests/functest/pod.yaml.sample",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-04-25T16:02:20Z",
+      "side": 1,
+      "message": "great",
+      "parentUuid": "bb57fceb_8aa7deeb",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "088a29ac_93e512ae",
         "filename": "sfc/tests/functest/sfc_parent_function.py",
         "patchSetId": 10
@@ -413,6 +509,30 @@
       "side": 1,
       "message": "Check my reply at your first comment in the commit message.\nIf you believe that I should minimize the scope of this patch to \"SFC integration into dovetail\" then I totally agree that the name \u0027noInstaller\u0027 should be renamed to \u0027dovetail\u0027",
       "parentUuid": "088a29ac_93e512ae",
+      "range": {
+        "startLine": 73,
+        "startChar": 44,
+        "endLine": 73,
+        "endChar": 55
+      },
+      "revId": "0b59244e2dadf11efa09a2ecdbd2ed054ad05887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26cf6d9d_017d0b15",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-04-25T16:02:20Z",
+      "side": 1,
+      "message": "I see. But noInstaller might be confusing... we should at least document this very clearly somewhere",
+      "parentUuid": "6a4cbf6f_dc6dd0b7",
       "range": {
         "startLine": 73,
         "startChar": 44,
