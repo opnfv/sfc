@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64ad3946_c3d19a43",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-07T07:58:28Z",
+      "side": 1,
+      "message": "maybe better: file_exists? or yaml_exists? or config_exists?",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 14
+      },
+      "revId": "1cc971920402357b0459430e0e03be3dac057ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29b873ab_dadf3657",
+        "filename": "sfc/lib/config.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-07T07:58:28Z",
+      "side": 1,
+      "message": "why don\u0027t you merge this \"if exists\" with the previous one in line 51?",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 18
+      },
+      "revId": "1cc971920402357b0459430e0e03be3dac057ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f01b4e03_d24aacb8",
+        "filename": "sfc/tests/functest/run_sfc_tests.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-07T07:58:28Z",
+      "side": 1,
+      "message": "Same here, can\u0027t we consolidate everything into just one \"if COMMON_CONFIG.... !\u003d \u0027configByUser\u0027? Having three times the same condition in such a small space does not look good",
+      "range": {
+        "startLine": 128,
+        "startChar": 1,
+        "endLine": 148,
+        "endChar": 58
+      },
+      "revId": "1cc971920402357b0459430e0e03be3dac057ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a1e9a95_6550c231",
+        "filename": "sfc/tests/functest/sfc_parent_function.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-07T07:58:28Z",
+      "side": 1,
+      "message": "I think it is cleaner if you put one conditional \"if COMMON_CONFIG.installer_type !\u003d \u0027configByUser\u0027\" and then everything gets there instead of writing \"if COMMON_CONFIG.installer_type !\u003d \u0027configByUser\u0027\" every couple of lines. WHat do you think?",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 58
+      },
+      "revId": "1cc971920402357b0459430e0e03be3dac057ed2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
