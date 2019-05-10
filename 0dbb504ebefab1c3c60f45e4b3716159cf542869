@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a78a257_d8fd381b",
+        "filename": "docs/release/userguide/feature.userguide.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-10T10:43:25Z",
+      "side": 1,
+      "message": "use",
+      "range": {
+        "startLine": 39,
+        "startChar": 59,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "0dbb504ebefab1c3c60f45e4b3716159cf542869",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "063aa588_f1fce172",
+        "filename": "docs/release/userguide/feature.userguide.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-10T10:43:25Z",
+      "side": 1,
+      "message": "necessary",
+      "range": {
+        "startLine": 44,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 52
+      },
+      "revId": "0dbb504ebefab1c3c60f45e4b3716159cf542869",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e00abfe8_fa93285e",
+        "filename": "docs/release/userguide/feature.userguide.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2091
+      },
+      "writtenOn": "2019-05-10T10:43:25Z",
+      "side": 1,
+      "message": "participates",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "0dbb504ebefab1c3c60f45e4b3716159cf542869",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
